@@ -165,13 +165,13 @@
 }
 .sheet-type-selector .sheet-3waybox:not(:checked) + .sheet-3waybox,
 .sheet-type-selector input[value="character"]:not(:checked) ~ span[data-i18n="character_mode"],
-.sheet-type-selector input[value="crew"]:not(:checked) ~ span[data-i18n="crew_mode"],
+.sheet-type-selector input[value="cell"]:not(:checked) ~ span[data-i18n="cell_mode"],
 .sheet-type-selector input[value="faction"][type=radio]:not(:checked) ~ span[data-i18n="faction_mode"] {
   display: none;
 }
 /* SETTINGS */
 .sheet-type[value="character"] ~ .sheet-settings > :not(.sheet-setting-char),
-.sheet-type[value="crew"] ~ .sheet-settings > :not(.sheet-setting-crew),
+.sheet-type[value="cell"] ~ .sheet-settings > :not(.sheet-setting-cell),
 .sheet-type[value="faction"] ~ .sheet-settings > :not(.sheet-setting-faction) {
   display: none;
 }
@@ -255,7 +255,7 @@
   max-width: 1190px;
 }
 .sheet-type:not([value="character"]) ~ .sheet-type-character,
-.sheet-type:not([value="crew"]) ~ .sheet-type-crew,
+.sheet-type:not([value="cell"]) ~ .sheet-type-cell,
 .sheet-type:not([value="faction"]) ~ .sheet-type-faction {
   display: none;
 }
@@ -581,7 +581,7 @@ textarea.sheet-smallcaps {
   background-size: 102% auto;
   background-repeat: no-repeat;
 }
-.sheet-crewheader {
+.sheet-cellheader {
   color: #808080;
   font-size: 28px;
   align-self: flex-start;
@@ -712,10 +712,10 @@ textarea.sheet-smallcaps {
 .sheet-type-character .sheet-playbook textarea {
   width: calc(36% + 6px);
 }
-.sheet-type-crew .sheet-playbook input[type=text] {
+.sheet-type-cell .sheet-playbook input[type=text] {
   width: calc(74% - 7px);
 }
-.sheet-type-crew .sheet-playbook textarea {
+.sheet-type-cell .sheet-playbook textarea {
   width: calc(26% + 3px);
 }
 /* HEADER */
@@ -1330,7 +1330,7 @@ input.sheet-zero {
   left: -3px;
   top: 3px;
 }
-.sheet-crewcoin input.sheet-zero, .sheet-crewcoin .sheet-zero + span {
+.sheet-cellcoin input.sheet-zero, .sheet-cellcoin .sheet-zero + span {
   position: absolute;
   left: -9px;
   top: 3px;
@@ -1547,35 +1547,35 @@ input.sheet-zero {
   line-height: 16px;
   position: relative;
 }
-/* CREW COIN */
-.sheet-crewcoin-coins {
+/* cell COIN */
+.sheet-cellcoin-coins {
   padding: 4px 0 0 3px;
   position: relative;
 }
-.sheet-crewcoin-desc {
+.sheet-cellcoin-desc {
   font-size: 10px;
   line-height: 14px;
   padding-left: 3px;
   font-style: italic;
 }
-.sheet-crewcoinbar {
+.sheet-cellcoinbar {
   border-left: 1px solid #c7c7c7;
   height: 15px;
   width: 3px;
   margin: -1px auto 0;
 }
 /* LEFT-FILLED RADIO BOXES */
-.sheet-crewcoin input.sheet-radiobox {
+.sheet-cellcoin input.sheet-radiobox {
   width: 12px;
   height: 12px;
   margin-right: -12px;
 }
-.sheet-crewcoin .sheet-radiobox + span {
+.sheet-cellcoin .sheet-radiobox + span {
   width: 11px;
   height: 11px;
   margin-right: auto;
 }
-.sheet-crewcoin input:checked ~ .sheet-radiobox.sheet-vaultcoin + span {
+.sheet-cellcoin input:checked ~ .sheet-radiobox.sheet-vaultcoin + span {
   border-color: #c7c7c7;
 }
 .sheet-coin-and-stash input.sheet-radiobox {
@@ -1601,11 +1601,11 @@ input.sheet-zero {
 .sheet-radiobox:last-of-type + span {
   margin-right: 0;
 }
-.sheet-coin .sheet-radiobox + span, .sheet-investment .sheet-radiobox + span, .sheet-crewcoin .sheet-radiobox + span {
+.sheet-coin .sheet-radiobox + span, .sheet-investment .sheet-radiobox + span, .sheet-cellcoin .sheet-radiobox + span {
   background: #00595f;
   border: 1px solid black;
 }
-.sheet-coin input:checked ~ .sheet-radiobox + span, .sheet-investment input:checked ~ .sheet-radiobox + span, .sheet-crewcoin input:checked ~ .sheet-radiobox + span {
+.sheet-coin input:checked ~ .sheet-radiobox + span, .sheet-investment input:checked ~ .sheet-radiobox + span, .sheet-cellcoin input:checked ~ .sheet-radiobox + span {
   background: white;
 }
 .sheet-stash .sheet-radiobox + span {
@@ -1801,10 +1801,10 @@ input.sheet-zero {
   width: 107px;
   position: relative;
 }
-.sheet-crewcoin1 {
+.sheet-cellcoin1 {
   width: 100%;
 }
-.sheet-crewcoin2 {
+.sheet-cellcoin2 {
   width: 100%;
   margin-top: auto;
 }
@@ -1837,7 +1837,7 @@ input.sheet-zero {
   height: 100;
   min-height: 90px;
 }
-.sheet-type-character .sheet-notes, .sheet-type-crew .sheet-notes {
+.sheet-type-character .sheet-notes, .sheet-type-cell .sheet-notes {
   margin-top: 15px;
 }
 /* LOAD CHECKBOXES */
@@ -2545,7 +2545,7 @@ button[type=roll].sheet-broadcast-button {
 .sheet-use-kirsty[value="1"] ~ .sheet-container .sheet-cohort-title,
 .sheet-use-kirsty[value="1"] ~ .sheet-container .sheet-claimbox .sheet-label,
 .sheet-use-kirsty[value="1"] ~ .sheet-container .sheet-lairbox,
-.sheet-use-kirsty[value="1"] ~ .sheet-container .sheet-crewheader,
+.sheet-use-kirsty[value="1"] ~ .sheet-container .sheet-cellheader,
 .sheet-use-kirsty[value="1"] ~ .sheet-container .sheet-factiontitle input[type="text"],
 .sheet-use-kirsty[value="1"] ~ .sheet-container .sheet-factions-header input[type="text"] {
   font-family: "asap";
@@ -2571,7 +2571,7 @@ button[type=roll].sheet-broadcast-button {
   font-size: 15px;
   font-weight: 400;
 }
-.sheet-use-kirsty[value="1"] ~ .sheet-container .sheet-crewheader {
+.sheet-use-kirsty[value="1"] ~ .sheet-container .sheet-cellheader {
   font-size: 29px;
   letter-spacing: 0;
 }
