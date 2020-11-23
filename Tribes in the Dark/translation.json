@@ -403,6 +403,8 @@
     "heritage_info": "ACANTHIAN–IMMIGRANT–IMPERIAL—PINYON\nMALVARI–MERIDIAN–SERAFINIAN–PELAGIC",
     "outlook": "outlook",
     "outlook_info": "DOOMSAYER-HERITE-JACKER-LIGHTBRINGER",
+    "crime": "crime",
+    "crime_info": "MISCREANT-DISGRACE-DISSENT-HERESY-TREASON",
     "hold": "Hold",
     "how_many_boxes": "How many boxes?",
     "how_much_load": "How much load?",
@@ -585,6 +587,7 @@
     "playbook_advancement": "Playbook Advancement",
 
     "playbook_agnite_description": "A resolute\nwarrior and\nprotector",
+    "playbook_agnite_background": "A resolute warrior and protector",
     "playbook_agnite_friend_0": "Mallory, a pragmatic soldier.",
     "playbook_agnite_friend_1": "Kass, a reserved quartermaster.",
     "playbook_agnite_friend_2": "Avery, a charmant-knight.",
@@ -594,6 +597,7 @@
     "playbook_agnite_xp_condition": "You address a challenge with endurance or force.",
 
     "playbook_dahlian_description": "A Hardworking\nPlanner\nand Leader",
+    "playbook_dahlian_background": "A Hardworking Planner and Leader",
     "playbook_dahlian_friend_0": "Wave, a focused inventor.",
     "playbook_dahlian_friend_1": "Kiran, a frustrated administrator.",
     "playbook_dahlian_friend_2": "Izzy, a plucky organizer.",
@@ -603,6 +607,7 @@
     "playbook_dahlian_xp_condition": "You address a challenge with foresight or calculation.",
 
     "playbook_evan_description": "A sharp-eyed \ntracker and \nscout",
+    "playbook_evan_background": "A sharp-eyed tracker and scout",
     "playbook_evan_friend_0": "Mint, a cheerful scout.",
     "playbook_evan_friend_1": "Saoirse, a nature spirit.",
     "playbook_evan_friend_2": "Iota, a quiet mapmaker.",
@@ -612,6 +617,7 @@
     "playbook_evan_xp_condition": "you address a challenge with tracking, navigation, or movement.",
 
     "playbook_joanite_description": "A compelling\nand well-spoken\nnegotiator",
+    "playbook_joanite_background": "A compelling and well-spoken negotiator",
     "playbook_joanite_friend_0": "Flicker, a wry bureaucrat.",
     "playbook_joanite_friend_1": "Charys, a fiery radical.",
     "playbook_joanite_friend_2": "Sylva, an impish information broker.",
@@ -621,6 +627,7 @@
     "playbook_joanite_xp_condition": "you address a challenge with persuasion, charisma, or negotiation.",
 
     "playbook_magdalite_description": "A quick-witted\nresearcher and\nhistorian",
+    "playbook_magdalite_background": "A quick-witted researcher and historian",
     "playbook_magdalite_friend_0": "Cecil, a fellow magdalite.",
     "playbook_magdalite_friend_1": "Adessa, a former teacher.",
     "playbook_magdalite_friend_2": "Bell, a cool librarian.",
@@ -630,6 +637,7 @@
     "playbook_magdalite_xp_condition": "you address a challenge with investigation, arcana, or passion.",
 
     "playbook_Terasheban_description": "A savvy \ntechnician and \nmechanic",
+    "playbook_Terasheban_background": "A savvy technician and  mechanic",
     "playbook_Terasheban_friend_0": "Tyr, a pre-cataclysm AI.",
     "playbook_Terasheban_friend_1": "Kel, a sleazy junker.",
     "playbook_Terasheban_friend_2": "Ranna, a cheerful engineer.",
@@ -639,6 +647,7 @@
     "playbook_Terasheban_xp_condition": " you address a challenge with scavenging, technical know-how, or lateral thinking.",
 
     "playbook_Yagan_description": "A Powerful \nCharmant and \nLorekeeper",
+    "playbook_Yagan_background": "A Powerful Charmant and Lorekeeper",
     "playbook_Yagan_friend_0": "Tapha, an eager spirit.",
     "playbook_Yagan_friend_1": "Deman, an old storyteller.",
     "playbook_Yagan_friend_2": "Rosalyn, a diligent doctor.",
@@ -797,6 +806,7 @@
     "jumpkit_description": "Hip-mounted grappling hooks, magnetic gloves and boots, pitons, rope, carabiners, ascenders and descenders. Useful for scaling cliffs, maneuvering in zero-g, or navigating urban terrain quickly.",
 
     "playbook_description": "A short playbook description",
+    "playbook_background": "Background with the Tribe",
     "position": "Position",
     "progress_clock": "progress clock",
     "protect_a_teammate": "<strong>Protect</strong> a teammate",

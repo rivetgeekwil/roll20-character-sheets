@@ -184,13 +184,9 @@
       <!-- Logo, Header text fields-->
       <div class="sheet-col100 sheet-header sheet-flex">
         <div class="sheet-col100 sheet-bladeslogo"></div>
-        <label class="sheet-col55 sheet-header">
+        <label class="sheet-col100 sheet-header">
           <input type="text" spellcheck="false" name="attr_name">
           <div class="sheet-label sheet-text sheet-title" data-i18n="name">Name and Pronouns</div>
-        </label>
-        <label class="sheet-col45 sheet-header">
-          <input type="text" spellcheck="false" name="attr_cell">
-          <div class="sheet-label sheet-text sheet-title" data-i18n="cell">Cell</div>
         </label>
         <label class="col55">
           <div class="auto-expand"><span name="attr_outlook"></span>
@@ -199,24 +195,30 @@
           <input type="hidden" name="attr_outlook" value=""/>
           <div class="text"><span class="label title" data-i18n="outlook"></span><span class="uppercase info" data-i18n="outlook_info"></span></div>
         </label>
-        <label class="col100">
-          <input type="text" spellcheck="false" name="attr_look"/>
-          <div class="label text title" data-i18n="look"></div>
+        <label class="col45">
+          <input type="text" spellcheck="false" name="attr_cell">
+          <div class="sheet-label sheet-text sheet-title" data-i18n="cell">Cell</div>
         </label>
         <label class="col55">
-          <div class="auto-expand"><span name="attr_heritage"></span>
-            <textarea spellcheck="false" name="attr_heritage"></textarea>
-          </div>
-          <input type="hidden" name="attr_heritage" value=""/>
-          <div class="text"><span class="label title" data-i18n="heritage"></span><span class="uppercase info" data-i18n="heritage_info"></span></div>
-        </label>
-        <label class="col45">
           <div class="auto-expand"><span name="attr_background"></span>
             <textarea spellcheck="false" name="attr_background"></textarea>
           </div>
           <input type="hidden" name="attr_background" value=""/>
-          <div class="text"><span class="label title" data-i18n="background"></span><span class="uppercase info" data-i18n="background_info"></span></div>
+          <div class="text"><span class="label title" data-i18n="background"></span> <span class="uppercase info" spellcheck="false" name="attr_playbook_background" data-i18n-placeholder="playbook_background"></space></div>
+        </label>        
+        <label class="col45">
+          <div class="auto-expand"><span name="attr_crime"></span>
+            <textarea spellcheck="false" name="attr_crime"></textarea>
+          </div>
+          <input type="hidden" name="attr_crime" value=""/>
+          <div class="text"><span class="label title" data-i18n="crime"></span><span class="uppercase info" data-i18n="crime_info"></span></div>
         </label>
+        <label class="col100">
+          <input type="text" spellcheck="false" name="attr_look"/>
+          <div class="label text title" data-i18n="look"></div>
+        </label>
+        
+        
         <label class="col100 vice normal">
           <div class="auto-expand"><span name="attr_vice_purveyor"></span>
             <textarea spellcheck="false" name="attr_vice_purveyor"></textarea>
@@ -2373,7 +2375,8 @@ const data = {
 		"gatherinfo5": "gatherinfo_how_can_I_help_here",
 		"gatherinfo6": "gatherinfo_whats_going_on",
 		"gatherinfo7": "gatherinfo_detail_for_plan",
-		"playbook_description": "playbook_agnite_description",
+    "playbook_description": "playbook_agnite_description",
+    "playbook_background": "playbook_agnite_background",
 		"skirmish": "2",
 		"xp_condition": "playbook_agnite_xp_condition"
 	},
@@ -2418,7 +2421,8 @@ const data = {
 	"gatherinfo5": "gatherinfo_how_can_I_help_here",
 	"gatherinfo6": "gatherinfo_whats_going_on",
 	"gatherinfo7": "gatherinfo_detail_for_plan",
-	"playbook_description": "playbook_evan_description",
+  "playbook_description": "playbook_evan_description",
+  "playbook_background": "playbook_evan_background",
 	"wayfare": "2",
 	"xp_condition": "playbook_evan_xp_condition"
 	},
@@ -2462,7 +2466,8 @@ const data = {
 	"gatherinfo5": "gatherinfo_how_can_I_help_here",
 	"gatherinfo6": "gatherinfo_whats_going_on",
 	"gatherinfo7": "gatherinfo_detail_for_plan",
-	"playbook_description": "playbook_joanite_description",
+  "playbook_description": "playbook_joanite_description",
+  "playbook_background": "playbook_joanite_background",
 	"connect": "2",
 	"xp_condition": "playbook_joanite_xp_condition"
 },
@@ -2506,7 +2511,8 @@ const data = {
 	"gatherinfo5": "gatherinfo_how_can_I_help_here",
 	"gatherinfo6": "gatherinfo_whats_going_on",
 	"gatherinfo7": "gatherinfo_detail_for_plan",
-	"playbook_description": "playbook_magdalite_description",
+  "playbook_description": "playbook_magdalite_description",
+  "playbook_background": "playbook_madgdalite_background",
 	"read": "2",
 	"xp_condition": "playbook_magdalite_xp_condition"
 },
@@ -2550,7 +2556,8 @@ const data = {
 	"gatherinfo5": "gatherinfo_how_can_I_help_here",
 	"gatherinfo6": "gatherinfo_whats_going_on",
 	"gatherinfo7": "gatherinfo_detail_for_plan",
-	"playbook_description": "playbook_Terasheban_description",
+  "playbook_description": "playbook_Terasheban_description",
+  "playbook_background": "playbook_Terasheban_background",  
 	"shape": "2",
 	"xp_condition": "playbook_Terasheban_xp_condition"
 },
@@ -2595,7 +2602,8 @@ const data = {
 	"gatherinfo5": "gatherinfo_how_can_I_help_here",
 	"gatherinfo6": "gatherinfo_whats_going_on",
 	"gatherinfo7": "gatherinfo_detail_for_plan",
-	"playbook_description": "playbook_Yagan_description",
+  "playbook_description": "playbook_Yagan_description",
+  "playbook_background": "playbook_Yagan_background",  
 	"tune": "2",
 	"xp_condition": "playbook_Yagan_xp_condition"
 },
@@ -2640,7 +2648,8 @@ const data = {
 		"gatherinfo5": "gatherinfo_how_can_I_help_here",
 		"gatherinfo6": "gatherinfo_whats_going_on",
 		"gatherinfo7": "gatherinfo_detail_for_plan",
-		"playbook_description": "playbook_dahlian_description",
+    "playbook_description": "playbook_dahlian_description",
+    "playbook_background": "playbook_dahlian_background",  
 		"read": "2",
 		"xp_condition": "playbook_dahlian_xp_condition"
 	},
@@ -2970,7 +2979,7 @@ const data = {
 	"maxContactsPercell": 5,
 	"friendlessPlaybooks": [],
 	"translatedcellAttributes": ["claim_1_name", "claim_2_name", "claim_3_name", "claim_4_name", "claim_5_name", "claim_6_name", "claim_7_name", "claim_8_name", "claim_9_name", "claim_10_name", "claim_11_name", "claim_12_name", "claim_13_name", "claim_14_name", "claim_15_name", "claim_1_desc", "claim_2_desc", "claim_3_desc", "claim_4_desc", "claim_5_desc", "claim_6_desc", "claim_7_desc", "claim_8_desc", "claim_9_desc", "claim_10_desc", "claim_11_desc", "claim_12_desc", "claim_13_desc", "claim_14_desc", "claim_15_desc", "cohort1_description", "cohort1_name", "cohort1_subtype", "hunting_grounds_type", "hunting_grounds_description", "upgrade_6_name", "upgrade_8_name", "cell_description", "cell_xp_condition"],
-	"translatedPlaybookAttributes": ["friends_title", "gatherinfo1", "gatherinfo2", "gatherinfo3", "gatherinfo4", "gatherinfo5", "gatherinfo6", "gatherinfo7", "playbook_description","xp_condition"]
+	"translatedPlaybookAttributes": ["friends_title", "gatherinfo1", "gatherinfo2", "gatherinfo3", "gatherinfo4", "gatherinfo5", "gatherinfo6", "gatherinfo7", "playbook_description","playbook_background","xp_condition"]
 };
 /* global data, getTranslationByKey, getAttrs, setAttrs, on, getSectionIDs, generateRowID, removeRepeatingRow */
 const sheetVersion = "0.4";
