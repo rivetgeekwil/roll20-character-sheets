@@ -577,7 +577,7 @@ textarea.sheet-smallcaps {
 .sheet-bladeslogo {
   border-right: 12px solid transparent;
   height: 70px;
-  background-image: url("https://raw.githubusercontent.com/mxquinn/roll20-character-sheets/master/Songs%20for%20the%20Dusk/Assets/SFTDlogo.png");
+  background-image: url("https://raw.githubusercontent.com/rivetgeekwil/roll20-character-sheets/TITD/Tribes%20in%20the%20Dark/Assets/TITDlogo.png");
   background-size: 102% auto;
   background-repeat: no-repeat;
 }
@@ -1268,15 +1268,15 @@ input.sheet-tooth:last-of-type {
 .sheet-stresstooth[type=radio] + span,
 .sheet-stresstooth[type=checkbox]:checked + span,
 .sheet-holdtooth:checked + span {
-  background-image: url("https://raw.githubusercontent.com/mxquinn/roll20-character-sheets/master/Songs%20for%20the%20Dusk/Assets/teeth/stress_tooth_checked.png");
+  background-image: url("https://raw.githubusercontent.com/rivetgeekwil/roll20-character-sheets/TITD/Tribes%20in%20the%20Dark/Assets/teeth/stress_tooth_checked.png");
 }
 .sheet-stresstooth[type=checkbox] + span,
 .sheet-tooth:checked ~ .sheet-stresstooth[type=radio] + span,
 .sheet-holdtooth + span {
-  background-image: url("https://raw.githubusercontent.com/mxquinn/roll20-character-sheets/master/Songs%20for%20the%20Dusk/Assets/teeth/stress_tooth.png");
+  background-image: url("https://raw.githubusercontent.com/rivetgeekwil/roll20-character-sheets/TITD/Tribes%20in%20the%20Dark/Assets/teeth/stress_tooth.png");
 }
 .sheet-regulartooth + span {
-  background-image: url("https://raw.githubusercontent.com/mxquinn/roll20-character-sheets/master/Songs%20for%20the%20Dusk/Assets/teeth/regular_tooth_checked.png");
+  background-image: url("https://raw.githubusercontent.com/rivetgeekwil/roll20-character-sheets/TITD/Tribes%20in%20the%20Dark/Assets/teeth/regular_tooth_checked.png");
 }
 .sheet-tooth:checked ~ .sheet-regulartooth + span {
   background-image: url("https://raw.githubusercontent.com/mxquinn/roll20-character-sheets/master/Songs%20for%20the%20Dusk/Assets/teeth/regular_tooth.png");
