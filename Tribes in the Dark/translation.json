@@ -401,9 +401,11 @@
     "heritage": "Heritage",
     "heritage_info": "ACANTHIAN–IMMIGRANT–IMPERIAL—PINYON\nMALVARI–MERIDIAN–SERAFINIAN–PELAGIC",
     "outlook": "outlook",
-    "outlook_info": "DOOMSAYER-HERITE-JACKER-LIGHTBRINGER",
+    "outlook_info": "DOOMSAYER–HERITE–JACKER–LIGHTBRINGER",
     "crime": "crime",
-    "crime_info": "DISGRACE-DISSENTER-HERETIC-MISCREANT-TRAITOR",
+    "crime_info": "DISGRACE–DISSENTER–HERETIC–MISCREANT-TRAITOR",
+    "second_eminence": "Outlook Eminence",
+    "second_eminence_info": "BRAVERY–CONVICTION–FREEDOM–MYSTERY–RECOGNITION–SHADOW–UNITY–VENGEANCE",
     "hold": "Hold",
     "how_many_boxes": "How many boxes?",
     "how_much_load": "How much load?",
@@ -587,6 +589,7 @@
 
     "playbook_agnite_description": "A child-like,\nplayful\nexplorer",
     "playbook_agnite_background": "Bully—Child—Masot—Scout—Tattletale",
+    "playbook_agnite_eminence": "Capriciousness—Inspiration",
     "playbook_agnite_friend_0": "Mallory, a pragmatic soldier.",
     "playbook_agnite_friend_1": "Kass, a reserved quartermaster.",
     "playbook_agnite_friend_2": "Avery, a charmant-knight.",
@@ -597,6 +600,7 @@
 
     "playbook_dahlian_description": "An entertaining\ntrickster\nand trader",
     "playbook_dahlian_background": "Black Marketeer—Caravan Handler—Envoy—Little Trickster—Music Maker—Player",
+    "playbook_dahlian_eminence": "Illusion—Motion",
     "playbook_dahlian_friend_0": "Wave, a focused inventor.",
     "playbook_dahlian_friend_1": "Kiran, a frustrated administrator.",
     "playbook_dahlian_friend_2": "Izzy, a plucky organizer.",
@@ -607,6 +611,7 @@
 
     "playbook_evan_description": "A hard-working\nfarmer and \nhealer",
     "playbook_evan_background": "Matron—Nanny—Nurse—Shaman—Tender",
+    "playbook_evan_eminence": "Empathy—Life",
     "playbook_evan_friend_0": "Mint, a cheerful scout.",
     "playbook_evan_friend_1": "Saoirse, a nature spirit.",
     "playbook_evan_friend_2": "Iota, a quiet mapmaker.",
@@ -617,6 +622,7 @@
 
     "playbook_joanite_description": "A staunch\nwarrior and\nprotector",
     "playbook_joanite_background": "Blade—Teacher—Templar—Watch—Weaponshaper",
+    "playbook_joanite_eminence": "Devotion—Fury",
     "playbook_joanite_friend_0": "Flicker, a wry bureaucrat.",
     "playbook_joanite_friend_1": "Charys, a fiery radical.",
     "playbook_joanite_friend_2": "Sylva, an impish information broker.",
@@ -627,6 +633,7 @@
 
     "playbook_magdalite_description": "A savvy\nentertainer and\ndiplomat",
     "playbook_magdalite_background": "Concubine—Diplomat—Ecstatic—Masker—Siren",
+    "playbook_magdalite_eminence": "Conflict—Sensuality",
     "playbook_magdalite_friend_0": "Cecil, a fellow magdalite.",
     "playbook_magdalite_friend_1": "Adessa, a former teacher.",
     "playbook_magdalite_friend_2": "Bell, a cool librarian.",
@@ -637,6 +644,7 @@
 
     "playbook_Terasheban_description": "A scholarly \ninvestigator and \nlorekeeper",
     "playbook_Terasheban_background": "Advocate—Judge—Lorekeeper—Stiltwalker",
+    "playbook_Terasheban_eminence": "Truth—Wisdom",
     "playbook_Terasheban_friend_0": "Tyr, a pre-cataclysm AI.",
     "playbook_Terasheban_friend_1": "Kel, a sleazy junker.",
     "playbook_Terasheban_friend_2": "Ranna, a cheerful engineer.",
@@ -647,6 +655,7 @@
 
     "playbook_Yagan_description": "An eery \nspiritualist and \nsoothsayer",
     "playbook_Yagan_background": "Flesher—Bonecrafter—Daemonseeker—Mordred—Pellis Artisan",
+    "playbook_Yagan_eminence": "Death-Fate",
     "playbook_Yagan_friend_0": "Tapha, an eager spirit.",
     "playbook_Yagan_friend_1": "Deman, an old storyteller.",
     "playbook_Yagan_friend_2": "Rosalyn, a diligent doctor.",
@@ -806,6 +815,8 @@
 
     "playbook_description": "A short playbook description",
     "playbook_background": "Background with the Tribe",
+    "playbook_eminence": "Tribal Eminence",
+    "first_eminence": "Tribal Eminence",
     "position": "Position",
     "progress_clock": "progress clock",
     "protect_a_teammate": "<strong>Protect</strong> a teammate",
