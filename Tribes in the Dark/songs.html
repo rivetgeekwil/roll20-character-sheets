@@ -118,13 +118,13 @@
     </div>
     <div class="setting-char"><span data-i18n="resistance_bonus"></span>
       <label>
-        <input type="number" name="attr_setting_resbonus_analysis" value="0"/><span data-i18n="analysis"></span>
+        <input type="number" name="attr_setting_resbonus_insight" value="0"/><span data-i18n="insight"></span>
       </label>
       <label>
-        <input type="number" name="attr_setting_resbonus_kinesis" value="0"/><span data-i18n="kinesis"></span>
+        <input type="number" name="attr_setting_resbonus_prowess" value="0"/><span data-i18n="prowess"></span>
       </label>
       <label>
-        <input type="number" name="attr_setting_resbonus_semiosis" value="0"/><span data-i18n="semiosis"></span>
+        <input type="number" name="attr_setting_resbonus_resolve" value="0"/><span data-i18n="resolve"></span>
       </label>
     </div>
     <div class="setting-char">
@@ -576,50 +576,50 @@
       <div class="col47 right-column actioncolumn small-margin">
         <div class="attribute col100">
           <div class="attribute-title flex col100">
-            <button class="rollbutton label" type="roll" name="roll_analysis" value="&{template:bitd} {{charname=@{character_name}}} {{resist=1}} {{subtitle=^{resists} @{consequence_query} ^{with}}} {{title=^{analysis}}} @{analysis_formula} {{charimage=@{chat_image}}}" data-i18n="analysis" data-i18n-title="analysis_description"></button>
-            <input type="hidden" name="attr_analysis" value="0"/>
-            <input type="hidden" name="attr_analysis_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
-            <input type="hidden" name="attr_analysis_xp_max" value="6"/>
+            <button class="rollbutton label" type="roll" name="roll_insight" value="&{template:bitd} {{charname=@{character_name}}} {{resist=1}} {{subtitle=^{resists} @{consequence_query} ^{with}}} {{title=^{insight}}} @{insight_formula} {{charimage=@{chat_image}}}" data-i18n="insight" data-i18n-title="insight_description"></button>
+            <input type="hidden" name="attr_insight" value="0"/>
+            <input type="hidden" name="attr_insight_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
+            <input type="hidden" name="attr_insight_xp_max" value="6"/>
             <div class="attribute-xp-box flex">
-              <input class="tooth zero" type="radio" name="attr_analysis_xp" value="0" checked="checked"/><span></span>
-              <input class="tooth xptooth" type="radio" name="attr_analysis_xp" value="1"/><span></span>
-              <input class="tooth xptooth" type="radio" name="attr_analysis_xp" value="2"/><span></span>
-              <input class="tooth xptooth" type="radio" name="attr_analysis_xp" value="3"/><span></span>
-              <input class="tooth xptooth" type="radio" name="attr_analysis_xp" value="4"/><span></span>
-              <input class="tooth xptooth" type="radio" name="attr_analysis_xp" value="5"/><span></span>
-              <input class="tooth xptooth" type="radio" name="attr_analysis_xp" value="6"/><span></span>
+              <input class="tooth zero" type="radio" name="attr_insight_xp" value="0" checked="checked"/><span></span>
+              <input class="tooth xptooth" type="radio" name="attr_insight_xp" value="1"/><span></span>
+              <input class="tooth xptooth" type="radio" name="attr_insight_xp" value="2"/><span></span>
+              <input class="tooth xptooth" type="radio" name="attr_insight_xp" value="3"/><span></span>
+              <input class="tooth xptooth" type="radio" name="attr_insight_xp" value="4"/><span></span>
+              <input class="tooth xptooth" type="radio" name="attr_insight_xp" value="5"/><span></span>
+              <input class="tooth xptooth" type="radio" name="attr_insight_xp" value="6"/><span></span>
             </div>
           </div>
           <div class="actions col100">
             <div class="action flex col100">
-              <input type="hidden" name="attr_read_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
-              <input class="hidden fakeradio" type="checkbox" name="attr_read" value="0" checked="checked"/>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_read" value="1"/><span></span>
+              <input type="hidden" name="attr_craft_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
+              <input class="hidden fakeradio" type="checkbox" name="attr_craft" value="0" checked="checked"/>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_craft" value="1"/><span></span>
               <div class="divider"></div>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_read" value="2"/><span></span>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_read" value="3"/><span></span>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_read" value="4"/><span></span>
-              <button class="rollbutton label" type="roll" name="roll_read" value="&{template:bitd} {{charname=@{character_name}}} {{action=1}} {{subtitle=^{rolls}}} {{title=^{read}}} {{@{position_query}}} {{effect=@{effect_query}}} @{read_formula} {{charimage=@{chat_image}}}" data-i18n="read" data-i18n-title="read_description"></button>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_craft" value="2"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_craft" value="3"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_craft" value="4"/><span></span>
+              <button class="rollbutton label" type="roll" name="roll_craft" value="&{template:bitd} {{charname=@{character_name}}} {{action=1}} {{subtitle=^{rolls}}} {{title=^{craft}}} {{@{position_query}}} {{effect=@{effect_query}}} @{craft_formula} {{charimage=@{chat_image}}}" data-i18n="craft" data-i18n-title="craft_description"></button>
             </div>
             <div class="action flex col100">
-              <input type="hidden" name="attr_shape_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
-              <input class="hidden fakeradio" type="checkbox" name="attr_shape" value="0" checked="checked"/>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_shape" value="1"/><span></span>
+              <input type="hidden" name="attr_hunt_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
+              <input class="hidden fakeradio" type="checkbox" name="attr_hunt" value="0" checked="checked"/>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_hunt" value="1"/><span></span>
               <div class="divider"></div>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_shape" value="2"/><span></span>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_shape" value="3"/><span></span>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_shape" value="4"/><span></span>
-              <button class="rollbutton label" type="roll" name="roll_shape" value="&{template:bitd} {{charname=@{character_name}}} {{action=1}} {{subtitle=^{rolls}}} {{title=^{shape}}} {{@{position_query}}} {{effect=@{effect_query}}} @{shape_formula} {{charimage=@{chat_image}}}" data-i18n="shape" data-i18n-title="shape_description"></button>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_hunt" value="2"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_hunt" value="3"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_hunt" value="4"/><span></span>
+              <button class="rollbutton label" type="roll" name="roll_hunt" value="&{template:bitd} {{charname=@{character_name}}} {{action=1}} {{subtitle=^{rolls}}} {{title=^{hunt}}} {{@{position_query}}} {{effect=@{effect_query}}} @{hunt_formula} {{charimage=@{chat_image}}}" data-i18n="hunt" data-i18n-title="hunt_description"></button>
             </div>
             <div class="action flex col100">
-              <input type="hidden" name="attr_sunder_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
-              <input class="hidden fakeradio" type="checkbox" name="attr_sunder" value="0" checked="checked"/>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_sunder" value="1"/><span></span>
+              <input type="hidden" name="attr_study_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
+              <input class="hidden fakeradio" type="checkbox" name="attr_study" value="0" checked="checked"/>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_study" value="1"/><span></span>
               <div class="divider"></div>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_sunder" value="2"/><span></span>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_sunder" value="3"/><span></span>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_sunder" value="4"/><span></span>
-              <button class="rollbutton label" type="roll" name="roll_sunder" value="&{template:bitd} {{charname=@{character_name}}} {{action=1}} {{subtitle=^{rolls}}} {{title=^{sunder}}} {{@{position_query}}} {{effect=@{effect_query}}} @{sunder_formula} {{charimage=@{chat_image}}}" data-i18n="sunder" data-i18n-title="sunder_description"></button>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_study" value="2"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_study" value="3"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_study" value="4"/><span></span>
+              <button class="rollbutton label" type="roll" name="roll_study" value="&{template:bitd} {{charname=@{character_name}}} {{action=1}} {{subtitle=^{rolls}}} {{title=^{study}}} {{@{position_query}}} {{effect=@{effect_query}}} @{study_formula} {{charimage=@{chat_image}}}" data-i18n="study" data-i18n-title="study_description"></button>
             </div>
             <div class="action flex col100">
               <input type="hidden" name="attr_trace_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
@@ -635,18 +635,18 @@
         </div>
         <div class="attribute col100">
           <div class="attribute-title flex col100">
-            <button class="rollbutton label" type="roll" name="roll_kinesis" value="&{template:bitd} {{charname=@{character_name}}} {{resist=1}} {{subtitle=^{resists} @{consequence_query} ^{with}}} {{title=^{kinesis}}} @{kinesis_formula} {{charimage=@{chat_image}}}" data-i18n="kinesis" data-i18n-title="kinesis_description"></button>
-            <input type="hidden" name="attr_kinesis" value="0"/>
-            <input type="hidden" name="attr_kinesis_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
-            <input type="hidden" name="attr_kinesis_xp_max" value="6"/>
+            <button class="rollbutton label" type="roll" name="roll_prowess" value="&{template:bitd} {{charname=@{character_name}}} {{resist=1}} {{subtitle=^{resists} @{consequence_query} ^{with}}} {{title=^{prowess}}} @{prowess_formula} {{charimage=@{chat_image}}}" data-i18n="prowess" data-i18n-title="prowess_description"></button>
+            <input type="hidden" name="attr_prowess" value="0"/>
+            <input type="hidden" name="attr_prowess_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
+            <input type="hidden" name="attr_prowess_xp_max" value="6"/>
             <div class="attribute-xp-box flex">
-              <input class="tooth zero" type="radio" name="attr_kinesis_xp" value="0" checked="checked"/><span></span>
-              <input class="tooth xptooth" type="radio" name="attr_kinesis_xp" value="1"/><span></span>
-              <input class="tooth xptooth" type="radio" name="attr_kinesis_xp" value="2"/><span></span>
-              <input class="tooth xptooth" type="radio" name="attr_kinesis_xp" value="3"/><span></span>
-              <input class="tooth xptooth" type="radio" name="attr_kinesis_xp" value="4"/><span></span>
-              <input class="tooth xptooth" type="radio" name="attr_kinesis_xp" value="5"/><span></span>
-              <input class="tooth xptooth" type="radio" name="attr_kinesis_xp" value="6"/><span></span>
+              <input class="tooth zero" type="radio" name="attr_prowess_xp" value="0" checked="checked"/><span></span>
+              <input class="tooth xptooth" type="radio" name="attr_prowess_xp" value="1"/><span></span>
+              <input class="tooth xptooth" type="radio" name="attr_prowess_xp" value="2"/><span></span>
+              <input class="tooth xptooth" type="radio" name="attr_prowess_xp" value="3"/><span></span>
+              <input class="tooth xptooth" type="radio" name="attr_prowess_xp" value="4"/><span></span>
+              <input class="tooth xptooth" type="radio" name="attr_prowess_xp" value="5"/><span></span>
+              <input class="tooth xptooth" type="radio" name="attr_prowess_xp" value="6"/><span></span>
             </div>
           </div>
           <div class="actions col100">
@@ -661,93 +661,93 @@
               <button class="rollbutton label" type="roll" name="roll_finesse" value="&{template:bitd} {{charname=@{character_name}}} {{action=1}} {{subtitle=^{rolls}}} {{title=^{finesse}}} {{@{position_query}}} {{effect=@{effect_query}}} @{finesse_formula} {{charimage=@{chat_image}}}" data-i18n="finesse" data-i18n-title="finesse_description"></button>
             </div>
             <div class="action flex col100">
-              <input type="hidden" name="attr_shadow_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
-              <input class="hidden fakeradio" type="checkbox" name="attr_shadow" value="0" checked="checked"/>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_shadow" value="1"/><span></span>
+              <input type="hidden" name="attr_lurk_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
+              <input class="hidden fakeradio" type="checkbox" name="attr_lurk" value="0" checked="checked"/>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_lurk" value="1"/><span></span>
               <div class="divider"></div>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_shadow" value="2"/><span></span>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_shadow" value="3"/><span></span>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_shadow" value="4"/><span></span>
-              <button class="rollbutton label" type="roll" name="roll_shadow" value="&{template:bitd} {{charname=@{character_name}}} {{action=1}} {{subtitle=^{rolls}}} {{title=^{shadow}}} {{@{position_query}}} {{effect=@{effect_query}}} @{shadow_formula} {{charimage=@{chat_image}}}" data-i18n="shadow" data-i18n-title="shadow_description"></button>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_lurk" value="2"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_lurk" value="3"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_lurk" value="4"/><span></span>
+              <button class="rollbutton label" type="roll" name="roll_lurk" value="&{template:bitd} {{charname=@{character_name}}} {{action=1}} {{subtitle=^{rolls}}} {{title=^{lurk}}} {{@{position_query}}} {{effect=@{effect_query}}} @{lurk_formula} {{charimage=@{chat_image}}}" data-i18n="lurk" data-i18n-title="lurk_description"></button>
             </div>
             <div class="action flex col100">
-              <input type="hidden" name="attr_skirmish_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
-              <input class="hidden fakeradio" type="checkbox" name="attr_skirmish" value="0" checked="checked"/>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_skirmish" value="1"/><span></span>
+              <input type="hidden" name="attr_fight_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
+              <input class="hidden fakeradio" type="checkbox" name="attr_fight" value="0" checked="checked"/>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_fight" value="1"/><span></span>
               <div class="divider"></div>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_skirmish" value="2"/><span></span>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_skirmish" value="3"/><span></span>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_skirmish" value="4"/><span></span>
-              <button class="rollbutton label" type="roll" name="roll_skirmish" value="&{template:bitd} {{charname=@{character_name}}} {{action=1}} {{subtitle=^{rolls}}} {{title=^{skirmish}}} {{@{position_query}}} {{effect=@{effect_query}}} @{skirmish_formula} {{charimage=@{chat_image}}}" data-i18n="skirmish" data-i18n-title="skirmish_description"></button>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_fight" value="2"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_fight" value="3"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_fight" value="4"/><span></span>
+              <button class="rollbutton label" type="roll" name="roll_fight" value="&{template:bitd} {{charname=@{character_name}}} {{action=1}} {{subtitle=^{rolls}}} {{title=^{fight}}} {{@{position_query}}} {{effect=@{effect_query}}} @{fight_formula} {{charimage=@{chat_image}}}" data-i18n="fight" data-i18n-title="fight_description"></button>
             </div>
             <div class="action flex col100">
-              <input type="hidden" name="attr_wayfare_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
-              <input class="hidden fakeradio" type="checkbox" name="attr_wayfare" value="0" checked="checked"/>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_wayfare" value="1"/><span></span>
+              <input type="hidden" name="attr_force_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
+              <input class="hidden fakeradio" type="checkbox" name="attr_force" value="0" checked="checked"/>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_force" value="1"/><span></span>
               <div class="divider"></div>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_wayfare" value="2"/><span></span>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_wayfare" value="3"/><span></span>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_wayfare" value="4"/><span></span>
-              <button class="rollbutton label" type="roll" name="roll_wayfare" value="&{template:bitd} {{charname=@{character_name}}} {{action=1}} {{subtitle=^{rolls}}} {{title=^{wayfare}}} {{@{position_query}}} {{effect=@{effect_query}}} @{wayfare_formula} {{charimage=@{chat_image}}}" data-i18n="wayfare" data-i18n-title="wayfare_description"></button>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_force" value="2"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_force" value="3"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_force" value="4"/><span></span>
+              <button class="rollbutton label" type="roll" name="roll_force" value="&{template:bitd} {{charname=@{character_name}}} {{action=1}} {{subtitle=^{rolls}}} {{title=^{force}}} {{@{position_query}}} {{effect=@{effect_query}}} @{force_formula} {{charimage=@{chat_image}}}" data-i18n="force" data-i18n-title="force_description"></button>
             </div>
           </div>
         </div>
         <div class="attribute col100">
           <div class="attribute-title flex col100">
-            <button class="rollbutton label" type="roll" name="roll_semiosis" value="&{template:bitd} {{charname=@{character_name}}} {{resist=1}} {{subtitle=^{resists} @{consequence_query} ^{with}}} {{title=^{semiosis}}} @{semiosis_formula} {{charimage=@{chat_image}}}" data-i18n="semiosis" data-i18n-title="semiosis_description"></button>
-            <input type="hidden" name="attr_semiosis" value="0"/>
-            <input type="hidden" name="attr_semiosis_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
-            <input type="hidden" name="attr_semiosis_xp_max" value="6"/>
+            <button class="rollbutton label" type="roll" name="roll_resolve" value="&{template:bitd} {{charname=@{character_name}}} {{resist=1}} {{subtitle=^{resists} @{consequence_query} ^{with}}} {{title=^{resolve}}} @{resolve_formula} {{charimage=@{chat_image}}}" data-i18n="resolve" data-i18n-title="resolve_description"></button>
+            <input type="hidden" name="attr_resolve" value="0"/>
+            <input type="hidden" name="attr_resolve_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
+            <input type="hidden" name="attr_resolve_xp_max" value="6"/>
             <div class="attribute-xp-box flex">
-              <input class="tooth zero" type="radio" name="attr_semiosis_xp" value="0" checked="checked"/><span></span>
-              <input class="tooth xptooth" type="radio" name="attr_semiosis_xp" value="1"/><span></span>
-              <input class="tooth xptooth" type="radio" name="attr_semiosis_xp" value="2"/><span></span>
-              <input class="tooth xptooth" type="radio" name="attr_semiosis_xp" value="3"/><span></span>
-              <input class="tooth xptooth" type="radio" name="attr_semiosis_xp" value="4"/><span></span>
-              <input class="tooth xptooth" type="radio" name="attr_semiosis_xp" value="5"/><span></span>
-              <input class="tooth xptooth" type="radio" name="attr_semiosis_xp" value="6"/><span></span>
+              <input class="tooth zero" type="radio" name="attr_resolve_xp" value="0" checked="checked"/><span></span>
+              <input class="tooth xptooth" type="radio" name="attr_resolve_xp" value="1"/><span></span>
+              <input class="tooth xptooth" type="radio" name="attr_resolve_xp" value="2"/><span></span>
+              <input class="tooth xptooth" type="radio" name="attr_resolve_xp" value="3"/><span></span>
+              <input class="tooth xptooth" type="radio" name="attr_resolve_xp" value="4"/><span></span>
+              <input class="tooth xptooth" type="radio" name="attr_resolve_xp" value="5"/><span></span>
+              <input class="tooth xptooth" type="radio" name="attr_resolve_xp" value="6"/><span></span>
             </div>
           </div>
           <div class="actions col100">
             <div class="action flex col100">
-              <input type="hidden" name="attr_bluff_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
-              <input class="hidden fakeradio" type="checkbox" name="attr_bluff" value="0" checked="checked"/>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_bluff" value="1"/><span></span>
+              <input type="hidden" name="attr_consort_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
+              <input class="hidden fakeradio" type="checkbox" name="attr_consort" value="0" checked="checked"/>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_consort" value="1"/><span></span>
               <div class="divider"></div>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_bluff" value="2"/><span></span>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_bluff" value="3"/><span></span>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_bluff" value="4"/><span></span>
-              <button class="rollbutton label" type="roll" name="roll_bluff" value="&{template:bitd} {{charname=@{character_name}}} {{action=1}} {{subtitle=^{rolls}}} {{title=^{bluff}}} {{@{position_query}}} {{effect=@{effect_query}}} @{bluff_formula} {{charimage=@{chat_image}}}" data-i18n="bluff" data-i18n-title="bluff_description"></button>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_consort" value="2"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_consort" value="3"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_consort" value="4"/><span></span>
+              <button class="rollbutton label" type="roll" name="roll_consort" value="&{template:bitd} {{charname=@{character_name}}} {{action=1}} {{subtitle=^{rolls}}} {{title=^{consort}}} {{@{position_query}}} {{effect=@{effect_query}}} @{consort_formula} {{charimage=@{chat_image}}}" data-i18n="consort" data-i18n-title="consort_description"></button>
             </div>
             <div class="action flex col100">
-              <input type="hidden" name="attr_command_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
-              <input class="hidden fakeradio" type="checkbox" name="attr_command" value="0" checked="checked"/>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_command" value="1"/><span></span>
+              <input type="hidden" name="attr_dream_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
+              <input class="hidden fakeradio" type="checkbox" name="attr_dream" value="0" checked="checked"/>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_dream" value="1"/><span></span>
               <div class="divider"></div>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_command" value="2"/><span></span>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_command" value="3"/><span></span>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_command" value="4"/><span></span>
-              <button class="rollbutton label" type="roll" name="roll_command" value="&{template:bitd} {{charname=@{character_name}}} {{action=1}} {{subtitle=^{rolls}}} {{title=^{command}}} {{@{position_query}}} {{effect=@{effect_query}}} @{command_formula} {{charimage=@{chat_image}}}" data-i18n="command" data-i18n-title="command_description"></button>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_dream" value="2"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_dream" value="3"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_dream" value="4"/><span></span>
+              <button class="rollbutton label" type="roll" name="roll_dream" value="&{template:bitd} {{charname=@{character_name}}} {{action=1}} {{subtitle=^{rolls}}} {{title=^{dream}}} {{@{position_query}}} {{effect=@{effect_query}}} @{dream_formula} {{charimage=@{chat_image}}}" data-i18n="dream" data-i18n-title="dream_description"></button>
             </div>
             <div class="action flex col100">
-              <input type="hidden" name="attr_connect_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
-              <input class="hidden fakeradio" type="checkbox" name="attr_connect" value="0" checked="checked"/>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_connect" value="1"/><span></span>
+              <input type="hidden" name="attr_influence_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
+              <input class="hidden fakeradio" type="checkbox" name="attr_influence" value="0" checked="checked"/>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_influence" value="1"/><span></span>
               <div class="divider"></div>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_connect" value="2"/><span></span>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_connect" value="3"/><span></span>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_connect" value="4"/><span></span>
-              <button class="rollbutton label" type="roll" name="roll_connect" value="&{template:bitd} {{charname=@{character_name}}} {{action=1}} {{subtitle=^{rolls}}} {{title=^{connect}}} {{@{position_query}}} {{effect=@{effect_query}}} @{connect_formula} {{charimage=@{chat_image}}}" data-i18n="connect" data-i18n-title="connect_description"></button>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_influence" value="2"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_influence" value="3"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_influence" value="4"/><span></span>
+              <button class="rollbutton label" type="roll" name="roll_influence" value="&{template:bitd} {{charname=@{character_name}}} {{action=1}} {{subtitle=^{rolls}}} {{title=^{influence}}} {{@{position_query}}} {{effect=@{effect_query}}} @{influence_formula} {{charimage=@{chat_image}}}" data-i18n="influence" data-i18n-title="influence_description"></button>
             </div>
             <div class="action flex col100">
-              <input type="hidden" name="attr_tune_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
-              <input class="hidden fakeradio" type="checkbox" name="attr_tune" value="0" checked="checked"/>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_tune" value="1"/><span></span>
+              <input type="hidden" name="attr_trick_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
+              <input class="hidden fakeradio" type="checkbox" name="attr_trick" value="0" checked="checked"/>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_trick" value="1"/><span></span>
               <div class="divider"></div>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_tune" value="2"/><span></span>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_tune" value="3"/><span></span>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_tune" value="4"/><span></span>
-              <button class="rollbutton label" type="roll" name="roll_tune" value="&{template:bitd} {{charname=@{character_name}}} {{action=1}} {{subtitle=^{rolls}}} {{title=^{tune}}} {{@{position_query}}} {{effect=@{effect_query}}} @{tune_formula} {{charimage=@{chat_image}}}" data-i18n="tune" data-i18n-title="tune_description"></button>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_trick" value="2"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_trick" value="3"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_trick" value="4"/><span></span>
+              <button class="rollbutton label" type="roll" name="roll_trick" value="&{template:bitd} {{charname=@{character_name}}} {{action=1}} {{subtitle=^{rolls}}} {{title=^{trick}}} {{@{position_query}}} {{effect=@{effect_query}}} @{trick_formula} {{charimage=@{chat_image}}}" data-i18n="trick" data-i18n-title="trick_description"></button>
             </div>
           </div>
         </div>
@@ -816,7 +816,13 @@
           <div class="col100 flex">
             <div class="flex-center bonusdieplus">+</div>
             <div class="bonusdietext">
-              <div class="label" data-i18n="spend_harmony"></div>
+              <div class="label" data-i18n="spend_eminence"></div>
+              <!-- <div class="sheet-item"> -->
+                <input class="sheet-numboxes" type="hidden" name="attr_numboxes" value="3">
+                <input class="sheet-checkbox sheet-squarebox" type="checkbox" name="attr_check_1" value="1"><span></span><span class="sheet-floatingbar sheet-boxesgeq2"></span>
+                <input class="sheet-checkbox sheet-squarebox sheet-boxesgeq2" type="checkbox" name="attr_check_2" value="1"><span class="sheet-boxesgeq2"></span><span class="sheet-floatingbar sheet-boxesgeq3 sheet-boxesgeq2"></span>
+                <input class="sheet-checkbox sheet-squarebox sheet-boxesgeq2 sheet-boxesgeq3" type="checkbox" name="attr_check_3" value="1"><span class="sheet-boxesgeq2 sheet-boxesgeq3"></span>                
+              <!-- </div> -->
             </div>
           </div>
         </div>
@@ -2373,7 +2379,7 @@ const data = {
 	"ability": ["interpolation_protocol", "hits_keep_coming", "charmfield", "field_medic", "flow_and_crash", "the_reverie_school", "spark_of_hope", "spirit_soldier", "titanomach", "experienced"],
 	"base": {
 		"friends_title": "playbook_agnite_friends_title",
-		"command": "1",
+		"dream": "1",
 		"gatherinfo1": "gatherinfo_whats_their_intention",
 		"gatherinfo2": "gatherinfo_what_might_I_suspect",
 		"gatherinfo3": "gatherinfo_whats_the_danger_here",
@@ -2383,7 +2389,7 @@ const data = {
 		"gatherinfo7": "gatherinfo_detail_for_plan",
     "playbook_description": "playbook_agnite_description",
     "playbook_background": "playbook_agnite_background",
-		"skirmish": "2",
+		"fight": "2",
 		"xp_condition": "playbook_agnite_xp_condition"
 	},
 	"playbookitem": [{
@@ -2429,7 +2435,7 @@ const data = {
 	"gatherinfo7": "gatherinfo_detail_for_plan",
   "playbook_description": "playbook_evan_description",
   "playbook_background": "playbook_evan_background",
-	"wayfare": "2",
+	"force": "2",
 	"xp_condition": "playbook_evan_xp_condition"
 	},
 	"playbookitem": [{
@@ -2464,7 +2470,7 @@ const data = {
 "ability": ["de_escalation", "keen", "both_eyes_open", "carrot_strategem", "charmtongue", "face_full_of_sunshine", "finding_time", "specter", "threads_of_fate", "experienced"],
 "base": {
 	"friends_title": "playbook_joanite_friends_title",
-	"bluff": "1",
+	"consort": "1",
 	"gatherinfo1": "gatherinfo_whats_their_intention",
 	"gatherinfo2": "gatherinfo_what_might_I_suspect",
 	"gatherinfo3": "gatherinfo_whats_the_danger_here",
@@ -2474,7 +2480,7 @@ const data = {
 	"gatherinfo7": "gatherinfo_detail_for_plan",
   "playbook_description": "playbook_joanite_description",
   "playbook_background": "playbook_joanite_background",
-	"connect": "2",
+	"influence": "2",
 	"xp_condition": "playbook_joanite_xp_condition"
 },
 "playbookitem": [{
@@ -2518,8 +2524,8 @@ const data = {
 	"gatherinfo6": "gatherinfo_whats_going_on",
 	"gatherinfo7": "gatherinfo_detail_for_plan",
   "playbook_description": "playbook_magdalite_description",
-  "playbook_background": "playbook_madgdalite_background",
-	"read": "2",
+  "playbook_background": "playbook_magdalite_background",
+	"craft": "2",
 	"xp_condition": "playbook_magdalite_xp_condition"
 },
 "playbookitem": [{
@@ -2554,7 +2560,7 @@ const data = {
 "ability": ["hotfix", "paracause_protocol", "99_miles_per_hour", "a_horse_called_duck", "charlie_and_bee", "charmhack", "controlled_chaos", "neurocoupling", "tesseraction", "experienced"],
 "base": {
 	"friends_title": "playbook_Terasheban_friends_title",
-	"read": "1",
+	"craft": "1",
 	"gatherinfo1": "gatherinfo_whats_their_intention",
 	"gatherinfo2": "gatherinfo_what_might_I_suspect",
 	"gatherinfo3": "gatherinfo_whats_the_danger_here",
@@ -2564,7 +2570,7 @@ const data = {
 	"gatherinfo7": "gatherinfo_detail_for_plan",
   "playbook_description": "playbook_Terasheban_description",
   "playbook_background": "playbook_Terasheban_background",  
-	"shape": "2",
+	"hunt": "2",
 	"xp_condition": "playbook_Terasheban_xp_condition"
 },
 "playbookitem": [{
@@ -2610,7 +2616,7 @@ const data = {
 	"gatherinfo7": "gatherinfo_detail_for_plan",
   "playbook_description": "playbook_Yagan_description",
   "playbook_background": "playbook_Yagan_background",  
-	"tune": "2",
+	"trick": "2",
 	"xp_condition": "playbook_Yagan_xp_condition"
 },
 "playbookitem": [{
@@ -2646,7 +2652,7 @@ const data = {
 	"base": {
 		"friends_title": "playbook_dahlian_friends_title",
 		"long_thought": "1",
-		"connect": "1",
+		"influence": "1",
 		"gatherinfo1": "gatherinfo_whats_their_intention",
 		"gatherinfo2": "gatherinfo_what_might_I_suspect",
 		"gatherinfo3": "gatherinfo_whats_the_danger_here",
@@ -2656,7 +2662,7 @@ const data = {
 		"gatherinfo7": "gatherinfo_detail_for_plan",
     "playbook_description": "playbook_dahlian_description",
     "playbook_background": "playbook_dahlian_background",  
-		"read": "2",
+		"craft": "2",
 		"xp_condition": "playbook_dahlian_xp_condition"
 	},
 	"playbookitem": [{
@@ -2849,9 +2855,9 @@ const data = {
  }]
 },
 	"actions": {
-		"analysis": ["read", "shape", "sunder", "trace"],
-		"kinesis": ["finesse", "shadow", "skirmish", "wayfare"],
-		"semiosis": ["bluff", "command", "connect", "tune"]
+		"insight": ["craft", "hunt", "study", "survey"],
+		"prowess": ["fight", "finesse", "lurk", "force"],
+		"resolve": ["consort", "dream", "influence", "trick"]
 	},
 	"traumas": ["adrift", "cold", "haunted", "obsessed", "paranoid", "reckless","shattered", "soft", "unstable", "vicious"],
 	"items": [{
@@ -2956,30 +2962,30 @@ const data = {
 		"upgrade_14_name": "kits",
 		"upgrade_14_description": "upgrade_kits_description",
 		"upgrade_15_name": "spacer",
-		"upgrade_20_name": "analysis",
-		"upgrade_20_description": "upgrade_analysis_description",
-		"upgrade_21_name": "kinesis",
-		"upgrade_21_description": "upgrade_kinesis_description",
-		"upgrade_22_name": "semiosis",
-		"upgrade_22_description": "upgrade_semiosis_description",
+		"upgrade_20_name": "insight",
+		"upgrade_20_description": "upgrade_insight_description",
+		"upgrade_21_name": "prowess",
+		"upgrade_21_description": "upgrade_prowess_description",
+		"upgrade_22_name": "resolve",
+		"upgrade_22_description": "upgrade_resolve_description",
 		"upgrade_23_name": "personal",
 		"upgrade_23_description": "upgrade_personal_description",
 		"xp_condition2": "xp_beliefs",
 		"xp_condition3": "xp_relief"
 	},
 	"defaultValues": {
-		"tune": "0",
-		"command": "0",
-		"connect": "0",
+		"trick": "0",
+		"dream": "0",
+		"influence": "0",
 		"finesse": "0",
 		"trace": "0",
-		"shadow": "0",
-		"skirmish": "0",
-		"shape": "0",
-		"read": "0",
-		"bluff": "0",
-		"sunder": "0",
-		"wayfare": "0"
+		"lurk": "0",
+		"fight": "0",
+		"hunt": "0",
+		"craft": "0",
+		"consort": "0",
+		"study": "0",
+		"force": "0"
 	},
 	"maxFriendsPerPlaybook": 5,
 	"maxContactsPercell": 5,
