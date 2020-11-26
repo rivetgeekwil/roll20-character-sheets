@@ -380,19 +380,20 @@
       <!-- Special abilities-->
       <div class="col100 def-margin">
         <div class="specialheader col100 label" data-i18n="special_abilities"></div>
-        <div class="greyholder col100">
-          <fieldset class="repeating_ability">
-            <div class="specialability flex">
-              <button class="broadcast-button" type="roll" name="roll_Show" value="&{template:bitd-broadcast} {{charname=@{character_name}}} {{type=^{special_ability}}} {{title=@{name}}} {{content=@{description}}} {{charimage=@{chat_image}}}" data-i18n-title="send_details_to_chat">:</button>
-              <input class="checkbox circlebox" type="checkbox" name="attr_check" value="1"/><span></span>
-              <div class="auto-expand abilityname smallcaps"><span name="attr_name"></span>
-                <textarea spellcheck="false" name="attr_name" data-i18n-placeholder="ability_name"></textarea>
-              </div>
-              <div class="auto-expand abilitydesc"><span name="attr_description"></span>
-                <textarea spellcheck="false" name="attr_description" data-i18n-placeholder="ability_description"></textarea>
-              </div>
+        <div class="greyholder col100">        
+        <fieldset class="repeating_ability">
+          <div class="specialability flex">
+            <button class="broadcast-button" type="roll" name="roll_Show" value="&{template:bitd-broadcast} {{charname=@{character_name}}} {{type=^{special_ability}}} {{title=@{name}}} {{content=@{description}}} {{charimage=@{chat_image}}}" data-i18n-title="send_details_to_chat">:</button>
+            <input class="checkbox circlebox" type="checkbox" name="attr_check" value="1"/><span></span>
+            <div class="auto-expand abilityname smallcaps"><span name="attr_name"></span>
+              <textarea spellcheck="false" name="attr_name" data-i18n-placeholder="ability_name"></textarea>
             </div>
-          </fieldset>
+            <div class="auto-expand abilitydesc"><span name="attr_description"></span>
+              <textarea spellcheck="false" name="attr_description" data-i18n-placeholder="ability_description"></textarea>
+            </div>
+          </div>
+        </fieldset>      
+         
         </div>
       </div>
       <!-- Advancement-->
@@ -2390,7 +2391,7 @@ const data = {
 },
 	"playbook": {
 		"agnite": {
-	"ability": ["interpolation_protocol", "hits_keep_coming", "charmfield", "field_medic", "flow_and_crash", "the_reverie_school", "spark_of_hope", "spirit_soldier", "titanomach", "experienced"],
+	"ability": ["awakened_dreamer","synthesis","seasoned","angelic", "bounces_back", "only_a_child", "playful", "sneaky", "underfoot", "hide_n_seek", "luck", "naivete","wonder"],
 	"base": {
 		"friends_title": "playbook_agnite_friends_title",
 		"dream": "1",
@@ -2437,7 +2438,7 @@ const data = {
 	}]
 },
 	"evan": {
-	"ability": ["seventh_sense", "mother_duck", "charmlink", "natures_bounty", "nighthawk_tactics", "relentless", "red_eyes_shining", "storm_warning", "way_of_the_seeker", "experienced"],
+	"ability": ["awakened_dreamer","synthesis","seasoned","natures_bond", "comfort_food",    "healer", "mother_bear", "robust", "stalwart", "zbri_hunter", "anima", "piggyback", "smothering"],
 	"base": {
 	"friends_title": "playbook_evan_friends_title",
 	"trace": "1",
@@ -2483,7 +2484,7 @@ const data = {
 	}]
 },
 	"joanite": {
-"ability": ["de_escalation", "keen", "both_eyes_open", "carrot_strategem", "charmtongue", "face_full_of_sunshine", "finding_time", "specter", "threads_of_fate", "experienced"],
+"ability": ["awakened_dreamer","synthesis","seasoned","master_at_arms", "archer", "bastion", "cavalry", "hard_to_kill", "virtuous", "battle", "righteousness", "sacrifice", "winters_cloak"],
 "base": {
 	"friends_title": "playbook_joanite_friends_title",
 	"consort": "1",
@@ -2529,7 +2530,7 @@ const data = {
 }]
 },
 	"magdalite": {
-"ability": ["curiosity_satisfaction", "charmsight", "charmtrick", "endless_road", "epiphany", "jstor_login", "researcher", "state_alchemists_dilemma", "studied_the_blade", "experienced"],
+"ability": ["awakened_dreamer","synthesis","seasoned","intimacy","apothecary","enchanting","indulgent","maskers_dance","pledge","manifestation","nitrous","passion","treason"],
 "base": {
 	"friends_title": "playbook_magdalite_friends_title",
 	"finesse": "1",
@@ -2575,7 +2576,7 @@ const data = {
 }]
 },
 	"Terasheban": {
-"ability": ["hotfix", "paracause_protocol", "99_miles_per_hour", "a_horse_called_duck", "charlie_and_bee", "charmhack", "controlled_chaos", "neurocoupling", "tesseraction", "experienced"],
+"ability": ["awakened_dreamer","synthesis","seasoned","mastermind", "connected", "investigator", "meticulous", "prescience", "scholar", "trailblazer", "tradition", "truthsaying", "habeascorpus"],
 "base": {
 	"friends_title": "playbook_Terasheban_friends_title",
 	"craft": "1",
@@ -2622,7 +2623,7 @@ const data = {
 }]
 },
 	"Yagan": {
-"ability": ["charmwork", "carolines_heart", "charmbreak", "cultivate_saplings", "kythe", "the_moon_upright", "painsplit", "ravens_at_dusk", "skyfall_safeguard", "experienced"],
+"ability": ["awakened_dreamer","synthesis","seasoned","mystic","fleshcrafter","fleshseer","masterbonecrafter","reaper","secondsight","spiritcaller","celticcross","curseofdream","dreamtravel"],
 "base": {
 	"friends_title": "playbook_Yagan_friends_title",
 	"finesse": "1",
@@ -2668,7 +2669,7 @@ const data = {
 }]
 },
 	"dahlian": {
-	"ability": ["long_thought", "coordinated", "charmsync", "fight_a_few_fears", "meticulous", "polymath", "planned_for_everything", "self_care", "up_late", "experienced"],
+	"ability": ["awakened_dreamer","synthesis","seasoned","jack_of_all_trades", "behind_the_mask", "guile", "mirror_mirror", "trade_network", "worldly", "dahlias_doorway", "dance_of_masks", "metamorphosis", "puppet_show"],
 	"base": {
 		"friends_title": "playbook_dahlian_friends_title",
 		"long_thought": "1",

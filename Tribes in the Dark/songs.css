@@ -1957,6 +1957,19 @@ input.sheet-checkbox.sheet-squarebox-small, .sheet-checkbox.sheet-squarebox-smal
 .sheet-claimbridge input:checked + span {
   background: #d8d8d8;
 }
+
+/* Fixed Ability*/
+.sheet-fixed-ability {
+  line-height: 13px;
+  text-indent: -16px;
+  margin: 3px 0;
+  padding-left: 16px;
+}
+
+.sheet-fixed-ability .sheet-checkbox + span {
+  margin-right: 3px;
+}
+
 /* Change text colour when boxes are checked*/
 .sheet-specialability .sheet-checkbox:checked ~ .sheet-abilityname,
 .sheet-item .sheet-checkbox:checked ~ .sheet-itemname,
