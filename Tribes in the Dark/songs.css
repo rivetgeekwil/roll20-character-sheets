@@ -243,6 +243,15 @@
 .sheet-hider[value="0"] + li, .sheet-hider[value="0"] + div, .sheet-hider[value="0"] + label {
   display: none;
 }
+
+.sheet-zero-height-hider + div {
+  overflow: hidden;
+  transition: max-height 1s;
+}
+
+.sheet-zero-height-hider[value="0"] + div {
+  max-height: 0;
+}
 /* Sheet container */
 .sheet-container {
   position: relative;
@@ -259,6 +268,11 @@
 .sheet-type:not([value="faction"]) ~ .sheet-type-faction {
   display: none;
 }
+
+.sheet-standard-margin {
+  margin-bottom: 5px;
+}
+
 /* USEFUL GENERAL LAYOUT*/
 .sheet-blackheader {
   background: black;
@@ -575,10 +589,10 @@ textarea.sheet-smallcaps {
 }
 /* LOGO */
 .sheet-bladeslogo {
-  border-right: 12px solid transparent;
-  height: 70px;
+  border-right: 2px solid transparent;
+  height: 75px;
   background-image: url("https://raw.githubusercontent.com/rivetgeekwil/roll20-character-sheets/TITD/Tribes%20in%20the%20Dark/Assets/TITDlogo.png");
-  background-size: 95% auto;
+  background-size: 100% auto;
   background-repeat: no-repeat;
 }
 .sheet-cellheader {
@@ -3139,4 +3153,64 @@ button[type=roll].sheet-broadcast-button {
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-12.sheet-progress-12 {
   background: #00595f;
+}
+
+
+/* outlook */
+.sheet-outlooks .sheet-title {
+  display: grid;
+  grid: auto / 30% 70%;  
+  background: #d8d8d8;
+  }
+
+
+.sheet-outlooks .sheet-title input[type="text"] {
+  font-size: 12px;
+}
+
+.sheet-outlooks .sheet-title > :last-child {
+  margin-left: -12px;
+}
+
+.sheet-outlooks .sheet-content {
+  padding: 4px 8px;
+  font-size: 11px;
+  display: grid;
+  grid: auto / 1fr 1fr;
+  grid-gap: 4px;
+}
+
+.sheet-outlooks .sheet-content .sheet-label {
+  font-size: 12px;
+  margin-bottom: 3px;
+}
+
+.sheet-outlooks .sheet-content .sheet-outlook {
+  line-height: 14px;
+  font-size: 10px;
+}
+
+.sheet-outlooks li::before {
+  display: none;
+}
+
+.sheet-outlooks .sheet-checkbox + span {
+  margin-right: 3px;
+}
+
+.sheet-outlook-traits-chosen[value="1"] + .sheet-content {
+  grid: auto / auto;
+}
+
+.sheet-outlook-traits-chosen[value="1"] + .sheet-content .sheet-outlook {
+  font-size: 12px;
+}
+
+.sheet-outlook-traits-chosen[value="1"] + .sheet-content .sheet-outlook .sheet-trait-hider[value="0"] + li {
+  display: none;
+}
+
+.sheet-outlook-traits-chosen[value="1"] + .sheet-content .sheet-traits {
+  display: grid;
+  grid: auto / 1fr 1fr;
 }

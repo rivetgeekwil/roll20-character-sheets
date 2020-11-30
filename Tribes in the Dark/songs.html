@@ -100,6 +100,11 @@
       <label>
         <input class="checkbox squarebox" type="checkbox" name="attr_setting_extra_trauma" value="1"/><span></span><span data-i18n="show_extra_trauma_box"></span>
       </label>
+      <div class="setting-char">
+        <label>
+          <input type="number" name="attr_setting_num_outlook_traits" value="2"/><span data-i18n="number_outlook_traits"></span>
+        </label>
+      </div>
     </div>
     <div class="setting-char setting-cell">
       <label>
@@ -184,21 +189,118 @@
       <!-- Logo, Header text fields-->
       <div class="sheet-col100 sheet-header sheet-flex">
         <div class="sheet-col100 sheet-bladeslogo"></div>
-        <label class="sheet-col100 sheet-header">
+        <label class="sheet-col55 sheet-header">
           <input type="text" spellcheck="false" name="attr_name">
           <div class="sheet-label sheet-text sheet-title" data-i18n="name">Name and Pronouns</div>
-        </label>
-        <label class="col55">
-          <div class="auto-expand"><span name="attr_outlook"></span>
-            <textarea spellcheck="false" name="attr_outlook"></textarea>
-          </div>
-          <input type="hidden" name="attr_outlook" value=""/>
-          <div class="text"><span class="label title" data-i18n="outlook"></span><span class="uppercase info" data-i18n="outlook_info"></span></div>
         </label>
         <label class="col45">
           <input type="text" spellcheck="false" name="attr_cell">
           <div class="sheet-label sheet-text sheet-title" data-i18n="cell">Cell</div>
         </label>
+        <label class="sheet-col100">
+          <!-- <div class="auto-expand"><span name="attr_outlook"></span>
+            <textarea spellcheck="false" name="attr_outlook"></textarea>
+          </div>
+          <input type="hidden" name="attr_outlook" value=""/>
+          <div class="text"><span class="label title" data-i18n="outlook"></span><span class="uppercase info" data-i18n="outlook_info"></span></div>   -->
+          <div class="outlooks">
+            <div class="text"><span class="label title" data-i18n="outlook"></span>            
+            <input class="outlook-traits-chosen" type="hidden" name="attr_outlook_traits_chosen" value="0"/>
+            <div class="content">
+              <input class="hider" type="hidden" name="attr_show_outlook_doomsayer" value="1"/>
+              <div class="outlook">
+                <div class="text"><span class="label title" data-i18n="doomsayer"></span></div>
+                <ul class="traits">
+                  <input class="trait-hider" type="hidden" name="attr_trait_debater" value="0"/>
+                  <li>
+                    <input class="checkbox squarebox" type="checkbox" name="attr_trait_debater" value="1"/><span></span><span class="smallcaps" data-i18n="trait_debater"></span>: <span data-i18n="trait_debater_description"></span>
+                  </li>
+                  <input class="trait-hider" type="hidden" name="attr_trait_dreamer" value="0"/>
+                  <li>
+                    <input class="checkbox squarebox" type="checkbox" name="attr_trait_dreamer" value="1"/><span></span><span class="smallcaps" data-i18n="trait_dreamer"></span>: <span data-i18n="trait_dreamer_description"></span>
+                  </li>
+                  <input class="trait-hider" type="hidden" name="attr_trait_searcher" value="0"/>
+                  <li>
+                    <input class="checkbox squarebox" type="checkbox" name="attr_trait_searcher" value="1"/><span></span><span class="smallcaps" data-i18n="trait_searcher"></span>: <span data-i18n="trait_searcher_description"></span>
+                  </li>
+                  <input class="trait-hider" type="hidden" name="attr_trait_skeptic" value="0"/>
+                  <li>
+                    <input class="checkbox squarebox" type="checkbox" name="attr_trait_skeptic" value="1"/><span></span><span class="smallcaps" data-i18n="trait_skeptic"></span>: <span data-i18n="trait_skeptic_description"></span>
+                  </li>
+                </ul>
+              </div>
+               <input class="hider" type="hidden" name="attr_show_outlook_herite" value="1"/>
+              <div class="outlook">
+                <div class="text"><span class="label title" data-i18n="herite"></span></div>
+                <ul class="traits">
+                  <input class="trait-hider" type="hidden" name="attr_trait_anarchic" value="0"/>
+                  <li>
+                    <input class="checkbox squarebox" type="checkbox" name="attr_trait_anarchic" value="1"/><span></span><span class="smallcaps" data-i18n="trait_anarchic"></span>: <span data-i18n="trait_anarchic_description"></span>
+                  </li>
+                  <input class="trait-hider" type="hidden" name="attr_trait_free_thinker" value="0"/>
+                  <li>
+                    <input class="checkbox squarebox" type="checkbox" name="attr_trait_free_thinker" value="1"/><span></span><span class="smallcaps" data-i18n="trait_free_thinker"></span>: <span data-i18n="trait_free_thinker_description"></span>
+                  </li>
+                  <input class="trait-hider" type="hidden" name="attr_trait_subversive" value="0"/>
+                  <li>
+                    <input class="checkbox squarebox" type="checkbox" name="attr_trait_subversive" value="1"/><span></span><span class="smallcaps" data-i18n="trait_subversive"></span>: <span data-i18n="trait_subversive_description"></span>
+                  </li>
+                  <input class="trait-hider" type="hidden" name="attr_trait_suspicious" value="0"/>
+                  <li>
+                    <input class="checkbox squarebox" type="checkbox" name="attr_trait_suspicious" value="1"/><span></span><span class="smallcaps" data-i18n="trait_suspicious"></span>: <span data-i18n="trait_suspicious_description"></span>
+                  </li>
+                </ul>
+              </div>
+              <input class="hider" type="hidden" name="attr_show_outlook_jacker" value="1"/>
+              <div class="outlook">
+                <div class="text"><span class="label title" data-i18n="jacker"></span></div>
+                <ul class="traits">
+                  <input class="trait-hider" type="hidden" name="attr_trait_driven" value="0"/>
+                  <li>
+                    <input class="checkbox squarebox" type="checkbox" name="attr_trait_driven" value="1"/><span></span><span class="smallcaps" data-i18n="trait_driven"></span>: <span data-i18n="trait_driven_description"></span>
+                  </li>
+                  <input class="trait-hider" type="hidden" name="attr_trait_protective" value="0"/>
+                  <li>
+                    <input class="checkbox squarebox" type="checkbox" name="attr_trait_protective" value="1"/><span></span><span class="smallcaps" data-i18n="trait_protective"></span>: <span data-i18n="trait_protective_description"></span>
+                  </li>
+                  <input class="trait-hider" type="hidden" name="attr_trait_vengeful" value="0"/>
+                  <li>
+                    <input class="checkbox squarebox" type="checkbox" name="attr_trait_vengeful" value="1"/><span></span><span class="smallcaps" data-i18n="trait_vengeful"></span>: <span data-i18n="trait_vengeful_description"></span>
+                  </li>
+                  <input class="trait-hider" type="hidden" name="attr_trait_warrior" value="0"/>
+                  <li>
+                    <input class="checkbox squarebox" type="checkbox" name="attr_trait_warrior" value="1"/><span></span><span class="smallcaps" data-i18n="trait_warrior"></span>: <span data-i18n="trait_warrior_description"></span>
+                  </li>
+                </ul>
+              </div>
+              <input class="hider" type="hidden" name="attr_show_outlook_lightbringer" value="1"/>
+              <div class="outlook">
+                <div class="text"><span class="label title" data-i18n="lightbringer"></span></div>
+                <ul class="traits">
+                  <input class="trait-hider" type="hidden" name="attr_trait_connected" value="0"/>
+                  <li>
+                    <input class="checkbox squarebox" type="checkbox" name="attr_trait_connected" value="1"/><span></span><span class="smallcaps" data-i18n="trait_connected"></span>: <span data-i18n="trait_connected_description"></span>
+                  </li>
+                  <input class="trait-hider" type="hidden" name="attr_trait_manipulator" value="0"/>
+                  <li>
+                    <input class="checkbox squarebox" type="checkbox" name="attr_trait_manipulator" value="1"/><span></span><span class="smallcaps" data-i18n="trait_manipulator"></span>: <span data-i18n="trait_manipulator_description"></span>
+                  </li>
+                  <input class="trait-hider" type="hidden" name="attr_trait_motivator" value="0"/>
+                  <li>
+                    <input class="checkbox squarebox" type="checkbox" name="attr_trait_motivator" value="1"/><span></span><span class="smallcaps" data-i18n="trait_motivator"></span>: <span data-i18n="trait_motivator_description"></span>
+                  </li>
+                  <input class="trait-hider" type="hidden" name="attr_trait_political" value="0"/>
+                  <li>
+                    <input class="checkbox squarebox" type="checkbox" name="attr_trait_political" value="1"/><span></span><span class="smallcaps" data-i18n="trait_political"></span>: <span data-i18n="trait_political_description"></span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div> 
+        
+        </label>
+          
+        
         <label class="col55">
           <div class="auto-expand"><span name="attr_first_eminence"></span>
             <textarea spellcheck="false" name="attr_first_eminence"></textarea>
@@ -428,56 +530,18 @@
             </div>
           </li>
           <li>
-            <div class="auto-expand"><span name="attr_xp_condition2">You expressed your beliefs, drives, heritage, or background.</span>
-              <textarea spellcheck="false" name="attr_xp_condition2">You expressed your beliefs, drives, heritage, or background.</textarea>
+            <div class="auto-expand"><span name="attr_xp_condition2"></span>
+              <textarea spellcheck="false" name="attr_xp_condition2" data-i18n="xp_beliefs"></textarea>
             </div>
           </li>
           <li>
             <div class="auto-expand"><span name="attr_xp_condition3"></span>
-              <textarea spellcheck="false" name="attr_xp_condition3"></textarea>
+              <textarea spellcheck="false" name="attr_xp_condition3" data-i18n="xp_diversion"></textarea>
             </div>
           </li>
         </ul>
-      </div>
-      <!-- Teamwork-->
-      <div class="col45 right-column def-margin">
-        <div class="plainheader label" data-i18n="teamwork"></div>
-        <div class="teamworkbox" data-i18n="assist_a_teammate"></div>
-        <div class="teamworkbox" data-i18n="lead_a_group_action"></div>
-        <div class="teamworkbox" data-i18n="protect_a_teammate"></div>
-        <div class="teamworkbox" data-i18n="set_up_a_teammate"></div>
-      </div>
-      <!-- Gather Information-->
-      <div class="col55 right-column def-margin">
-        <div class="gatherinfo col100">
-          <div class="plainheader label" data-i18n="gather_information"></div>
-          <div>
-            <ul>
-              <li>
-                <input class="inherit" type="text" spellcheck="false" name="attr_gatherinfo1" data-i18n-placeholder="gatherinfo_whats_their_intention"/>
-              </li>
-              <li>
-                <input class="inherit" type="text" spellcheck="false" name="attr_gatherinfo2" data-i18n-placeholder="gatherinfo_what_might_I_suspect"/>
-              </li>
-              <li>
-                <input class="inherit" type="text" spellcheck="false" name="attr_gatherinfo3" data-i18n-placeholder="gatherinfo_whats_the_danger_here"/>
-              </li>
-              <li>
-                <input class="inherit" type="text" spellcheck="false" name="attr_gatherinfo4" data-i18n-placeholder="gatherinfo_how_can_I_find"/>
-              </li>
-              <li>
-                <input class="inherit" type="text" spellcheck="false" name="attr_gatherinfo5" data-i18n-placeholder="gatherinfo_how_can_I_help_here"/>
-              </li>
-              <li>
-                <input class="inherit" type="text" spellcheck="false" name="attr_gatherinfo6" data-i18n-placeholder="gatherinfo_whats_going_on"/>
-              </li>
-              <li>
-                <input class="inherit" type="text" spellcheck="false" name="attr_gatherinfo7" data-i18n-placeholder="gatherinfo_detail_for_plan"/>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      </div>     
+    
     </div>
     <!-- Right column-->
     <div class="col45 flex-wrap right-column">
@@ -578,13 +642,21 @@
           <input class="title-checkbox" type="checkbox" name="attr_show_planning" value="1" checked="checked"/><span class="label plainheader" data-i18n="planning_load"></span>
           <div class="planning-content">
             <div class="planningdesc" data-i18n="planningdesc"></div>
-            <div class="teamworkbox"><span class="bold" data-i18n="assault"></span><span class="italic" data-i18n="detail_assault"></span></div>
-            <div class="teamworkbox"><span class="bold" data-i18n="occult"></span><span class="italic" data-i18n="detail_occult"></span></div>
-            <div class="teamworkbox"><span class="bold" data-i18n="deception"></span><span class="italic" data-i18n="detail_deception"></span></div>
-            <div class="teamworkbox"><span class="bold" data-i18n="social"></span><span class="italic" data-i18n="detail_social"></span></div>
-            <div class="teamworkbox"><span class="bold" data-i18n="stealth"></span><span class="italic" data-i18n="detail_stealth"></span></div>
-            <div class="teamworkbox"><span class="bold" data-i18n="transport"></span><span class="italic" data-i18n="detail_transport"></span></div>
+            <div class="teamworkbox"><span class="bold" data-i18n="cautious"></span><span class="italic" data-i18n="detail_cautious"></span></div>
+            <div class="teamworkbox"><span class="bold" data-i18n="charismatic"></span><span class="italic" data-i18n="detail_charismatic"></span></div>
+            <div class="teamworkbox"><span class="bold" data-i18n="dramatic"></span><span class="italic" data-i18n="detail_deception"></span></div>
+            <div class="teamworkbox"><span class="bold" data-i18n="rapid"></span><span class="italic" data-i18n="detail_rapid"></span></div>
+            <div class="teamworkbox"><span class="bold" data-i18n="subtle"></span><span class="italic" data-i18n="detail_subtle"></span></div>
+            <div class="teamworkbox"><span class="bold" data-i18n="tactical"></span><span class="italic" data-i18n="detail_tactical"></span></div>
           </div>
+        </div>
+        <!-- Teamwork-->
+        <div class="teamwork col100 def-margin">
+          <div class="plainheader label" data-i18n="teamwork"></div>
+          <div class="teamworkbox" data-i18n="assist_a_teammate"></div>
+          <div class="teamworkbox" data-i18n="lead_a_group_action"></div>
+          <div class="teamworkbox" data-i18n="protect_a_teammate"></div>
+          <div class="teamworkbox" data-i18n="set_up_a_teammate"></div>
         </div>
       </div>
       <!-- Action ratings-->
@@ -868,6 +940,37 @@
         <!-- Roll Fortune-->
         <button class="fortunebutton borderbutton" type="roll" name="roll_Fortune" value="&{template:bitd} {{charname=@{character_name}}} {{fortune=1}} {{subtitle=^{rolls}}} {{title=^{fortune}}} @{numberofdice} {{charimage=@{chat_image}}} {{notes=@{notes_query}}} " data-i18n="roll_fortune"></button>
       </div>
+        <!-- Gather Information-->
+        <div class="col100 right-column def-margin">
+          <div class="gatherinfo col100">
+            <div class="plainheader label" data-i18n="gather_information"></div>
+            <div>
+              <ul>
+                <li>
+                  <input class="inherit" type="text" spellcheck="false" name="attr_gatherinfo1" data-i18n-placeholder="gatherinfo_whats_their_intention"/>
+                </li>
+                <li>
+                  <input class="inherit" type="text" spellcheck="false" name="attr_gatherinfo2" data-i18n-placeholder="gatherinfo_what_might_I_suspect"/>
+                </li>
+                <li>
+                  <input class="inherit" type="text" spellcheck="false" name="attr_gatherinfo3" data-i18n-placeholder="gatherinfo_whats_the_danger_here"/>
+                </li>
+                <li>
+                  <input class="inherit" type="text" spellcheck="false" name="attr_gatherinfo4" data-i18n-placeholder="gatherinfo_how_can_I_find"/>
+                </li>
+                <li>
+                  <input class="inherit" type="text" spellcheck="false" name="attr_gatherinfo5" data-i18n-placeholder="gatherinfo_how_can_I_help_here"/>
+                </li>
+                <li>
+                  <input class="inherit" type="text" spellcheck="false" name="attr_gatherinfo6" data-i18n-placeholder="gatherinfo_whats_going_on"/>
+                </li>
+                <li>
+                  <input class="inherit" type="text" spellcheck="false" name="attr_gatherinfo7" data-i18n-placeholder="gatherinfo_detail_for_plan"/>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       <!-- Clocks-->
       <div class="col100 clocks def-margin free-repcontrol">
         <div class="specialheader label" data-i18n="clocks"></div>
@@ -2678,7 +2781,7 @@ const data = {
     "playbook_description": "playbook_Yagan_description",
     "playbook_background": "playbook_Yagan_background",
     "playbook_eminence": "playbook_Yagan_eminence",  
-    "dream": "2",
+    "trick": "2",
     "xp_condition": "playbook_Yagan_xp_condition"
     },
     "playbookitem": [{
@@ -2990,8 +3093,7 @@ const data = {
 		"upgrade_22_description": "upgrade_resolve_description",
 		"upgrade_23_name": "personal",
 		"upgrade_23_description": "upgrade_personal_description",
-		"xp_condition2": "xp_beliefs",
-		"xp_condition3": "xp_relief"
+		"xp_condition2": "xp_beliefs"
 	},
 	"defaultValues": {
 		"trick": "0",
@@ -3097,6 +3199,41 @@ const cellAbilityMap = new Map([...Object.values(data.cell).map(x => x.cellabili
 	return [x.name.toLowerCase(), x.description];
 }));
 /* Utility functions - shouldn't need to touch most of these */
+// We define our own wrappers for Roll20 event handlers to provide
+// a bit more useful feedback and reduce boilerplate.
+function register(attrs, callback) {
+  if (typeof attrs == "string") attrs = [attrs];
+  console.log(`Registering callback for: ${attrs.join(", ")}`);
+  const eventString = attrs.map((x) => `change:${x}`).join(" ");
+  on(eventString, (event) => {
+    console.log(`Triggering for attribute ${event.sourceAttribute}.`);
+    callback(event);
+  });
+}
+function registerOpened(callback) {
+  console.log("Registering on sheet opening.");
+  on("sheet:opened", () => {
+    console.log("Triggering for sheet opening.");
+    callback();
+  });
+}
+function registerButton(name, callback) {
+  console.log(`Registering for button: ${name}`);
+  const throttledFunction = _.throttle(
+    (event) => {
+      console.log(`Triggering for button: ${name}`);
+      callback(event);
+    },
+    200,
+    { trailing: false }
+  );
+  on(`clicked:${name}`, throttledFunction);
+}
+
+function boolToFlag(v) {
+  return v ? "1" : "0";
+}
+
 const mySetAttrs = (attrs, options, callback) => {
 		const finalAttrs = Object.keys(attrs).reduce((m, k) => {
 			m[k] = `${attrs[k]}`;
@@ -3110,7 +3247,7 @@ const mySetAttrs = (attrs, options, callback) => {
 			if (v[name] !== `${value}`) setting[name] = `${value}`;
 			setAttrs(setting);
 		});
-	},
+  },  
 	fillRepeatingSectionFromData = (sectionName, dataList, autogen, callback) => {
 		callback = callback || (() => {});
 		getSectionIDs(`repeating_${sectionName}`, idList => {
@@ -3281,7 +3418,7 @@ const cellAttributes = [...new Set([].concat(...Object.keys(data.cell).map(x => 
 		"hunting_grounds_description",
 		"cohort1_edges",
 		"cohort1_flaws",
-		"heritage",
+		"outlook",
     "background",
     "first_eminence",
 		"vice_purveyor",
@@ -3569,4 +3706,91 @@ on("sheet:opened", () => {
 		});
 	});
 });
+
+/*Outlook*/
+function handleEveryInchA(event) {
+  getAttrs(["repeating_ability_name", "setting_num_outlook_traits"], (v) => {
+    const isOutlookAbility =
+      v.repeating_ability_name.slice(0, -3) ===
+      getTranslation(ABILITY_PLUS_OUTLOOK).slice(0, -3);
+    if (!isOutlookAbility) return;
+    const delta = String(event.newValue) === "1" ? 2 : -2;
+    mySetAttrs(
+      {
+        setting_num_outlook_traits:
+          parseInt(v.setting_num_outlook_traits) + delta,
+      },
+      { silent: false }
+    );
+  });
+}
+
+function handleGottaMakeItOutAlive(event) {
+  getAttrs(
+    ["playbook", "repeating_ability_name", "setting_extra_trauma"],
+    (v) => {
+      const isTraumaAbility =
+        v.repeating_ability_name ===
+        getTranslation(ABILITY_ROOKIE_EXTRA_TRAUMA);
+      if (!isTraumaAbility || v.playbook !== getTranslation("playbook_rookie"))
+        return;
+      const delta = String(event.newValue) === "1" ? 1 : -1;
+      mySetAttrs({
+        setting_extra_trauma: parseInt(v.setting_extra_trauma) + delta,
+      });
+    }
+  );
+}
+
+function handleOutlookChoice() {
+  getAttrs([...outlookAttrs, "setting_num_outlook_traits"], (v) => {
+    const setting = {};
+    const maxTraits = parseInt(v["setting_num_outlook_traits"]) || 0;
+    const traitCounts = Object.entries(outlookData).reduce(
+      (m, [k, traits]) => {
+        m[k] = traits.reduce(
+          (m, trait) => m + parseInt(v[`trait_${trait}`]) || 0,
+          0
+        );
+        return m;
+      },
+      {}
+    );
+    const totalTraits = Object.values(traitCounts).reduce((m, a) => m + a, 0);
+    setting.outlook_traits_chosen = boolToFlag(totalTraits >= maxTraits);
+    Object.keys(outlookData).forEach((outlook) => {
+      setting[`show_outlook_${outlook}`] = boolToFlag(
+        totalTraits === 0 || traitCounts[outlook] > 0
+      );
+    });
+    mySetAttrs(setting);
+  });
+}
+
+
+const outlookData = {
+  doomsayer: ["debater", "dreamer", "searcher", "skeptic"],
+  herite: ["anarchic", "free_thinker", "subversive", "suspicious"],
+  jacker: ["driven", "protective", "vengeful", "warrior"],
+  lightbringer: ["connected", "manipulator", "motivator", "political"],
+};
+
+const ABILITY_PLUS_OUTLOOK = "playbook_ability_every_inch_a";
+const ABILITY_ROOKIE_EXTRA_TRAUMA = "playbook_ability_gotta_make_it_out_alive";
+
+const outlookAttrs = []
+  .concat(...Object.values(outlookData))
+  .map((x) => `trait_${x}`); 
+ 
+
+
+/*Outlook*/
+register("repeating_ability:check", handleEveryInchA);
+register("repeating_ability:check", handleGottaMakeItOutAlive);
+register(    
+[...outlookAttrs, "setting_num_outlook_traits"],
+handleOutlookChoice
+);
+
+
 </script>
