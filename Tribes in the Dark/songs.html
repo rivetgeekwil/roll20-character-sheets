@@ -637,14 +637,14 @@
               <button class="rollbutton label" type="roll" name="roll_study" value="&{template:bitd} {{charname=@{character_name}}} {{action=1}} {{subtitle=^{rolls}}} {{title=^{study}}} {{@{position_query}}} {{effect=@{effect_query}}} @{study_formula} {{charimage=@{chat_image}}}" data-i18n="study" data-i18n-title="study_description"></button>
             </div>
             <div class="action flex col100">
-              <input type="hidden" name="attr_trace_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
-              <input class="hidden fakeradio" type="checkbox" name="attr_trace" value="0" checked="checked"/>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_trace" value="1"/><span></span>
+              <input type="hidden" name="attr_survey_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
+              <input class="hidden fakeradio" type="checkbox" name="attr_survey" value="0" checked="checked"/>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_survey" value="1"/><span></span>
               <div class="divider"></div>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_trace" value="2"/><span></span>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_trace" value="3"/><span></span>
-              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_trace" value="4"/><span></span>
-              <button class="rollbutton label" type="roll" name="roll_trace" value="&{template:bitd} {{charname=@{character_name}}} {{action=1}} {{subtitle=^{rolls}}} {{title=^{trace}}} {{@{position_query}}} {{effect=@{effect_query}}} @{trace_formula} {{charimage=@{chat_image}}}" data-i18n="trace" data-i18n-title="trace_description"></button>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_survey" value="2"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_survey" value="3"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_survey" value="4"/><span></span>
+              <button class="rollbutton label" type="roll" name="roll_survey" value="&{template:bitd} {{charname=@{character_name}}} {{action=1}} {{subtitle=^{rolls}}} {{title=^{survey}}} {{@{position_query}}} {{effect=@{effect_query}}} @{survey_formula} {{charimage=@{chat_image}}}" data-i18n="survey" data-i18n-title="survey_description"></button>
             </div>
           </div>
         </div>
@@ -2391,328 +2391,324 @@ const data = {
 },
 	"playbook": {
 		"agnite": {
-	"ability": ["awakened_dreamer","synthesis","seasoned","angelic", "bounces_back", "only_a_child", "playful", "sneaky", "underfoot", "hide_n_seek", "luck", "naivete","wonder"],
-	"base": {
-		"friends_title": "playbook_agnite_friends_title",
-		"dream": "1",
-		"gatherinfo1": "gatherinfo_whats_their_intention",
-		"gatherinfo2": "gatherinfo_what_might_I_suspect",
-		"gatherinfo3": "gatherinfo_whats_the_danger_here",
-		"gatherinfo4": "gatherinfo_how_can_I_find",
-		"gatherinfo5": "gatherinfo_how_can_I_help_here",
-		"gatherinfo6": "gatherinfo_whats_going_on",
-		"gatherinfo7": "gatherinfo_detail_for_plan",
-    "playbook_description": "playbook_agnite_description",
-    "playbook_background": "playbook_agnite_background",
-    "playbook_eminence": "playbook_agnite_eminence",
-		"fight": "2",
-    "xp_condition": "playbook_agnite_xp_condition"
-	},
-	"playbookitem": [{
-		"bold": "1",
-		"name": "playbook_item_fine_hand_weapon",
-		"description": "playbook_item_fine_hand_weapon_description",
-		"numboxes": "1"
-	}, {
-		"name": "playbook_item_heavy_shield",
-		"description": "playbook_item_heavy_shield_description",
-		"numboxes": "2"
-	}, {
-		"bold": "1",
-		"name": "playbook_item_fine_sidearm",
-		"description": "playbook_item_fine_sidearm_description",
-		"numboxes": "1"
-	}, {
-		"bold": "1",
-		"name": "playbook_item_fine_spark_rifle",
-		"description": "playbook_item_fine_spark_rifle_description",
-		"numboxes": "1"
-	}, {
-		"name": "playbook_item_tactical_grenades",
-		"description": "playbook_item_tactical_grenades_description",
-		"numboxes": "1"
-	}, {
-		"name": "playbook_item_mark_of_training",
-		"description": "playbook_item_mark_of_training_description",
-		"numboxes": "0"
-	}]
+	    "ability": ["awakened_dreamer","synthesis","seasoned","angelic", "bounces_back", "only_a_child", "playful", "sneaky", "underfoot", "hide_n_seek", "luck", "naivete","wonder"],
+	    "base": {
+      "friends_title": "playbook_agnite_friends_title",
+      "lurk": "2",
+      "trick": "1",
+      "gatherinfo1": "gatherinfo_whats_their_intention",
+      "gatherinfo2": "gatherinfo_what_might_I_suspect",
+      "gatherinfo3": "gatherinfo_whats_the_danger_here",
+      "gatherinfo4": "gatherinfo_how_can_I_find",
+      "gatherinfo5": "gatherinfo_how_can_I_help_here",
+      "gatherinfo6": "gatherinfo_whats_going_on",
+      "gatherinfo7": "gatherinfo_detail_for_plan",
+      "playbook_description": "playbook_agnite_description",
+      "playbook_background": "playbook_agnite_background",
+      "playbook_eminence": "playbook_agnite_eminence",
+      "xp_condition": "playbook_agnite_xp_condition"
+    },
+    "playbookitem": [{
+      "bold": "1",
+      "name": "playbook_item_arts_and_crafts",
+      "description": "playbook_item_arts_and_crafts_description",
+      "numboxes": "1"
+    }, {
+      "name": "playbook_item_backpack",
+      "description": "playbook_item_backpack_description",
+      "numboxes": "1"
+    }, {		
+      "name": "playbook_item_candy",
+      "description": "playbook_item_candy_description",
+      "numboxes": "1"
+    }, {
+      "bold": "1",
+      "name": "playbook_item_fine_toy",
+      "description": "playbook_item_fine_toy_description",
+      "numboxes": "1"
+    }, {
+      "name": "playbook_item_relic_gadget",
+      "description": "playbook_item_relic_gadget_description",
+      "numboxes": "1"
+    }]
+  },
+"dahlian": {
+  "ability": ["awakened_dreamer","synthesis","seasoned","jack_of_all_trades", "behind_the_mask", "guile", "mirror_mirror", "trade_network", "worldly", "dahlias_doorway", "dance_of_masks", "metamorphosis", "puppet_show"],
+  "base": {
+    "friends_title": "playbook_dahlian_friends_title",
+    "finesse": "1",
+    "trick": "2",
+    "gatherinfo1": "gatherinfo_whats_their_intention",
+    "gatherinfo2": "gatherinfo_what_might_I_suspect",
+    "gatherinfo3": "gatherinfo_whats_the_danger_here",
+    "gatherinfo4": "gatherinfo_how_can_I_find",
+    "gatherinfo5": "gatherinfo_how_can_I_help_here",
+    "gatherinfo6": "gatherinfo_whats_going_on",
+    "gatherinfo7": "gatherinfo_detail_for_plan",
+    "playbook_description": "playbook_dahlian_description",
+    "playbook_background": "playbook_dahlian_background",
+    "playbook_eminence": "playbook_dahlian_eminence", 
+    "xp_condition": "playbook_dahlian_xp_condition"
+  },
+  "playbookitem": [{
+    "name": "playbook_item_concealed_weapon",
+    "description": "playbook_item_concealed_weapon_description",
+    "numboxes": "1"
+  }, {
+    "bold": "1",
+    "name": "playbook_item_fine_costume",
+    "description": "playbook_item_fine_costume_description",
+    "numboxes": "0"
+  }, {
+    "bold": "1",
+    "name": "playbook_item_fine_disguise_kit",
+    "description": "playbook_item_fine_disguise_kit_description",
+    "numboxes": "1"
+  }, {
+    "bold": "1",
+    "name": "playbook_item_fine_lockpicks",
+    "description": "playbook_item_fine_lockpicks_description",
+    "numboxes": "1"
+  }, {
+    "name": "playbook_item_loaded_dice",
+    "description": "playbook_item_loaded_dice_description",
+    "numboxes": "1"
+  }, {
+    "name": "playbook_item_trinkets",
+    "description": "playbook_item_trinkets_description",
+    "numboxes": "1"
+  }]
 },
-	"evan": {
-	"ability": ["awakened_dreamer","synthesis","seasoned","natures_bond", "comfort_food",    "healer", "mother_bear", "robust", "stalwart", "zbri_hunter", "anima", "piggyback", "smothering"],
-	"base": {
-	"friends_title": "playbook_evan_friends_title",
-	"trace": "1",
-	"gatherinfo1": "gatherinfo_whats_their_intention",
-	"gatherinfo2": "gatherinfo_what_might_I_suspect",
-	"gatherinfo3": "gatherinfo_whats_the_danger_here",
-	"gatherinfo4": "gatherinfo_how_can_I_find",
-	"gatherinfo5": "gatherinfo_how_can_I_help_here",
-	"gatherinfo6": "gatherinfo_whats_going_on",
-	"gatherinfo7": "gatherinfo_detail_for_plan",
+"evan": {
+  "ability": ["awakened_dreamer","synthesis","seasoned","natures_bond", "comfort_food",    "healer", "mother_bear", "robust", "stalwart", "zbri_hunter", "anima", "piggyback", "smothering"],
+  "base": {
+  "friends_title": "playbook_evan_friends_title",
+  "dream": "1",
+  "consort": "2",
+  "gatherinfo1": "gatherinfo_whats_their_intention",
+  "gatherinfo2": "gatherinfo_what_might_I_suspect",
+  "gatherinfo3": "gatherinfo_whats_the_danger_here",
+  "gatherinfo4": "gatherinfo_how_can_I_find",
+  "gatherinfo5": "gatherinfo_how_can_I_help_here",
+  "gatherinfo6": "gatherinfo_whats_going_on",
+  "gatherinfo7": "gatherinfo_detail_for_plan",
   "playbook_description": "playbook_evan_description",
   "playbook_background": "playbook_evan_background",
   "playbook_eminence": "playbook_evan_eminence",
-	"force": "2",
-	"xp_condition": "playbook_evan_xp_condition"
-	},
-	"playbookitem": [{
-	"bold": "1",
-	"name": "playbook_item_fine_hunting_knives",
-	"description": "playbook_item_fine_hunting_knives_description",
-	"numboxes": "1"
-	}, {
-	"bold": "1",
-	"name": "playbook_item_fine_rifle_or_longbow",
-	"description": "playbook_item_fine_rifle_or_longbow_description",
-	"numboxes": "2"
-	}, {
-	"name": "playbook_item_a_tracking_pet",
-	"description": "playbook_item_a_tracking_pet_description",
-	"numboxes": "0"
-	}, {
-	"name": "playbook_item_optical_rig",
-	"description": "playbook_item_optical_rig_description",
-	"numboxes": "0"
-	}, {
-	"name": "playbook_item_tracking_beacons",
-	"description": "playbook_item_tracking_beacons_description",
-	"numboxes": "0"
-	}, {
-	"name": "playbook_item_memento_of_the_wilds",
-	"description": "playbook_item_memento_of_the_wilds_description",
-	"numboxes": "0"
-	}]
-},
-	"joanite": {
-"ability": ["awakened_dreamer","synthesis","seasoned","master_at_arms", "archer", "bastion", "cavalry", "hard_to_kill", "virtuous", "battle", "righteousness", "sacrifice", "winters_cloak"],
-"base": {
-	"friends_title": "playbook_joanite_friends_title",
-	"consort": "1",
-	"gatherinfo1": "gatherinfo_whats_their_intention",
-	"gatherinfo2": "gatherinfo_what_might_I_suspect",
-	"gatherinfo3": "gatherinfo_whats_the_danger_here",
-	"gatherinfo4": "gatherinfo_how_can_I_find",
-	"gatherinfo5": "gatherinfo_how_can_I_help_here",
-	"gatherinfo6": "gatherinfo_whats_going_on",
-	"gatherinfo7": "gatherinfo_detail_for_plan",
-  "playbook_description": "playbook_joanite_description",
-  "playbook_background": "playbook_joanite_background",
-  "playbook_eminence": "playbook_joanite_eminence",
-  "influence": "2",
-	"xp_condition": "playbook_joanite_xp_condition"
-},
-"playbookitem": [{
-	"bold": "1",
-	"name": "playbook_item_fine_gift",
-	"description": "playbook_item_fine_gift_description",
-	"numboxes": "2"
-}, {
-	"bold": "1",
-	"name": "playbook_item_fine_clothes",
-	"description": "playbook_item_fine_clothes_description",
-	"numboxes": "2"
-}, {
-	"name": "playbook_item_self_defense_weapon",
-	"description": "playbook_item_self_defense_weapon_description",
-	"numboxes": "1"
-}, {
-	"name": "playbook_item_legitimate_id",
-	"description": "playbook_item_legitimate_id_description",
-	"numboxes": "0"
-}, {
-	"name": "playbook_item_legitimate_id_wink",
-	"description": "playbook_item_legitimate_id_wink_description",
-	"numboxes": "0"
-}, {
-	"name": "playbook_item_token_of_your_past",
-	"description": "playbook_item_token_of_your_past_description",
-	"numboxes": "0"
-}]
-},
-	"magdalite": {
-"ability": ["awakened_dreamer","synthesis","seasoned","intimacy","apothecary","enchanting","indulgent","maskers_dance","pledge","manifestation","nitrous","passion","treason"],
-"base": {
-	"friends_title": "playbook_magdalite_friends_title",
-	"finesse": "1",
-	"gatherinfo1": "gatherinfo_whats_their_intention",
-	"gatherinfo2": "gatherinfo_what_might_I_suspect",
-	"gatherinfo3": "gatherinfo_whats_the_danger_here",
-	"gatherinfo4": "gatherinfo_how_can_I_find",
-	"gatherinfo5": "gatherinfo_how_can_I_help_here",
-	"gatherinfo6": "gatherinfo_whats_going_on",
-	"gatherinfo7": "gatherinfo_detail_for_plan",
-  "playbook_description": "playbook_magdalite_description",
-  "playbook_background": "playbook_magdalite_background",
-  "playbook_eminence": "playbook_magdalite_eminence",
-  "craft": "2",
-	"xp_condition": "playbook_magdalite_xp_condition"
-},
-"playbookitem": [{
-	"bold": "1",
-	"name": "playbook_item_data_cloner",
-	"description": "playbook_item_data_cloner_description",
-	"numboxes": "1"
-}, {
-	"bold": "1",
-	"name": "playbook_item_fine_research_gear",
-	"description": "playbook_item_fine_research_gear_description",
-	"numboxes": "2"
-}, {
-	"name": "playbook_item_books_and_journals",
-	"description": "playbook_item_books_and_journals_description",
-	"numboxes": "3"
-}, {
-	"name": "playbook_item_notebooks",
-	"description": "playbook_item_notebooks_description",
-	"numboxes": "0"
-}, {
-	"name": "playbook_item_translation_codex",
-	"description": "playbook_item_translation_codex_description",
-	"numboxes": "0"
-}, {
-	"name": "playbook_item_worn_book",
-	"description": "playbook_item_worn_book_description",
-	"numboxes": "0"
-}]
-},
-	"Terasheban": {
-"ability": ["awakened_dreamer","synthesis","seasoned","mastermind", "connected", "investigator", "meticulous", "prescience", "scholar", "trailblazer", "tradition", "truthsaying", "habeascorpus"],
-"base": {
-	"friends_title": "playbook_Terasheban_friends_title",
-	"craft": "1",
-	"gatherinfo1": "gatherinfo_whats_their_intention",
-	"gatherinfo2": "gatherinfo_what_might_I_suspect",
-	"gatherinfo3": "gatherinfo_whats_the_danger_here",
-	"gatherinfo4": "gatherinfo_how_can_I_find",
-	"gatherinfo5": "gatherinfo_how_can_I_help_here",
-	"gatherinfo6": "gatherinfo_whats_going_on",
-	"gatherinfo7": "gatherinfo_detail_for_plan",
-  "playbook_description": "playbook_Terasheban_description",
-  "playbook_background": "playbook_Terasheban_background",
-  "playbook_eminence": "playbook_Terasheban_eminence",  
-	"hunt": "2",
-	"xp_condition": "playbook_Terasheban_xp_condition"
-},
-"playbookitem": [{
-	"bold": "1",
-	"name": "playbook_item_fine_repair_tools",
-	"description": "playbook_item_fine_repair_tools_description",
-	"numboxes": "1"
-}, {
-	"bold": "1",
-	"name": "playbook_item_fine_splicekit",
-	"description": "playbook_item_fine_splicekit_description",
-	"numboxes": "2"
-}, {
-	"bold": "1",
-	"name": "playbook_item_spare_parts",
-	"description": "playbook_item_spare_parts_description",
-	"numboxes": "1"
-}, {
-	"name": "playbook_item_magnifying_lenses",
-	"description": "playbook_item_magnifying_lenses_description",
-	"numboxes": "0"
-}, {
-	"name": "playbook_item_stasis_pack",
-	"description": "playbook_item_stasis_pack_description",
-	"numboxes": "2"
-}, {
-	"name": "playbook_item_relic_fragment",
-	"description": "playbook_item_relic_fragment_description",
-	"numboxes": "0"
-}]
-},
-	"Yagan": {
-"ability": ["awakened_dreamer","synthesis","seasoned","mystic","fleshcrafter","fleshseer","masterbonecrafter","reaper","secondsight","spiritcaller","celticcross","curseofdream","dreamtravel"],
-"base": {
-	"friends_title": "playbook_Yagan_friends_title",
-	"finesse": "1",
-	"gatherinfo1": "gatherinfo_whats_their_intention",
-	"gatherinfo2": "gatherinfo_what_might_I_suspect",
-	"gatherinfo3": "gatherinfo_whats_the_danger_here",
-	"gatherinfo4": "gatherinfo_how_can_I_find",
-	"gatherinfo5": "gatherinfo_how_can_I_help_here",
-	"gatherinfo6": "gatherinfo_whats_going_on",
-	"gatherinfo7": "gatherinfo_detail_for_plan",
-  "playbook_description": "playbook_Yagan_description",
-  "playbook_background": "playbook_Yagan_background",
-  "playbook_eminence": "playbook_Yagan_eminence",  
-	"trick": "2",
-	"xp_condition": "playbook_Yagan_xp_condition"
-},
-"playbookitem": [{
-	"bold": "1",
-	"name": "playbook_item_fine_charmwork_tools",
-	"description": "playbook_item_fine_charmwork_tools_description",
-	"numboxes": "1"
-}, {
-	"bold": "1",
-	"name": "playbook_item_fine_healing_supplies",
-	"description": "playbook_item_fine_healing_supplies_description",
-	"numboxes": "1"
-}, {
-	"name": "playbook_item_familiar",
-	"description": "playbook_item_familiar_description",
-	"numboxes": "0"
-}, {
-	"name": "playbook_item_arcana_zero",
-	"description": "playbook_item_arcana_zero_description",
-	"numboxes": "0"
-}, {
-	"name": "playbook_item_small_totems",
-	"description": "playbook_item_small_totems_description",
-	"numboxes": "0"
-}, {
-	"name": "playbook_item_book_of_legends",
-	"description": "playbook_item_book_of_legends_description",
-	"numboxes": "0"
-}]
-},
-	"dahlian": {
-	"ability": ["awakened_dreamer","synthesis","seasoned","jack_of_all_trades", "behind_the_mask", "guile", "mirror_mirror", "trade_network", "worldly", "dahlias_doorway", "dance_of_masks", "metamorphosis", "puppet_show"],
-	"base": {
-		"friends_title": "playbook_dahlian_friends_title",
-		"long_thought": "1",
-		"influence": "1",
-		"gatherinfo1": "gatherinfo_whats_their_intention",
-		"gatherinfo2": "gatherinfo_what_might_I_suspect",
-		"gatherinfo3": "gatherinfo_whats_the_danger_here",
-		"gatherinfo4": "gatherinfo_how_can_I_find",
-		"gatherinfo5": "gatherinfo_how_can_I_help_here",
-		"gatherinfo6": "gatherinfo_whats_going_on",
-		"gatherinfo7": "gatherinfo_detail_for_plan",
-    "playbook_description": "playbook_dahlian_description",
-    "playbook_background": "playbook_dahlian_background",
-    "playbook_eminence": "playbook_dahlian_eminence",  
-		"craft": "2",
-		"xp_condition": "playbook_dahlian_xp_condition"
-	},
-	"playbookitem": [{
-		"name": "playbook_item_signal_flares",
-		"description": "playbook_item_signal_flares_description",
-		"numboxes": "1"
-	}, {
-		"name": "playbook_item_forged_documents",
-		"description": "playbook_item_forged_documents_description",
-		"numboxes": "0"
-	}, {
-		"name": "playbook_item_dossiers",
-		"description": "playbook_item_dossiers_description",
-		"numboxes": "0"
-	}, {
-		"name": "playbook_item_stun_charge",
-		"description": "playbook_item_stun_charge_description",
-		"numboxes": "1"
-	}, {
-		"name": "playbook_item_recon_beetle",
-		"description": "playbook_item_recon_beetle_description",
-		"numboxes": "0"
-	}, {
-		"name": "playbook_item_log_book",
-		"description": "playbook_item_log_book_description",
-		"numboxes": "1"
-	}]
-	}
+  "xp_condition": "playbook_evan_xp_condition"
+  },
+  "playbookitem": [{
+  "name": "playbook_item_camo_gear",  
+  "description": "playbook_item_camo_gear_description",   
+  "numboxes": "2"
+  }, {
+  "name": "playbook_item_eva_medallion",
+  "description": "playbook_item_eva_medallion_description",
+  "numboxes": "0"
+  }, {
+    "name": "playbook_item_farming_implements",
+    "description": "playbook_item_farming_implements_description",
+    "numboxes": "1"
+  }, {
+    "name": "playbook_item_fresh_food",
+    "description": "playbook_item_fresh_food_description",
+    "numboxes": "1"
+  }, {
+    "name": "playbook_item_hunting_companion",
+    "description": "playbook_item_hunting_companion_description",
+    "numboxes": "0"
+  }, {
+  "name": "playbook_item_medicine_satchel",
+  "description": "playbook_item_medicine_satchel_description",
+  "numboxes": "1"
+  }]
+  },
+  "joanite": {
+    "ability": ["awakened_dreamer","synthesis","seasoned","master_at_arms", "archer", "bastion", "cavalry", "hard_to_kill", "virtuous", "battle", "righteousness", "sacrifice", "winters_cloak"],
+    "base": {
+    "friends_title": "playbook_joanite_friends_title",
+    "fight": "2",
+    "gatherinfo1": "gatherinfo_whats_their_intention",
+    "gatherinfo2": "gatherinfo_what_might_I_suspect",
+    "gatherinfo3": "gatherinfo_whats_the_danger_here",
+    "gatherinfo4": "gatherinfo_how_can_I_find",
+    "gatherinfo5": "gatherinfo_how_can_I_help_here",
+    "gatherinfo6": "gatherinfo_whats_going_on",
+    "gatherinfo7": "gatherinfo_detail_for_plan",
+    "playbook_description": "playbook_joanite_description",
+    "playbook_background": "playbook_joanite_background",
+    "playbook_eminence": "playbook_joanite_eminence",
+    "force": "1",
+    "xp_condition": "playbook_joanite_xp_condition"
+    },
+    "playbookitem": [ {
+    "bold": "1",
+    "name": "playbook_item_fine_armor",
+    "description": "playbook_item_fine_armor_description",
+    "numboxes": "2"
+    }, {
+    "bold": "1",
+    "name": "playbook_item_fine_hand_weapon",
+    "description": "playbook_item_fine_hand_weapon_description",
+    "numboxes": "1"
+    }, {
+    "bold": "1",
+    "name": "playbook_item_fine_longbow",
+    "description": "playbook_item_fine_longbow_description",
+    "numboxes": "1"
+    }, {
+    "bold": "1",
+    "name": "playbook_item_fine_shield",
+    "description": "playbook_item_fine_shield_description",
+    "numboxes": "1"
+    }, {
+    "name": "playbook_item_metalworking_tools",
+    "description": "playbook_item_metalworking_tools_description",
+    "numboxes": "2"
+    }, {
+    "name": "playbook_item_training_token",
+    "description": "playbook_item_training_token_description",
+    "numboxes": "0"
+    }]
+  },
+  "magdalite": {
+    "ability": ["awakened_dreamer","synthesis","seasoned","intimacy","apothecary","enchanting","indulgent","maskers_dance","pledge","manifestation","nitrous","passion","treason"],
+    "base": {
+    "friends_title": "playbook_magdalite_friends_title",
+    "finesse": "1",
+    "gatherinfo1": "gatherinfo_whats_their_intention",
+    "gatherinfo2": "gatherinfo_what_might_I_suspect",
+    "gatherinfo3": "gatherinfo_whats_the_danger_here",
+    "gatherinfo4": "gatherinfo_how_can_I_find",
+    "gatherinfo5": "gatherinfo_how_can_I_help_here",
+    "gatherinfo6": "gatherinfo_whats_going_on",
+    "gatherinfo7": "gatherinfo_detail_for_plan",
+    "playbook_description": "playbook_magdalite_description",
+    "playbook_background": "playbook_magdalite_background",
+    "playbook_eminence": "playbook_magdalite_eminence",
+    "consort": "2",
+    "xp_condition": "playbook_magdalite_xp_condition"
+    },
+    "playbookitem": [{
+    "name": "playbook_item_drug_satchel",
+    "description": "playbook_item_drug_satchel_description",
+    "numboxes": "1"
+    }, {
+    "bold": "1",
+    "name": "playbook_item_fine_clothes",
+    "description": "playbook_item_fine_clothes_description",
+    "numboxes": "0"
+    }, {
+    "bold": "1",
+    "name": "playbook_item_fine_musical_instrument",
+    "description": "playbook_item_fine_musical_instrument_description",
+    "numboxes": "1"
+    }, {
+    "bold": "1",
+    "name": "playbook_item_luxury_item",
+    "description": "playbook_item_luxury_item_description",
+    "numboxes": "1"
+    }, {
+    "name": "playbook_item_mask",
+    "description": "playbook_item_mask_description",
+    "numboxes": "0"
+    }, {
+    "name": "playbook_item_small_concealed_weapon",
+    "description": "playbook_item_small_concealed_weapon_description",
+    "numboxes": "1"
+    }]
+  },
+  "Terasheban": {
+    "ability": ["awakened_dreamer","synthesis","seasoned","mastermind", "connected", "investigator", "meticulous", "prescience", "scholar", "trailblazer", "tradition", "truthsaying", "habeascorpus"],
+    "base": {
+    "friends_title": "playbook_Terasheban_friends_title",
+    "study": "2",
+    "gatherinfo1": "gatherinfo_whats_their_intention",
+    "gatherinfo2": "gatherinfo_what_might_I_suspect",
+    "gatherinfo3": "gatherinfo_whats_the_danger_here",
+    "gatherinfo4": "gatherinfo_how_can_I_find",
+    "gatherinfo5": "gatherinfo_how_can_I_help_here",
+    "gatherinfo6": "gatherinfo_whats_going_on",
+    "gatherinfo7": "gatherinfo_detail_for_plan",
+    "playbook_description": "playbook_Terasheban_description",
+    "playbook_background": "playbook_Terasheban_background",
+    "playbook_eminence": "playbook_Terasheban_eminence",  
+    "survey": "1",
+    "xp_condition": "playbook_Terasheban_xp_condition"
+    },
+    "playbookitem": [{
+    "name": "playbook_item_books_and_journals",
+    "description": "playbook_item_books_and_journals_description",
+    "numboxes": "1"
+    }, {
+    "bold": "1",
+    "name": "playbook_item_fine_robes",
+    "description": "playbook_item_fine_robes_description",
+    "numboxes": "0"
+    },  {
+    "name": "playbook_item_lantern_staff",
+    "description": "playbook_item_lantern_staff_description",
+    "numboxes": "1"
+    }, {
+    "name": "playbook_item_notebooks",
+    "description": "playbook_item_notebooks_description",
+    "numboxes": "1"
+    }, {
+    "name": "playbook_item_light_exploration_gear",
+    "description": "playbook_item_light_exploration_gear_description",
+    "numboxes": "1"
+    }, {
+    "name": "playbook_item_worn_book",
+    "description": "playbook_item_worn_book_description",
+    "numboxes": "1"
+    }]
+  },
+  "Yagan": {
+    "ability": ["awakened_dreamer","synthesis","seasoned","mystic","fleshcrafter","fleshseer","masterbonecrafter","reaper","secondsight","spiritcaller","celticcross","curseofdream","dreamtravel"],
+    "base": {
+    "friends_title": "playbook_Yagan_friends_title",
+    "survey": "1",
+    "gatherinfo1": "gatherinfo_whats_their_intention",
+    "gatherinfo2": "gatherinfo_what_might_I_suspect",
+    "gatherinfo3": "gatherinfo_whats_the_danger_here",
+    "gatherinfo4": "gatherinfo_how_can_I_find",
+    "gatherinfo5": "gatherinfo_how_can_I_help_here",
+    "gatherinfo6": "gatherinfo_whats_going_on",
+    "gatherinfo7": "gatherinfo_detail_for_plan",
+    "playbook_description": "playbook_Yagan_description",
+    "playbook_background": "playbook_Yagan_background",
+    "playbook_eminence": "playbook_Yagan_eminence",  
+    "dream": "2",
+    "xp_condition": "playbook_Yagan_xp_condition"
+    },
+    "playbookitem": [{
+    "name": "playbook_item_fine_ritual_implements",
+    "description": "playbook_item_fine_ritual_implements_description",
+    "numboxes": "1"
+    }, {
+    "bold": "1",
+    "name": "playbook_item_fine_bone_item",
+    "description": "playbook_item_fine_bone_item_description",
+    "numboxes": "1"
+    }, {
+    "bold": "1",
+    "name": "playbook_item_fine_knife",
+    "description": "playbook_item_fine_knife_description",
+    "numboxes": "1"
+    }, {
+    "name": "playbook_item_poison_satchel",
+    "description": "playbook_item_poison_satchel_description",
+    "numboxes": "1"
+    }, {
+    "name": "playbook_item_skin_book",
+    "description": "playbook_item_skin_book_description",
+    "numboxes": "1"
+    }, {
+    "name": "playbook_item_spirit_charms",
+    "description": "playbook_item_spirit_charms_description",
+    "numboxes": "1"
+    }]
+  }
 },
 	"factions": {
 		"factions1": [{
@@ -2883,46 +2879,6 @@ const data = {
 	},
 	"traumas": ["adrift", "cold", "haunted", "obsessed", "paranoid", "reckless","shattered", "soft", "unstable", "vicious"],
 	"items": [{
-		"name": "simple_comms",
-		"description": "simple_comms_description",
-		"numboxes": "0"
-	}, {
-		"name": "lumeslate",
-		"description": "lumeslate_description",
-		"numboxes": "0"
-	}, {
-		"name": "analysis_pack",
-		"description": "analysis_pack_description",
-		"numboxes": "2"
-	}, {
-		"name": "comms_pack",
-		"description": "comms_pack_description",
-		"numboxes": "1"
-	}, {
-		"name": "survival_pack",
-		"description": "survival_pack_description",
-		"numboxes": "2"
-	}, {
-		"name": "medkit",
-		"description": "medkit_description",
-		"numboxes": "1"
-	}, {
-		"name": "blade_or_hammer",
-		"description": "blade_or_hammer_description",
-		"numboxes": "1"
-	}, {
-		"name": "sparkshot",
-		"description": "sparkshot_description",
-		"numboxes": "1"
-	}, {
-		"name": "strange_weapon",
-		"description": "strange_weapon_description",
-		"numboxes": "1"
-	}, {
-		"name": "assault_ordnance",
-		"description": "assault_ordnance_description",
-		"numboxes": "2"
-	}, {
 		"name": "armor",
 		"description": "armor_description",
 		"numboxes": "1",
@@ -2933,25 +2889,67 @@ const data = {
 		"numboxes": "2",
 		"short": "1"
 	}, {
-		"name": "charmwork_tools",
-		"description": "charmwork_tools_description",
+		"name": "bow",
+		"description": "bow_description",
 		"numboxes": "1"
 	}, {
-		"name": "repair_tools",
-		"description": "repair_tools_description",
+		"name": "crafting_tools",
+		"description": "crafting_tools_description",
 		"numboxes": "1"
 	}, {
-		"name": "demolition_tools",
-		"description": "demolition_tools_description",
+		"name": "documents",
+		"description": "documents_description",
+    "numboxes": "1",
+	}, {
+		"name": "exploration_gear",
+		"description": "exploration_gear_description",
 		"numboxes": "2"
 	}, {
-		"name": "infiltration_kit",
-		"description": "infiltration_kit_description",
+		"name": "hand_weapon",
+		"description": "hand_weapon_description",
 		"numboxes": "1"
 	}, {
-		"name": "jumpkit",
-		"description": "jumpkit_description",
+		"name": "hunting_gear",
+		"description": "hunting_gear_description",
+		"numboxes": "1"
+	}, {
+		"name": "large_weapon",
+		"description": "large_weapon_description",
 		"numboxes": "2"
+	}, {
+		"name": "ritual_implements",
+		"description": "ritual_implements_description",
+		"numboxes": "1"
+	}, {
+		"name": "shield",
+		"description": "shield_description",
+		"numboxes": "1",
+		"short": "1"
+	}, {
+		"name": "shield_heavy",
+		"description": "shield_heavy_description",
+    "numboxes": "1",
+		"short": "1"
+	}, {
+		"name": "small_medallion",
+		"description": "small_medallion_description",
+		"numboxes": "0"
+	}, {
+		"name": "survival_gear",
+		"description": "survival_gear_description",
+		"numboxes": "1"
+	}, {
+		"name": "thrown_weapon",
+		"description": "thrown_weapon_description",
+		"numboxes": "1"
+	}, {
+		"name": "unusual_weapon",
+		"description": "unusual_weapon_description",
+		"numboxes": "1"
+	}, {
+		"name": "winter_clothes",
+		"description": "winter_clothes_description",
+		"numboxes": "1"
 	}],
 	"translatedDefaults": {
 		"cohort1_name": "expert",
@@ -3000,13 +2998,13 @@ const data = {
 		"dream": "0",
 		"influence": "0",
 		"finesse": "0",
-		"trace": "0",
 		"lurk": "0",
 		"fight": "0",
 		"hunt": "0",
 		"craft": "0",
 		"consort": "0",
-		"study": "0",
+    "study": "0",
+    "survey": "0",
 		"force": "0"
 	},
 	"maxFriendsPerPlaybook": 5,
