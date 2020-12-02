@@ -3157,7 +3157,7 @@ button[type=roll].sheet-broadcast-button {
 
 
 /* outlook */
-.sheet-outlooks .sheet-title {
+.sheet-outlooks .sheet-title .sheet-focus {
   display: grid;
   grid: auto / 30% 70%;  
   background: #d8d8d8;
@@ -3172,7 +3172,7 @@ button[type=roll].sheet-broadcast-button {
   margin-left: -12px;
 }
 
-.sheet-outlooks .sheet-content {
+.sheet-outlooks .sheet-content .sheet-focus {
   padding: 4px 8px;
   font-size: 11px;
   display: grid;
@@ -3198,11 +3198,11 @@ button[type=roll].sheet-broadcast-button {
   margin-right: 3px;
 }
 
-.sheet-outlook-traits-chosen[value="1"] + .sheet-content {
+.sheet-outlook-traits-chosen[value="1"] + .sheet-content .sheet-focus {
   grid: auto / auto;
 }
 
-.sheet-outlook-traits-chosen[value="1"] + .sheet-content .sheet-outlook {
+.sheet-outlook-traits-chosen[value="1"] + .sheet-content .sheet-outlook .sheet-focus {
   font-size: 12px;
 }
 
@@ -3210,7 +3210,7 @@ button[type=roll].sheet-broadcast-button {
   display: none;
 }
 
-.sheet-outlook-traits-chosen[value="1"] + .sheet-content .sheet-traits {
+.sheet-outlook-traits-chosen[value="1"] + .sheet-content .sheet-traits .sheet-focus {
   display: grid;
   grid: auto / 1fr 1fr;
 }
