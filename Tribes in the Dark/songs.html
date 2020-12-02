@@ -1463,9 +1463,14 @@
               </div>
             </fieldset>
           </div>
-
+          
+          <div class="blackheader col100 label flex-center">
+            <input class="inherit" type="text" spellcheck="false" name="attr_focus_title" value="Focus  " />
+          </div>
+            
           <!--Focuses-->
           <div class="regularitems flex-wrap col100">
+            <!-- Community -->
             <div class="specialheader col100 label flex">
               <input class="inherit" type="text" spellcheck="false" name="attr_community_title" value="Community" />
             </div>
@@ -1564,6 +1569,7 @@
                 </div>
               </fieldset>
             </div>
+            <!-- Sanctuary -->
             <div class="specialheader col100 label flex">
               <input class="inherit" type="text" spellcheck="false" name="attr_sanctuary_title" value="Sanctuary" />
             </div>
@@ -1670,33 +1676,7 @@
                 <textarea spellcheck="false" name="attr_upgrade_sanctuary_8_description"
                   data-i18n-placeholder="upgrade_sanctuary_8_description"></textarea>
               </div>
-            </div>
-            <div class="col50">
-              <div class="item">
-                <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_sanctuary_9_check_1"
-                  value="1" /><span></span>
-                <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_sanctuary_9_name"
-                  data-i18n-placeholder="upgrade_sanctuary_9_name" />
-              </div>
-              <div class="item-description">
-                <input class="expand" type="checkbox" name="attr_upgrade_sanctuary_9_expand" value="1" /><span></span>
-                <textarea spellcheck="false" name="attr_upgrade_sanctuary_9_description"
-                  data-i18n-placeholder="upgrade_sanctuary_9_description"></textarea>
-              </div>
-            </div>
-            <div class="col50">
-              <div class="item">
-                <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_sanctuary_10_check_1"
-                  value="1" /><span></span>
-                <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_sanctuary_10_name"
-                  data-i18n-placeholder="upgrade_sanctuary_10_name" />
-              </div>
-              <div class="item-description">
-                <input class="expand" type="checkbox" name="attr_upgrade_sanctuary_10_expand" value="1" /><span></span>
-                <textarea spellcheck="false" name="attr_upgrade_sanctuary_10_description"
-                  data-i18n-placeholder="upgrade_sanctuary_10_description"></textarea>
-              </div>
-            </div>
+            </div>            
             <div class="item col50"><span class="label" data-i18n="training"></span></div>
             <div class="item col50"><span class="label" data-i18n="cohorts"></span></div>
             <div class="col50">
@@ -1752,10 +1732,297 @@
                   data-i18n-placeholder="description">Earn 2 xp when training playbook during downtime.</textarea>
               </div>
             </div>
+            <div class="col50"></div>
+            <div class=col100>
+            <div class="item">
+              <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_mastery_check_1" value="1"/><span></span><span class="floatingbar"></span>
+              <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_mastery_check_2" value="1"/><span></span><span class="floatingbar"></span>
+              <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_mastery_check_3" value="1"/><span></span><span class="floatingbar"></span>
+              <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_mastery_check_4" value="1"/><span></span>
+              <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_mastery_name" value="Mastery"/>
+            </div>
+            <div class="item-description">
+              <input class="expand" type="checkbox" value="1"/><span></span>
+              <textarea spellcheck="false" name="attr_upgrade_mastery_description" data-i18n-placeholder="description">Your Cell has access to master level training. You may advance your PCs' action ratings to 4 (until you unlock this upgrade, PC action ratings are capped at 3). This costs four upgrade boxes to unlock.</textarea>
+            </div>
           </div>
-          
-          
+          <!-- supply -->
+          <div class="specialheader col100 label flex">
+            <input class="inherit" type="text" spellcheck="false" name="attr_supply_title" value="supply" />
+          </div>
+          <div class="item col50"><span class="label" data-i18n="quality"></span></div>
+            <div class="item col50"><span class="label" data-i18n="load"></span></div>
+          <div class="col50">
+            <div class="item">
+              <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_supply_1_check_1"
+                value="1" /><span></span>
+              <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_supply_1_name"
+                data-i18n-placeholder="upgrade_supply_1_name" />
+            </div>
+            <div class="item-description">
+              <input class="expand" type="checkbox" name="attr_upgrade_supply_1_expand" value="1" /><span></span>
+              <textarea spellcheck="false" name="attr_upgrade_supply_1_description"
+                data-i18n-placeholder="upgrade_supply_1_description"></textarea>
+            </div>
+          </div>
+          <div class="col50">
+            <div class="item">
+              <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_supply_2_check_1"
+                value="1" /><span></span>
+              <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_supply_2_name"
+                data-i18n-placeholder="upgrade_supply_2_name" />
+            </div>
+            <div class="item-description">
+              <input class="expand" type="checkbox" name="attr_upgrade_supply_2_expand" value="1" /><span></span>
+              <textarea spellcheck="false" name="attr_upgrade_supply_2_description"
+                data-i18n-placeholder="upgrade_supply_2_description"></textarea>
+            </div>
+          </div>
+          <div class="col50">
+            <div class="item">
+              <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_supply_3_check_1"
+                value="1" /><span></span>
+              <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_supply_3_name"
+                data-i18n-placeholder="upgrade_supply_3_name" />
+            </div>
+            <div class="item-description">
+              <input class="expand" type="checkbox" name="attr_upgrade_supply_3_expand" value="1" /><span></span>
+              <textarea spellcheck="false" name="attr_upgrade_supply_3_description"
+                data-i18n-placeholder="upgrade_supply_3_description"></textarea>
+            </div>
+          </div>
+          <div class="col50">
+            <div class="item">
+              <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_supply_4_check_1"
+                value="1" /><span></span>
+              <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_supply_4_name"
+                data-i18n-placeholder="upgrade_supply_4_name" />
+            </div>
+            <div class="item-description">
+              <input class="expand" type="checkbox" name="attr_upgrade_supply_4_expand" value="1" /><span></span>
+              <textarea spellcheck="false" name="attr_upgrade_supply_4_description"
+                data-i18n-placeholder="upgrade_supply_4_description"></textarea>
+            </div>
+          </div>
+          <div class="col50">
+            <div class="item">
+              <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_supply_5_check_1"
+                value="1" /><span></span>
+              <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_supply_5_name"
+                data-i18n-placeholder="upgrade_supply_5_name" />
+            </div>
+            <div class="item-description">
+              <input class="expand" type="checkbox" name="attr_upgrade_supply_5_expand" value="1" /><span></span>
+              <textarea spellcheck="false" name="attr_upgrade_supply_5_description"
+                data-i18n-placeholder="upgrade_supply_5_description"></textarea>
+            </div>
+          </div>
+          <div class="col50">
+            <div class="item">
+              <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_supply_6_check_1"
+                value="1" /><span></span>
+              <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_supply_6_name"
+                data-i18n-placeholder="upgrade_supply_6_name" />
+            </div>
+            <div class="item-description">
+              <input class="expand" type="checkbox" name="attr_upgrade_supply_6_expand" value="1" /><span></span>
+              <textarea spellcheck="false" name="attr_upgrade_supply_6_description"
+                data-i18n-placeholder="upgrade_supply_6_description"></textarea>
+            </div>
+          </div>
+          <div class="col50">
+            <div class="item">
+              <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_supply_7_check_1"
+                value="1" /><span></span>
+              <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_supply_7_name"
+                data-i18n-placeholder="upgrade_supply_7_name" />
+            </div>
+            <div class="item-description">
+              <input class="expand" type="checkbox" name="attr_upgrade_supply_7_expand" value="1" /><span></span>
+              <textarea spellcheck="false" name="attr_upgrade_supply_7_description"
+                data-i18n-placeholder="upgrade_supply_7_description"></textarea>
+            </div>
+          </div>
+          <div class="col50">
+            <div class="item">
+              <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_supply_8_check_1"
+                value="1" /><span></span>
+              <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_supply_8_name"
+                data-i18n-placeholder="upgrade_supply_8_name" />
+            </div>
+            <div class="item-description">
+              <input class="expand" type="checkbox" name="attr_upgrade_supply_8_expand" value="1" /><span></span>
+              <textarea spellcheck="false" name="attr_upgrade_supply_8_description"
+                data-i18n-placeholder="upgrade_supply_8_description"></textarea>
+            </div>
+          </div>
+          <div class="col50">
+            <div class="item">
+              <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_supply_9_check_1"
+                value="1" /><span></span>
+              <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_supply_9_name"
+                data-i18n-placeholder="upgrade_supply_9_name" />
+            </div>
+            <div class="item-description">
+              <input class="expand" type="checkbox" name="attr_upgrade_supply_9_expand" value="1" /><span></span>
+              <textarea spellcheck="false" name="attr_upgrade_supply_9_description"
+                data-i18n-placeholder="upgrade_supply_9_description"></textarea>
+            </div>
+          </div>
+          <div class="col50">
+            <div class="item">
+              <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_supply_10_check_1"
+                value="1" /><span></span>
+              <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_supply_10_name"
+                data-i18n-placeholder="upgrade_supply_10_name" />
+            </div>
+            <div class="item-description">
+              <input class="expand" type="checkbox" name="attr_upgrade_supply_10_expand" value="1" /><span></span>
+              <textarea spellcheck="false" name="attr_upgrade_supply_10_description"
+                data-i18n-placeholder="upgrade_supply_10_description"></textarea>
+            </div>         
         </div>
+        <!-- Vision -->
+        <div class="specialheader col100 label flex">
+          <input class="inherit" type="text" spellcheck="false" name="attr_vision_title" value="vision" />
+        </div>
+        <div class="col50">
+          <div class="item">
+            <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_vision_1_check_1"
+              value="1" /><span></span>
+            <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_vision_1_name"
+              data-i18n-placeholder="upgrade_vision_1_name" />
+          </div>
+          <div class="item-description">
+            <input class="expand" type="checkbox" name="attr_upgrade_vision_1_expand" value="1" /><span></span>
+            <textarea spellcheck="false" name="attr_upgrade_vision_1_description"
+              data-i18n-placeholder="upgrade_vision_1_description"></textarea>
+          </div>
+        </div>
+        <div class="col50">
+          <div class="item">
+            <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_vision_2_check_1"
+              value="1" /><span></span>
+            <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_vision_2_name"
+              data-i18n-placeholder="upgrade_vision_2_name" />
+          </div>
+          <div class="item-description">
+            <input class="expand" type="checkbox" name="attr_upgrade_vision_2_expand" value="1" /><span></span>
+            <textarea spellcheck="false" name="attr_upgrade_vision_2_description"
+              data-i18n-placeholder="upgrade_vision_2_description"></textarea>
+          </div>
+        </div>
+        <div class="col50">
+          <div class="item">
+            <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_vision_3_check_1"
+              value="1" /><span></span>
+            <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_vision_3_name"
+              data-i18n-placeholder="upgrade_vision_3_name" />
+          </div>
+          <div class="item-description">
+            <input class="expand" type="checkbox" name="attr_upgrade_vision_3_expand" value="1" /><span></span>
+            <textarea spellcheck="false" name="attr_upgrade_vision_3_description"
+              data-i18n-placeholder="upgrade_vision_3_description"></textarea>
+          </div>
+        </div>
+        <div class="col50">
+          <div class="item">
+            <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_vision_4_check_1"
+              value="1" /><span></span>
+            <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_vision_4_name"
+              data-i18n-placeholder="upgrade_vision_4_name" />
+          </div>
+          <div class="item-description">
+            <input class="expand" type="checkbox" name="attr_upgrade_vision_4_expand" value="1" /><span></span>
+            <textarea spellcheck="false" name="attr_upgrade_vision_4_description"
+              data-i18n-placeholder="upgrade_vision_4_description"></textarea>
+          </div>
+        </div>
+        <div class="col50">
+          <div class="item">
+            <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_vision_5_check_1"
+              value="1" /><span></span>
+            <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_vision_5_name"
+              data-i18n-placeholder="upgrade_vision_5_name" />
+          </div>
+          <div class="item-description">
+            <input class="expand" type="checkbox" name="attr_upgrade_vision_5_expand" value="1" /><span></span>
+            <textarea spellcheck="false" name="attr_upgrade_vision_5_description"
+              data-i18n-placeholder="upgrade_vision_5_description"></textarea>
+          </div>
+        </div>
+        <div class="col50">
+          <div class="item">
+            <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_vision_6_check_1"
+              value="1" /><span></span>
+            <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_vision_6_name"
+              data-i18n-placeholder="upgrade_vision_6_name" />
+          </div>
+          <div class="item-description">
+            <input class="expand" type="checkbox" name="attr_upgrade_vision_6_expand" value="1" /><span></span>
+            <textarea spellcheck="false" name="attr_upgrade_vision_6_description"
+              data-i18n-placeholder="upgrade_vision_6_description"></textarea>
+          </div>
+        </div>
+        <div class="col50">
+          <div class="item">
+            <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_vision_7_check_1"
+              value="1" /><span></span>
+            <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_vision_7_name"
+              data-i18n-placeholder="upgrade_vision_7_name" />
+          </div>
+          <div class="item-description">
+            <input class="expand" type="checkbox" name="attr_upgrade_vision_7_expand" value="1" /><span></span>
+            <textarea spellcheck="false" name="attr_upgrade_vision_7_description"
+              data-i18n-placeholder="upgrade_vision_7_description"></textarea>
+          </div>
+        </div>
+        <div class="col50">
+          <div class="item">
+            <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_vision_8_check_1"
+              value="1" /><span></span>
+            <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_vision_8_name"
+              data-i18n-placeholder="upgrade_vision_8_name" />
+          </div>
+          <div class="item-description">
+            <input class="expand" type="checkbox" name="attr_upgrade_vision_8_expand" value="1" /><span></span>
+            <textarea spellcheck="false" name="attr_upgrade_vision_8_description"
+              data-i18n-placeholder="upgrade_vision_8_description"></textarea>
+          </div>
+        </div>
+        <div class="col50">
+          <div class="item">
+            <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_vision_9_check_1"
+              value="1" /><span></span>
+            <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_vision_9_name"
+              data-i18n-placeholder="upgrade_vision_9_name" />
+          </div>
+          <div class="item-description">
+            <input class="expand" type="checkbox" name="attr_upgrade_vision_9_expand" value="1" /><span></span>
+            <textarea spellcheck="false" name="attr_upgrade_vision_9_description"
+              data-i18n-placeholder="upgrade_vision_9_description"></textarea>
+          </div>
+        </div>
+        <div class="col50">
+          <div class="item">
+            <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_vision_10_check_1"
+              value="1" /><span></span>
+            <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_vision_10_name"
+              data-i18n-placeholder="upgrade_vision_10_name" />
+          </div>
+          <div class="item-description">
+            <input class="expand" type="checkbox" name="attr_upgrade_vision_10_expand" value="1" /><span></span>
+            <textarea spellcheck="false" name="attr_upgrade_vision_10_description"
+              data-i18n-placeholder="upgrade_vision_10_description"></textarea>
+          </div>
+        
+        
+      </div>          
+        </div>
+        
+          
+          
+      </div>
 
 
         <div class="hunting-grounds col100 def-margin">

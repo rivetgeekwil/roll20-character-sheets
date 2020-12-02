@@ -407,6 +407,15 @@
 .sheet-col100 {
   width: 100%;
 }
+
+.sheet-floatingbar {
+  width: 3px;
+  height: 2px;
+  margin: 8px 0 0 -3px;
+  flex: 0 0 auto;
+  background: #8c8c8c;
+}
+
 /* FONT STYLES */
 .sheet-label,
 input[type=text].sheet-label,
