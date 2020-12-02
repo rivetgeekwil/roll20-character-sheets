@@ -29,7 +29,8 @@
 <input type="hidden" name="attr_playbook_xp_max" value="8" />
 <input type="hidden" name="attr_rep_max" value="12" />
 <input type="hidden" name="attr_turf_max" value="6" />
-<input type="hidden" name="attr_cell_tier_max" value="4" />
+<input type="hidden" name="attr_tier_max" value="4" />
+<input type="hidden" name="attr_community_max" value="4" />
 <input type="hidden" name="attr_notoriety_max" value="9" />
 <input type="hidden" name="attr_provocation_max" value="4" />
 <input type="hidden" name="attr_cellcoin_max" value="16" />
@@ -1214,23 +1215,21 @@
           <input type="text" spellcheck="false" name="attr_cell_name" />
           <div class="label text title" data-i18n="cell_name"></div>
         </label>
-        <label class="col45">
-          <div class="blackheader">
-            <button class="label inherit rollbutton" type="roll" name="roll_Tier"
-              value="&{template:bitd} {{charname=@{character_name}}} {{resist=1}} {{short=1}} {{title=^{cell_tier}}} {{subtitle=^{roll_their}}} @{cell_tier_formula} {{charimage=@{chat_image}}}"
-              data-i18n="tier"></button>
-            <input type="hidden" name="attr_cell_tier_formula"
-              value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}" />
+        <div class="rep-and-hold flex def-margin">
+
+           <div class="blackheader">
+            <button class="label inherit rollbutton" type="roll" name="roll_Tier" value="&{template:bitd} {{charname=@{character_name}}} {{resist=1}} {{short=1}} {{title=^{tier}}} {{subtitle=^{roll_their}}} @{tier_formula} {{charimage=@{chat_image}}}" data-i18n="tier"></button>
+            <input type="hidden" name="attr_tier_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
           </div>
           <div class="tier flex">
-            <input class="hidden fakeradio" type="checkbox" name="attr_cell_tier" value="0" checked="checked" />
-            <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_cell_tier" value="1" /><span></span>
-            <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_cell_tier" value="2" /><span></span>
-            <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_cell_tier" value="3" /><span></span>
-            <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_cell_tier" value="4" /><span></span>
+            <input class="hidden fakeradio" type="checkbox" name="attr_tier" value="0" checked="checked"/>
+            <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_tier" value="1"/><span></span>
+            <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_tier" value="2"/><span></span>
+            <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_tier" value="3"/><span></span>
+            <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_tier" value="4"/><span></span>
           </div>
 
-        </label>
+        </div>
         <label class="col55">
           <div class="auto-expand"><span name="attr_reputation"></span>
             <textarea spellcheck="false" name="attr_reputation"></textarea>
@@ -1464,15 +1463,24 @@
             </fieldset>
           </div>
           
+          <!--Focuses-->
           <div class="blackheader col100 label flex-center">
             <input class="inherit" type="text" spellcheck="false" name="attr_focus_title" value="Focus  " />
           </div>
             
-          <!--Focuses-->
+          
           <div class="regularitems flex-wrap col100">
             <!-- Community -->
             <div class="specialheader col100 label flex">
-              <input class="inherit" type="text" spellcheck="false" name="attr_community_title" value="Community" />
+              <button class="label inherit rollbutton" type="roll" name="roll_community" value="&{template:bitd} {{charname=@{character_name}}} {{resist=1}} {{short=1}} {{title=^{community}}} {{subtitle=^{roll_their}}} @{community_formula} {{charimage=@{chat_image}}}" data-i18n="community"></button>
+              <input type="hidden" name="attr_community_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
+            </div>
+            <div class="community flex">
+              <input class="hidden fakeradio" type="checkbox" name="attr_community" value="0" checked="checked"/>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_community" value="1"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_community" value="2"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_community" value="3"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_community" value="4"/><span></span>
             </div>
             <div class="col100">
               <div class="item">
@@ -3532,6 +3540,14 @@ function boolToFlag(v) {
   return v ? "1" : "0";
 }
 
+function handlePseudoRadio(name) {
+  on(`change:${name}`, event => {
+    if (`${event.newValue}` === "0" && event.sourceType === "player") {
+      setAttr(name, (parseInt(event.previousValue) || 1) - 1);
+    }
+    setAttr(`${name}_formula`, buildRollFormula(event.newValue || "0"));
+  });
+}
 const mySetAttrs = (attrs, options, callback) => {
 		const finalAttrs = Object.keys(attrs).reduce((m, k) => {
 			m[k] = `${attrs[k]}`;
@@ -3671,7 +3687,14 @@ const mySetAttrs = (attrs, options, callback) => {
   }),
   calculateProvocationFormula = () => getAttrs(["provocation"], v => {
 		setAttr("provocation_formula", buildRollFormula(v.provocation));
-	}),
+  }),
+  calculateTierFormula = () => getAttrs(["tier"], v => {
+		setAttr("tier_formula", buildRollFormula(v.tier));
+  }),
+  calculateCommunityFormula = () => getAttrs(["community"], v => {
+		setAttr("community_formula", buildRollFormula(v.community));
+  }), 
+
 	calculateCohortDice = prefixes => {
 		const sourceAttrs = [
 			"cell_tier",
@@ -3833,6 +3856,11 @@ Object.keys(data.actions).forEach(attrName => {
 on("change:stash", calculateStashFormula);
 on("change:wanted", calculateWantedFormula);
 on("change:provocation", calculateProvocationFormula);
+on("change:tier", calculateTierFormula);
+on("change:community", calculateCommunityFormula);
+
+
+
 /* Calculate trauma */
 on(data.traumas.map(x => `change:trauma_${x}`).join(" "), event => {
 	getAttrs(data.traumas.map(x => `trauma_${x}`), v => {
@@ -3891,14 +3919,9 @@ handleBoxesFill("bandolier1_check_");
 handleBoxesFill("bandolier2_check_");
 ["item", "playbookitem", "upgrade", "boon"].forEach(sName => handleBoxesFill(`repeating_${sName}:check_`));
 /* Pseudo-radios */
-["cell_tier", ...actionsFlat].forEach(name => {
-	on(`change:${name}`, event => {
-		if (String(event.newValue) === "0" && event.sourceType === "player") {
-			setAttr(name, (parseInt(event.previousValue) || 1) - 1);
-		}
-		setAttr(`${name}_formula`, buildRollFormula(event.newValue || "0"));
-	});
-});
+["cell_tier", ...actionsFlat].forEach(handlePseudoRadio);
+["community_tier", ...actionsFlat].forEach(handlePseudoRadio);
+
 /* Item reset button */
 on("change:reset_items", () => {
 	const clearChecks = sectionName => {

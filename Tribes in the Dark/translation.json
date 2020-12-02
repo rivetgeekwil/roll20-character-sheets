@@ -61,6 +61,7 @@
     "controlled": "Controlled",
     "cell": "cell",
     "show_advanced_abilities": "Show advanced abilities",
+    "lair": "lair",
 
     "augurs": "Augurs",
     "couriers": "Couriers",
@@ -372,7 +373,8 @@
     "cell_description": "A short cell description",
     "cell_mode": "cell Mode",
     "cell_sheet": "cell sheet",
-    "cell_tier": "cell Tier",
+    "cell_tier": "Cell Tier",
+
     "cell_upgrades": "Upgrades",
     "cell_boons": "Boons",
     "cautious": "Cautious",
@@ -870,6 +872,7 @@
     "veruka": "Veruka the Wraith, Fallen prophet",
     "upgrade_veruka_description": "She is the best known and considered wisest of the Doomsayers.",
     
+    "community_tier": "Community Tier",
     "cell_upgrade_altara": "Altara Ven, Fallen activist",
     "cell_upgrade_altara_description": "A Lightbringer determined to unite the Fallen. Altara is currently writing a Fallen manifesto.",    
     "cell_upgrade_aramis": "Judge Aramis, Tera Sheban Judge",

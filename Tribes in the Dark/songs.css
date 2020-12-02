@@ -355,6 +355,19 @@
 .sheet-tier .sheet-checkbox + span {
   margin-right: auto;
 }
+
+.sheet-community {
+  background: #d8d8d8;
+  height: 16px;
+  width: 56px;
+  align-items: center;
+}
+.sheet-community input[value="1"] {
+  margin-left: auto;
+}
+.sheet-community .sheet-checkbox + span {
+  margin-right: auto;
+}
 /* COLUMN LAYOUT */
 .sheet-flex {
   display: flex;
@@ -2033,6 +2046,10 @@ input.sheet-checkbox.sheet-squarebox-small, .sheet-checkbox.sheet-squarebox-smal
   background: #c7c7c7;
 }
 .sheet-tier .sheet-fakeradio:checked ~ .sheet-fakeradio + span {
+  background: white;
+}
+
+.sheet-community .sheet-fakeradio:checked ~ .sheet-fakeradio + span {
   background: white;
 }
 /* Friend triangles */
