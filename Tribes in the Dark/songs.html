@@ -31,6 +31,10 @@
 <input type="hidden" name="attr_turf_max" value="6" />
 <input type="hidden" name="attr_tier_max" value="4" />
 <input type="hidden" name="attr_community_max" value="4" />
+<input type="hidden" name="attr_sanctuary_max" value="4" />
+<input type="hidden" name="attr_supply_max" value="4" />
+<input type="hidden" name="attr_vision_max" value="4" />
+<input type="hidden" name="attr_doomsayers_max" value="4" />
 <input type="hidden" name="attr_notoriety_max" value="9" />
 <input type="hidden" name="attr_provocation_max" value="4" />
 <input type="hidden" name="attr_cellcoin_max" value="16" />
@@ -1314,7 +1318,7 @@
       <!-- Heat and Coin-->
       <div class="col100 flex heat-and-vault def-margin">
         <div class="blackheader cellcoin1">
-          <div class="label" data-i18n="supply"></div>
+          <div class="label" data-i18n="resources"></div>
         </div>
       </div>
       <!-- Coin and Stash-->
@@ -1466,15 +1470,14 @@
           <!--Focuses-->
           <div class="blackheader col100 label flex-center">
             <input class="inherit" type="text" spellcheck="false" name="attr_focus_title" value="Focus  " />
-          </div>
-            
+          </div>       
           
           <div class="regularitems flex-wrap col100">
             <!-- Community -->
-            <div class="specialheader col100 label flex">
+            <div class="specialheader col100 label flex">              
               <button class="label inherit rollbutton" type="roll" name="roll_community" value="&{template:bitd} {{charname=@{character_name}}} {{resist=1}} {{short=1}} {{title=^{community}}} {{subtitle=^{roll_their}}} @{community_formula} {{charimage=@{chat_image}}}" data-i18n="community"></button>
               <input type="hidden" name="attr_community_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
-            </div>
+            
             <div class="community flex">
               <input class="hidden fakeradio" type="checkbox" name="attr_community" value="0" checked="checked"/>
               <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_community" value="1"/><span></span>
@@ -1482,6 +1485,7 @@
               <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_community" value="3"/><span></span>
               <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_community" value="4"/><span></span>
             </div>
+          </div>
             <div class="col100">
               <div class="item">
                 <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_community_1_check_1"
@@ -1577,10 +1581,19 @@
                 </div>
               </fieldset>
             </div>
-            <!-- Sanctuary -->
-            <div class="specialheader col100 label flex">
-              <input class="inherit" type="text" spellcheck="false" name="attr_sanctuary_title" value="Sanctuary" />
+            <!-- Sanctuary -->          
+           <div class="specialheader col100 label flex">              
+            <button class="label inherit rollbutton" type="roll" name="roll_sanctuary" value="&{template:bitd} {{charname=@{character_name}}} {{resist=1}} {{short=1}} {{title=^{sanctuary}}} {{subtitle=^{roll_their}}} @{sanctuary_formula} {{charimage=@{chat_image}}}" data-i18n="sanctuary"></button>
+            <input type="hidden" name="attr_sanctuary_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
+            
+            <div class="community flex">
+              <input class="hidden fakeradio" type="checkbox" name="attr_sanctuary" value="0" checked="checked"/>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_sanctuary" value="1"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_sanctuary" value="2"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_sanctuary" value="3"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_sanctuary" value="4"/><span></span>
             </div>
+        </div>
             <div class="col50">
               <div class="item">
                 <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_sanctuary_1_check_1"
@@ -1754,10 +1767,19 @@
               <textarea spellcheck="false" name="attr_upgrade_mastery_description" data-i18n-placeholder="description">Your Cell has access to master level training. You may advance your PCs' action ratings to 4 (until you unlock this upgrade, PC action ratings are capped at 3). This costs four upgrade boxes to unlock.</textarea>
             </div>
           </div>
-          <!-- supply -->
-          <div class="specialheader col100 label flex">
-            <input class="inherit" type="text" spellcheck="false" name="attr_supply_title" value="supply" />
-          </div>
+          <!-- Supply -->           
+           <div class="specialheader col100 label flex">              
+            <button class="label inherit rollbutton" type="roll" name="roll_supply" value="&{template:bitd} {{charname=@{character_name}}} {{resist=1}} {{short=1}} {{title=^{supply}}} {{subtitle=^{roll_their}}} @{supply_formula} {{charimage=@{chat_image}}}" data-i18n="supply"></button>
+            <input type="hidden" name="attr_supply_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
+            
+              <div class="community flex">
+                <input class="hidden fakeradio" type="checkbox" name="attr_supply" value="0" checked="checked"/>
+                <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_supply" value="1"/><span></span>
+                <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_supply" value="2"/><span></span>
+                <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_supply" value="3"/><span></span>
+                <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_supply" value="4"/><span></span>
+              </div>
+            </div>
           <div class="item col50"><span class="label" data-i18n="quality"></span></div>
             <div class="item col50"><span class="label" data-i18n="load"></span></div>
           <div class="col50">
@@ -1891,8 +1913,17 @@
             </div>         
         </div>
         <!-- Vision -->
-        <div class="specialheader col100 label flex">
-          <input class="inherit" type="text" spellcheck="false" name="attr_vision_title" value="vision" />
+        <div class="specialheader col100 label flex">              
+          <button class="label inherit rollbutton" type="roll" name="roll_vision" value="&{template:bitd} {{charname=@{character_name}}} {{resist=1}} {{short=1}} {{title=^{vision}}} {{subtitle=^{roll_their}}} @{vision_formula} {{charimage=@{chat_image}}}" data-i18n="vision"></button>
+          <input type="hidden" name="attr_vision_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
+          
+            <div class="community flex">
+              <input class="hidden fakeradio" type="checkbox" name="attr_vision" value="0" checked="checked"/>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_vision" value="1"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_vision" value="2"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_vision" value="3"/><span></span>
+              <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_vision" value="4"/><span></span>
+            </div>
         </div>
         <div class="col50">
           <div class="item">
@@ -2049,6 +2080,38 @@
       </div>
       <!-- Cohorts and Contacts-->
       <div class="col47 right-column small-margin">
+        <!-- Outlooks -->        
+        <div class="blackheader col100 label flex-center">
+          <input class="inherit" type="text" spellcheck="false" name="attr_outlook_title" value="Outlooks" />
+        </div>    
+        <div class="outlook">
+          
+          <div class="specialheader col100 label flex">              
+            <button class="label inherit rollbutton" type="roll" name="roll_doomsayers" value="&{template:bitd} {{charname=@{character_name}}} {{resist=1}} {{short=1}} {{title=^{doomsayers}}} {{subtitle=^{roll_their}}} @{doomsayers_formula} {{charimage=@{chat_image}}}" data-i18n="doomsayers"></button>
+            <input type="hidden" name="attr_doomsayers_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
+            
+              <div class="community flex">
+                <input class="hidden fakeradio" type="checkbox" name="attr_doomsayers" value="0" checked="checked"/>
+                <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_doomsayers" value="1"/><span></span>
+                <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_doomsayers" value="2"/><span></span>
+                <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_doomsayers" value="3"/><span></span>
+                <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_doomsayers" value="4"/><span></span>
+              </div>              
+          </div>         
+          <div class="outlooks-header flex">
+            <span class="outlook-hold" data-i18n="hold"></span><span class="outlook-status" data-i18n="status"></span>
+          </div>
+          <div class="faction">
+            <!--<input class="expand" type="checkbox" name="attr_expand" value="1" />--><span></span>
+            <input class="outlook-hold" type="text" spellcheck="false" name="attr_outlook_hold" />
+            <input class="outlook-status" type="number" name="attr_outlook_status" min="-5" max="5" value="0"/>            
+          </div>
+        </div>              
+
+      
+        
+
+        
         <!-- First Cohort-->
         <div class="cohort">
           <input type="hidden" name="attr_cohort1_verb" value="^{roll_their}" />
@@ -2148,28 +2211,7 @@
             </div>
           </fieldset>
         </div>
-        <!-- Contacts-->
-        <div class="col100 def-margin contacts">
-          <div class="specialheader col100 label flex">
-            <input class="inherit" type="text" spellcheck="false" name="attr_contacts_title" value="Contacts" />
-          </div>
-          <div class="greyholder col100">
-            <fieldset class="repeating_contact">
-              <div class="friend-contact contact flex">
-                <input class="friendstate" type="hidden" name="attr_check" value="0" />
-                <label>
-                  <input class="checkbox" type="checkbox" name="attr_check" value="1" /><span></span>
-                </label>
-                <div class="auto-expand"><span name="attr_name"></span>
-                  <textarea spellcheck="false" name="attr_name" data-i18n-placeholder="contact_name"></textarea>
-                </div>
-              </div>
-              <input class="expand" type="checkbox" name="attr_null" value="1" /><span></span>
-              <textarea class="description" spellcheck="false" name="attr_description"
-                data-i18n-placeholder="notes"></textarea>
-            </fieldset>
-          </div>
-        </div>
+        
         <!-- Roll Fortune-->
         <button class="fortunebutton borderbutton" type="roll" name="roll_Fortune_cell"
           value="&{template:bitd} {{charname=@{character_name}}} {{fortune=1}} {{subtitle=^{roll}}} {{title=^{fortune}}} @{numberofdice} {{charimage=@{chat_image}}} {{notes=@{notes_query}}} "
@@ -3694,6 +3736,18 @@ const mySetAttrs = (attrs, options, callback) => {
   calculateCommunityFormula = () => getAttrs(["community"], v => {
 		setAttr("community_formula", buildRollFormula(v.community));
   }), 
+  calculateSanctuaryFormula = () => getAttrs(["sanctuary"], v => {
+		setAttr("sanctuary_formula", buildRollFormula(v.sanctuary));
+  }),
+  calculateSupplyFormula = () => getAttrs(["supply"], v => {
+		setAttr("supply_formula", buildRollFormula(v.supply));
+  }), 
+  calculateVisionFormula = () => getAttrs(["vision"], v => {
+		setAttr("vision_formula", buildRollFormula(v.vision));
+  }), 
+  calculateDoomsayersFormula = () => getAttrs(["doomsayers"], v => {
+		setAttr("doomsayers_formula", buildRollFormula(v.doomsayers));
+  }), 
 
 	calculateCohortDice = prefixes => {
 		const sourceAttrs = [
@@ -3858,6 +3912,11 @@ on("change:wanted", calculateWantedFormula);
 on("change:provocation", calculateProvocationFormula);
 on("change:tier", calculateTierFormula);
 on("change:community", calculateCommunityFormula);
+on("change:sanctuary", calculateSanctuaryFormula);
+on("change:supply", calculateSupplyFormula);
+on("change:vision", calculateVisionFormula);
+on("change:doomsayers", calculateDoomsayersFormula);
+
 
 
 
@@ -3919,8 +3978,12 @@ handleBoxesFill("bandolier1_check_");
 handleBoxesFill("bandolier2_check_");
 ["item", "playbookitem", "upgrade", "boon"].forEach(sName => handleBoxesFill(`repeating_${sName}:check_`));
 /* Pseudo-radios */
-["cell_tier", ...actionsFlat].forEach(handlePseudoRadio);
-["community_tier", ...actionsFlat].forEach(handlePseudoRadio);
+["tier", ...actionsFlat].forEach(handlePseudoRadio);
+["community", ...actionsFlat].forEach(handlePseudoRadio);
+["sanctuary", ...actionsFlat].forEach(handlePseudoRadio);
+["supply", ...actionsFlat].forEach(handlePseudoRadio);
+["vision", ...actionsFlat].forEach(handlePseudoRadio);
+["doomsayers", ...actionsFlat].forEach(handlePseudoRadio);
 
 /* Item reset button */
 on("change:reset_items", () => {

@@ -368,6 +368,9 @@
 .sheet-community .sheet-checkbox + span {
   margin-right: auto;
 }
+
+
+
 /* COLUMN LAYOUT */
 .sheet-flex {
   display: flex;
@@ -2097,11 +2100,13 @@ input.sheet-checkbox.sheet-squarebox-small, .sheet-checkbox.sheet-squarebox-smal
 }
 /* ACTION RATINGS */
 .sheet-attribute,
-.sheet-cohort {
+.sheet-cohort,
+.sheet-outlook {
   margin-bottom: 10px;
 }
 .sheet-attribute-title,
-.sheet-cohort-title {
+.sheet-cohort-title,
+.sheet-outlook-title {
   height: 20px;
   line-height: 20px;
   color: white;
@@ -2415,11 +2420,25 @@ input.sheet-title-checkbox {
   line-height: 14px;
   background: #c7c7c7;
 }
+
+.sheet-outlooks-header {
+  width: 100%;
+  height: 24px;
+  align-items: center;
+  margin-right: 5px;
+  line-height: 14px;
+  background: #c7c7c7;
+}
+
 .sheet-factions-header input[type=text] {
   padding-left: 3px;
 }
 .sheet-factions-header span {
   font-size: 7px;
+}
+
+.sheet-outlooks-header span {
+  font-size: 10px;
 }
 input.sheet-expand, .sheet-expand + span {
   position: absolute;
@@ -2470,6 +2489,11 @@ input.sheet-expand, .sheet-expand + span {
 .sheet-faction-name, input[type=text].sheet-faction-name {
   width: 65%;
 }
+
+.sheet-outlook-hold, input[type=text].sheet-outlook-hold {
+  width: 50%;
+}
+
 .sheet-faction-tier, input[type=text].sheet-faction-tier {
   width: 10%;
   text-align: center;
@@ -2482,6 +2506,12 @@ input.sheet-expand, .sheet-expand + span {
   width: 15%;
   text-align: center;
 }
+
+.sheet-outlook-status, input[type=number].sheet-outlook-status {
+  width: 15%;
+  text-align: center;
+}
+
 /* War blurb */
 .sheet-warblurb {
   text-align: justify;
