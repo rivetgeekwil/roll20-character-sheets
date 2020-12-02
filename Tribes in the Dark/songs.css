@@ -297,6 +297,10 @@
 .sheet-black-on-grey, .sheet-greyheader {
   background: #b4b4b4;
 }
+
+.sheet-progressheader {
+  background: #c7c7c7;
+}
 .sheet-black-on-grey {
   text-align: center;
   position: relative;
@@ -343,6 +347,8 @@
 .sheet-blackborder {
   border-top: 3px solid black;
 }
+
+
 .sheet-tier {
   background: #d8d8d8;
   height: 16px;

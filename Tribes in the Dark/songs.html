@@ -35,8 +35,15 @@
 <input type="hidden" name="attr_supply_max" value="4" />
 <input type="hidden" name="attr_vision_max" value="4" />
 <input type="hidden" name="attr_doomsayers_max" value="4" />
+<input type="hidden" name="attr_herites_max" value="4" />
+<input type="hidden" name="attr_jackers_max" value="4" />
+<input type="hidden" name="attr_lightbringers_max" value="4" />
 <input type="hidden" name="attr_notoriety_max" value="9" />
 <input type="hidden" name="attr_provocation_max" value="4" />
+<input type="hidden" name="attr_doomsayer_progress_max" value="8" />
+<input type="hidden" name="attr_herite_progress_max" value="8" />
+<input type="hidden" name="attr_jacker_progress_max" value="8" />
+<input type="hidden" name="attr_lightbringer_progress_max" value="8" />
 <input type="hidden" name="attr_cellcoin_max" value="16" />
 <input type="hidden" name="attr_cell_xp_max" value="8" />
 <div class="container">
@@ -2084,8 +2091,7 @@
         <div class="blackheader col100 label flex-center">
           <input class="inherit" type="text" spellcheck="false" name="attr_outlook_title" value="Outlooks" />
         </div>    
-        <div class="outlook">
-          
+        <div class="outlook">          
           <div class="specialheader col100 label flex">              
             <button class="label inherit rollbutton" type="roll" name="roll_doomsayers" value="&{template:bitd} {{charname=@{character_name}}} {{resist=1}} {{short=1}} {{title=^{doomsayers}}} {{subtitle=^{roll_their}}} @{doomsayers_formula} {{charimage=@{chat_image}}}" data-i18n="doomsayers"></button>
             <input type="hidden" name="attr_doomsayers_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
@@ -2097,6 +2103,20 @@
                 <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_doomsayers" value="3"/><span></span>
                 <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_doomsayers" value="4"/><span></span>
               </div>              
+          </div>
+          <div class="heat1 greyheader progressheader">
+            <div class="label" data-i18n="progress"></div>
+          </div>
+          <div class="heat2 flex">
+            <input class="tooth zero" type="radio" name="attr_doomsayer_progress" value="0" checked="checked" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_doomsayer_progress" value="1" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_doomsayer_progress" value="2" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_doomsayer_progress" value="3" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_doomsayer_progress" value="4" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_doomsayer_progress" value="5" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_doomsayer_progress" value="6" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_doomsayer_progress" value="7" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_doomsayer_progress" value="8" /><span></span>
           </div>         
           <div class="outlooks-header flex">
             <span class="outlook-hold" data-i18n="hold"></span><span class="outlook-status" data-i18n="status"></span>
@@ -2106,46 +2126,156 @@
             <input class="outlook-hold" type="text" spellcheck="false" name="attr_outlook_hold" />
             <input class="outlook-status" type="number" name="attr_outlook_status" min="-5" max="5" value="0"/>            
           </div>
+          
         </div>              
-
-      
-        
-
-        
-        <!-- First Cohort-->
-        <div class="cohort">
-          <input type="hidden" name="attr_cohort1_verb" value="^{roll_their}" />
-          <input type="hidden" name="attr_cohort1_roll_formula"
-            value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}" />
-          <div class="cohort-title flex col100 label">
-            <input class="inherit" type="text" spellcheck="false" name="attr_cohort1_name" value="Expert" />
-            <button class="inherit rollbutton" type="roll" name="roll_cohort1_roll"
-              value="&{template:bitd} {{charname=@{character_name}}} {{resist=1}} {{short=1}} {{charname=@{cohort1_name} (^{@{cohort1_type}}, @{cohort1_subtype})}} {{title=^{cohort_quality}}} {{subtitle=@{cohort1_verb}}}) @{cohort1_roll_formula} {{charimage=@{chat_image}}}"
-              data-i18n="roll-inf"></button>
+        <div class="outlook">          
+          <div class="specialheader col100 label flex">              
+            <button class="label inherit rollbutton" type="roll" name="roll_herites" value="&{template:bitd} {{charname=@{character_name}}} {{resist=1}} {{short=1}} {{title=^{herites}}} {{subtitle=^{roll_their}}} @{herites_formula} {{charimage=@{chat_image}}}" data-i18n="herites"></button>
+            <input type="hidden" name="attr_herites_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
+            
+              <div class="community flex">
+                <input class="hidden fakeradio" type="checkbox" name="attr_herites" value="0" checked="checked"/>
+                <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_herites" value="1"/><span></span>
+                <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_herites" value="2"/><span></span>
+                <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_herites" value="3"/><span></span>
+                <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_herites" value="4"/><span></span>
+              </div>              
           </div>
-          <div class="cohort-info flex col100 uppercase">
+          <div class="heat1 greyheader progressheader ">
+            <div class="label" data-i18n="progress"></div>
+          </div>
+          <div class="heat2 flex">
+            <input class="tooth zero" type="radio" name="attr_herite_progress" value="0" checked="checked" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_herite_progress" value="1" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_herite_progress" value="2" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_herite_progress" value="3" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_herite_progress" value="4" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_herite_progress" value="5" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_herite_progress" value="6" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_herite_progress" value="7" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_herite_progress" value="8" /><span></span>
+          </div>         
+          <div class="outlooks-header flex">
+            <span class="outlook-hold" data-i18n="hold"></span><span class="outlook-status" data-i18n="status"></span>
+          </div>
+          <div class="faction">
+            <!--<input class="expand" type="checkbox" name="attr_expand" value="1" />--><span></span>
+            <input class="outlook-hold" type="text" spellcheck="false" name="attr_outlook_hold" />
+            <input class="outlook-status" type="number" name="attr_outlook_status" min="-5" max="5" value="0"/>            
+          </div>
+          
+        </div>  
+        <div class="outlook">          
+          <div class="specialheader col100 label flex">              
+            <button class="label inherit rollbutton" type="roll" name="roll_jackers" value="&{template:bitd} {{charname=@{character_name}}} {{resist=1}} {{short=1}} {{title=^{jackers}}} {{subtitle=^{roll_their}}} @{jackers_formula} {{charimage=@{chat_image}}}" data-i18n="jackers"></button>
+            <input type="hidden" name="attr_jackers_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
+            
+              <div class="community flex">
+                <input class="hidden fakeradio" type="checkbox" name="attr_jackers" value="0" checked="checked"/>
+                <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_jackers" value="1"/><span></span>
+                <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_jackers" value="2"/><span></span>
+                <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_jackers" value="3"/><span></span>
+                <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_jackers" value="4"/><span></span>
+              </div>              
+          </div>
+          <div class="heat1 greyheader progressheader">
+            <div class="label" data-i18n="progress"></div>
+          </div>
+          <div class="heat2  flex">
+            <input class="tooth zero" type="radio" name="attr_jacker_progress" value="0" checked="checked" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_jacker_progress" value="1" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_jacker_progress" value="2" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_jacker_progress" value="3" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_jacker_progress" value="4" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_jacker_progress" value="5" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_jacker_progress" value="6" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_jacker_progress" value="7" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_jacker_progress" value="8" /><span></span>
+          </div>         
+          <div class="outlooks-header flex">
+            <span class="outlook-hold" data-i18n="hold"></span><span class="outlook-status" data-i18n="status"></span>
+          </div>
+          <div class="faction">
+            <!--<input class="expand" type="checkbox" name="attr_expand" value="1" />--><span></span>
+            <input class="outlook-hold" type="text" spellcheck="false" name="attr_outlook_hold" />
+            <input class="outlook-status" type="number" name="attr_outlook_status" min="-5" max="5" value="0"/>            
+          </div>
+         
+        </div>  
+        <div class="outlook">          
+          <div class="specialheader col100 label flex">              
+            <button class="label inherit rollbutton" type="roll" name="roll_lightbringers" value="&{template:bitd} {{charname=@{character_name}}} {{resist=1}} {{short=1}} {{title=^{lightbringers}}} {{subtitle=^{roll_their}}} @{lightbringers_formula} {{charimage=@{chat_image}}}" data-i18n="lightbringers"></button>
+            <input type="hidden" name="attr_lightbringers_formula" value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
+            
+              <div class="community flex">
+                <input class="hidden fakeradio" type="checkbox" name="attr_lightbringers" value="0" checked="checked"/>
+                <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_lightbringers" value="1"/><span></span>
+                <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_lightbringers" value="2"/><span></span>
+                <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_lightbringers" value="3"/><span></span>
+                <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_lightbringers" value="4"/><span></span>
+              </div>              
+          </div> 
+          <div class="heat1 greyheader progressheader">
+            <div class="label" data-i18n="progress"></div>
+          </div>
+          <div class="heat2 flex">
+            <input class="tooth zero" type="radio" name="attr_lightbringer_progress" value="0" checked="checked" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_lightbringer_progress" value="1" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_lightbringer_progress" value="2" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_lightbringer_progress" value="3" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_lightbringer_progress" value="4" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_lightbringer_progress" value="5" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_lightbringer_progress" value="6" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_lightbringer_progress" value="7" /><span></span>
+            <input class="tooth stresstooth" type="radio" name="attr_lightbringer_progress" value="8" /><span></span>
+          </div>        
+          <div class="outlooks-header flex">
+            <span class="outlook-hold" data-i18n="hold"></span><span class="outlook-status" data-i18n="status"></span>
+          </div>
+          <div class="faction">
+            <!--<input class="expand" type="checkbox" name="attr_expand" value="1" />--><span></span>
+            <input class="outlook-hold" type="text" spellcheck="false" name="attr_outlook_hold" />
+            <input class="outlook-status" type="number" name="attr_outlook_status" min="-5" max="5" value="0"/>            
+          </div>
+          
+        </div>  
+        
+        <!-- Cohort -->
+        <div class="cohort">
+          <input type="hidden" name="attr_cohort1_verb" value="^{roll_their}"/>
+          <input type="hidden" name="attr_cohort1_roll_formula" value="{{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
+          <div class="cohort-title flex label">
+            <input class="inherit" type="text" spellcheck="false" name="attr_cohort1_name" value="Cohort"/>
+            <button class="inherit rollbutton" type="roll" name="roll_cohort1_roll" value="&{template:bitd} {{charname=@{character_name}}} {{resist=1}} {{short=1}} {{charname=@{cohort1_name} (^{@{cohort1_type}}, @{cohort1_subtype})}} {{title=^{cohort_quality}}} {{subtitle=@{cohort1_verb}}}) @{cohort1_roll_formula} {{charimage=@{chat_image}}}" data-i18n="roll-inf">
+            </button>
+          </div>
+          <div class="cohort-info flex uppercase">
             <div class="cohort-dropdown">
               <div><span name="attr_cohort1_type" data-i18n-dynamic="data-i18n-dynamic"></span></div>
               <div>
-                <input type="radio" name="attr_cohort1_type" value="expert" /><span data-i18n="expert"></span>
+                <input type="radio" name="attr_cohort1_type" value="gang" checked="checked"/><span data-i18n="gang"></span>
+              </div>
+              <div>
+                <input type="radio" name="attr_cohort1_type" value="elite"/><span data-i18n="elite"></span>
+              </div>
+              <div>
+                <input type="radio" name="attr_cohort1_type" value="expert"/><span data-i18n="expert"></span>
               </div>
             </div>
-            <input class="sheet-inherit" type="text" spellcheck="false" name="attr_cohort1_subtype"
-              data-i18n-placeholder="gang_type" />
+            <input class="sheet-inherit" type="text" spellcheck="false" name="attr_cohort1_subtype" data-i18n-placeholder="gang_type"/>
           </div>
-          <div class="cohort-condition flex col100">
+          <div class="cohort-condition flex">
             <label><span class="cohort-condition-name uppercase" data-i18n="weak"></span>
-              <input class="tooth regulartooth" type="checkbox" name="attr_cohort1_weak" value="1" /><span></span>
+              <input class="tooth stresstooth" type="checkbox" name="attr_cohort1_weak" value="1"/><span></span>
             </label>
             <label><span class="cohort-condition-name uppercase" data-i18n="impaired"></span>
-              <input class="tooth regulartooth" type="checkbox" name="attr_cohort1_impaired" value="1" /><span></span>
+              <input class="tooth stresstooth" type="checkbox" name="attr_cohort1_impaired" value="1"/><span></span>
             </label>
             <label><span class="cohort-condition-name uppercase" data-i18n="broken"></span>
-              <input class="tooth regulartooth" type="checkbox" name="attr_cohort1_broken" value="1" /><span></span>
+              <input class="tooth stresstooth" type="checkbox" name="attr_cohort1_broken" value="1"/><span></span>
             </label>
-            <label><span class="cohort-condition-name label" data-i18n="neutralized"></span>
-              <input class="tooth regulartooth" type="checkbox" name="attr_cohort1_neutralized"
-                value="1" /><span></span>
+            <label><span class="cohort-condition-name label" data-i18n="armor"></span>
+              <input class="tooth stresstooth" type="checkbox" name="attr_cohort1_armor" value="1"/><span></span>
             </label>
           </div>
           <label class="cohort-edgeflaw"><span class="uppercase" data-i18n="edges"></span>
@@ -2160,41 +2290,43 @@
           </label>
           <textarea class="cohort-description" spellcheck="false" name="attr_cohort1_description"></textarea>
         </div>
-        <!-- Cohort repeating section-->
-        <div class="col100 cohorts free-repcontrol">
+        <div class="cohorts free-repcontrol">
           <fieldset class="repeating_cohort">
             <div class="cohort">
-              <input type="hidden" name="attr_verb" value="^{roll_their}" />
-              <input type="hidden" name="attr_roll_formula"
-                value=" {{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}" />
-              <div class="cohort-title flex col100 label">
-                <input class="inherit" type="text" spellcheck="false" name="attr_name" value="Expert" />
-                <button class="inherit rollbutton" type="roll" name="roll_roll"
-                  value="&{template:bitd} {{charname=@{character_name}}} {{resist=1}} {{short=1}} {{charname=@{name} (^{@{type}}, @{subtype})}} {{title=^{cohort_quality}}} {{subtitle=@{verb}}}) @{roll_formula} {{charimage=@{chat_image}}}"
-                  data-i18n="roll-inf"></button>
+              <input type="hidden" name="attr_verb" value="^{roll_their}"/>
+              <input type="hidden" name="attr_roll_formula" value="{{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
+              <div class="cohort-title flex label">
+                <input class="inherit" type="text" spellcheck="false" name="attr_name" value="Cohort"/>
+                <button class="inherit rollbutton" type="roll" name="roll_roll" value="&{template:bitd} {{charname=@{character_name}}} {{resist=1}} {{short=1}} {{charname=@{name} (^{@{type}}, @{subtype})}} {{title=^{cohort_quality}}} {{subtitle=@{verb}}}) @{roll_formula} {{charimage=@{chat_image}}}" data-i18n="roll-inf">
+                </button>
               </div>
-              <div class="cohort-info flex col100 uppercase">
+              <div class="cohort-info flex uppercase">
                 <div class="cohort-dropdown">
                   <div><span name="attr_type" data-i18n-dynamic="data-i18n-dynamic"></span></div>
                   <div>
-                    <input type="radio" name="attr_type" value="expert" /><span data-i18n="expert"></span>
+                    <input type="radio" name="attr_type" value="gang" checked="checked"/><span data-i18n="gang"></span>
+                  </div>
+                  <div>
+                    <input type="radio" name="attr_type" value="elite"/><span data-i18n="elite"></span>
+                  </div>
+                  <div>
+                    <input type="radio" name="attr_type" value="expert"/><span data-i18n="expert"></span>
                   </div>
                 </div>
-                <input class="sheet-inherit" type="text" spellcheck="false" name="attr_subtype"
-                  data-i18n-placeholder="gang_type" />
+                <input class="sheet-inherit" type="text" spellcheck="false" name="attr_subtype" data-i18n-placeholder="gang_type"/>
               </div>
-              <div class="cohort-condition flex col100">
+              <div class="cohort-condition flex">
                 <label><span class="cohort-condition-name uppercase" data-i18n="weak"></span>
-                  <input class="tooth regulartooth" type="checkbox" name="attr_weak" value="1" /><span></span>
+                  <input class="tooth stresstooth" type="checkbox" name="attr_weak" value="1"/><span></span>
                 </label>
                 <label><span class="cohort-condition-name uppercase" data-i18n="impaired"></span>
-                  <input class="tooth regulartooth" type="checkbox" name="attr_impaired" value="1" /><span></span>
+                  <input class="tooth stresstooth" type="checkbox" name="attr_impaired" value="1"/><span></span>
                 </label>
                 <label><span class="cohort-condition-name uppercase" data-i18n="broken"></span>
-                  <input class="tooth regulartooth" type="checkbox" name="attr_broken" value="1" /><span></span>
+                  <input class="tooth stresstooth" type="checkbox" name="attr_broken" value="1"/><span></span>
                 </label>
-                <label><span class="cohort-condition-name label" data-i18n="neutralized"></span>
-                  <input class="tooth regulartooth" type="checkbox" name="attr_neutralized" value="1" /><span></span>
+                <label><span class="cohort-condition-name label" data-i18n="armor"></span>
+                  <input class="tooth stresstooth" type="checkbox" name="attr_armor" value="1"/><span></span>
                 </label>
               </div>
               <label class="cohort-edgeflaw"><span class="uppercase" data-i18n="edges"></span>
@@ -3747,11 +3879,20 @@ const mySetAttrs = (attrs, options, callback) => {
   }), 
   calculateDoomsayersFormula = () => getAttrs(["doomsayers"], v => {
 		setAttr("doomsayers_formula", buildRollFormula(v.doomsayers));
+  }),
+  calculateHeritesFormula = () => getAttrs(["herites"], v => {
+		setAttr("herites_formula", buildRollFormula(v.herites));
+  }),
+  calculateJackersFormula = () => getAttrs(["jackers"], v => {
+		setAttr("jackers_formula", buildRollFormula(v.jackers));
+  }),
+  calculateLightbringersFormula = () => getAttrs(["lightbringers"], v => {
+		setAttr("lightbringers_formula", buildRollFormula(v.lightbringers));
   }), 
 
 	calculateCohortDice = prefixes => {
 		const sourceAttrs = [
-			"cell_tier",
+			"tier",
 			...prefixes.map(p => `${p}_impaired`),
 			...prefixes.map(p => `${p}_type`),
 			...prefixes.map(p => `${p}_roll_formula`),
@@ -3759,7 +3900,7 @@ const mySetAttrs = (attrs, options, callback) => {
 		getAttrs(sourceAttrs, v => {
 			const setting = {};
 			prefixes.forEach(prefix => {
-				const dice = (parseInt(v.cell_tier) || 0) - (parseInt(v[`${prefix}_impaired`]) || 0) +
+				const dice = (parseInt(v.tier) || 0) - (parseInt(v[`${prefix}_impaired`]) || 0) +
 						((v[`${prefix}_type`] === "elite" || v[`${prefix}_type`] === "expert") ? 1 : 0),
 					formula = buildRollFormula(dice);
 				if (formula !== v[`${prefix}_roll_formula`]) setting[`${prefix}_roll_formula`] = formula;
@@ -3916,6 +4057,9 @@ on("change:sanctuary", calculateSanctuaryFormula);
 on("change:supply", calculateSupplyFormula);
 on("change:vision", calculateVisionFormula);
 on("change:doomsayers", calculateDoomsayersFormula);
+on("change:herites", calculateHeritesFormula);
+on("change:jackers", calculateJackersFormula);
+on("change:lightbringers", calculateLightbringersFormula);
 
 
 
@@ -3953,9 +4097,9 @@ on("change:setting_extra_stress", event => setAttr("stress_max", 9 + (parseInt(e
 on("change:setting_extra_trauma", event => setAttr("trauma_max", 4 + (parseInt(event.newValue) || 0)));
 
 /* Calculate cohort quality */
-on(["cell_tier", "cohort1_impaired", "cohort1_type"].map(x => `change:${x}`).join(" "), () => calculateCohortDice(["cohort1"]));
+on(["tier", "cohort1_impaired", "cohort1_type"].map(x => `change:${x}`).join(" "), () => calculateCohortDice(["cohort1"]));
 on("change:repeating_cohort", () => calculateCohortDice(["repeating_cohort"]));
-on("change:cell_tier", () => {
+on("change:tier", () => {
 	getSectionIDs("repeating_cohort", a => calculateCohortDice(a.map(id => `repeating_cohort_${id}`)));
 });
 on("change:char_cohort_quality change:char_cohort_impaired change:setting_show_cohort", () => {
@@ -3984,6 +4128,9 @@ handleBoxesFill("bandolier2_check_");
 ["supply", ...actionsFlat].forEach(handlePseudoRadio);
 ["vision", ...actionsFlat].forEach(handlePseudoRadio);
 ["doomsayers", ...actionsFlat].forEach(handlePseudoRadio);
+["herites", ...actionsFlat].forEach(handlePseudoRadio);
+["jackers", ...actionsFlat].forEach(handlePseudoRadio);
+["lightbringers", ...actionsFlat].forEach(handlePseudoRadio);
 
 /* Item reset button */
 on("change:reset_items", () => {
