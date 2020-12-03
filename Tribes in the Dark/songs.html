@@ -88,9 +88,9 @@
     </div>
     <div class="setting-cell generaterow">
       <select name="attr_generate_source_cell" title="Choose source">
-        <option value="augurs" data-i18n="augurs"></option>
-        <option value="couriers" data-i18n="couriers"></option>
-        <option value="magpies" data-i18n="magpies"></option>
+        <option value="demagogues" data-i18n="demagogues"></option>
+        <option value="firebrands" data-i18n="firebrands"></option>
+        <option value="visionaries" data-i18n="visionaries"></option>
         <option value="rangers" data-i18n="rangers"></option>
         <option value="silvers" data-i18n="silvers"></option>
       </select>
@@ -1065,16 +1065,11 @@
             <div class="flex-center bonusdieplus">+</div>
             <div class="bonusdietext">
               <div class="label" data-i18n="spend_eminence"></div>
-              <!-- <div class="sheet-item"> -->
-              <input class="sheet-numboxes" type="hidden" name="attr_numboxes" value="3">
-              <input class="sheet-checkbox sheet-squarebox" type="checkbox" name="attr_check_1"
-                value="1"><span></span><span class="sheet-floatingbar sheet-boxesgeq2"></span>
-              <input class="sheet-checkbox sheet-squarebox sheet-boxesgeq2" type="checkbox" name="attr_check_2"
-                value="1"><span class="sheet-boxesgeq2"></span><span
-                class="sheet-floatingbar sheet-boxesgeq3 sheet-boxesgeq2"></span>
-              <input class="sheet-checkbox sheet-squarebox sheet-boxesgeq2 sheet-boxesgeq3" type="checkbox"
-                name="attr_check_3" value="1"><span class="sheet-boxesgeq2 sheet-boxesgeq3"></span>
-              <!-- </div> -->
+              <div class="item col100 flex-center">
+              <input class="checkbox squarebox" type="checkbox" name="attr_eminence_check_1" value="1" /><span></span><span class="floatingbar"></span>
+              <input class="checkbox squarebox" type="checkbox" name="attr_eminence_check_1" value="2" /><span></span><span class="floatingbar"></span>
+              <input class="checkbox squarebox" type="checkbox" name="attr_eminence_check_2" value="3"/><span></span>
+              </div>
             </div>
           </div>
         </div>
@@ -1492,72 +1487,7 @@
               <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_community" value="3"/><span></span>
               <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_community" value="4"/><span></span>
             </div>
-          </div>
-            <div class="col100">
-              <div class="item">
-                <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_community_1_check_1"
-                  value="1" /><span></span>
-                <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_community_1_name"
-                  data-i18n-placeholder="upgrade_community_1_name" />
-              </div>
-              <div class="item-description">
-                <input class="expand" type="checkbox" name="attr_upgrade_community_1_expand" value="1" /><span></span>
-                <textarea spellcheck="false" name="attr_upgrade_community_1_description"
-                  data-i18n-placeholder="upgrade_community_1_description"></textarea>
-              </div>
-            </div>
-            <div class="col100">
-              <div class="item">
-                <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_community_2_check_1"
-                  value="1" /><span></span>
-                <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_community_2_name"
-                  data-i18n-placeholder="upgrade_community_2_name" />
-              </div>
-              <div class="item-description">
-                <input class="expand" type="checkbox" name="attr_upgrade_community_2_expand" value="1" /><span></span>
-                <textarea spellcheck="false" name="attr_upgrade_community_2_description"
-                  data-i18n-placeholder="upgrade_community_2_description"></textarea>
-              </div>
-            </div>
-            <div class="col100">
-              <div class="item">
-                <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_community_3_check_1"
-                  value="1" /><span></span>
-                <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_community_3_name"
-                  data-i18n-placeholder="upgrade_community_3_name" />
-              </div>
-              <div class="item-description">
-                <input class="expand" type="checkbox" name="attr_upgrade_community_3_expand" value="1" /><span></span>
-                <textarea spellcheck="false" name="attr_upgrade_community_3_description"
-                  data-i18n-placeholder="upgrade_community_3_description"></textarea>
-              </div>
-            </div>
-            <div class="col100">
-              <div class="item">
-                <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_community_4_check_1"
-                  value="1" /><span></span>
-                <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_community_4_name"
-                  data-i18n-placeholder="upgrade_community_4_name" />
-              </div>
-              <div class="item-description">
-                <input class="expand" type="checkbox" name="attr_upgrade_community_4_expand" value="1" /><span></span>
-                <textarea spellcheck="false" name="attr_upgrade_community_4_description"
-                  data-i18n-placeholder="upgrade_community_4_description"></textarea>
-              </div>
-            </div>
-            <div class="col100">
-              <div class="item">
-                <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_community_5_check_1"
-                  value="1" /><span></span>
-                <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_community_5_name"
-                  data-i18n-placeholder="upgrade_community_5_name" />
-              </div>
-              <div class="item-description">
-                <input class="expand" type="checkbox" name="attr_upgrade_community_5_expand" value="1" /><span></span>
-                <textarea spellcheck="false" name="attr_upgrade_community_5_description"
-                  data-i18n-placeholder="upgrade_community_5_description"></textarea>
-              </div>
-            </div>
+          </div>            
             <div class="playbookitems col100 free-repcontrol">
               <fieldset class="repeating_upgrade">
                 <input class="boxes-chosen" type="hidden" name="attr_boxes_chosen" value="0" />
@@ -1642,8 +1572,8 @@
             </div>
             <div class="col50">
               <div class="item">
-                <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_sanctuary_4_check_1"
-                  value="1" /><span></span>
+                <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_sanctuary_4_check_1" value="1" /><span></span><span class="floatingbar"></span>
+                <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_sanctuary_4_check_2" value="2"/><span></span>
                 <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_sanctuary_4_name"
                   data-i18n-placeholder="upgrade_sanctuary_4_name" />
               </div>
@@ -1655,10 +1585,11 @@
             </div>
             <div class="col50">
               <div class="item">
-                <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_sanctuary_5_check_1"
-                  value="1" /><span></span>
+                <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_sanctuary_5_check_1" value="1" /><span></span><span class="floatingbar"></span>
                 <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_sanctuary_5_name"
                   data-i18n-placeholder="upgrade_sanctuary_5_name" />
+
+                  
               </div>
               <div class="item-description">
                 <input class="expand" type="checkbox" name="attr_upgrade_sanctuary_5_expand" value="1" /><span></span>
@@ -1668,8 +1599,8 @@
             </div>
             <div class="col50">
               <div class="item">
-                <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_sanctuary_6_check_1"
-                  value="1" /><span></span>
+                <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_sanctuary_6_check_1" value="1" /><span></span><span class="floatingbar"></span>
+                <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_sanctuary_6_check_2" value="2"/><span></span>
                 <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_sanctuary_6_name"
                   data-i18n-placeholder="upgrade_sanctuary_6_name" />
               </div>
@@ -1919,6 +1850,32 @@
                 data-i18n-placeholder="upgrade_supply_10_description"></textarea>
             </div>         
         </div>
+        <div class="col50">
+          <div class="item">
+            <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_supply_11_check_1"
+              value="1" /><span></span>
+            <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_supply_11_name"
+              data-i18n-placeholder="upgrade_supply_11_name" />
+          </div>
+          <div class="item-description">
+            <input class="expand" type="checkbox" name="attr_upgrade_supply_11_expand" value="1" /><span></span>
+            <textarea spellcheck="false" name="attr_upgrade_supply_11_description"
+              data-i18n-placeholder="upgrade_supply_11_description"></textarea>
+          </div>         
+      </div>
+      <div class="col50">
+        <div class="item">
+          <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_supply_12_check_1"
+            value="1" /><span></span>
+          <input class="itemname" type="text" spellcheck="false" name="attr_upgrade_supply_12_name"
+            data-i18n-placeholder="upgrade_supply_12_name" />
+        </div>
+        <div class="item-description">
+          <input class="expand" type="checkbox" name="attr_upgrade_supply_12_expand" value="1" /><span></span>
+          <textarea spellcheck="false" name="attr_upgrade_supply_12_description"
+            data-i18n-placeholder="upgrade_supply_12_description"></textarea>
+        </div>         
+    </div>
         <!-- Vision -->
         <div class="specialheader col100 label flex">              
           <button class="label inherit rollbutton" type="roll" name="roll_vision" value="&{template:bitd} {{charname=@{character_name}}} {{resist=1}} {{short=1}} {{title=^{vision}}} {{subtitle=^{roll_their}}} @{vision_formula} {{charimage=@{chat_image}}}" data-i18n="vision"></button>
@@ -1932,6 +1889,7 @@
               <input class="checkbox circlebox fakeradio" type="checkbox" name="attr_vision" value="4"/><span></span>
             </div>
         </div>
+        <div class="item col100 flex-center"><span class="label" data-i18n="rituals"></span></div>
         <div class="col50">
           <div class="item">
             <input class="checkbox squarebox" type="checkbox" name="attr_upgrade_vision_1_check_1"
@@ -2242,6 +2200,9 @@
         
         <!-- Cohort -->
         <div class="cohort">
+          <div class="blackheader col100 label flex-center">
+            <input class="inherit" type="text" spellcheck="false" name="attr_cohort_title" value="Cohorts" />
+          </div>
           <input type="hidden" name="attr_cohort1_verb" value="^{roll_their}"/>
           <input type="hidden" name="attr_cohort1_roll_formula" value="{{?{@{bonusdice}|0,zerodice=[[d6]]&amp;#44; [[d6]]|1,dice=[[d6]]|2,dice=[[d6]]&amp;#44; [[d6]]|3,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|4,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|5,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|6,dice=[[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]&amp;#44; [[d6]]|-1,zerodice=[[d6]]&amp;#44; [[d6]]|-2,zerodice=[[d6]]&amp;#44; [[d6]]|-3,zerodice=[[d6]]&amp;#44; [[d6]]}}}"/>
           <div class="cohort-title flex label">
@@ -2699,46 +2660,37 @@
 "use strict";
 const data = {
 	"cell": {
-		"augurs": {
+		"demagogues": {
 			"base": {
-				"claim_1_name": "claim_custom_workspaces",
-				"claim_1_desc": "claim_custom_workspaces_description",
-				"claim_2_desc": "claim_artisan_crafters_description",
-				"claim_2_name": "claim_artisan_crafters",
-				"claim_3_desc": "claim_radiant_archive_description",
-				"claim_3_name": "claim_radiant_archive",
-				"claim_4_desc": "claim_exotic_weave_description",
-				"claim_4_name": "claim_exotic_weave",
-				"claim_5_desc": "claim_quintessic_loom_description",
-				"claim_5_name": "claim_quintessic_loom",
-				"claim_6_name": "claim_production",
-				"claim_7_name": "claim_production",
-				"claim_9_name": "claim_production",
-				"claim_10_name": "claim_production",
-				"claim_11_desc": "claim_laboratory_description",
-				"claim_11_name": "claim_laboratory",
-				"claim_12_desc": "claim_charmflair_description",
-				"claim_12_name": "claim_charmflair",
-				"claim_13_desc": "claim_popular_science_description",
-				"claim_13_name": "claim_popular_science",
-				"claim_14_desc": "claim_wormhole_gate_description",
-				"claim_14_name": "claim_wormhole_gate",
-				"claim_15_desc": "claim_medical_bay_description",
-				"claim_15_name": "claim_medical_bay",
-				"claim_bridge_3_4": "0",
-				"claim_bridge_7_12": "0",
-				"claim_bridge_9_14": "0",
-				"claim_bridge_12_13": "0",
-				"claim_bridge_13_14": "0",
-				"cell_description": "cell_augurs_description",
-				"cell_xp_condition": "cell_augurs_xp_condition",
-				"hunting_grounds_type": "cell_augurs_hunting_grounds_type",
-				"hunting_grounds_description": "cell_augurs_hunting_grounds_description",
+				"cell_description": "cell_demagogues_description",
+				"cell_xp_condition": "cell_demagogues_xp_condition",
+				"hunting_grounds_type": "cell_demagogues_hunting_grounds_type",
+				"hunting_grounds_description": "cell_demagogues_hunting_grounds_description",
 				"upgrade_14_check_1": "1",
 				"upgrade_22_check_1": "1"
 			},
-			"cellability": ["elementary", "case_file_drive", "cut_loose", "drift_compatible", "rescue_warp", "spirits_perch", "uxies_promise", "experienced"],
-      "upgrade": [{
+			"cellability": ["for_the_people","agitator","scratch_my_back","connected","incitement","populist","sticks_and_stones","veteran"],
+      "upgrade": [{        
+          "name": "cell_upgrade_barber",
+          "description": "cell_upgrade_barber_description",
+          "numboxes": "1"
+          }, {
+          "name": "cell_upgrade_kymber",
+          "description": "cell_upgrade_kymber_description",
+          "numboxes": "1"
+          }, {
+          "name": "cell_upgrade_kyrt",
+          "description": "cell_upgrade_kyrt_description",
+          "numboxes": "1"
+          }, {
+          "name": "cell_upgrade_mek",
+          "description": "cell_upgrade_mek_description",
+          "numboxes": "1"
+          }, {
+          "name": "cell_upgrade_veruka",
+          "description": "cell_upgrade_veruka_description",
+          "numboxes": "1"
+          }, {
           "name": "cell_upgrade_altara",
           "description": "cell_upgrade_altara_description",
           "numboxes": "1"
@@ -2761,176 +2713,106 @@ const data = {
         }],        
       "boon": []
 		},
-		"couriers": {
+		"firebrands": {
 			"base": {
-				"claim_1_name": "claim_artisan_crafters",
-				"claim_1_desc": "claim_artisan_crafters_description",
-				"claim_2_name": "claim_production",
-				"claim_3_desc": "claim_side_shipments_description",
-				"claim_3_name": "claim_side_shipments",
-				"claim_4_desc": "claim_terrain_maps_description",
-				"claim_4_name": "claim_terrain_maps",
-				"claim_5_desc": "claim_medical_bay_description",
-				"claim_5_name": "claim_medical_bay",
-				"claim_6_name": "claim_production",
-				"claim_7_name": "claim_production",
-				"claim_9_name": "claim_production",
-				"claim_10_name": "claim_production",
-				"claim_11_desc": "claim_low_emissions_energy_description",
-				"claim_11_name": "claim_low_emissions_energy",
-				"claim_12_desc": "claim_wormhole_gate_description",
-				"claim_12_name": "claim_wormhole_gate",
-				"claim_13_desc": "claim_fleet_description",
-				"claim_13_name": "claim_fleet",
-				"claim_14_desc": "claim_mobile_city_description",
-				"claim_14_name": "claim_mobile_city",
-				"claim_15_desc": "claim_warehouses_description",
-				"claim_15_name": "claim_warehouses",
-				"claim_bridge_3_4": "0",
-				"claim_bridge_6_11": "0",
-				"claim_bridge_12_13": "0",
-				"claim_bridge_13_14": "0",
-				"cohort1_description": "vehicle_edges_flaws",
-				"cohort1_name": "vehicle",
-				"cohort1_subtype": "rover_dropjet_other",
-				"cohort1_type": "expert",
-				"cell_description": "cell_couriers_description",
-				"cell_xp_condition": "cell_couriers_description_xp_condition",
-				"hunting_grounds_type": "cell_couriers_hunting_grounds_type",
-				"hunting_grounds_description": "cell_couriers_hunting_grounds_description",
-				"upgrade_6_check_1": "1",
-				"upgrade_20_check_1": "1"
+				"cell_description": "cell_firebrands_description",
+				"cell_xp_condition": "cell_firebrands_description_xp_condition",
+				"hunting_grounds_type": "cell_firebrands_hunting_grounds_type",
+				"hunting_grounds_description": "cell_firebrands_hunting_grounds_description",
 			},
-			"cellability": ["go_for_miles", "all_hands", "distributed_weight", "experts_talk_logistics", "friendly", "one_of_us", "punch_it", "experienced"],
-      "upgrade": [],
+			"cellability": ["spitfires", "bad_apples", "instigators", "just_cause", "dogged", "comrades", "sympathizers", "veteran"],
+      "upgrade": [{
+        "name": "cell_upgrade_barber",
+        "description": "cell_upgrade_barber_description",
+        "numboxes": "1"
+        }, {
+        "name": "cell_upgrade_kymber",
+        "description": "cell_upgrade_kymber_description",
+        "numboxes": "1"
+        }, {
+        "name": "cell_upgrade_kyrt",
+        "description": "cell_upgrade_kyrt_description",
+        "numboxes": "1"
+        }, {
+        "name": "cell_upgrade_mek",
+        "description": "cell_upgrade_mek_description",
+        "numboxes": "1"
+        }, {
+        "name": "cell_upgrade_veruka",
+        "description": "cell_upgrade_veruka_description",
+        "numboxes": "1"
+        }, {
+        "name": "cell_upgrade_deus",
+        "description": "cell_upgrade_deus_description",
+        "numboxes": "1"
+        }, {
+        "name": "cell_upgrade_baal",
+        "description": "cell_upgrade_baal_description",
+        "numboxes": "1"
+        }, {
+        "name": "cell_upgrade_alexis",
+        "description": "cell_upgrade_alexis_description",
+        "numboxes": "1"
+        }, {
+        "name": "cell_upgrade_john",
+        "description": "cell_upgrade_john_description",
+        "numboxes": "1"
+        }, {
+        "name": "cell_upgrade_evangel",
+        "description": "cell_upgrade_evangel_description",
+        "numboxes": "1"
+        }],
       "boon": []
 		},
-		"magpies": {
+		"visionaries": {
 			"base": {
-				"claim_1_name": "claim_assembly_arms",
-				"claim_1_desc": "claim_assembly_arms_description",
-				"claim_2_desc": "claim_artisan_crafters_description",
-				"claim_2_name": "claim_artisan_crafters",
-				"claim_3_desc": "claim_minifacturing_description",
-				"claim_3_name": "claim_minifacturing",
-				"claim_4_desc": "claim_radiant_archive_description",
-				"claim_4_name": "claim_radiant_archive",
-				"claim_5_desc": "claim_laboratory_description",
-				"claim_5_name": "claim_laboratory",
-				"claim_6_name": "claim_production",
-				"claim_7_name": "claim_production",
-				"claim_9_name": "claim_production",
-				"claim_10_name": "claim_production",
-				"claim_11_desc": "claim_custom_workspaces_description",
-				"claim_11_name": "claim_custom_workspaces",
-				"claim_12_desc": "claim_low_emissions_energy_description",
-				"claim_12_name": "claim_low_emissions_energy",
-				"claim_13_desc": "claim_open_license_specs_description",
-				"claim_13_name": "claim_open_license_specs",
-				"claim_14_desc": "claim_repair_shop_description",
-				"claim_14_name": "claim_repair_shop",
-				"claim_15_desc": "claim_adaptive_hardware_description",
-				"claim_15_name": "claim_adaptive_hardware",
-				"claim_bridge_1_2": "0",
-				"claim_bridge_2_3": "0",
-				"claim_bridge_3_4": "0",
-				"claim_bridge_4_5": "0",
-				"claim_bridge_11_12": "0",
-				"claim_bridge_14_15": "0",
-				"claim_bridge_12_13": "0",
-				"claim_bridge_13_14": "0",
-				"cell_description": "cell_magpies_description",
-				"cell_xp_condition": "cell_magpies_xp_condition",
-				"hunting_grounds_type": "cell_magpies_hunting_grounds_type",
-				"hunting_grounds_description": "cell_magpies_hunting_grounds_description",
-				"upgrade_11_check_1": "1",
-				"upgrade_20_check_1": "1"
+				"cell_description": "cell_visionaries_description",
+				"cell_xp_condition": "cell_visionaries_xp_condition",
+				"hunting_grounds_type": "cell_visionaries_hunting_grounds_type",
+				"hunting_grounds_description": "cell_visionaries_hunting_grounds_description"
 			},
-			"cellability": ["feather_transform", "custom_os", "engineers", "foundation_frames", "resilience", "scrapyards", "sum_of_its_parts", "experienced"],
-			"upgrade": [],
-      "boon": []
-		},
-		"rangers": {
-			"base": {
-				"claim_1_desc": "claim_civilian_testimonies_description",
-				"claim_1_name": "claim_civilian_testimonies",
-				"claim_2_desc": "claim_artisan_crafters_description",
-				"claim_2_name": "claim_artisan_crafters",
-				"claim_3_desc": "claim_salvage_side_ops_description",
-				"claim_3_name": "claim_salvage_side_ops",
-				"claim_4_desc": "claim_field_medicine_description",
-				"claim_4_name": "claim_field_medicine",
-				"claim_5_desc": "claim_medical_bay_description",
-				"claim_5_name": "claim_medical_bay",
-				"claim_6_desc": "claim_combat_sims_description",
-				"claim_6_name": "claim_combat_sims",
-				"claim_7_name": "claim_production",
-				"claim_9_name": "claim_production",
-				"claim_10_name": "claim_production",
-				"claim_11_desc": "claim_training_facilities_description",
-				"claim_11_name": "claim_training_facilities",
-				"claim_12_name": "claim_production",
-				"claim_13_desc": "claim_warehouses_description",
-				"claim_13_name": "claim_warehouses",
-				"claim_14_desc": "claim_wormhole_gate_description",
-				"claim_14_name": "claim_wormhole_gate",
-				"claim_15_desc": "claim_passive_camo_description",
-				"claim_15_name": "claim_passive_camo",
-				"claim_bridge_2_3": "0",
-				"claim_bridge_3_4": "0",
-				"claim_bridge_9_14": "0",
-				"claim_bridge_12_13": "0",
-				"claim_bridge_13_14": "0",
-				"cell_description": "cell_rangers_description",
-				"cell_xp_condition": "cell_rangers_xp_condition",
-				"hunting_grounds_type": "cell_rangers_hunting_grounds_type",
-				"hunting_grounds_description": "cell_rangers_hunting_grounds_description",
-				"upgrade_7_check_1": "1",
-				"upgrade_21_check_1": "1"
-			},
-			"cellability": ["six_coyotes", "disaster_relief", "the_easy_way", "forged_in_fire", "reassuring", "synchronized", "war_dogs", "experienced"],
-			"upgrade": [],
-      "boon": []
-		},
-		"silvers": {
-			"base": {
-				"claim_1_desc": "claim_intercontinental_aid_description",
-				"claim_1_name": "claim_intercontinental_aid",
-				"claim_2_desc": "claim_artisan_crafters_description",
-				"claim_2_name": "claim_artisan_crafters",
-				"claim_3_desc": "claim_positive_spin_description",
-				"claim_3_name": "claim_positive_spin",
-				"claim_4_desc": "claim_cover_operation_description",
-				"claim_4_name": "claim_cover_operation",
-				"claim_5_desc": "claim_cover_identities_description",
-				"claim_5_name": "claim_cover_identities",
-				"claim_6_name": "claim_production",
-				"claim_7_name": "claim_production",
-				"claim_9_name": "claim_production",
-				"claim_10_desc": "claim_luxury_venue_description",
-				"claim_10_name": "claim_luxury_venue",
-				"claim_11_name": "claim_production",
-				"claim_12_desc": "claim_fashion_experts_description",
-				"claim_12_name": "claim_fashion_experts",
-				"claim_13_desc": "claim_black_market_contacts_description",
-				"claim_13_name": "claim_black_market_contacts",
-				"claim_14_desc": "claim_friends_in_low_places_description",
-				"claim_14_name": "claim_friends_in_low_places",
-				"claim_15_desc": "claim_expose_description",
-				"claim_15_name": "claim_expose",
-				"claim_bridge_2_3": "0",
-				"claim_bridge_3_4": "0",
-				"claim_bridge_12_13": "0",
-				"claim_bridge_13_14": "0",
-				"cell_description": "cell_silvers_description",
-				"cell_xp_condition": "cell_silvers_xp_condition",
-				"hunting_grounds_type": "cell_silvers_hunting_grounds_type",
-				"hunting_grounds_description": "cell_silvers_hunting_grounds_description",
-				"upgrade_20_check_1": "1",
-				"upgrade_22_check_1": "1"
-			},
-			"cellability": ["amiable", "cant_hate_us", "captivating", "heartfelt", "locals", "suppliers_network", "view_from_the_top", "experienced"],
-			"upgrade": [],
+			"cellability": ["prescience","backer","collaboration","daydream_believers","focused","servants_of_the_goddess","veteran"],
+			"upgrade": [{
+        "name": "cell_upgrade_barber",
+        "description": "cell_upgrade_barber_description",
+        "numboxes": "1"
+        }, {
+        "name": "cell_upgrade_kymber",
+        "description": "cell_upgrade_kymber_description",
+        "numboxes": "1"
+        }, {
+        "name": "cell_upgrade_kyrt",
+        "description": "cell_upgrade_kyrt_description",
+        "numboxes": "1"
+        }, {
+        "name": "cell_upgrade_mek",
+        "description": "cell_upgrade_mek_description",
+        "numboxes": "1"
+        }, {
+        "name": "cell_upgrade_veruka",
+        "description": "cell_upgrade_veruka_description",
+        "numboxes": "1"
+        }, {
+        "name": "cell_upgrade_den_hades",
+        "description": "cell_upgrade_den_hades_description",
+        "numboxes": "1"
+        }, {
+        "name": "cell_upgrade_kara",
+        "description": "cell_upgrade_kara_description",
+        "numboxes": "1"
+        }, {
+        "name": "cell_upgrade_jonhur",
+        "description": "cell_upgrade_jonhur_description",
+        "numboxes": "1"
+        }, {
+        "name": "cell_upgrade_acturius",
+        "description": "cell_upgrade_acturius_description",
+        "numboxes": "1"
+        }, {
+        "name": "cell_upgrade_tera",
+        "description": "cell_upgrade_tera_description",
+        "numboxes": "1"
+        }],
       "boon": []
 		}
 },
@@ -3534,12 +3416,56 @@ const data = {
     "upgrade_sanctuary_7_description": "upgrade_quarters_description",
     "upgrade_sanctuary_8_name": "workshop",
     "upgrade_sanctuary_8_description": "upgrade_workshop_description",
-    "upgrade_sanctuary_9_name": "mek",
-    "upgrade_sanctuary_9_description": "upgrade_mek_description",
-    "upgrade_sanctuary_10_name": "veruka",
-    "upgrade_sanctuary_10_description": "upgrade_veruka_description",
+
+    "upgrade_supply_1_name": "armor",
+    "upgrade_supply_1_description": "upgrade_armor_quality_description",
+    "upgrade_supply_2_name": "armor",
+    "upgrade_supply_2_description": "upgrade_armor_load_description",
+    "upgrade_supply_3_name": "documents",
+    "upgrade_supply_3_description": "upgrade_documents_quality_description",
+    "upgrade_supply_4_name": "documents",
+    "upgrade_supply_4_description": "upgrade_documents_load_description",
+    "upgrade_supply_5_name": "gear",
+    "upgrade_supply_5_description": "upgrade_gear_quality_description",
+    "upgrade_supply_6_name": "gear",
+    "upgrade_supply_6_description": "upgrade_gear_load_description",
+    "upgrade_supply_7_name": "implements",
+    "upgrade_supply_7_description": "upgrade_implements_quality_description",
+    "upgrade_supply_8_name": "implements",
+    "upgrade_supply_8_description": "upgrade_implements_load_description",
+    "upgrade_supply_9_name": "tools",
+    "upgrade_supply_9_description": "upgrade_tools_quality_description",
+    "upgrade_supply_10_name": "tools",
+    "upgrade_supply_10_description": "upgrade_tools_load_description",
+    "upgrade_supply_11_name": "weapons",
+    "upgrade_supply_11_description": "upgrade_weapons_quality_description",
+    "upgrade_supply_12_name": "weapons",
+    "upgrade_supply_12_description": "upgrade_weapons_load_description",
     
-		"upgrade_6_name": "dropjet",
+    
+    "upgrade_vision_1_name": "ritual_synthesis",
+    "upgrade_vision_1_description": "upgrade_ritual_synthesis_description",
+    "upgrade_vision_2_name": "nature",
+    "upgrade_vision_2_description": "upgrade_nature_description",
+    "upgrade_vision_3_name": "aspect",
+    "upgrade_vision_3_description": "upgrade_aspect_description",
+    "upgrade_vision_4_name": "old_arts",
+    "upgrade_vision_4_description": "upgrade_old_arts_description",
+    "upgrade_vision_5_name": "divination",
+    "upgrade_vision_5_description": "upgrade_divination_description",
+    "upgrade_vision_6_name": "protection",
+    "upgrade_vision_6_description": "upgrade_protection_description",
+    "upgrade_vision_7_name": "dream",
+    "upgrade_vision_7_description": "upgrade_dream_description",    
+    "upgrade_vision_8_name": "summoning",
+    "upgrade_vision_8_description": "upgrade_summoning_description",    
+    "upgrade_vision_9_name": "enchantment",
+    "upgrade_vision_9_description": "upgrade_enchantment_description",    
+    "upgrade_vision_10_name": "sundering",
+    "upgrade_vision_6_description": "upgrade_sundering_description",
+    
+    
+		/* "upgrade_6_name": "dropjet",
 		"upgrade_6_description": "upgrade_dropjet_description",
 		"upgrade_7_name": "quarters",
 		"upgrade_7_description": "upgrade_quarters_description",
@@ -3557,7 +3483,7 @@ const data = {
 		"upgrade_13_description": "upgrade_tools_description",
 		"upgrade_14_name": "kits",
 		"upgrade_14_description": "upgrade_kits_description",
-		"upgrade_15_name": "spacer",
+		"upgrade_15_name": "spacer", */
 		"upgrade_20_name": "insight",
 		"upgrade_20_description": "upgrade_insight_description",
 		"upgrade_21_name": "prowess",

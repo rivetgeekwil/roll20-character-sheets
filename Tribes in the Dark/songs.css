@@ -324,6 +324,17 @@
   letter-spacing: 1px;
   padding: 0 5px;
 }
+
+
+.sheet-cohort-title {
+  height: 20px;
+  line-height: 20px;
+  color: black;
+  background: #b4b4b4;
+  padding: 0 3px;
+  align-items: center;
+  justify-content: space-between;
+}
 .sheet-specialheader input[type=text] {
   margin: 0 -5px;
   padding: 0 5px;
@@ -758,10 +769,10 @@ textarea.sheet-smallcaps {
   width: calc(36% + 6px);
 }
 .sheet-type-cell .sheet-playbook input[type=text] {
-  width: calc(74% - 7px);
+  width: calc(72% - 7px);
 }
 .sheet-type-cell .sheet-playbook textarea {
-  width: calc(26% + 3px);
+  width: calc(28% + 3px);
 }
 /* HEADER */
 .sheet-header {
@@ -2110,8 +2121,9 @@ input.sheet-checkbox.sheet-squarebox-small, .sheet-checkbox.sheet-squarebox-smal
 .sheet-outlook {
   margin-bottom: 10px;
 }
+
+
 .sheet-attribute-title,
-.sheet-cohort-title,
 .sheet-outlook-title {
   height: 20px;
   line-height: 20px;
@@ -2157,10 +2169,10 @@ input.sheet-checkbox.sheet-squarebox-small, .sheet-checkbox.sheet-squarebox-smal
   width: calc(100% - 40px);
 }
 .sheet-cohort-info {
-  background: black;
+  background: #b4b4b4;
   height: 13px;
   font-size: 9px;
-  color: white;
+  color: black;
   line-height: 13px;
 }
 .sheet-cohort-info input[type=text] {
@@ -2196,7 +2208,7 @@ input.sheet-checkbox.sheet-squarebox-small, .sheet-checkbox.sheet-squarebox-smal
   z-index: -1;
 }
 .sheet-cohort-dropdown {
-  background: black;
+  background: #b4b4b4;
   position: relative;
   z-index: 1;
   width: 41px;
