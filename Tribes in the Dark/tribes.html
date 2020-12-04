@@ -2627,7 +2627,7 @@
   </div>
 </div>  
 <rolltemplate class="sheet-rolltemplate-bitd">
-  <div class="holder{{#action}} action{{/action}}{{#resist}} resist{{/resist}}{{#vice}} vice{{/vice}}{{#fortune}} fortune{{/fortune}}{{#engagement}} engagement{{/engagement}}{{#short}} short{{/short}}{{#action}}{{^position}} short{{/position}}{{/action}}">{{#charimage}}
+  <div class="holder{{#action}} action{{/action}}{{#resist}} resist{{/resist}}{{#vice}} vice{{/vice}}{{#fortune}} fortune{{/fortune}} {{#short}} short{{/short}}{{#action}}{{^position}} short{{/position}}{{/action}}">{{#charimage}}
     <div class="char-image">[Image]({{charimage}})</div>{{/charimage}}
     <div class="header{{#charimage}} narrow{{/charimage}}">{{charname}} {{subtitle}}</div>
     <div class="title"><span class="{{#small-title}}small-title{{/small-title}}">{{title}}</span></div>
@@ -4745,8 +4745,7 @@ on("sheet:opened", () => {
       getTranslationByKey("controlled")}|${
       getTranslationByKey("desperate")},position=${
       getTranslationByKey("desperate")}|${
-      getTranslationByKey("fortune_roll")},short=short}|${
-      getTranslationByKey("engagement_roll")},short=short}`,
+      getTranslationByKey("fortune_roll")},short=short}`,
 	};
   getAttrs(Object.keys(translatedAttrs), v => {
       const setting = {};
