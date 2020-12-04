@@ -1,5 +1,3 @@
-/* Variants of grey */
-/* red */
 /* GENERALITIES */
 .charsheet {
   color: #333;
@@ -161,7 +159,7 @@
   height: 20px;
 }
 .sheet-type-selector:hover {
-  color: #00595f;
+  color: #43291a;
 }
 .sheet-type-selector .sheet-3waybox:not(:checked) + .sheet-3waybox,
 .sheet-type-selector input[value="character"]:not(:checked) ~ span[data-i18n="character_mode"],
@@ -680,7 +678,7 @@ textarea.sheet-smallcaps {
   color: #333;
 }
 .sheet-itemheader .sheet-text-button:hover input[type=checkbox] + span {
-  color: #00595f;
+  color: #43291a;
 }
 /* ADVANCEMENT BOX*/
 .sheet-advancement-header {
@@ -789,7 +787,7 @@ textarea.sheet-smallcaps {
   text-align: left;
   padding: 3px 0 0 2px;
   min-height: 22px;
-  color: #00595f;
+  color: #43291a;
 }
 .sheet-header input[type="hidden"][value=""] + div > .sheet-title::after {
   content: ": ";
@@ -1149,124 +1147,124 @@ textarea.sheet-smallcaps {
   background: white;
 }
 .sheet-size[value="4"] ~ .sheet-clock-container .sheet-input-progress[value="1"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(180deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(180deg, #43291a 50%, white 50%);
 }
 .sheet-size[value="4"] ~ .sheet-clock-container .sheet-input-progress[value="2"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(90deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(90deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-size[value="4"] ~ .sheet-clock-container .sheet-input-progress[value="3"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(180deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(180deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-size[value="4"] ~ .sheet-clock-container .sheet-input-progress[value="4"]:checked ~ .sheet-clock {
-  background: #00595f;
+  background: #43291a;
 }
 .sheet-size[value="6"] ~ .sheet-clock-container .sheet-input-progress[value="1"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(150deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(150deg, #43291a 50%, white 50%);
 }
 .sheet-size[value="6"] ~ .sheet-clock-container .sheet-input-progress[value="2"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(210deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(210deg, #43291a 50%, white 50%);
 }
 .sheet-size[value="6"] ~ .sheet-clock-container .sheet-input-progress[value="3"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(90deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(90deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-size[value="6"] ~ .sheet-clock-container .sheet-input-progress[value="4"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(150deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(150deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-size[value="6"] ~ .sheet-clock-container .sheet-input-progress[value="5"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(210deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(210deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-size[value="6"] ~ .sheet-clock-container .sheet-input-progress[value="6"]:checked ~ .sheet-clock {
-  background: #00595f;
+  background: #43291a;
 }
 .sheet-size[value="8"] ~ .sheet-clock-container .sheet-input-progress[value="1"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(135deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(135deg, #43291a 50%, white 50%);
 }
 .sheet-size[value="8"] ~ .sheet-clock-container .sheet-input-progress[value="2"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(180deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(180deg, #43291a 50%, white 50%);
 }
 .sheet-size[value="8"] ~ .sheet-clock-container .sheet-input-progress[value="3"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(225deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(225deg, #43291a 50%, white 50%);
 }
 .sheet-size[value="8"] ~ .sheet-clock-container .sheet-input-progress[value="4"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(90deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(90deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-size[value="8"] ~ .sheet-clock-container .sheet-input-progress[value="5"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(135deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(135deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-size[value="8"] ~ .sheet-clock-container .sheet-input-progress[value="6"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(180deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(180deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-size[value="8"] ~ .sheet-clock-container .sheet-input-progress[value="7"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(225deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(225deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-size[value="8"] ~ .sheet-clock-container .sheet-input-progress[value="8"]:checked ~ .sheet-clock {
-  background: #00595f;
+  background: #43291a;
 }
 .sheet-size[value="10"] ~ .sheet-clock-container .sheet-input-progress[value="1"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(126deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(126deg, #43291a 50%, white 50%);
 }
 .sheet-size[value="10"] ~ .sheet-clock-container .sheet-input-progress[value="2"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(162deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(162deg, #43291a 50%, white 50%);
 }
 .sheet-size[value="10"] ~ .sheet-clock-container .sheet-input-progress[value="3"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(198deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(198deg, #43291a 50%, white 50%);
 }
 .sheet-size[value="10"] ~ .sheet-clock-container .sheet-input-progress[value="4"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(234deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(234deg, #43291a 50%, white 50%);
 }
 .sheet-size[value="10"] ~ .sheet-clock-container .sheet-input-progress[value="5"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(90deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(90deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-size[value="10"] ~ .sheet-clock-container .sheet-input-progress[value="6"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(126deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(126deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-size[value="10"] ~ .sheet-clock-container .sheet-input-progress[value="7"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(162deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(162deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-size[value="10"] ~ .sheet-clock-container .sheet-input-progress[value="8"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(198deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(198deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-size[value="10"] ~ .sheet-clock-container .sheet-input-progress[value="9"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(234deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(234deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-size[value="10"] ~ .sheet-clock-container .sheet-input-progress[value="10"]:checked ~ .sheet-clock {
-  background: #00595f;
+  background: #43291a;
 }
 .sheet-size[value="12"] ~ .sheet-clock-container .sheet-input-progress[value="1"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(120deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(120deg, #43291a 50%, white 50%);
 }
 .sheet-size[value="12"] ~ .sheet-clock-container .sheet-input-progress[value="2"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(150deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(150deg, #43291a 50%, white 50%);
 }
 .sheet-size[value="12"] ~ .sheet-clock-container .sheet-input-progress[value="3"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(180deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(180deg, #43291a 50%, white 50%);
 }
 .sheet-size[value="12"] ~ .sheet-clock-container .sheet-input-progress[value="4"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(210deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(210deg, #43291a 50%, white 50%);
 }
 .sheet-size[value="12"] ~ .sheet-clock-container .sheet-input-progress[value="5"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(240deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(240deg, #43291a 50%, white 50%);
 }
 .sheet-size[value="12"] ~ .sheet-clock-container .sheet-input-progress[value="6"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(90deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(90deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-size[value="12"] ~ .sheet-clock-container .sheet-input-progress[value="7"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(120deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(120deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-size[value="12"] ~ .sheet-clock-container .sheet-input-progress[value="8"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(150deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(150deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-size[value="12"] ~ .sheet-clock-container .sheet-input-progress[value="9"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(180deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(180deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-size[value="12"] ~ .sheet-clock-container .sheet-input-progress[value="10"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(210deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(210deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-size[value="12"] ~ .sheet-clock-container .sheet-input-progress[value="11"]:checked ~ .sheet-clock {
-  background-image: linear-gradient(240deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(240deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-size[value="12"] ~ .sheet-clock-container .sheet-input-progress[value="12"]:checked ~ .sheet-clock {
-  background: #00595f;
+  background: #43291a;
 }
 /* TEXT INPUTS FOR TRAUMA AND CLOCKS */
 .sheet-text-button {
@@ -1315,11 +1313,11 @@ input.sheet-tooth:last-of-type {
   opacity: 0.9;
 }
 .sheet-xptooth + span {
-  background-image: url("https://raw.githubusercontent.com/mxquinn/roll20-character-sheets/master/Songs%20for%20the%20Dusk/Assets/teeth/xp_tooth_checked.png");
+  background-image: url("https://raw.githubusercontent.com/rivetgeekwil/roll20-character-sheets/TITD/Tribes%20in%20the%20Dark/Assets/teeth/xp_tooth_checked.png");
   margin-right: 3px;
 }
 .sheet-tooth:checked ~ .sheet-xptooth + span {
-  background-image: url("https://raw.githubusercontent.com/mxquinn/roll20-character-sheets/master/Songs%20for%20the%20Dusk/Assets/teeth/xp_tooth.png");
+  background-image: url("https://raw.githubusercontent.com/rivetgeekwil/roll20-character-sheets/TITD/Tribes%20in%20the%20Dark/Assets/teeth/xp_tooth.png");
 }
 .sheet-stresstooth[type=radio] + span,
 .sheet-stresstooth[type=checkbox]:checked + span,
@@ -1407,10 +1405,10 @@ input.sheet-zero {
 .sheet-turf-input[value="4"] ~ input[type=radio].sheet-turf4 + span,
 .sheet-turf-input[value="5"] ~ input[type=radio].sheet-turf5 + span,
 .sheet-turf-input[value="6"] ~ input[type=radio].sheet-turf6 + span {
-  background-image: url("https://raw.githubusercontent.com/mxquinn/roll20-character-sheets/master/Songs%20for%20the%20Dusk/Assets/teeth/turf_tooth_checked.png");
+  background-image: url("https://raw.githubusercontent.com/rivetgeekwil/roll20-character-sheets/TITD/Tribes%20in%20the%20Dark/Assets/teeth/turf_tooth_checked.png");
 }
 .sheet-tooth:checked ~ .sheet-stresstooth.sheet-turf6 + span {
-  background-image: url("https://raw.githubusercontent.com/mxquinn/roll20-character-sheets/master/Songs%20for%20the%20Dusk/Assets/teeth/turf_tooth.png");
+  background-image: url("https://raw.githubusercontent.com/rivetgeekwil/roll20-character-sheets/TITD/Tribes%20in%20the%20Dark/Assets/teeth/turf_tooth.png");
 }
 /* SPECIAL ABILITIES*/
 .sheet-specialability,
@@ -1513,7 +1511,7 @@ input.sheet-zero {
 .sheet-harmbody textarea {
   font-size: 12px;
   padding: 10px 4px 3px;
-  color: #00595f;
+  color: #43291a;
   overflow: hidden;
   height: 52px;
   resize: none;
@@ -1553,7 +1551,7 @@ input.sheet-zero {
   order: 1;
 }
 .sheet-armor input:checked ~ span {
-  color: #00595f;
+  color: #43291a;
 }
 .sheet-armor .sheet-checkbox + span {
   border: 1px solid black;
@@ -1658,14 +1656,14 @@ input.sheet-zero {
   margin-right: 0;
 }
 .sheet-coin .sheet-radiobox + span, .sheet-investment .sheet-radiobox + span, .sheet-cellcoin .sheet-radiobox + span {
-  background: #00595f;
+  background: #43291a;
   border: 1px solid black;
 }
 .sheet-coin input:checked ~ .sheet-radiobox + span, .sheet-investment input:checked ~ .sheet-radiobox + span, .sheet-cellcoin input:checked ~ .sheet-radiobox + span {
   background: white;
 }
 .sheet-stash .sheet-radiobox + span {
-  background: #00595f;
+  background: #43291a;
   border: 1px solid black;
   margin-right: calc((100% - 126px)/9);
 }
@@ -1885,7 +1883,7 @@ input.sheet-zero {
 .sheet-notes {
   margin-left: 1%;
   font-family: "asap", sans-serif;
-  color: #00595f;
+  color: #43291a;
   font-size: 20px;
   width: 98%;
   background: linear-gradient(transparent 26px, #a7a7a7 1px) 0 0/100% 27px;
@@ -1980,7 +1978,7 @@ input.sheet-checkbox, .sheet-checkbox + span {
   border: 1px solid #8c8c8c;
 }
 .sheet-checkbox:checked + span {
-  background: #00595f;
+  background: #43291a;
 }
 .sheet-checkbox:hover + span {
   opacity: 0.7;
@@ -2060,7 +2058,7 @@ input.sheet-checkbox.sheet-squarebox-small, .sheet-checkbox.sheet-squarebox-smal
 }
 /* Fake radios */
 .sheet-checkbox.sheet-fakeradio + span {
-  background: #00595f;
+  background: #43291a;
 }
 .sheet-action .sheet-fakeradio:checked ~ .sheet-fakeradio + span {
   background: #c7c7c7;
@@ -2093,7 +2091,7 @@ input.sheet-checkbox.sheet-squarebox-small, .sheet-checkbox.sheet-squarebox-smal
   border-bottom-color: white;
 }
 .sheet-friend label.sheet-up .sheet-checkbox:checked + span {
-  border-bottom-color: #00595f;
+  border-bottom-color: #43291a;
 }
 .sheet-friend label.sheet-down {
   top: 5px;
@@ -2336,7 +2334,7 @@ input.sheet-title-checkbox {
   height: 24px;
 }
 .sheet-title-checkbox:hover + span {
-  color: #00595f;
+  color: #43291a;
 }
 .sheet-alchemicals {
   padding: 0 5px;
@@ -2402,7 +2400,7 @@ input.sheet-title-checkbox {
   font-family: sans-serif;
 }
 .sheet-alchemicals .sheet-alchemicals-expand:checked + span {
-  color: #00595f;
+  color: #43291a;
 }
 .sheet-alchemicals .itemcontrol .btn {
   padding: 0 4px;
@@ -2743,7 +2741,7 @@ button[type=roll].sheet-broadcast-button {
   height: 258px;
 }
 .sheet-rolltemplate-bitd .sheet-fortune {
-  background-image: url("https://raw.githubusercontent.com/mxquinn/roll20-character-sheets/master/Songs%20for%20the%20Dusk/Assets/rolltemplate/rolltemplate_fortune.png");
+  background-image: url("https://raw.githubusercontent.com/rivetgeekwil/roll20-character-sheets/TITD/Tribes%20in%20the%20Dark/Assets/rolltemplate/rolltemplate_fortune.png");
   background-position: bottom right;
   background-repeat: no-repeat;
   background-color: white;
@@ -3109,124 +3107,124 @@ button[type=roll].sheet-broadcast-button {
   transform: translate(39px, -4px) rotate(150deg);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-4.sheet-progress-1 {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(180deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(180deg, #43291a 50%, white 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-4.sheet-progress-2 {
-  background-image: linear-gradient(90deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(90deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-4.sheet-progress-3 {
-  background-image: linear-gradient(180deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(180deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-4.sheet-progress-4 {
-  background: #00595f;
+  background: #43291a;
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-6.sheet-progress-1 {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(150deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(150deg, #43291a 50%, white 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-6.sheet-progress-2 {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(210deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(210deg, #43291a 50%, white 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-6.sheet-progress-3 {
-  background-image: linear-gradient(90deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(90deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-6.sheet-progress-4 {
-  background-image: linear-gradient(150deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(150deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-6.sheet-progress-5 {
-  background-image: linear-gradient(210deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(210deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-6.sheet-progress-6 {
-  background: #00595f;
+  background: #43291a;
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-8.sheet-progress-1 {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(135deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(135deg, #43291a 50%, white 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-8.sheet-progress-2 {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(180deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(180deg, #43291a 50%, white 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-8.sheet-progress-3 {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(225deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(225deg, #43291a 50%, white 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-8.sheet-progress-4 {
-  background-image: linear-gradient(90deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(90deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-8.sheet-progress-5 {
-  background-image: linear-gradient(135deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(135deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-8.sheet-progress-6 {
-  background-image: linear-gradient(180deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(180deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-8.sheet-progress-7 {
-  background-image: linear-gradient(225deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(225deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-8.sheet-progress-8 {
-  background: #00595f;
+  background: #43291a;
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-10.sheet-progress-1 {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(126deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(126deg, #43291a 50%, white 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-10.sheet-progress-2 {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(162deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(162deg, #43291a 50%, white 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-10.sheet-progress-3 {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(198deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(198deg, #43291a 50%, white 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-10.sheet-progress-4 {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(234deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(234deg, #43291a 50%, white 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-10.sheet-progress-5 {
-  background-image: linear-gradient(90deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(90deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-10.sheet-progress-6 {
-  background-image: linear-gradient(126deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(126deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-10.sheet-progress-7 {
-  background-image: linear-gradient(162deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(162deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-10.sheet-progress-8 {
-  background-image: linear-gradient(198deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(198deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-10.sheet-progress-9 {
-  background-image: linear-gradient(234deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(234deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-10.sheet-progress-10 {
-  background: #00595f;
+  background: #43291a;
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-12.sheet-progress-1 {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(120deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(120deg, #43291a 50%, white 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-12.sheet-progress-2 {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(150deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(150deg, #43291a 50%, white 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-12.sheet-progress-3 {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(180deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(180deg, #43291a 50%, white 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-12.sheet-progress-4 {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(210deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(210deg, #43291a 50%, white 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-12.sheet-progress-5 {
-  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(240deg, #00595f 50%, white 50%);
+  background-image: linear-gradient(90deg, white 50%, transparent 50%), linear-gradient(240deg, #43291a 50%, white 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-12.sheet-progress-6 {
-  background-image: linear-gradient(90deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(90deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-12.sheet-progress-7 {
-  background-image: linear-gradient(120deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(120deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-12.sheet-progress-8 {
-  background-image: linear-gradient(150deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(150deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-12.sheet-progress-9 {
-  background-image: linear-gradient(180deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(180deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-12.sheet-progress-10 {
-  background-image: linear-gradient(210deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(210deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-12.sheet-progress-11 {
-  background-image: linear-gradient(240deg, transparent 50%, #00595f 50%), linear-gradient(90deg, white 50%, #00595f 50%);
+  background-image: linear-gradient(240deg, transparent 50%, #43291a 50%), linear-gradient(90deg, white 50%, #43291a 50%);
 }
 .sheet-rolltemplate-bitd-broadcast .sheet-size-12.sheet-progress-12 {
-  background: #00595f;
+  background: #43291a;
 }
 
 
