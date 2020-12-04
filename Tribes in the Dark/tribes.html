@@ -91,8 +91,6 @@
         <option value="demagogues" data-i18n="demagogues"></option>
         <option value="firebrands" data-i18n="firebrands"></option>
         <option value="visionaries" data-i18n="visionaries"></option>
-        <option value="rangers" data-i18n="rangers"></option>
-        <option value="silvers" data-i18n="silvers"></option>
       </select>
       <label class="generatebutton">
         <input type="checkbox" name="attr_generate_cellability" value="1" /><span data-i18n="add_abilities"></span>
@@ -222,27 +220,61 @@
       <!-- Logo, Header text fields-->
       <div class="col100 sheet-header sheet-flex">
         <div class="col100 sheet-bladeslogo"></div>
-        <label class="col55 sheet-header">
-          <input type="text" spellcheck="false" name="attr_name">
-          <div class="sheet-label sheet-text sheet-title" data-i18n="name">Name and Pronouns</div>
-        </label>
-        <label class="col45">
-          <input type="text" spellcheck="false" name="attr_cell">
-          <div class="sheet-label sheet-text sheet-title" data-i18n="cell">Cell</div>
-        </label>
-        <label class="col100">
-          <!-- <div class="auto-expand"><span name="attr_outlook"></span>
-            <textarea spellcheck="false" name="attr_outlook"></textarea>
-          </div>
-          <input type="hidden" name="attr_outlook" value=""/>
-          <div class="text"><span class="label title" data-i18n="outlook"></span><span class="uppercase info" data-i18n="outlook_info"></span></div>   -->
-          <div class="outlooks col100">
-            <div class="text"><span class="label title" data-i18n="outlook"></span></div>
-            <input class="outlook-traits-chosen" type="hidden" name="attr_outlook_traits_chosen" value="0" />
+        <div class="col55">
+          <label class="col100">
+            <input type="text" spellcheck="false" name="attr_name">
+            <div class="sheet-label sheet-text sheet-title" data-i18n="name">Name and Pronouns</div>
+          </label>
+          <label class="col100">
+            <input type="text" spellcheck="false" name="attr_cell">
+            <div class="sheet-label sheet-text sheet-title" data-i18n="cell">Cell</div>
+          </label>
+          <label class="col100">
+            <div class="auto-expand"><span name="attr_first_eminence"></span>
+              <textarea spellcheck="false" name="attr_first_eminence"></textarea>
+            </div>
+            <input type="hidden" name="attr_first_eminence" value="" />
+            <div class="text"><span class="label title" data-i18n="first_eminence"></span> <span class="uppercase info"
+                spellcheck="false" name="attr_playbook_eminence" data-i18n-placeholder="playbook_eminence"></space>
+            </div>
+          </label>          
+          <label class="col100">
+            <div class="auto-expand"><span name="attr_background"></span>
+              <textarea spellcheck="false" name="attr_background"></textarea>
+            </div>
+            <input type="hidden" name="attr_background" value="" />
+            <div class="text"><span class="label title" data-i18n="background"></span> <span class="uppercase info"
+                spellcheck="false" name="attr_playbook_background" data-i18n-placeholder="playbook_background"></space>
+            </div>
+          </label>
+          <label class="col100">
+            <div class="auto-expand"><span name="attr_crime"></span>
+              <textarea spellcheck="false" name="attr_crime"></textarea>
+            </div>
+            <input type="hidden" name="attr_crime" value="" />
+            <div class="text"><span class="label title" data-i18n="crime"></span><span class="uppercase info"
+                data-i18n="crime_info"></span></div>
+          </label>
+        </div>
+
+        <div class="col45">
+          <div class="heritages standard-margin col100">
+            <label class="col100 sheet-header">        
+              <div class="sheet-label sheet-text sheet-title" data-i18n="outlook">Outlook</div>
+            </label>
+            <input class="heritage-traits-chosen" type="hidden" name="attr_outlook_traits_chosen" value="0" />
             <div class="content">
               <input class="hider" type="hidden" name="attr_show_outlook_doomsayer" value="1" />
-              <div class="outlook">
+              <div class="heritage">
                 <div class="text"><span class="label title" data-i18n="doomsayer"></span></div>
+                <label class="col100">
+                  <div class="auto-expand"><span name="attr_second_eminence"></span>
+                    <textarea spellcheck="false" name="attr_second_eminence"></textarea>
+                  </div>
+                  <input type="hidden" name="attr_second_eminence" value="" />
+                  <div class="text"><span class="label title" data-i18n="second_eminence"></span><span class="uppercase info"
+                      data-i18n="doomsayer_eminences"></span></div>
+                </label>
                 <ul class="traits">
                   <input class="trait-hider" type="hidden" name="attr_trait_debater" value="0" />
                   <li>
@@ -271,8 +303,16 @@
                 </ul>
               </div>
               <input class="hider" type="hidden" name="attr_show_outlook_herite" value="1" />
-              <div class="outlook">
+              <div class="heritage">
                 <div class="text"><span class="label title" data-i18n="herite"></span></div>
+                <label class="col100">
+                  <div class="auto-expand"><span name="attr_second_eminence"></span>
+                    <textarea spellcheck="false" name="attr_second_eminence"></textarea>
+                  </div>
+                  <input type="hidden" name="attr_second_eminence" value="" />
+                  <div class="text"><span class="label title" data-i18n="second_eminence"></span><span class="uppercase info"
+                      data-i18n="herite_eminences"></span></div>
+                </label>
                 <ul class="traits">
                   <input class="trait-hider" type="hidden" name="attr_trait_anarchic" value="0" />
                   <li>
@@ -301,8 +341,16 @@
                 </ul>
               </div>
               <input class="hider" type="hidden" name="attr_show_outlook_jacker" value="1" />
-              <div class="outlook">
+              <div class="heritage">
                 <div class="text"><span class="label title" data-i18n="jacker"></span></div>
+                <label class="col100">
+                  <div class="auto-expand"><span name="attr_second_eminence"></span>
+                    <textarea spellcheck="false" name="attr_second_eminence"></textarea>
+                  </div>
+                  <input type="hidden" name="attr_second_eminence" value="" />
+                  <div class="text"><span class="label title" data-i18n="second_eminence"></span><span class="uppercase info"
+                      data-i18n="jacker_eminences"></span></div>
+                </label>
                 <ul class="traits">
                   <input class="trait-hider" type="hidden" name="attr_trait_driven" value="0" />
                   <li>
@@ -331,8 +379,16 @@
                 </ul>
               </div>
               <input class="hider" type="hidden" name="attr_show_outlook_lightbringer" value="1" />
-              <div class="outlook col50">
+              <div class="heritage">
                 <div class="text"><span class="label title" data-i18n="lightbringer"></span></div>
+                <label class="col100">
+                  <div class="auto-expand"><span name="attr_second_eminence"></span>
+                    <textarea spellcheck="false" name="attr_second_eminence"></textarea>
+                  </div>
+                  <input type="hidden" name="attr_second_eminence" value="" />
+                  <div class="text"><span class="label title" data-i18n="second_eminence"></span><span class="uppercase info"
+                      data-i18n="lightbringer_eminences"></span></div>
+                </label>
                 <ul class="traits">
                   <input class="trait-hider" type="hidden" name="attr_trait_connected" value="0" />
                   <li>
@@ -362,44 +418,15 @@
               </div>
             </div>
           </div>
-
-        </label>
-
-
-        <label class="col55">
-          <div class="auto-expand"><span name="attr_first_eminence"></span>
-            <textarea spellcheck="false" name="attr_first_eminence"></textarea>
-          </div>
-          <input type="hidden" name="attr_first_eminence" value="" />
-          <div class="text"><span class="label title" data-i18n="first_eminence"></span> <span class="uppercase info"
-              spellcheck="false" name="attr_playbook_eminence" data-i18n-placeholder="playbook_eminence"></space>
-          </div>
-        </label>
-        <label class="col45">
-          <div class="auto-expand"><span name="attr_second_eminence"></span>
-            <textarea spellcheck="false" name="attr_second_eminence"></textarea>
-          </div>
-          <input type="hidden" name="attr_second_eminence" value="" />
-          <div class="text"><span class="label title" data-i18n="second_eminence"></span><span class="uppercase info"
-              data-i18n="second_eminence_info"></span></div>
-        </label>
-        <label class="col55">
-          <div class="auto-expand"><span name="attr_background"></span>
-            <textarea spellcheck="false" name="attr_background"></textarea>
-          </div>
-          <input type="hidden" name="attr_background" value="" />
-          <div class="text"><span class="label title" data-i18n="background"></span> <span class="uppercase info"
-              spellcheck="false" name="attr_playbook_background" data-i18n-placeholder="playbook_background"></space>
-          </div>
-        </label>
-        <label class="col45">
-          <div class="auto-expand"><span name="attr_crime"></span>
-            <textarea spellcheck="false" name="attr_crime"></textarea>
-          </div>
-          <input type="hidden" name="attr_crime" value="" />
-          <div class="text"><span class="label title" data-i18n="crime"></span><span class="uppercase info"
-              data-i18n="crime_info"></span></div>
-        </label>
+        </div>
+        
+        
+        
+       
+      </div>
+      
+      <div class="col100 sheet-header sheet-flex">
+       
         <label class="col100">
           <input type="text" spellcheck="false" name="attr_look" />
           <div class="label text title" data-i18n="look"></div>
@@ -544,21 +571,7 @@
               <input class="checkbox squarebox" type="checkbox" name="attr_special" value="1" /><span></span><span
                 class="label" data-i18n="special"></span>
             </label>
-          </div>
-          <!-- Coin and Stash-->
-          <!-- <div class="col100 coin-and-stash"> -->
-          <!-- Coin-->
-          <!-- <div class="col100 coinrow flex">
-              <div class="coin flex">
-                <div class="label" data-i18n="coin"></div>
-                <input class="zero" type="radio" name="attr_coin" value="0" checked="checked"/><span></span>
-                <input class="radiobox" type="radio" name="attr_coin" value="1"/><span></span><br/>
-                <input class="radiobox" type="radio" name="attr_coin" value="2"/><span></span><br/>
-                <input class="radiobox" type="radio" name="attr_coin" value="3"/><span></span><br/>
-                <input class="radiobox" type="radio" name="attr_coin" value="4"/><span></span><br/>
-              </div>
-            </div>
-          </div> -->
+          </div>         
         </div>
       </div>
       <!-- Special abilities-->
@@ -1500,7 +1513,7 @@
                   value="4" /><span></span>
               </div>
             </div>
-            <div class="playbookitems col100 free-repcontrol">
+            <div class="regularitems col100 free-repcontrol">
               <fieldset class="repeating_upgrade">
                 <input class="boxes-chosen" type="hidden" name="attr_boxes_chosen" value="0" />
                 <div class="item numboxes-chooser">
@@ -2710,8 +2723,10 @@ const data = {
               "cell_xp_condition": "cell_demagogues_xp_condition",
               "hunting_grounds_type": "cell_demagogues_hunting_grounds_type",
               "hunting_grounds_description": "cell_demagogues_hunting_grounds_description",
-              "upgrade_14_check_1": "1",
-              "upgrade_22_check_1": "1"
+              "upgrade_20_check_1": "1",
+              "sanctuary": "1",
+              "community": "1"
+              
           },
           "cellability": [
               "for_the_people",
@@ -2783,6 +2798,8 @@ const data = {
               "cell_xp_condition": "cell_firebrands_description_xp_condition",
               "hunting_grounds_type": "cell_firebrands_hunting_grounds_type",
               "hunting_grounds_description": "cell_firebrands_hunting_grounds_description",
+              "supply": "1",
+              "sanctuary": "1"
           },
           "cellability": [
               "spitfires",
@@ -2853,7 +2870,9 @@ const data = {
               "cell_description": "cell_visionaries_description",
               "cell_xp_condition": "cell_visionaries_xp_condition",
               "hunting_grounds_type": "cell_visionaries_hunting_grounds_type",
-              "hunting_grounds_description": "cell_visionaries_hunting_grounds_description"
+              "hunting_grounds_description": "cell_visionaries_hunting_grounds_description",
+              "sanctuary": "1",
+              "vision": "1"
           },
           "cellability": [
               "prescience",
@@ -3740,26 +3759,7 @@ const data = {
       "upgrade_vision_9_name": "enchantment",
       "upgrade_vision_9_description": "upgrade_enchantment_description",
       "upgrade_vision_10_name": "sundering",
-      "upgrade_vision_6_description": "upgrade_sundering_description",
-      /* "upgrade_6_name": "dropjet",
-      "upgrade_6_description": "upgrade_dropjet_description",
-      "upgrade_7_name": "quarters",
-      "upgrade_7_description": "upgrade_quarters_description",
-      "upgrade_8_name": "warehouses",
-      "upgrade_8_description": "upgrade_warehouses_description",
-      "upgrade_9_name": "security",
-      "upgrade_9_description": "upgrade_security_description",
-      "upgrade_10_name": "workshop",
-      "upgrade_10_description": "upgrade_workshop_description",
-      "upgrade_11_name": "packs",
-      "upgrade_11_description": "upgrade_packs_description",
-      "upgrade_12_name": "weapons",
-      "upgrade_12_description": "upgrade_weapons_description",
-      "upgrade_13_name": "tools",
-      "upgrade_13_description": "upgrade_tools_description",
-      "upgrade_14_name": "kits",
-      "upgrade_14_description": "upgrade_kits_description",
-      "upgrade_15_name": "spacer", */
+      "upgrade_vision_6_description": "upgrade_sundering_description",            
       "upgrade_20_name": "insight",
       "upgrade_20_description": "upgrade_insight_description",
       "upgrade_21_name": "prowess",

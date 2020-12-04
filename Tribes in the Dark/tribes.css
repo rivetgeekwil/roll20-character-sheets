@@ -3230,61 +3230,60 @@ button[type=roll].sheet-broadcast-button {
 }
 
 
-/* outlook */
-.sheet-outlooks .sheet-title .sheet-focus {
+/* Heritage */
+.sheet-heritages .sheet-title {
   display: grid;
-  grid: auto / 30% 70%;  
-  background: #d8d8d8;
-  }
-
-
-.sheet-outlooks .sheet-title input[type="text"] {
-  font-size: 12px;
+  grid: auto / 30% 70%;
 }
 
-.sheet-outlooks .sheet-title > :last-child {
+.sheet-heritages .sheet-title input[type="text"] {
+  font-size: 1px;  
+}
+
+.sheet-heritages .sheet-title > :last-child {
   margin-left: -12px;
 }
 
-.sheet-outlooks .sheet-content .sheet-focus {
+.sheet-heritages .sheet-content {
   padding: 4px 8px;
-  font-size: 11px;
+  font-size: 10px;
   display: grid;
   grid: auto / 1fr 1fr;
   grid-gap: 4px;
+  background-color: lightgray;
 }
 
-.sheet-outlooks .sheet-content .sheet-label {
-  font-size: 12px;
+.sheet-heritages .sheet-content .sheet-label {
+  font-size: 10px;
   margin-bottom: 3px;
 }
 
-.sheet-outlooks .sheet-content .sheet-outlook {
+.sheet-heritages .sheet-content .sheet-heritage {
   line-height: 14px;
   font-size: 10px;
 }
 
-.sheet-outlooks li::before {
+.sheet-heritages li::before {
   display: none;
 }
 
-.sheet-outlooks .sheet-checkbox + span {
+.sheet-heritages .sheet-checkbox + span {
   margin-right: 3px;
 }
 
-.sheet-outlook-traits-chosen[value="1"] + .sheet-content .sheet-focus {
+.sheet-heritage-traits-chosen[value="1"] + .sheet-content {
   grid: auto / auto;
 }
 
-.sheet-outlook-traits-chosen[value="1"] + .sheet-content .sheet-outlook .sheet-focus {
-  font-size: 12px;
+.sheet-heritage-traits-chosen[value="1"] + .sheet-content .sheet-heritage {
+  font-size: 10px;
 }
 
-.sheet-outlook-traits-chosen[value="1"] + .sheet-content .sheet-outlook .sheet-trait-hider[value="0"] + li {
+.sheet-heritage-traits-chosen[value="1"] + .sheet-content .sheet-heritage .sheet-trait-hider[value="0"] + li {
   display: none;
 }
 
-.sheet-outlook-traits-chosen[value="1"] + .sheet-content .sheet-traits .sheet-focus {
+.sheet-heritage-traits-chosen[value="1"] + .sheet-content .sheet-traits {
   display: grid;
   grid: auto / 1fr 1fr;
 }
