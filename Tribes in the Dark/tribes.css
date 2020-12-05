@@ -1411,10 +1411,10 @@ input.sheet-tooth:last-of-type {
   background-image: url("https://raw.githubusercontent.com/rivetgeekwil/roll20-character-sheets/TITD/Tribes%20in%20the%20Dark/Assets/teeth/stress_scrap.png");
 }
 .sheet-regulartooth + span {
-  background-image: url("https://raw.githubusercontent.com/rivetgeekwil/roll20-character-sheets/TITD/Tribes%20in%20the%20Dark/Assets/teeth/regular_tooth_checked.png");
+  background-image: url("https://raw.githubusercontent.com/rivetgeekwil/roll20-character-sheets/TITD/Tribes%20in%20the%20Dark/Assets/teeth/stress_scrap_half_checked.png");
 }
 .sheet-tooth:checked ~ .sheet-regulartooth + span {
-  background-image: url("https://raw.githubusercontent.com/rivetgeekwil/roll20-character-sheets/TITD/Tribes%20in%20the%20Dark/Assets/teeth/regular_tooth.png");
+  background-image: url("https://raw.githubusercontent.com/rivetgeekwil/roll20-character-sheets/TITD/Tribes%20in%20the%20Dark/Assets/teeth/stress_scrap_half.png");
 }
 input.sheet-zero {
   width: 13px;
