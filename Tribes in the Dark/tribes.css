@@ -1342,7 +1342,7 @@ input.sheet-tooth:last-of-type {
 .sheet-holdtooth:checked + span {
   background-image: url("https://raw.githubusercontent.com/rivetgeekwil/roll20-character-sheets/TITD/Tribes%20in%20the%20Dark/Assets/teeth/stress_scrap_checked.png");
 }
-.sheet-stresstooth-1[type=radio] + span,
+.sheet-stresstooth-1[type=radio] + span ,
 .sheet-stresstooth-1[type=checkbox]:checked + span,
 .sheet-holdtooth:checked + span {
   background-image: url("https://raw.githubusercontent.com/rivetgeekwil/roll20-character-sheets/TITD/Tribes%20in%20the%20Dark/Assets/teeth/stress_scrap_checked_1.png");
@@ -1389,6 +1389,24 @@ input.sheet-tooth:last-of-type {
 }
 .sheet-stresstooth[type=checkbox] + span,
 .sheet-tooth:checked ~ .sheet-stresstooth[type=radio] + span,
+.sheet-stresstooth-1[type=checkbox] + span,
+.sheet-tooth:checked ~ .sheet-stresstooth-1[type=radio] + span,
+.sheet-stresstooth-2[type=checkbox] + span,
+.sheet-tooth:checked ~ .sheet-stresstooth-2[type=radio] + span,
+.sheet-stresstooth-3[type=checkbox] + span,
+.sheet-tooth:checked ~ .sheet-stresstooth-3[type=radio] + span,
+.sheet-stresstooth-4[type=checkbox] + span,
+.sheet-tooth:checked ~ .sheet-stresstooth-4[type=radio] + span,
+.sheet-stresstooth-5[type=checkbox] + span,
+.sheet-tooth:checked ~ .sheet-stresstooth-5[type=radio] + span,
+.sheet-stresstooth-6[type=checkbox] + span,
+.sheet-tooth:checked ~ .sheet-stresstooth-6[type=radio] + span,
+.sheet-stresstooth-7[type=checkbox] + span,
+.sheet-tooth:checked ~ .sheet-stresstooth-7[type=radio] + span,
+.sheet-stresstooth-8[type=checkbox] + span,
+.sheet-tooth:checked ~ .sheet-stresstooth-8[type=radio] + span,
+.sheet-stresstooth-9[type=checkbox] + span,
+.sheet-tooth:checked ~ .sheet-stresstooth-9[type=radio] + span,
 .sheet-holdtooth + span {
   background-image: url("https://raw.githubusercontent.com/rivetgeekwil/roll20-character-sheets/TITD/Tribes%20in%20the%20Dark/Assets/teeth/stress_scrap.png");
 }
