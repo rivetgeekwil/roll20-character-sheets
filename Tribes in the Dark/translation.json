@@ -405,6 +405,8 @@
     "playbook_ability_only_a_child_description": "When someone suffers harm protecting you, they mark xp.",
     "playbook_ability_playful": "Playful",
     "playbook_ability_playful_description": " Once per quest when your Cell isn't in danger, you can tell jokes, play games, and lighten the mood, clearing 1 stress for everyone present.",
+    "playbook_ability_scrounge": "Scrounger",
+    "playbook_ability_scrounge_description": "You are always able to come up with needed items. On Preparation and Journey rolls, reduce any Resources spent by 1.",
     "playbook_ability_sneaky": "Sneaky",
     "playbook_ability_sneaky_description": "When you gather information to find out a secret, you have +1 effect. When you find and prepare a place to hide, you get +1d to rolls to avoid being found.",
     "playbook_ability_underfoot": "Underfoot",
@@ -419,7 +421,7 @@
     "playbook_ability_wonder_description": "Take 1 Stress to animate objects. Requires Synthesis.",
 
     "playbook_ability_jack_of_all_trades": "Jack of All Trades",
-    "playbook_ability_jack_of_all_trades_description": "Take 1 stress to roll +1d on an action you have no dots in..",
+    "playbook_ability_jack_of_all_trades_description": "Take 1 stress to roll +1d on an action you have no dots in.",
     "playbook_ability_behind_the_mask": "Behind the Mask",
     "playbook_ability_behind_the_mask_description": "When you lead a group action, you have +1 or -1 scale, your choice. The leader of a group action doesn’t take stress on your behalf if you participate and fail the roll (even if it’s you).",
     "playbook_ability_guile": "Guile",
@@ -558,7 +560,7 @@
     "playbook_agnite_friends_title": "Playmates",
     "playbook_agnite_xp_condition": "You addressed a challenge with playfulness or youthful exuberance.",
 
-    "playbook_dahlian_description": "An entertaining\ntrickster\nzand trader",
+    "playbook_dahlian_description": "An entertaining\ntrickster\nand trader",
     "playbook_dahlian_background": "Black Marketeer—Caravan Handler—Envoy—Little Trickster—Music Maker—Player",
     "playbook_dahlian_eminence": "Illusion—Motion",
     "playbook_dahlian_friend_0": "Gab, a trustworthy Outlander hunter.",
