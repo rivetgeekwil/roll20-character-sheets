@@ -177,7 +177,7 @@
   text-align: center;
 }
 
-h1 {
+.sheetform h1 {
   font-size: 2.4rem;
   font-family: "Metamorphous", serif;
   color: black;
@@ -193,7 +193,7 @@ h1 {
   font-weight: normal;
 }
 
-label {
+.sheetform label {
   font-weight: normal;
   font-family: "Metamorphous", serif;
   font-size: 14px;
@@ -202,16 +202,16 @@ label {
   padding-right: 0;
 }
 
-p {
+.sheetform p {
   font-weight: normal;
   font-family: "Metamorphous", serif;
   font-size: 14px;
   display: inline-block;
 }
 
-span,
-p span,
-label span {
+.sheetform span,
+.sheetform p span,
+.sheetform label span {
   font-family: "Metamorphous", serif;
   display: inline-block;
   vertical-align: middle;
@@ -641,7 +641,7 @@ div.class-traits label,
 div.class-traits textarea,
 div.repcontrol button,
 textarea[name="attr_retainerNotes"],
-li {
+.sheetform li {
   font-family: "Metamorphous", serif;
 }
 
