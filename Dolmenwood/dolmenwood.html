@@ -2018,10 +2018,10 @@
               monsterData = classData["monster"][monsterHitDice - 1];
             } else {
               monsterData = {
-                xp: [monsterData[21].xp[0] * monsterHitDice, monsterData[21].xp[1] * monsterHitDice],
+                xp: [classData["monster"][21].xp[0] * monsterHitDice, classData["monster"][21].xp[1] * monsterHitDice],
                 hd: `${monsterHitDice}d8`,
-                saves: monsterData[21].saves,
-                bab: monsterData[21].bab,
+                saves: classData["monster"][21].saves,
+                bab: classData["monster"][21].bab,
               }
             }
 
@@ -2043,6 +2043,7 @@
               rangeBonus: 0,
               magicResistance: values.wisMod,
               knacks: false,
+              level: monsterHitDice,
             };
           } else if (charClass === "everyday mortal") {
             const { hd, bab, saves } = classData["everyday mortal"][0];
@@ -2077,6 +2078,7 @@
               saveP: saves[2],
               saveB: saves[3],
               saveS: saves[4],
+              monsterHitDice: level,
               monsterXPValue: classData["monster"][level - 1].xp[1],
               glamours: glamours || false,
               runes: runes || false,
@@ -2119,6 +2121,7 @@
               saveP: newAttributes.saveP - (kindredData[charKindred].saveBonus || 0),
               saveB: newAttributes.saveB - (kindredData[charKindred].saveBonus || 0),
               saveS: newAttributes.saveS - (kindredData[charKindred].saveBonus || 0),
+              monsterHitDice: level,
             }  
           } else {
             setAttrs({ kindred: "--"});
