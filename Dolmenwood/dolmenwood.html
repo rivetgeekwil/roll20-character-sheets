@@ -333,7 +333,8 @@
           <span></span>
           <span data-i18n="name">Name</span>
           <span data-i18n="type">Type</span>
-          <span data-i18n="attack-modifier">+Attack</span>
+          <span data-i18n="base-attack-bonus" title="Base Attack Bonus" data-i18n-title="base-attack-bonus">Base Attack Bonus</span>
+          <span data-i18n="attack-modifier">Extra Attack Bonus</span>
           <span data-i18n="damage-die">Damage Die</span>
           <span data-i18n="damage-modifier">+Damage</span>
         </div>
@@ -351,6 +352,7 @@
               <option value="melee" data-i18n="melee">Melee</option>
               <option value="ranged" data-i18n="ranged">Ranged</option>
             </select>
+            <input type="number" name="attr_bab_copy" value="0"/>
             <input type="number" name="attr_weaponAttackBonus" value="0" />
             <input type="text" name="attr_weaponDamageDie" value="1d6" class="input-as-number" class="input-as-number" />
             <input type="number" name="attr_weaponDamageBonus" value="0" />
@@ -853,9 +855,6 @@
         <input type="number" min="0" name="attr_monsterHitDice" value="1" />
         <span data-i18n="armor-class-abbr" title="Armor Class" data-i18n-title="armor-class">AC</span>
         <input type="number" name="attr_monsterAc" value="0" />
-        <span data-i18n="base-attack-bonus-abbr" title="Base Attack Bonus"
-          data-i18n-title="base-attack-bonus">BAB</span>
-        <input type="number" name="attr_bab" value="0" />
       </div>
       <div class="monster-row">
         <button type="roll" name="monsterHpRoll" data-i18n="hit-dice-number-abbr" title="Hit Dice"
@@ -959,7 +958,8 @@
             <span data-i18n="name">Name</span>
             <span data-i18n="number-of-att"># of Attacks</span>
             <span data-i18n="type">Type</span>
-            <span data-i18n="attack-modifier">+Attack</span>
+            <span data-i18n="base-attack-bonus" title="Base Attack Bonus" data-i18n-title="base-attack-bonus">Base Attack Bonus</span>
+            <span data-i18n="attack-modifier">Extra Attack Bonus</span>
             <span data-i18n="damage-die">Damage Die</span>
             <span data-i18n="damage-modifier">+Damage</span>
           </div>
@@ -977,6 +977,7 @@
                 <option value="melee" data-i18n="melee">Melee</option>
                 <option value="ranged" data-i18n="ranged">Ranged</option>
               </select>
+              <input type="number" name="attr_bab_copy" value="0"/>
               <input type="number" name="attr_weaponAttackBonus" value="0" />
               <input type="text" name="attr_weaponDamageDie" value="1d6" class="input-as-number" class="input-as-number" />
               <input type="number" name="attr_weaponDamageBonus" value="0" />
@@ -1366,9 +1367,10 @@
       idArray.forEach(function (id) {
         const attributes = ["attackType", "weaponAttributeBonusDamage"]
           .map((name) => `repeating_weapons_${id}_${name}`)
-          .concat(["strMod", "dexMod"]);
+          .concat(["strMod", "dexMod", "bab"]);
         getAttrs(attributes, function (values) {
           const attackType = values[`repeating_weapons_${id}_attackType`];
+          setAttrs({ [`repeating_weapons_${id}_bab_copy`]: values.bab });
           if (!attackType) {
             if (
               values.strMod !== 0 &&
@@ -1433,7 +1435,6 @@
             []
           );
           getAttrs(attrArray, (v) => {
-            console.log("===== values of v: " + JSON.stringify(v) + " =====");
             // getValue: if not a number, returns 1 if it is 'on' (checkbox), otherwise returns 0..
             const getValue = (section, id, field) =>
               parseFloat(v[`repeating_${section}_${id}_${field}`]) ||
@@ -1457,7 +1458,6 @@
           repeatingSum("ArmorTotal", "armor", ["armorValue", "armorWorn"], {
             callback: () => {
               getAttrs(["ArmorWorn", "ArmorTotal", "dexMod"], function (values) {
-                console.log("===== values: " + JSON.stringify(values) + " =====");
                 const aacAc = values.ArmorWorn > 0 ? parseInt(values.ArmorTotal) + parseInt(values.dexMod) : 10 + parseInt(values.dexMod);
                 setAttrs({ aac_ac: aacAc });
               })
