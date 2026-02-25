@@ -1456,8 +1456,9 @@
         callback: () => {
           repeatingSum("ArmorTotal", "armor", ["armorValue", "armorWorn"], {
             callback: () => {
-              getAttrs(["ArmorWorn", "ArmorTotal", "dexMod", "aacAcUnarmored", "dacAcUnarmored"], function (values) {
-                const aacAc = values.ArmorWorn > 0 ? parseInt(values.ArmorTotal) + parseInt(values.dexMod) : values.aacAcUnarmored;
+              getAttrs(["ArmorWorn", "ArmorTotal", "dexMod"], function (values) {
+                console.log("===== values: " + JSON.stringify(values) + " =====");
+                const aacAc = values.ArmorWorn > 0 ? parseInt(values.ArmorTotal) + parseInt(values.dexMod) : 10 + parseInt(values.dexMod);
                 setAttrs({ aac_ac: aacAc });
               })
             }
