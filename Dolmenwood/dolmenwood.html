@@ -1002,10 +1002,17 @@
           Swim:
         </span>
         <input type="number" name="attr_movementSwim" value="0" />
+        <span data-i18n="movement-burrow">
+          Burrow:
+        </span>
+        <input type="number" name="attr_movementBurrow" value="0" />
+        
+      </div>
+      <div class="monster-row">
         <button type="roll" name="monsterMoraleRoll"
           value="/w gm &{template:simple} {{roll=Morale of @{character_name}}} {{morale=[[{2d6+0, 0d0+13}<@{monsterMorale}]]}}"
-          title="Morale" data-i18n-title="morale" data-i18n="morale-abbr">
-          ML
+          title="Morale" data-i18n-title="morale" data-i18n="morale">
+          Morale
         </button>
         <input type="number" min="2" max="12" name="attr_monsterMorale" value="7" />
         <span data-i18n="special-abilities">Special Abilities:</span>
