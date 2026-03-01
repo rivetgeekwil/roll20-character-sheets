@@ -208,6 +208,47 @@
   background-image: linear-gradient(to top, rgba(255, 255, 255, 0.3), transparent 90%);
 }
 
+/* darken alternating rows applies banding */
+.charsheet .abilities-columns > * {
+  isolation: isolate;
+}
+
+.charsheet .abilities-columns > label:has(.ability-button):nth-child(odd of label:has(.ability-button)):after {
+  content: '';
+  display: block;
+  height: 2.5em;
+  left: -10px;
+  position: absolute;
+  width: calc(100% + 20px);
+}
+
+.charsheet .repcontainer[data-groupname='repeating_equipment'] .repitem:has(.toggle-carry[value="1"] + .toggle-type[value="1"]):nth-child(odd of .repitem:has(.toggle-carry[value="1"] + .toggle-type[value="1"])),
+.charsheet .repcontainer[data-groupname='repeating_spells'] .repitem:nth-child(odd of .repitem:has(.toggle-show[value='1']):has(.toggle-all:checked,.toggle-memorized:checked)),
+.charsheet .repcontainer[data-groupname='repeating_ability'] .repitem:nth-child(odd),
+.charsheet .repcontainer[data-groupname='repeating_nonweaponproficiencies'] .repitem:nth-child(odd),
+.charsheet .repcontainer[data-groupname='repeating_notes'] .repitem:nth-child(odd) {
+  background-color: oklch(0.78 0 0 / 0.5);
+}
+
+.charsheet .abilities-columns > label:has(.ability-button):nth-child(odd of label:has(.ability-button)):after,
+.charsheet .column-header ~ .thief-columns:nth-child(odd),
+.charsheet .subheader ~ .sect .thief-columns:nth-child(odd),
+.charsheet .saves-columns:nth-child(even) {
+  background-color: oklch(0.78 0 0 / 0.35);
+}
+
+.sheet-darkmode .charsheet .repcontainer[data-groupname='repeating_equipment'] .repitem:has(.toggle-carry[value="1"] + .toggle-type[value="1"]):nth-child(odd of .repitem:has(.toggle-carry[value="1"] + .toggle-type[value="1"])),
+.sheet-darkmode .charsheet .repcontainer[data-groupname='repeating_spells'] .repitem:nth-child(odd of .repitem:has(.toggle-show[value='1']):has(.toggle-all:checked, .toggle-memorized:checked)),
+.sheet-darkmode .charsheet .repcontainer[data-groupname='repeating_ability'] .repitem:nth-child(odd),
+.sheet-darkmode .charsheet .repcontainer[data-groupname='repeating_nonweaponproficiencies'] .repitem:nth-child(odd),
+.sheet-darkmode .charsheet .repcontainer[data-groupname='repeating_notes'] .repitem:nth-child(odd),
+.sheet-darkmode .charsheet .abilities-columns > label:has(.ability-button):nth-child(odd of label:has(.ability-button)):after,
+.sheet-darkmode .charsheet .column-header ~ .thief-columns:nth-child(odd),
+.sheet-darkmode .charsheet .subheader ~ .sect .thief-columns:nth-child(odd),
+.sheet-darkmode .charsheet .saves-columns:nth-child(even) {
+  background-color: oklch(0.78 0 0 / 0.15);
+}
+
 /* background toggle */
 .charsheet .background {
   background-color: transparent;
@@ -2526,7 +2567,7 @@ section.npc-box.statblock3 .image-avatar {
   align-items: center;
   display: grid;
   justify-items: center;
-  padding: 0 2px 0 2px;
+  padding: 2px 2px 0 2px;
   grid-template-columns:
     3.5em minmax(7em, 2fr) minmax(4em, 1fr) minmax(3em, 7em) minmax(3.5em, 5em) minmax(1em, 3em) 0.5em minmax(1em, 3em) minmax(3em, 5em) minmax(1em, 3em) 0.5em minmax(1em, 3em) minmax(1em, 4em) minmax(1em, 4em);
 }
@@ -3136,6 +3177,7 @@ section.npc-box.statblock3 .image-avatar {
 
 /* Equipment Tabs */
 .charsheet .repcontainer[data-groupname='repeating_equipment'] .repitem {
+  background-color: transparent;
   display: flex;
   flex-direction: column;
   height: 0;
@@ -3149,7 +3191,7 @@ section.npc-box.statblock3 .image-avatar {
 }
 
 .charsheet input.toggle-show[value='1'] ~ .spell-display.top-row {
-  padding-left: 1em;
+  padding: 2px 2px 0 1em;
 }
 
 .charsheet input.toggle-show[value='1'] ~ .spell-display.top-row label {
@@ -3162,44 +3204,41 @@ section.npc-box.statblock3 .image-avatar {
 }
 
 /* Spells Tabs */
-.charsheet .wrapper .repcontainer[data-groupname='repeating_spells'] .repitem {
-  display: block;
+
+/* hides row in plain sight */
+.charsheet .repcontainer[data-groupname='repeating_spells'] .repitem {
+  background-color: transparent;
   height: 0;
   margin: 0;
   overflow: hidden;
 }
 
+/* show the row by restoring height */
 .charsheet .repcontainer[data-groupname='repeating_spells'] .repitem:has(input.toggle-show[value='1'] ~ .spell-display) {
   height: auto;
   margin: auto;
 }
 
 /* emphasize memorized */
-.charsheet .toggle-show[value='1'] ~ .not-memorized ~ .spell-display {
+.charsheet .not-memorized ~ .spell-display,
+.charsheet .repitem:focus-within .not-memorized ~ .spell-display,
+.charsheet .repitem:hover .not-memorized ~ .spell-display {
   opacity: 1;
 }
 
-.charsheet .toggle-show[value='1'] ~ .not-memorized[value='0'] ~ .spell-display {
+.charsheet .not-memorized[value='0'] ~ .spell-display {
   opacity: 0.5;
 }
 
-/* toggle memorized only */
-.charsheet .toggle-show[value='1'] ~ .toggle-memorized:checked + .toggle-all:not(:checked) ~ .spell-display {
+/* show memorized */
+.charsheet .toggle-show[value='1'] ~ .toggle-memorized + .toggle-all:checked ~ .spell-display,
+.charsheet .toggle-show[value='1'] ~ .toggle-memorized:checked + .toggle-all ~ .spell-display {
   display: flex;
 }
 
+/* hide memorized */
 .charsheet .toggle-show[value='1'] ~ .toggle-memorized:not(:checked) ~ .spell-display {
   display: none;
-}
-
-.charsheet .toggle-show[value='1'] ~ .toggle-memorized:not(:checked) + .toggle-all:checked ~ .spell-display {
-  display: flex;
-}
-
-/* ensure un-memorized spells top-row and details get 100% opacity with hover/focus */
-.charsheet .repcontainer[data-groupname='repeating_spells'] .repitem:focus-within .toggle-show[value='1'] ~ .not-memorized[value='0'] ~ .spell-display,
-.charsheet .repcontainer[data-groupname='repeating_spells'] .repitem:hover .toggle-show[value='1'] ~ .not-memorized[value='0'] ~ .spell-display {
-  opacity: 1;
 }
 
 .charsheet .equipment-tabs,

@@ -4031,7 +4031,7 @@
           </label>
           <label class="left" title="Hide all non-memorized spells(ie #0)">
             <span>Memorized Only</span>
-            <input type="checkbox" name="attr_toggle_show_memorized" title="@{toggle_show_memorized}" value="1">
+            <input type="checkbox" name="attr_toggle_show_memorized" title="@{toggle_show_memorized}" value="1" />
           </label>
           <span class="inline-label right">
             <input type="hidden" name="attr_spells_previous_order_array" value="" />
@@ -4070,12 +4070,12 @@
           <fieldset class="repeating_spells">
             <!-- show only the spell level chosen -->
             <input type="hidden" class="hidden toggle-show" name="attr_spell_show" value="1" readonly />
-            <!-- lower opacity of un-memorized spells -->
-            <input type="hidden" class="hidden not-memorized" name="attr_spell_memorized" value="0" readonly />
             <!-- hide un-memorized spells -->
             <input type="checkbox" class="hidden toggle-memorized" name="attr_spell_show_memorized" value="1" readonly />
             <!-- show all spell levels -->
             <input type="checkbox" class="hidden toggle-all" name="attr_spell_show_all" value="1" readonly checked />
+            <!-- lowers opacity of un-memorized spells -->
+            <input type="hidden" class="hidden not-memorized" name="attr_spell_memorized" value="0" readonly />
             <span class="top-row spells-repheader spell-display border-top-half">
               <button class="dice-button" type="roll" name="attr_spell_roll" title="%{selected|repeating_spells_$X_spell_roll}" value="@{spell_macro_text}" style="margin-right:12px;"></button>
               <label class="repeating-name">
