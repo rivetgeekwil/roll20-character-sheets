@@ -29,6 +29,13 @@
       "description": "Choose a sheet background. note: Using Roll20's dark mode option will override this option. This can still be enabled/edited per sheet."
     },
     {
+      "attribute": "toggle_row_banding",
+      "displayname": "Toggle Row Banding:",
+      "type": "checkbox",
+      "value": "1",
+      "description": "Apply subtle alternating background contrast to sheet rows."
+    },
+    {
       "attribute": "color_option",
       "displayname": "Roll Template Color:",
       "type": "select",

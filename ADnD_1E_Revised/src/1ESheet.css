@@ -13,41 +13,49 @@
 :root,
 .sheet-rolltemplate-attacks,
 .sheet-rolltemplate-attacks-table,
+/* Note: OKLCH format is oklch(L C H / A) */
 .sheet-rolltemplate-general {
-  --black: rgb(0, 0, 0);
-  --blue: rgb(50, 94, 255);
-  --dark-accent: #702c91;
-  --dark-accent-alpha: rgb(112 44 145 / 22%);
-  --darkblue: rgb(0, 24, 150);
-  --darkgreen: rgb(11, 112, 0);
-  --darkgrey: rgb(90, 89, 87);
-  --darkorange: rgb(108, 53, 0);
-  --darkpink: rgb(172, 0, 172);
-  --darkpurple: rgb(67, 0, 84);
-  --darkred: rgb(133, 0, 10);
-  --darkyellow: rgb(153, 153, 0);
+  --black: oklch(0% 0 0);
+  --blue: oklch(60% 0.18 263);
+  --color-black1: oklch(20% 0 0);
+  --color-black2: oklch(0% 0 0);
+  --color-darkgrey1: oklch(30% 0 0);
+  --color-lightgrey1: oklch(60% 0 0);
+  --color-lightgrey2: oklch(50% 0 0);
+  --color-white1: oklch(96% 0 0);
+  --color-white2: oklch(88% 0 0);
+  --color-white3: oklch(80% 0 0);
+  --dark-accent-alpha: oklch(35% 0.12 311 / 22%);
+  --dark-accent: oklch(35% 0.12 311);
+  --darkblue: oklch(35% 0.12 274);
+  --darkgreen: oklch(35% 0.12 143);
+  --darkgrey: oklch(40% 0 0);
+  --darkorange: oklch(36.677% 0.11151 38.851);
+  --darkpink: oklch(35% 0.12 328);
+  --darkpurple: oklch(35% 0.12 311);
+  --darkred: oklch(35% 0.12 26);
+  --darkyellow: oklch(60% 0.1 90);
+  --green: oklch(60% 0.18 145);
+  --grey: oklch(70% 0 0);
+  --link-hover: oklch(45% 0.15 250);
+  --orange: oklch(60% 0.18 48);
+  --pink: oklch(60% 0.18 328);
+  --purple: oklch(42.09% 0.19 328.37);
+  --red: oklch(63% 0.27 29.49);
+  --white: oklch(100% 0 0);
+  --yellow: oklch(89% 0.21 104.67);
+
   --font-base: 'Poppins', system-ui;
   --font-headers: 'Caladea', serif;
   --font-inputs: 'Poppins', system-ui;
   --font-monster: 'Raleway', serif;
-  --green: rgb(17, 180, 0);
-  --grey: rgb(163, 163, 163);
-  --link-hover: #005ea2;
-  --orange: rgb(220, 107, 0);
-  --pink: rgb(255, 0, 255);
   --portrait-min-xy: 130px;
-  --purple: rgb(116, 0, 145);
-  --red: rgb(214, 0, 16);
-  --white: rgb(255, 255, 255);
-  --yellow: rgb(252, 237, 36);
-
-  --text-sm: 1rem; /* 10px based on :root */
+  --text-sm: 1rem;
   --text-med: 1.2rem;
   --text-lg: 1.4rem;
   --text-xl: 1.6rem;
   --text-xxl: 1.8rem;
   --text-xxxl: 2.4rem;
-
   --font-buttons1: 'Poppins', system-ui;
   --font-buttons2: 'Caladea', serif;
   --text-wt100: 100;
@@ -59,17 +67,6 @@
   --text-wt700: 700;
   --text-wt800: 800;
   --text-wt900: 900;
-  --color-white1: #f5f5f5;
-  --color-white2: #d3d3d3;
-  --color-white3: #b3b3b3;
-  --color-lightgrey1: #999999;
-  --color-lightgrey2: #666666;
-  --color-darkgrey1: #333;
-  --color-black1: #222;
-  --color-black2: #000;
-  /* 10px */
-  /* used for roll templates */
-  /* misc */
 }
 
 .ui-dialog .tab-content .charsheet .pictos {
@@ -100,7 +97,7 @@
 
 .charsheet input {
   border: 1px transparent;
-  border-bottom: 1px solid rgb(182, 182, 182);
+  border-bottom: 1px solid oklch(77.628% 0.00009 271.152);
   margin: 2px;
   min-width: 1em;
   padding: unset;
@@ -142,15 +139,15 @@
 
 .sheet-darkmode .tab-content .charsheet .wrapper .saves-box select option.option-bonus,
 .charsheet .wrapper select option.option-bonus {
-  background-color: rgb(12, 85, 12);
-  color: #fff;
+  background-color: oklch(39.232% 0.12363 142.779);
+  color: oklch(100% 0.00011 271.152);
   font-size: var(--text-sm);
 }
 
 .sheet-darkmode .tab-content .charsheet .wrapper .saves-box select option.option-penalty,
 .charsheet .wrapper select option.option-penalty {
-  background-color: rgb(103, 9, 9);
-  color: #fff;
+  background-color: oklch(32.925% 0.12575 27.747);
+  color: oklch(100% 0.00011 271.152);
   font-size: var(--text-sm);
 }
 
@@ -201,52 +198,62 @@
 }
 
 .tab-content .charsheet .linear-background {
-  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.3), transparent 90%);
+  background-image: linear-gradient(to top, oklch(0% 0 0 / 0.3), oklch(none none none / 0) 90%);
 }
 
 .sheet-darkmode .tab-content .charsheet .linear-background {
-  background-image: linear-gradient(to top, rgba(255, 255, 255, 0.3), transparent 90%);
+  background-image: linear-gradient(to top, oklch(100% 0.00011 271.152 / 0.3), oklch(none none none / 0) 90%);
 }
 
 /* darken alternating rows applies banding */
-.charsheet .abilities-columns > * {
-  isolation: isolate;
+.charsheet .toggle-row-banding:checked ~ .background {
+  .abilities-columns > * {
+    isolation: isolate;
+  }
+
+  .abilities-columns > label:has(.ability-button):nth-child(odd of label:has(.ability-button)):after {
+    content: '';
+    display: block;
+    height: 2.5em;
+    left: -10px;
+    position: absolute;
+    width: calc(100% + 20px);
+  }
+
+  .repcontainer[data-groupname='repeating_equipment'] .repitem:has(.toggle-carry[value="1"] + .toggle-type[value="1"]):nth-child(odd of .repitem:has(.toggle-carry[value="1"] + .toggle-type[value="1"])),
+  .repcontainer[data-groupname='repeating_spells'] .repitem:nth-child(odd of .repitem:has(.toggle-show[value='1']):has(.toggle-all:checked, .toggle-memorized:checked)),
+  .repcontainer[data-groupname='repeating_ability'] .repitem:nth-child(odd),
+  .repcontainer[data-groupname='repeating_nonweaponproficiencies'] .repitem:nth-child(odd),
+  .repcontainer[data-groupname='repeating_notes'] .repitem:nth-child(odd) {
+    background-color: oklch(77.944% 0.00009 271.152 / 0.5);
+  }
+
+  .repcontainer[data-groupname='repeating_weapon'] .repitem:nth-child(even),
+  .abilities-columns > label:has(.ability-button):nth-child(odd of label:has(.ability-button)):after,
+  .column-header ~ .armor-columns:nth-child(even):not(.sect),
+  .column-header ~ .armor-columns.sect:nth-child(odd),
+  .column-header ~ .thief-columns:nth-child(odd),
+  .subheader ~ .sect .thief-columns:nth-child(odd),
+  .saves-columns:nth-child(even) {
+    background-color: oklab(77.944% 0 -0.00009 / 0.35);
+  }
 }
 
-.charsheet .abilities-columns > label:has(.ability-button):nth-child(odd of label:has(.ability-button)):after {
-  content: '';
-  display: block;
-  height: 2.5em;
-  left: -10px;
-  position: absolute;
-  width: calc(100% + 20px);
-}
-
-.charsheet .repcontainer[data-groupname='repeating_equipment'] .repitem:has(.toggle-carry[value="1"] + .toggle-type[value="1"]):nth-child(odd of .repitem:has(.toggle-carry[value="1"] + .toggle-type[value="1"])),
-.charsheet .repcontainer[data-groupname='repeating_spells'] .repitem:nth-child(odd of .repitem:has(.toggle-show[value='1']):has(.toggle-all:checked,.toggle-memorized:checked)),
-.charsheet .repcontainer[data-groupname='repeating_ability'] .repitem:nth-child(odd),
-.charsheet .repcontainer[data-groupname='repeating_nonweaponproficiencies'] .repitem:nth-child(odd),
-.charsheet .repcontainer[data-groupname='repeating_notes'] .repitem:nth-child(odd) {
-  background-color: oklch(0.78 0 0 / 0.5);
-}
-
-.charsheet .abilities-columns > label:has(.ability-button):nth-child(odd of label:has(.ability-button)):after,
-.charsheet .column-header ~ .thief-columns:nth-child(odd),
-.charsheet .subheader ~ .sect .thief-columns:nth-child(odd),
-.charsheet .saves-columns:nth-child(even) {
-  background-color: oklch(0.78 0 0 / 0.35);
-}
-
-.sheet-darkmode .charsheet .repcontainer[data-groupname='repeating_equipment'] .repitem:has(.toggle-carry[value="1"] + .toggle-type[value="1"]):nth-child(odd of .repitem:has(.toggle-carry[value="1"] + .toggle-type[value="1"])),
-.sheet-darkmode .charsheet .repcontainer[data-groupname='repeating_spells'] .repitem:nth-child(odd of .repitem:has(.toggle-show[value='1']):has(.toggle-all:checked, .toggle-memorized:checked)),
-.sheet-darkmode .charsheet .repcontainer[data-groupname='repeating_ability'] .repitem:nth-child(odd),
-.sheet-darkmode .charsheet .repcontainer[data-groupname='repeating_nonweaponproficiencies'] .repitem:nth-child(odd),
-.sheet-darkmode .charsheet .repcontainer[data-groupname='repeating_notes'] .repitem:nth-child(odd),
-.sheet-darkmode .charsheet .abilities-columns > label:has(.ability-button):nth-child(odd of label:has(.ability-button)):after,
-.sheet-darkmode .charsheet .column-header ~ .thief-columns:nth-child(odd),
-.sheet-darkmode .charsheet .subheader ~ .sect .thief-columns:nth-child(odd),
-.sheet-darkmode .charsheet .saves-columns:nth-child(even) {
-  background-color: oklch(0.78 0 0 / 0.15);
+.sheet-darkmode .charsheet .toggle-row-banding:checked ~ .background {
+  .repcontainer[data-groupname='repeating_weapon'] .repitem:nth-child(even),
+  .repcontainer[data-groupname='repeating_equipment'] .repitem:has(.toggle-carry[value="1"] + .toggle-type[value="1"]):nth-child(odd of .repitem:has(.toggle-carry[value="1"] + .toggle-type[value="1"])),
+  .repcontainer[data-groupname='repeating_spells'] .repitem:nth-child(odd of .repitem:has(.toggle-show[value='1']):has(.toggle-all:checked, .toggle-memorized:checked)),
+  .repcontainer[data-groupname='repeating_ability'] .repitem:nth-child(odd),
+  .repcontainer[data-groupname='repeating_nonweaponproficiencies'] .repitem:nth-child(odd),
+  .repcontainer[data-groupname='repeating_notes'] .repitem:nth-child(odd),
+  .abilities-columns > label:has(.ability-button):nth-child(odd of label:has(.ability-button)):after,
+  .column-header ~ .armor-columns:nth-child(even):not(.sect),
+  .column-header ~ .armor-columns.sect:nth-child(odd),
+  .column-header ~ .thief-columns:nth-child(odd),
+  .subheader ~ .sect .thief-columns:nth-child(odd),
+  .saves-columns:nth-child(even) {
+    background-color: oklch(77.944% 0.00009 271.152 / 0.135);
+  }
 }
 
 /* background toggle */
@@ -272,7 +279,7 @@
 
 /*white*/
 .charsheet .background-selection[value='1']:checked ~ .background {
-  background-color: #fff;
+  background-color: oklch(100% 0.00011 271.152);
   background-image: none;
 }
 
@@ -285,24 +292,24 @@
 
 /*light goldenrod*/
 .charsheet .background-selection[value='7']:checked ~ .background {
-  background-color: #f6e8a7;
+  background-color: oklch(92.707% 0.08398 97.456);
   background-image: none;
 }
 
 .charsheet .background-selection[value='7']:checked ~ .background input,
 .charsheet .background-selection[value='7']:checked ~ .background select {
-  background-color: rgb(255 255 255 / 40%);
+  background-color: oklch(100% 0.00011 271.152 / 0.4);
 }
 
 /*goldenrod*/
 .charsheet .background-selection[value='3']:checked ~ .background {
-  background-color: #f4d74f;
+  background-color: oklch(87.958% 0.15349 96.999);
   background-image: none;
 }
 
 /*moldvay*/
 .charsheet .background-selection[value='4']:checked ~ .background {
-  background-color: #b5dcb3;
+  background-color: oklch(85.557% 0.06941 143.738);
   background-image: none;
 }
 
@@ -314,12 +321,12 @@
 
 /*greyhawk*/
 .charsheet .background-selection[value='6']:checked ~ .background {
-  background-color: rgb(179 179 179 / 54%);
+  background-color: oklch(76.676% 0.00009 271.152 / 0.54);
   background-image: none;
 }
 
 .charsheet .background-selection[value='6']:checked ~ .background * {
-  color: #000;
+  color: oklch(0% 0 0);
 }
 
 .sheet-darkmode .background-selection[value='6']:checked ~ .background * {
@@ -596,14 +603,14 @@
 .charsheet input[type='checkbox'].toggle-input-error:not(:checked) + label input[type='text'],
 .charsheet input[type='checkbox'].toggle-input-error:not(:checked) + input[type='text'],
 .charsheet input:invalid:required {
-  box-shadow: 0 0 0 2px red;
-  color: red;
-  outline: 2px dotted gold;
+  box-shadow: 0 0 0 2px oklch(62.793% 0.25768 29.223);
+  color: oklch(62.793% 0.25768 29.223);
+  outline: 2px dotted oklch(88.677% 0.18212 95.338);
 }
 
 /* indicates attention */
 .charsheet input[type='checkbox'].toggle-input-attention:checked + label input[type='text'] {
-  outline: 2px dashed #a5a1a7;
+  outline: 2px dashed oklch(71.418% 0.00975 314.434);
   outline-offset: -1px;
 }
 
@@ -622,7 +629,7 @@
 
 .charsheet input[type='checkbox'].toggle-input-attention + label .material-icons,
 .charsheet input[type='checkbox'].toggle-input-attention + .material-icons {
-  color: crimson;
+  color: oklch(57.116% 0.22195 20.073);
   display: none;
   font-size: var(--text-xxl);
   opacity: 0.9;
@@ -956,7 +963,7 @@ summary::-webkit-details-marker {
 
 .charsheet .heart::before {
   -webkit-text-fill-color: var(--color-darkgrey1);
-  -webkit-text-stroke: 2px #000;
+  -webkit-text-stroke: 2px oklch(0% 0 0);
   content: 'k';
   font-family: Pictos;
   font-size: 7.25rem;
@@ -985,7 +992,7 @@ summary::-webkit-details-marker {
 
 .charsheet .shield::before {
   -webkit-text-fill-color: var(--color-darkgrey1);
-  -webkit-text-stroke: 2px #000;
+  -webkit-text-stroke: 2px oklch(0% 0 0);
   content: 'b';
   font-family: Pictos Three;
   font-size: 7.25rem;
@@ -2353,7 +2360,7 @@ section.npc-box.statblock3 .image-avatar {
 .charsheet .background .wrapper .weapons-row2 .toggle-critdamage textarea {
   overflow: hidden;
   resize: none;
-  border-color: #000;
+  border-color: oklch(0% 0 0);
   background-color: revert;
 }
 
@@ -2972,7 +2979,7 @@ section.npc-box.statblock3 .image-avatar {
 
 .charsheet .options-box .settings {
   align-items: start;
-  background-color: rgb(116 116 116 / 40%);
+  background-color: oklch(55.897% 0.00006 271.152 / 0.4);
   border: 1px solid var(--color-lightgrey2);
   border-radius: 6px;
   display: flex;
@@ -3265,7 +3272,7 @@ section.npc-box.statblock3 .image-avatar {
 }
 
 .charsheet span.tab {
-  background-color: rgba(148, 148, 148, 0.5);
+  background-color: oklch(66.655% 0.00008 271.152 / 0.5);
   border: 1px solid var(--color-lightgrey2);
   border-bottom: 0;
   border-top-left-radius: 6px;
@@ -3315,7 +3322,7 @@ section.npc-box.statblock3 .image-avatar {
 
 .charsheet input[type='radio'].tab-hidden:checked + span.tab {
   background-color: var(--color-white1);
-  box-shadow: 3px 2px 5px #000;
+  box-shadow: 3px 2px 5px oklch(0% 0 0);
   color: var(--color-darkgrey1);
   font-weight: bold;
   height: 1.85em;
@@ -3442,7 +3449,7 @@ section.npc-box.statblock3 .image-avatar {
 .charsheet input[readonly] {
   background-color: var(--color-white2);
   border: 1px transparent;
-  border-bottom: 1px solid rgb(182, 182, 182);
+  border-bottom: 1px solid oklch(77.628% 0.00009 271.152);
   border-bottom-color: transparent;
   border-bottom-style: none;
   border-bottom-width: 1px;
@@ -3541,7 +3548,7 @@ section.npc-box.statblock3 .image-avatar {
 
 .charsheet select {
   align-self: center;
-  border-color: rgba(204, 204, 204, 0.44);
+  border-color: oklch(84.522% 0.0001 271.152 / 0.44);
   cursor: pointer;
   margin: auto 1px auto 1px;
   max-height: 1.75em;
@@ -3678,9 +3685,9 @@ section.npc-box.statblock3 .image-avatar {
 .charsheet .wrapper button[type='roll'],
 .charsheet .wrapper button[type='action'] {
   align-items: center;
-  background: linear-gradient(180deg, rgb(255 255 255) 0%, rgb(176 176 176) 50%, rgb(163 163 163) 100%);
+  background: linear-gradient(180deg, oklch(100% 0.00011 271.152) 0%, oklch(75.721% 0.00009 271.152) 50%, oklch(71.547% 0.00008 271.152) 100%);
   border-radius: 4px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 1px 1px 1px rgba(0, 0, 0, 1.5);
+  box-shadow: inset 0 1px 0 oklch(100% 0.00011 271.152 / 0.2), 1px 1px 1px oklch(0% 0 0 / 1);
   color: var(--color-black2);
   cursor: pointer;
   display: flex;
@@ -3722,7 +3729,7 @@ section.npc-box.statblock3 .image-avatar {
 
 .charsheet .wrapper button[type='roll']:hover,
 .charsheet .wrapper button[type='action']:hover {
-  background: linear-gradient(180deg, rgb(216 216 216) 0%, rgb(255 252 252) 50%, rgb(206 206 206) 100%);
+  background: linear-gradient(180deg, oklch(88.224% 0.0001 271.152) 0%, oklch(99.336% 0.00316 15.246) 50%, oklch(85.142% 0.0001 271.152) 100%);
 }
 
 .charsheet .wrapper button[type='roll']::before,
@@ -3775,7 +3782,7 @@ section.npc-box.statblock3 .image-avatar {
   color: var(--color-white3);
   font-weight: normal;
   overflow: hidden;
-  text-shadow: 1px 1px #000;
+  text-shadow: 1px 1px oklch(0% 0 0);
 }
 
 .sheet-darkmode .background .wrapper button[type='roll'].url-roll {
@@ -3799,13 +3806,13 @@ section.npc-box.statblock3 .image-avatar {
 .sheet-rolltemplate-darkmode.sheet-rolltemplate-general a[href^='!'],
 .sheet-rolltemplate-darkmode.sheet-rolltemplate-attacks a[href^='~'],
 .sheet-rolltemplate-darkmode.sheet-rolltemplate-general a[href^='~'] {
-  background: rgb(40, 40, 40);
+  background: oklch(27.685% 0.00003 271.152);
   background: linear-gradient(180deg,
-      rgba(40, 40, 40, 1) 9%,
-      rgba(74, 74, 74, 1) 32%,
-      rgba(37, 37, 37, 1) 54%,
-      rgba(0, 0, 0, 0.9532313413646709) 83%,
-      rgba(74, 74, 74, 1) 100%);
+      oklch(27.685% 0.00003 271.152) 9%,
+      oklch(40.912% 0.00005 271.152) 32%,
+      oklch(26.448% 0.00003 271.152) 54%,
+      oklch(0% 0 0 / 0.953) 83%,
+      oklch(40.912% 0.00005 271.152) 100%);
   border-radius: 4px;
   border-top-width: 0;
   color: var(--color-white3);
@@ -3818,10 +3825,10 @@ section.npc-box.statblock3 .image-avatar {
 .sheet-rolltemplate-darkmode.sheet-rolltemplate-attacks a[href^='~']:hover,
 .sheet-rolltemplate-darkmode.sheet-rolltemplate-general a[href^='~']:hover {
   background: linear-gradient(180deg,
-      rgba(79, 79, 79, 1) 0%,
-      rgba(0, 0, 0, 1) 21%,
-      rgb(112 44 145) 170%,
-      rgba(79, 79, 79, 1) 100%);
+      oklch(42.761% 0.00005 271.152) 0%,
+      oklch(0% 0 0) 21%,
+      oklch(43.823% 0.16422 312.499) 170%,
+      oklch(42.761% 0.00005 271.152) 100%);
   box-shadow: 0 0 1px 1px var(--color-white2);
 }
 
@@ -3850,7 +3857,7 @@ section.npc-box.statblock3 .image-avatar {
 
 .charsheet .settings button[type='roll'],
 .charsheet .settings button[type='action'] {
-  border-color: rgba(0, 0, 0, 0.7) rgba(0, 0, 0, 0.7) rgba(0, 0, 0, 0.5);
+  border-color: oklch(0% 0 0 / 0.7) oklch(0% 0 0 / 0.7) oklch(0% 0 0 / 0.5);
 }
 
 .charsheet .stack-text {
@@ -3908,10 +3915,10 @@ section.npc-box.statblock3 .image-avatar {
 .sheet-rolltemplate-general a[href^='!'],
 .sheet-rolltemplate-attacks a[href^='~'],
 .sheet-rolltemplate-general a[href^='~'] {
-  background: linear-gradient(180deg, rgb(255 255 255) 0%, rgb(176 176 176) 50%, rgb(163 163 163) 100%);
+  background: linear-gradient(180deg, oklch(100% 0.00011 271.152) 0%, oklch(75.721% 0.00009 271.152) 50%, oklch(71.547% 0.00008 271.152) 100%);
   border: 1px solid var(--color-lightgrey2);
   border-radius: 4px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 1px 1px 1px rgba(0, 0, 0, 1.5);
+  box-shadow: inset 0 1px 0 oklch(100% 0.00011 271.152 / 0.2), 1px 1px 1px oklch(0% 0 0);
   color: initial;
   cursor: pointer;
   display: inline-block;
@@ -3934,7 +3941,7 @@ section.npc-box.statblock3 .image-avatar {
   display: inline-block;
   font-weight: normal;
   margin-block: 1px;
-  text-decoration: underline 1px solid #999;
+  text-decoration: underline 1px solid oklch(68.295% 0.00008 271.152);
   white-space: normal;
 }
 
@@ -3961,7 +3968,7 @@ section.npc-box.statblock3 .image-avatar {
   max-width: fit-content;
   object-fit: contain;
   object-position: center;
-  outline: 2px solid #000;
+  outline: 2px solid oklch(0% 0 0);
   overflow: clip;
   width: calc(100% - 5px);
 }
@@ -4382,7 +4389,7 @@ section.npc-box.statblock3 .image-avatar {
 
 .charsheet span.to-hit span:nth-child(even) {
   background-color: var(--color-white1);
-  border: 1px solid #000;
+  border: 1px solid oklch(0% 0 0);
   color: initial;
   height: 1.5em;
 }
@@ -4418,16 +4425,16 @@ section.npc-box.statblock3 .image-avatar {
 .sheet-rolltemplate-attacks-table div,
 .sheet-rolltemplate-general div {
   -moz-background-clip: padding;
-  -moz-box-shadow: 2px 2px 5px #000;
+  -moz-box-shadow: 2px 2px 5px oklch(0% 0 0);
   -webkit-background-clip: padding-box;
-  -webkit-box-shadow: 2px 2px 5px #000;
+  -webkit-box-shadow: 2px 2px 5px oklch(0% 0 0);
   background-clip: padding-box;
   background-color: var(--color-white1);
-  border: 5px solid #000;
+  border: 5px solid oklch(0% 0 0);
   border-collapse: separate;
   border-radius: 4px;
   border-spacing: 0;
-  box-shadow: 2px 2px 5px #000;
+  box-shadow: 2px 2px 5px oklch(0% 0 0);
   color: var(--color-black1);
   display: grid;
   grid-template-columns: 1fr auto;
@@ -4443,7 +4450,7 @@ section.npc-box.statblock3 .image-avatar {
   border-top-color: transparent;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  box-shadow: 2px 4px 5px #000;
+  box-shadow: 2px 4px 5px oklch(0% 0 0);
   margin: -1.75em 0 0.5em 0;
   padding-bottom: 0.25em;
 }
@@ -4561,6 +4568,11 @@ section.npc-box.statblock3 .image-avatar {
   text-align: center;
 }
 
+.sheet-rolltemplate-attacks .sheet-span-two:has(.inlinerollresult),
+.sheet-rolltemplate-general div span.sheet-span-two:has(.inlinerollresult) {
+  padding-block: 2px;
+}
+
 .sheet-rolltemplate-attacks .sheet-template-header,
 .sheet-rolltemplate-attacks-table .sheet-template-header,
 .sheet-rolltemplate-general .sheet-template-header {
@@ -4573,7 +4585,7 @@ section.npc-box.statblock3 .image-avatar {
   font-size: var(--text-xxl);
   padding: 2px;
   text-align: center;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  text-shadow: -1px -1px 0 oklch(0% 0 0), 1px -1px 0 oklch(0% 0 0), -1px 1px 0 oklch(0% 0 0), 1px 1px 0 oklch(0% 0 0);
 }
 
 .sheet-rolltemplate-attacks .sheet-subheader,
@@ -4585,7 +4597,7 @@ section.npc-box.statblock3 .image-avatar {
   font-size: var(--text-lg);
   padding: 2px;
   text-align: center;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  text-shadow: -1px -1px 0 oklch(0% 0 0), 1px -1px 0 oklch(0% 0 0), -1px 1px 0 oklch(0% 0 0), 1px 1px 0 oklch(0% 0 0);
 }
 
 .sheet-rolltemplate-attacks .sheet-template-footer,
@@ -4599,7 +4611,7 @@ section.npc-box.statblock3 .image-avatar {
   margin-top: -2px;
   min-height: 1em;
   text-align: center;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  text-shadow: -1px -1px 0 oklch(0% 0 0), 1px -1px 0 oklch(0% 0 0), -1px 1px 0 oklch(0% 0 0), 1px 1px 0 oklch(0% 0 0);
 }
 
 /* needed to prevent visible notch when {{bigname}} and {{name}} are used together */
@@ -4636,7 +4648,7 @@ section.npc-box.statblock3 .image-avatar {
 /* border below header/subheader */
 .sheet-rolltemplate-attacks .sheet-row:has(.sheet-template-header),
 .sheet-rolltemplate-general .sheet-row:has(.sheet-template-header) {
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid oklch(0% 0 0);
 }
 
 .sheet-rolltemplate-attacks .sheet-tcat,
@@ -4781,7 +4793,7 @@ section.npc-box.statblock3 .image-avatar {
 .sheet-rolltemplate-attacks span.sheet-wrap-ToHit span.inlinerollresult.showtip,
 .sheet-rolltemplate-attacks-table span.sheet-wrap-ToHit span.inlinerollresult.showtip,
 .sheet-rolltemplate-attacks-table span.sheet-ToHit span.inlinerollresult.showtip {
-  background-color: #fef68e;
+  background-color: oklch(95.774% 0.12615 104.673);
   border: none;
   font-family: monospace;
   font-size: var(--text-sm);
@@ -4793,7 +4805,7 @@ section.npc-box.statblock3 .image-avatar {
 .sheet-rolltemplate-attacks-table span.sheet-wrap-ToHit span.inlinerollresult[original-title$="20"],
 .sheet-rolltemplate-darkmode.sheet-rolltemplate-attacks-table span.sheet-wrap-ToHit span.inlinerollresult[title$="20"],
 .sheet-rolltemplate-darkmode.sheet-rolltemplate-attacks-table span.sheet-wrap-ToHit span.inlinerollresult[original-title$="20"] {
-  color: red;
+  color: oklch(62.793% 0.25768 29.223);
 }
 
 /* wrap to-hit tables */
@@ -4822,7 +4834,7 @@ section.npc-box.statblock3 .image-avatar {
 .sheet-rolltemplate-attacks-table .sheet-wrap-ToHit > * {
   align-items: center;
   background-color: transparent;
-  border: 1px solid #333;
+  border: 1px solid oklch(32.109% 0.00004 271.152);
   border-block: none;
   display: flex;
   flex-direction: column;
@@ -4846,19 +4858,19 @@ section.npc-box.statblock3 .image-avatar {
 }
 
 .sheet-rolltemplate-general .sheet-success {
-  color: #3fb315;
+  color: oklch(67.449% 0.20893 139.768);
 }
 
 .sheet-rolltemplate-general .sheet-failure {
-  color: #85000a;
+  color: oklch(38.79% 0.15807 26.928);
 }
 
 .sheet-rolltemplate-general .sheet-row:has(.sheet-success) + .sheet-row:has(.inlinerollresult) .inlinerollresult:nth-child(2) {
-  border-color: #3fb315;
+  border-color: oklch(67.449% 0.20893 139.768);
 }
 
 .sheet-rolltemplate-general .sheet-failure + .sheet-row:has(.inlinerollresult) .inlinerollresult:nth-child(2) {
-  border-color: #85000a;
+  border-color: oklch(38.79% 0.15807 26.928);
 }
 
 .sheet-rolltemplate-general div .sheet-row:has(.sheet-tcat.sheet-success) {
@@ -4877,8 +4889,8 @@ section.npc-box.statblock3 .image-avatar {
 .sheet-rolltemplate-general .sheet-row span.inlinerollresult.inlinerollresult,
 .sheet-rolltemplate-attacks .sheet-row.sheet-all-props span.inlinerollresult.inlinerollresult,
 .sheet-rolltemplate-general .sheet-row.sheet-all-props span.inlinerollresult.inlinerollresult {
-  background-color: #fef68e;
-  color: #000;
+  background-color: oklch(95.774% 0.12615 104.673);
+  color: oklch(0% 0 0);
   display: inline-block;
   font-family: var(--font-inputs);
   line-height: 1em;
@@ -4911,7 +4923,7 @@ section.npc-box.statblock3 .image-avatar {
 .sheet-rolltemplate-darkmode.sheet-rolltemplate-attacks .sheet-wrap-ToHit span.inlinerollresult.inlinerollresult,
 .sheet-rolltemplate-darkmode.sheet-rolltemplate-attacks-table .sheet-wrap-ToHit .inlinerollresult,
 .sheet-rolltemplate-darkmode.sheet-rolltemplate-attacks-table .sheet-wrap-ToHit span.inlinerollresult.inlinerollresult {
-  background-color: #fef68e;
+  background-color: oklch(95.774% 0.12615 104.673);
   border: none;
   color: var(--color-black2);
 }
@@ -4928,21 +4940,21 @@ section.npc-box.statblock3 .image-avatar {
 .sheet-rolltemplate-attacks span.inlinerollresult.fullcrit,
 .sheet-rolltemplate-general .inlinerollresult.fullcrit,
 .sheet-rolltemplate-general span.inlinerollresult.fullcrit {
-  border: 2px solid #3fb315;
+  border: 2px solid oklch(67.449% 0.20893 139.768);
 }
 
 .sheet-rolltemplate-attacks .inlinerollresult.fullfail,
 .sheet-rolltemplate-attacks span.inlinerollresult.fullfail,
 .sheet-rolltemplate-general .inlinerollresult.fullfail,
 .sheet-rolltemplate-general span.inlinerollresult.fullfail {
-  border: 2px solid #85000a;
+  border: 2px solid oklch(38.79% 0.15807 26.928);
 }
 
 .sheet-rolltemplate-attacks .inlinerollresult.importantroll,
 .sheet-rolltemplate-attacks span.inlinerollresult.importantroll,
 .sheet-rolltemplate-general .inlinerollresult.importantroll,
 .sheet-rolltemplate-general span.inlinerollresult.importantroll {
-  border: 2px solid #4a57ed;
+  border: 2px solid oklch(54.121% 0.22261 272.596);
 }
 
 .sheet-rolltemplate-attacks,
@@ -5222,25 +5234,25 @@ section.npc-box.statblock3 .image-avatar {
 /*edit mode*/
 .charsheet .editmode ~ .repcontrol .repcontrol_edit {
   background-color: var(--color-white1);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(oklch(100% 0.00011 271.152)), to(oklch(92.494% 0.00011 271.152)));
   border: 1px solid var(--color-white3);
-  border-bottom-color: #bbb;
-  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  border-bottom-color: oklch(79.208% 0.00009 271.152);
+  border-color: oklch(92.494% 0.00011 271.152) oklch(92.494% 0.00011 271.152) oklch(80.466% 0.00009 271.152);
+  box-shadow: inset 0 1px 0 oklch(100% 0.00011 271.152 / 0.2), 0 1px 2px oklch(0% 0 0 / 0.05);
   margin-top: 2px;
   padding-block: 1px;
   width: 100%;
 }
 
 .charsheet .repcontainer.ui-sortable.editmode {
-  outline: 1px solid red;
+  outline: 1px solid oklch(62.793% 0.25768 29.223);
   position: relative;
 }
 
 .charsheet .repitem.ui-sortable-helper {
   display: inline-block;
   opacity: 1;
-  outline: 1px solid red;
+  outline: 1px solid oklch(62.793% 0.25768 29.223);
 }
 
 .charsheet .repcontainer.editmode .repitem .itemcontrol {
@@ -5250,9 +5262,9 @@ section.npc-box.statblock3 .image-avatar {
 
 .charsheet .editmode .repitem:has(.itemcontrol a:focus),
 .charsheet .editmode .repitem:has(.itemcontrol a:active) {
-  color: red;
+  color: oklch(62.793% 0.25768 29.223);
   display: block;
-  outline: 2px solid red;
+  outline: 2px solid oklch(62.793% 0.25768 29.223);
   position: relative;
   right: 0;
 }
@@ -5274,7 +5286,7 @@ section.npc-box.statblock3 .image-avatar {
   }
 
   .ui-dialog .largedialog {
-    background-color: #fff !important;
+    background-color: oklch(100% 0.00011 271.152) !important;
     padding: 5px 10px 5px 10px !important;
   }
 
@@ -5286,7 +5298,7 @@ section.npc-box.statblock3 .image-avatar {
   }
 
   .charsheet .background {
-    background-color: #fff !important;
+    background-color: oklch(100% 0.00011 271.152) !important;
   }
 
   .charsheet .material-icons.grid::after {
@@ -5295,7 +5307,7 @@ section.npc-box.statblock3 .image-avatar {
 
   .charsheet input[type="checkbox"] {
     accent-color: var(--color-white2) !important;
-    color: #000 !important;
+    color: oklch(0% 0 0) !important;
   }
 
   .charsheet .logo-box .normalmode {
@@ -5318,19 +5330,19 @@ section.npc-box.statblock3 .image-avatar {
   .charsheet .wrapper .column-header {
     background-color: var(--color-white2) !important;
     border: none !important;
-    outline: 1px solid #333;
+    outline: 1px solid oklch(32.109% 0.00004 271.152);
     outline-offset: -1px;
   }
 
   .charsheet .heart::before,
   .charsheet .shield::before {
     -webkit-text-fill-color: transparent;
-    -webkit-text-stroke: 2px #5c5c5c;
+    -webkit-text-stroke: 2px oklch(47.478% 0.00005 271.152);
   }
 
   .charsheet .heart .heart-input,
   .charsheet .shield .shield-input {
-    color: #000 !important;
+    color: oklch(0% 0 0) !important;
   }
 
   /* Hide Sections */

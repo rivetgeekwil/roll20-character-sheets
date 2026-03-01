@@ -28,6 +28,7 @@
 <input type="checkbox" name="attr_toggle_single_column_spells" class="toggle-single-column-spells hidden" value="1" checked />
 <input type="checkbox" name="attr_toggle_critdamage" class="toggle-critdamage hidden" value="1" />
 <input type="checkbox" name="attr_toggle_lbs" class="toggle-lbs hidden" value="1" />
+<input type="checkbox" name="attr_toggle_row_banding" class="toggle-row-banding hidden" value="1" />
 <div class="background">
   <div class="wrapper">
     <!-- Sheet Header-->
@@ -63,15 +64,16 @@
             <span class="left">
               <span>v<span name="attr_sheet_version">
             </span>
-            <span class="right"> • 2/25/26'</span>
+            <span class="right"> • 2/28/26'</span>
           </h5>
           <ul>
             <h5>Latest</h5>
+            <li>Row Banding option added. Applies a subtle alternating background contrast to sheet rows.</li>
+            <li>~~~</li>
             <li>Fixed Spell tab bug that only allowed spells to be seen using the "All" tab. Introduced with last weeks update.(TY @Kazdan)</li>
             <li>Fixed a bug with the Thief "sync to class" option where the level was failing to 0. Introduced with last weeks update.</li>
             <li>Added a "Sync Caster Class" option to the spells section. Linking to a class will automatically adjust the caster name and level values whenever the linked class changes from the top of the sheet.</li>
             <li>Added datalist options for various fields. Datalist fields are similar to dropdown selectors, but also allow custom input as well. Added lists to; class, race, alignment, secondary skills, and non-weapon proficiencies(these also show the slot, ability, and modifier).</li>
-            <li>~~~</li>
             <li>Added a print option to the sheet. Adjusting sub-sections, resizing text boxes, etc. as needed will help produce a better end-result. I have hidden elements that would only apply to the VTT as well as other adjustments to help the sheet be "print-friendly". Click the printer icon at the top left corner of the character journal to preview. Ensure to toggle "background graphics" from the advanced print settings to see how it effects the preview.</li>
             <li>Updated how the to-Hit and weapon vs armor type table data is posted with attacks.</li>
             <li>Added an "Ask" option to the sheet whisper settings. Rolls will include a query to whisper the roll or not when choosing the "Ask" option. DM sees all...</li>
@@ -4233,38 +4235,42 @@
       <div class="header">SETTINGS</div><span class="material-icons"></span>
       <div class="settings sect">
         <span class="text-notes"><strong>Reminder:</strong> these are "per-sheet" settings only. DM's that would like to set their own defaults for new characters can do so using the Default Settings section found in the main Game Settings page. If you would also like to apply these settings to all pre-existing characters in your game, follow these wiki instructions:<span class="inline-label"><button type="roll" class="url-roll btn ui-draggable" title="Post this link to chat." value="[Roll20 Wiki Link](https://wiki.roll20.net/Game_Settings_Page#Applying_Setting_Defaults_to_Existing_Content_In-Game)"><span>Applying Setting Defaults to Existing Content</span></button></span></span>
-        <span class="inline-label left">
+        <span class="inline-label width-fill">
           <label title="@{background} | Choose a sheet background. note: Using Roll20's dark mode option will override this option.">
             <h4>Background:</h4>
             <select class="background-selection" name="attr_background">
               <option value="1" default="">White</option>
-              <option value="2" style="background-color: #d5cdc2;">Parchment</option>
-              <option value="7" style="background-color: #f6e8a7;">Light Goldenrod</option>
-              <option value="3" style="background-color: #f4d74f;">Goldenrod</option>
-              <option value="4" style="background-color: #b5dcb3">Moldvay</option>
+              <option value="2" style="background-color: oklch(85.17% 0.01737 76.018);">Parchment</option>
+              <option value="7" style="background-color: oklch(92.707% 0.08398 97.456);">Light Goldenrod</option>
+              <option value="3" style="background-color: oklch(87.958% 0.15349 96.999);">Goldenrod</option>
+              <option value="4" style="background-color: oklch(85.557% 0.06941 143.738)">Moldvay</option>
               <option value="5" style="background-color: var(--color-white1);">Light Greyhawk</option>
-              <option value="6" style="background-color: rgb(179 179 179 / 54%);">Greyhawk</option>
+              <option value="6" style="background-color: oklch(76.676% 0.00009 271.152 / 0.54);">Greyhawk</option>
             </select>
+          </label>
+          <label title="@{toggle_row_banding} | Apply subtle alternating background contrast to sheet rows.">
+            <h4>Apply row banding:</h4>
+            <input type="checkbox" name="attr_toggle_row_banding" value="1" title="@{toggle_row_banding}" />
           </label>
           <label title="@{color_option} | Color will be displayed with sheet rolls.">
             <h4>Roll Template Color:</h4>
             <select name="attr_color_option">
-              <option style="background-color: var(--black); color: #fff;" value="black" selected>black</option>
-              <option style="background-color: var(--blue); color: #fff;" value="blue">blue</option>
-              <option style="background-color: var(--darkblue); color: #fff;" value="darkblue">darkblue</option>
-              <option style="background-color: var(--darkgreen); color: #fff;" value="darkgreen">darkgreen</option>
-              <option style="background-color: var(--darkgrey); color: #fff;" value="darkgrey">darkgrey</option>
-              <option style="background-color: var(--darkorange); color: #fff;" value="darkorange">darkorange</option>
-              <option style="background-color: var(--darkpink); color: #fff;" value="darkpink">darkpink</option>
-              <option style="background-color: var(--darkpurple); color: #fff;" value="darkpurple">darkpurple</option>
-              <option style="background-color: var(--darkred); color: #fff;" value="darkred">darkred</option>
-              <option style="background-color: var(--darkyellow); color: #fff;" value="darkyellow">darkyellow</option>
-              <option style="background-color: var(--green); color: #fff;" value="green">green</option>
-              <option style="background-color: var(--grey); color: #fff;" value="grey">grey</option>
-              <option style="background-color: var(--orange); color: #fff;" value="orange">orange</option>
-              <option style="background-color: var(--pink); color: #fff;" value="pink">pink</option>
-              <option style="background-color: var(--purple); color: #fff;" value="purple">purple</option>
-              <option style="background-color: var(--red); color: #fff;" value="red">red</option>
+              <option style="background-color: var(--black); color: oklch(100% 0.00011 271.152);" value="black" selected>black</option>
+              <option style="background-color: var(--blue); color: oklch(100% 0.00011 271.152);" value="blue">blue</option>
+              <option style="background-color: var(--darkblue); color: oklch(100% 0.00011 271.152);" value="darkblue">darkblue</option>
+              <option style="background-color: var(--darkgreen); color: oklch(100% 0.00011 271.152);" value="darkgreen">darkgreen</option>
+              <option style="background-color: var(--darkgrey); color: oklch(100% 0.00011 271.152);" value="darkgrey">darkgrey</option>
+              <option style="background-color: var(--darkorange); color: oklch(100% 0.00011 271.152);" value="darkorange">darkorange</option>
+              <option style="background-color: var(--darkpink); color: oklch(100% 0.00011 271.152);" value="darkpink">darkpink</option>
+              <option style="background-color: var(--darkpurple); color: oklch(100% 0.00011 271.152);" value="darkpurple">darkpurple</option>
+              <option style="background-color: var(--darkred); color: oklch(100% 0.00011 271.152);" value="darkred">darkred</option>
+              <option style="background-color: var(--darkyellow); color: oklch(100% 0.00011 271.152);" value="darkyellow">darkyellow</option>
+              <option style="background-color: var(--green); color: oklch(100% 0.00011 271.152);" value="green">green</option>
+              <option style="background-color: var(--grey); color: oklch(100% 0.00011 271.152);" value="grey">grey</option>
+              <option style="background-color: var(--orange); color: oklch(100% 0.00011 271.152);" value="orange">orange</option>
+              <option style="background-color: var(--pink); color: oklch(100% 0.00011 271.152);" value="pink">pink</option>
+              <option style="background-color: var(--purple); color: oklch(100% 0.00011 271.152);" value="purple">purple</option>
+              <option style="background-color: var(--red); color: oklch(100% 0.00011 271.152);" value="red">red</option>
               <option style="background-color: var(--white);" value="white">white</option>
               <option style="background-color: var(--yellow);" value="yellow">yellow</option>
             </select>
