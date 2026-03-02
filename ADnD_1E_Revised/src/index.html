@@ -1058,7 +1058,7 @@
           </label>
           <textarea name="attr_senses" class="height-short" title="@{senses}" placeholder="Enter Special Senses..."></textarea>
         </span>
-        <span class="details-row3">
+        <span>
           <input type="checkbox" class="sect-show" name="attr_character-description_show" value="1" checked />
           <span class="subheader">Character History/Bio</span><span class="material-icons"></span>
           <span class="sect">
@@ -1078,6 +1078,7 @@
       <div class="sect">
         <span class="abilities-columns">
           <!-- STR -->
+          <span></span>
           <label>
             <button type="roll" class="ability-button text-only" name="attr_strength_check_roll" title="%{selected|strength_check_roll}" value="@{strength_check_macro_text}"><span>STR</span></button>
             <input type="text" class="hidden" name="attr_strength_check_macro_text" value="@{whisper_pc} &{template:general} {{color=@{color_option}}} {{name=@{character_name}}} {{subtag=Strength Check}} {{roll_low=[[ @{ability_check_die}cs ]]}} {{roll_target=[[ @{strength} ]]}}" />
@@ -1124,6 +1125,7 @@
             <input type="text" class="width-smaller" name="attr_majorstrengthfeat" title="@{majorstrengthfeat} | Major Strength Feat" value="0" />
           </label>
           <!-- INT -->
+          <span></span>
           <label>
             <button type="roll" class="ability-button text-only" name="attr_intelligence_check_roll" title="%{selected|intelligence_check_roll}" value="@{intelligence_check_macro_text}"><span>INT</span></button>
             <input type="text" class="hidden" name="attr_intelligence_check_macro_text" value="@{whisper_pc} &{template:general} {{color=@{color_option}}} {{name=@{character_name}}} {{subtag=Intelligence Check}} {{roll_low=[[ @{ability_check_die}cs ]]}} {{roll_target=[[ @{intelligence} ]]}}" />
@@ -1155,6 +1157,7 @@
             <button class="dice-button text-only" type="roll" name="attr_init-roll" title="%{selected|init-roll}" value="@{whisper_pc} @{init_macro_text}"><span>Initiative</span></button>
           </label>
           <!-- WIS -->
+          <span></span>
           <label>
             <button type="roll" class="ability-button text-only" name="attr_wisdom_check_roll" title="%{selected|wisdom_check_roll}" value="@{wisdom_check_macro_text}"><span>WIS</span></button>
             <input type="text" class="hidden" name="attr_wisdom_check_macro_text" value="@{whisper_pc} &{template:general} {{color=@{color_option}}} {{name=@{character_name}}} {{subtag=Wisdom Check}} {{roll_low=[[ @{ability_check_die}cs ]]}} {{roll_target=[[ @{wisdom} ]]}}" />
@@ -1186,6 +1189,7 @@
             <button class="dice-button text-only" type="roll" name="attr_surprise-roll" title="%{selected|surprise-roll}" value="@{whisper_pc} @{surprise_macro_text}"><span>Surprise</span></button>
           </label>
           <!-- DEX -->
+          <span></span>
           <label>
             <button type="roll" class="ability-button text-only" name="attr_dexterity_check_roll" title="%{selected|dexterity_check_roll}" value="@{dexterity_check_macro_text}"><span>DEX</span></button>
             <input type="text" class="hidden" name="attr_dexterity_check_macro_text" value="@{whisper_pc} &{template:general} {{color=@{color_option}}} {{name=@{character_name}}} {{subtag=Dexterity Check}} {{roll_low=[[ @{ability_check_die}cs ]]}} {{roll_target=[[ @{dexterity} ]]}}" />
@@ -1223,6 +1227,7 @@
             </select>
           </label>
           <!-- CON -->
+          <span></span>
           <label>
             <button type="roll" class="ability-button text-only" name="attr_constitution_check_roll" title="%{selected|constitution_check_roll}" value="@{constitution_check_macro_text}"><span>CON</span></button>
             <input type="text" class="hidden" name="attr_constitution_check_macro_text" value="@{whisper_pc} &{template:general} {{color=@{color_option}}} {{name=@{character_name}}} {{subtag=Constitution Check}} {{roll_low=[[ @{ability_check_die}cs ]]}} {{roll_target=[[ @{constitution} ]]}}" />
@@ -1256,6 +1261,7 @@
             <input type="text" class="width-smaller" name="attr_surprise_others_mod" title="@{surprise_others_mod} | The modifier is typically indicated as bonus although the value is SUBTRACTED from the opponents Surprise check." value="0" />
           </label>
           <!-- CHA -->
+          <span></span>
           <label>
             <button type="roll" class="ability-button text-only" name="attr_charisma_check_roll" title="%{selected|charisma_check_roll}" value="@{charisma_check_macro_text}"><span>CHA</span></button>
             <input type="text" class="hidden" name="attr_charisma_check_macro_text" value="@{whisper_pc} &{template:general} {{color=@{color_option}}} {{name=@{character_name}}} {{subtag=Charisma Check}} {{roll_low=[[ @{ability_check_die}cs ]]}} {{roll_target=[[ @{charisma} ]]}}" />
@@ -1290,6 +1296,7 @@
           <label></label>
           <label></label>
           <!-- COM -->
+          <span class="toggle-comeliness"></span>
           <label class="toggle-comeliness">
             <button type="roll" class="ability-button text-only"><span>COM</span></button>
           </label>
@@ -4255,22 +4262,22 @@
           <label title="@{color_option} | Color will be displayed with sheet rolls.">
             <h4>Roll Template Color:</h4>
             <select name="attr_color_option">
-              <option style="background-color: var(--black); color: oklch(100% 0.00011 271.152);" value="black" selected>black</option>
-              <option style="background-color: var(--blue); color: oklch(100% 0.00011 271.152);" value="blue">blue</option>
-              <option style="background-color: var(--darkblue); color: oklch(100% 0.00011 271.152);" value="darkblue">darkblue</option>
-              <option style="background-color: var(--darkgreen); color: oklch(100% 0.00011 271.152);" value="darkgreen">darkgreen</option>
-              <option style="background-color: var(--darkgrey); color: oklch(100% 0.00011 271.152);" value="darkgrey">darkgrey</option>
-              <option style="background-color: var(--darkorange); color: oklch(100% 0.00011 271.152);" value="darkorange">darkorange</option>
-              <option style="background-color: var(--darkpink); color: oklch(100% 0.00011 271.152);" value="darkpink">darkpink</option>
-              <option style="background-color: var(--darkpurple); color: oklch(100% 0.00011 271.152);" value="darkpurple">darkpurple</option>
-              <option style="background-color: var(--darkred); color: oklch(100% 0.00011 271.152);" value="darkred">darkred</option>
-              <option style="background-color: var(--darkyellow); color: oklch(100% 0.00011 271.152);" value="darkyellow">darkyellow</option>
-              <option style="background-color: var(--green); color: oklch(100% 0.00011 271.152);" value="green">green</option>
-              <option style="background-color: var(--grey); color: oklch(100% 0.00011 271.152);" value="grey">grey</option>
-              <option style="background-color: var(--orange); color: oklch(100% 0.00011 271.152);" value="orange">orange</option>
-              <option style="background-color: var(--pink); color: oklch(100% 0.00011 271.152);" value="pink">pink</option>
-              <option style="background-color: var(--purple); color: oklch(100% 0.00011 271.152);" value="purple">purple</option>
-              <option style="background-color: var(--red); color: oklch(100% 0.00011 271.152);" value="red">red</option>
+              <option style="background-color: var(--black); color: var(--white)" value="black" selected>black</option>
+              <option style="background-color: var(--blue); color: var(--white)" value="blue">blue</option>
+              <option style="background-color: var(--darkblue); color: var(--white)" value="darkblue">darkblue</option>
+              <option style="background-color: var(--darkgreen); color: var(--white)" value="darkgreen">darkgreen</option>
+              <option style="background-color: var(--darkgrey); color: var(--white)" value="darkgrey">darkgrey</option>
+              <option style="background-color: var(--darkorange); color: var(--white)" value="darkorange">darkorange</option>
+              <option style="background-color: var(--darkpink); color: var(--white)" value="darkpink">darkpink</option>
+              <option style="background-color: var(--darkpurple); color: var(--white)" value="darkpurple">darkpurple</option>
+              <option style="background-color: var(--darkred); color: var(--white)" value="darkred">darkred</option>
+              <option style="background-color: var(--darkyellow); color: var(--white)" value="darkyellow">darkyellow</option>
+              <option style="background-color: var(--green); color: var(--white)" value="green">green</option>
+              <option style="background-color: var(--grey); color: var(--white)" value="grey">grey</option>
+              <option style="background-color: var(--orange); color: var(--white)" value="orange">orange</option>
+              <option style="background-color: var(--pink); color: var(--white)" value="pink">pink</option>
+              <option style="background-color: var(--purple); color: var(--white)" value="purple">purple</option>
+              <option style="background-color: var(--red); color: var(--white)" value="red">red</option>
               <option style="background-color: var(--white);" value="white">white</option>
               <option style="background-color: var(--yellow);" value="yellow">yellow</option>
             </select>

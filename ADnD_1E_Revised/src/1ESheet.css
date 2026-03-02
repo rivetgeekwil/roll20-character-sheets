@@ -15,14 +15,15 @@
 .sheet-rolltemplate-attacks-table,
 /* Note: OKLCH format is oklch(L C H / A) */
 .sheet-rolltemplate-general {
-  --black: oklch(0% 0 0);
   --blue: oklch(60% 0.18 263);
-  --color-black1: oklch(20% 0 0);
-  --color-black2: oklch(0% 0 0);
-  --color-darkgrey1: oklch(30% 0 0);
+  --color-black1: oklch(22% 0 0);
+  /* --color-black2: oklch(0% 0 0); */
+  --black: oklch(0% 0 0);
   --color-lightgrey1: oklch(60% 0 0);
-  --color-lightgrey2: oklch(50% 0 0);
-  --color-white1: oklch(96% 0 0);
+  --color-lightgrey2: oklch(48% 0 0);
+  --color-darkgrey1: oklch(30% 0 0);
+  --white: oklch(100% 0 0);
+  --color-white1: oklch(94% 0 0);
   --color-white2: oklch(88% 0 0);
   --color-white3: oklch(80% 0 0);
   --dark-accent-alpha: oklch(35% 0.12 311 / 22%);
@@ -42,7 +43,6 @@
   --pink: oklch(60% 0.18 328);
   --purple: oklch(42.09% 0.19 328.37);
   --red: oklch(63% 0.27 29.49);
-  --white: oklch(100% 0 0);
   --yellow: oklch(89% 0.21 104.67);
 
   --font-base: 'Poppins', system-ui;
@@ -165,7 +165,7 @@
 .sheet-darkmode .tab-content .tab-pane,
 .sheet-darkmode .tab-content .tab-pane .charsheet .background,
 .sheet-darkmode .tab-content .tab-pane .charsheet .background .wrapper {
-  background-color: var(--color-black2);
+  background-color: var(--black);
   color: var(--color-white3);
 }
 
@@ -175,13 +175,14 @@
 .sheet-darkmode .tab-content .charsheet .background .wrapper select,
 .sheet-darkmode .tab-content .charsheet .background .wrapper select option {
   background-color: var(--color-black1);
+  border-color: var(--color-lightgrey2);
   color: var(--color-white3);
 }
 
 .sheet-darkmode .tab-content .charsheet .background .wrapper input:focus-within,
 .sheet-darkmode .tab-content .charsheet .background .wrapper textarea:focus-within {
   background-color: var(--color-lightgrey1);
-  color: var(--color-black2);
+  color: var(--black);
 }
 
 .sheet-darkmode .tab-content .charsheet ::placeholder {
@@ -211,11 +212,12 @@
     isolation: isolate;
   }
 
-  .abilities-columns > label:has(.ability-button):nth-child(odd of label:has(.ability-button)):after {
+  .abilities-columns > span:has(+ label .ability-button):nth-child(odd of span:has(+ label .ability-button)):after {
     content: '';
     display: block;
-    height: 2.5em;
+    height: 2.85em;
     left: -10px;
+    margin-top: -17px;
     position: absolute;
     width: calc(100% + 20px);
   }
@@ -228,8 +230,8 @@
     background-color: oklch(77.944% 0.00009 271.152 / 0.5);
   }
 
+  .abilities-columns > span:has(+ label .ability-button):nth-child(odd of span:has(+ label .ability-button)):after,
   .repcontainer[data-groupname='repeating_weapon'] .repitem:nth-child(even),
-  .abilities-columns > label:has(.ability-button):nth-child(odd of label:has(.ability-button)):after,
   .column-header ~ .armor-columns:nth-child(even):not(.sect),
   .column-header ~ .armor-columns.sect:nth-child(odd),
   .column-header ~ .thief-columns:nth-child(odd),
@@ -279,7 +281,7 @@
 
 /*white*/
 .charsheet .background-selection[value='1']:checked ~ .background {
-  background-color: oklch(100% 0.00011 271.152);
+  background-color: var(--white);
   background-image: none;
 }
 
@@ -298,7 +300,7 @@
 
 .charsheet .background-selection[value='7']:checked ~ .background input,
 .charsheet .background-selection[value='7']:checked ~ .background select {
-  background-color: oklch(100% 0.00011 271.152 / 0.4);
+  background-color: oklch(0.98 0.04 97);
 }
 
 /*goldenrod*/
@@ -1987,21 +1989,14 @@ section.npc-box.statblock3 .image-avatar {
 }
 
 .charsheet .details-row,
-.charsheet .details-row1,
-.charsheet .details-row2 {
+.charsheet .details-row1 {
   display: flex;
   flex-direction: row;
-  padding-bottom: 4px;
-}
-
-.charsheet .personal-attributes-box .sect .details-row2 label {
-  margin: auto 5px auto 0;
+  row-gap: 4px;
 }
 
 .charsheet .details-row1 {
-  display: inline-flex;
   flex-wrap: wrap;
-  row-gap: 2px;
 }
 
 .charsheet .details-row1 .inline-label {
@@ -2012,10 +2007,6 @@ section.npc-box.statblock3 .image-avatar {
   max-width: fit-content;
   min-width: min-content;
   width: fit-content;
-}
-
-.charsheet .details-row3 {
-  display: inline;
 }
 
 .charsheet .class-details,
@@ -2041,7 +2032,7 @@ section.npc-box.statblock3 .image-avatar {
   display: grid;
   gap: 4px 0;
   grid-template-columns:
-    3.65em minmax(2.5em, 3.5em) auto minmax(4em, 1fr) 2.5em minmax(4em, 1.5fr) 3.5em minmax(4em, 1.5fr) 3.5em minmax(4em, 1fr) 3.5em minmax(4em, 0.85fr) minmax(3em, 4em);
+    auto 3.65em minmax(2.5em, 3.5em) auto minmax(4em, 1fr) 2.5em minmax(4em, 1.5fr) 3.5em minmax(4em, 1.5fr) 3.5em minmax(4em, 1fr) 3.5em minmax(4em, 0.85fr) minmax(3em, 4em);
   margin: 0 -1em 0 -1em;
 }
 
@@ -2116,7 +2107,7 @@ section.npc-box.statblock3 .image-avatar {
 
 .charsheet label .image-link + textarea.image-link,
 .charsheet label .info-link + textarea.info-link {
-  align-content: end;
+  align-content: center;
   line-height: normal;
   margin-left: 2px;
   max-height: 1.65em;
@@ -2124,6 +2115,12 @@ section.npc-box.statblock3 .image-avatar {
   padding: inherit;
   resize: none;
   width: 3.75em;
+}
+
+.charsheet label .image-link + textarea.image-link::placeholder,
+.charsheet label .info-link + textarea.info-link::placeholder {
+  align-content: center;
+  line-height: normal;
 }
 
 .charsheet label .image-link + textarea.image-link:focus-within,
@@ -2439,6 +2436,7 @@ section.npc-box.statblock3 .image-avatar {
 
 .charsheet .toggle-sync-class:checked + .caster-class {
   grid-template-columns: .5fr 7em .75fr 6em 1fr;
+  grid-template-rows: 1.2em min-content;
 }
 
 .charsheet .settings label:has(> input[type='checkbox']),
@@ -2554,7 +2552,7 @@ section.npc-box.statblock3 .image-avatar {
 }
 
 .sheet-darkmode .charsheet .to-hit-input span {
-  background-color: var(--color-black2);
+  background-color: var(--black);
 }
 
 .charsheet .to-hit,
@@ -3688,7 +3686,7 @@ section.npc-box.statblock3 .image-avatar {
   background: linear-gradient(180deg, oklch(100% 0.00011 271.152) 0%, oklch(75.721% 0.00009 271.152) 50%, oklch(71.547% 0.00008 271.152) 100%);
   border-radius: 4px;
   box-shadow: inset 0 1px 0 oklch(100% 0.00011 271.152 / 0.2), 1px 1px 1px oklch(0% 0 0 / 1);
-  color: var(--color-black2);
+  color: var(--black);
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -4576,7 +4574,7 @@ section.npc-box.statblock3 .image-avatar {
 .sheet-rolltemplate-attacks .sheet-template-header,
 .sheet-rolltemplate-attacks-table .sheet-template-header,
 .sheet-rolltemplate-general .sheet-template-header {
-  background-color: var(--color-black2);
+  background-color: var(--black);
   border-top: 3px solid transparent;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
@@ -4591,7 +4589,7 @@ section.npc-box.statblock3 .image-avatar {
 .sheet-rolltemplate-attacks .sheet-subheader,
 .sheet-rolltemplate-attacks-table .sheet-subheader,
 .sheet-rolltemplate-general .sheet-subheader {
-  background-color: var(--color-black2);
+  background-color: var(--black);
   color: var(--color-white1);
   font-family: var(--font-headers);
   font-size: var(--text-lg);
@@ -4603,7 +4601,7 @@ section.npc-box.statblock3 .image-avatar {
 .sheet-rolltemplate-attacks .sheet-template-footer,
 .sheet-rolltemplate-attacks-table .sheet-template-footer,
 .sheet-rolltemplate-general .sheet-template-footer {
-  background-color: var(--color-black2);
+  background-color: var(--black);
   border-bottom: 2px solid transparent;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
@@ -4925,7 +4923,7 @@ section.npc-box.statblock3 .image-avatar {
 .sheet-rolltemplate-darkmode.sheet-rolltemplate-attacks-table .sheet-wrap-ToHit span.inlinerollresult.inlinerollresult {
   background-color: oklch(95.774% 0.12615 104.673);
   border: none;
-  color: var(--color-black2);
+  color: var(--black);
 }
 
 /* uses and qty */
@@ -4984,7 +4982,7 @@ section.npc-box.statblock3 .image-avatar {
 .sheet-rolltemplate-general div.sheet-color-white .sheet-template-header,
 .sheet-rolltemplate-general div.sheet-color-white .sheet-template-footer,
 .sheet-rolltemplate-general div.sheet-color-white .sheet-subheader {
-  background-color: var(--white);
+  background-color: var(--color-white1);
   color: var(--color-black1);
   text-shadow: none;
 }
@@ -5212,7 +5210,7 @@ section.npc-box.statblock3 .image-avatar {
 .charsheet .editmode ~ .repcontrol .repcontrol_edit:hover:after,
 .charsheet .repcontrol .repcontrol_edit:hover:after,
 .charsheet .repcontrol .repcontrol_add:hover:before {
-  color: var(--color-black2);
+  color: var(--black);
 }
 
 .charsheet .itemcontrol .repcontrol_del,
