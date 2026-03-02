@@ -209,7 +209,7 @@
 /* darken alternating rows applies banding */
 .charsheet .toggle-row-banding:checked ~ .background {
   .abilities-columns > * {
-    isolation: isolate;
+    z-index: 0;
   }
 
   .abilities-columns > span:has(+ label .ability-button):nth-child(odd of span:has(+ label .ability-button)):after {
@@ -220,6 +220,7 @@
     margin-top: -17px;
     position: absolute;
     width: calc(100% + 20px);
+    z-index: 0;
   }
 
   .repcontainer[data-groupname='repeating_equipment'] .repitem:has(.toggle-carry[value="1"] + .toggle-type[value="1"]):nth-child(odd of .repitem:has(.toggle-carry[value="1"] + .toggle-type[value="1"])),
