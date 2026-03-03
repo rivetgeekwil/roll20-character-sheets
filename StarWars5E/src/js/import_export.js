@@ -80,15 +80,21 @@ let import_all = () => {
 
 /* EXPORT */
 let export_attributes = (attributesToExport,exportDto,callback) => {
+    //Filter duplicates to avoid problems
+    attributesToExport = attributesToExport.filter((value,index,self) => self.indexOf(value) == index);
     //Get the values of the attributes
     getAttrs(attributesToExport, (attributesValues) => {
         for (let attributeName of attributesToExport) {
+            if(!attributeName)
+            {
+                continue;
+            }
             //Maximum Attributes handled already, should ignore
             if (attributeName.endsWith("_max")) {
                 continue;
             }
             //Set name of export
-            if (attributeName === "character_name" && !export_value.name) {
+            if (attributeName === "character_name" && !exportDto.name) {
                 exportDto.name = attributesValues[attributeName];
                 continue;
             }
@@ -152,24 +158,24 @@ let export_sections = (sectionsToExport,index,exportDto, callback) =>{
         });
     });
 }
-/* NPC */
-let clean_npc = (callback) => {
-    clean_sections([...npc_repeating,...powerSections],0,() => {
-        clean_attributes([...npc_attrs,...power_attrs], () => {
-            console.log("NPC Sheet Cleaned");
+
+let clean_sheet = (callback) => {
+    clean_sections([...pc_repeating,...ship_repeating,...npc_repeating,...powerSections],0,() => {
+        clean_attributes([...pc_attrs,...ship_attrs,...npc_attrs,...power_attrs], () => {
+            console.log("Sheet Cleaned");
             callback();
         });
     });
 }
 
-let import_npc = () => {
+let import_sheet = () => {
     //Import is quite easy, clean the npc sheet then do import.
-    clean_npc(() => {
+    clean_sheet(() => {
         import_all();
     });
 }
 
-let export_npc = () => {
+let export_sheet = () => {
     const exportDto = {
         "schema_version": "Sheet-3.1",
         "exportedBy": "Roll20 Sw5E Sheet",
@@ -177,14 +183,32 @@ let export_npc = () => {
         "attribs": [],
         "sections": []
     };
-    export_attributes([...npc_attrs,...power_attrs],exportDto, () => {
-        export_sections([...npc_repeating,...powerSections],0,exportDto,() => {
+    export_attributes([...pc_attrs,...ship_attrs,...npc_attrs,...power_attrs],exportDto, () => {
+        console.log("Consolidation");
+        const sections = [...pc_repeating,...ship_repeating,...npc_repeating,...powerSections];
+        const consolidated_sections = Object.values(
+            sections.reduce((acc,{section_name,attributes}) => {
+                if(!acc[section_name]){
+                    acc[section_name] = { section_name, attributes:[]};
+                }
+                
+                attributes.forEach(attr =>{
+                    if(acc[section_name].attributes.indexOf(attr) == -1){
+                        acc[section_name].attributes.push(attr);
+                    }
+                });
+
+                return acc;
+            },{})
+        );
+        console.log(consolidated_sections);
+        export_sections(consolidated_sections,0,exportDto,() => {
             const export_string = JSON.stringify(exportDto, null, 3);
             setAttrs({"json_value":export_string});
         });
     });
 }
 
-on("clicked:import-json", import_npc);
-on("clicked:export-json", export_npc);
-on("clicked:clean-npc", clean_npc);
+on("clicked:import-json", import_sheet);
+on("clicked:export-json", export_sheet);
+on("clicked:clean-npc", clean_sheet);
