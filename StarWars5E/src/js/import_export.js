@@ -186,7 +186,7 @@ let export_sheet = () => {
         "sections": []
     };
     export_attributes([...pc_attrs,...ship_attrs,...npc_attrs,...power_attrs],exportDto, () => {
-        console.log("Consolidation");
+        // Consolidation to avoid errors since there are actually 3 sheets in one
         const sections = [...pc_repeating,...ship_repeating,...npc_repeating,...powerSections];
         const consolidated_sections = Object.values(
             sections.reduce((acc,{section_name,attributes}) => {
@@ -203,7 +203,7 @@ let export_sheet = () => {
                 return acc;
             },{})
         );
-        console.log(consolidated_sections);
+        
         export_sections(consolidated_sections,0,exportDto,() => {
             const export_string = JSON.stringify(exportDto, null, 3);
             setAttrs({"json_value":export_string});
