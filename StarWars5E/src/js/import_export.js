@@ -84,6 +84,7 @@ let export_attributes = (attributesToExport,exportDto,callback) => {
     attributesToExport = attributesToExport.filter((value,index,self) => self.indexOf(value) == index);
     //Get the values of the attributes
     getAttrs(attributesToExport, (attributesValues) => {
+        const sheetType = attr_npc;
         for (let attributeName of attributesToExport) {
             if(!attributeName)
             {
@@ -94,12 +95,13 @@ let export_attributes = (attributesToExport,exportDto,callback) => {
                 continue;
             }
             //Set name of export
-            if (attributeName === "character_name" && !exportDto.name) {
+            if (attributeName === "character_name" && sheetType != 1) {
                 exportDto.name = attributesValues[attributeName];
                 continue;
             }
-            if (attributeName === "npc_name") {
+            if (attributeName === "npc_name" && sheetType == 1) {
                 exportDto.name = attributesValues[attributeName];
+                continue;
             }
             let exportedAttribute = {
                 name: attributeName,
