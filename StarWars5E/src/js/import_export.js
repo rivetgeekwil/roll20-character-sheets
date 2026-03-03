@@ -84,7 +84,7 @@ let export_attributes = (attributesToExport,exportDto,callback) => {
     attributesToExport = attributesToExport.filter((value,index,self) => self.indexOf(value) == index);
     //Get the values of the attributes
     getAttrs(attributesToExport, (attributesValues) => {
-        const sheetType = attr_npc;
+        const sheetType = attributesValues['attr_npc'];
         for (let attributeName of attributesToExport) {
             if(!attributeName)
             {
