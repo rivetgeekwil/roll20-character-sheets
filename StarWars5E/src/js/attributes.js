@@ -66,7 +66,7 @@ const pc_attrs = [
     "options-flag-flaws","flaws",
     //CORE RESSOURCES
     "class_resource_max","class_resource","class_resource_name",
-    "other_resource_max","other_resource","other_resource_name","other_resource_itemid",
+    "other_resource_max","other_resource","other_resource_name",
     //CORE FEATURES
     "simpletraits","features_and_traits",
     //CORE HEADER
@@ -134,7 +134,7 @@ const pc_repeating = [
             "saveflag","saveattr","savedc","savedc","saveflat","saveeffect","ammo",
             "atk_desc","atkname","atkbonus","atkdmgtype",
             "rollbase","rollbase_dmg","rollbase_crit","hldmg",
-            "powerlevel","itemid","powerid","power_innate","versatile_alt"]
+            "powerlevel","power_innate","versatile_alt"]
     },
     {
         section_name:"repeating_tohitmod",
@@ -149,13 +149,13 @@ const pc_repeating = [
     {
         section_name:"repeating_inventory",
         attributes:["equipped","itemcount","itemname","itemweight",
-            "inventorysubflag","equipped","useasresource","hasattack","itemresourceid",
-            "itemproperties","itemmodifiers","itemcontent","itemattackid"]
+            "inventorysubflag","equipped","useasresource","hasattack",
+            "itemproperties","itemmodifiers","itemcontent"]
     },
     {
         section_name:"repeating_resource",
-        attributes:["resource_left_max","resource_left","resource_left_name","resource_left_itemid",
-            "resource_right_max","resource_right","resource_right_name","resource_right_itemid"]
+        attributes:["resource_left_max","resource_left","resource_left_name",
+            "resource_right_max","resource_right","resource_right_name"]
     },
     {
         section_name:"repeating_traits",
@@ -213,7 +213,7 @@ const power_repeating_attr = ["options-flag","detail-flag","powername","powersch
     "powerrange","powertarget","powerconcentration","powerduration","power_ability","innate","poweroutput",
     "poweroutput","powerattack","powerdamage","powerdamagetype","powerdamage2","powerdamagetype2","powerhealing",
     "powerdmgmod","power_damage_progression","powersave","powersavesuccess","powerhldie","powerhldietype",
-    "powerhlbonus","includedesc","powerdescription","powerathigherlevels","powerattackid","powerlevel"
+    "powerhlbonus","includedesc","powerdescription","powerathigherlevels","powerlevel"
 ];
 const power_attrs = [
     "force_power_points_total","force_power_points_expended","tech_power_points_total","tech_power_points_expended"
@@ -277,7 +277,7 @@ const ship_attrs = [
     "pwr_engine_storage_actual","pwr_s_storage","pwr_shields_storage_actual","pwr_s_storage",
     "pwr_sensors_storage_actual","pwr_s_storage","pwr_weapons_storage_actual","class_resource_max",
     "class_resource","class_resource_name","other_resource_max","other_resource","other_resource_name",
-    "other_resource_itemid","simpletraits","features_and_traits",
+    "simpletraits","features_and_traits",
     //SHIP MODS
     "ship_mod_max","ship_mod_current","ship_hardpoints_max","ship_hardpoints_current",
     "ship_t_hardpoints_max","ship_t_hardpoints_current",
@@ -289,14 +289,14 @@ const ship_repeating = [
     {
         section_name:"repeating_inventory",
         attributes:["equipped","itemcount","itemname","itemweight","inventorysubflag","equipped",
-            "itemresourceid","useasresource","hasattack","itemproperties","itemmodifiers",
-            "itemcontent","itemattackid"]
+            "useasresource","hasattack","itemproperties","itemmodifiers",
+            "itemcontent"]
     },
     {
         section_name:"repeating_hiddeninventory",
         attributes:["equipped","itemcount","itemname","itemweight","inventorysubflag","equipped",
-            "itemresourceid","useasresource","hasattack","itemproperties","itemmodifiers",
-            "itemcontent","itemattackid"]
+            "useasresource","hasattack","itemproperties","itemmodifiers",
+            "itemcontent"]
     },
     {
         section_name:"repeating_attack",
@@ -307,7 +307,7 @@ const ship_repeating = [
             "saveattr","savedc","savedc","saveflat","saveeffect","ammo","atk_per_round",
             "atk_desc","ship_weapon_category","ship_weapon_facing","atkname","atkrange",
             "atkbonus","atkdmgtype","atk_per_round","rollbase","rollbase_dmg",
-            "rollbase_crit","hldmg","powerlevel","itemid","powerid","power_innate","versatile_alt"]
+            "rollbase_crit","hldmg","powerlevel","power_innate","versatile_alt"]
     },
     {
         section_name:"repeating_tohitmod",
@@ -321,8 +321,8 @@ const ship_repeating = [
     },
     {
         section_name:"repeating_resource",
-        attributes:["resource_left_max","resource_left","resource_left_name","resource_left_itemid",
-            "resource_right_max","resource_right","resource_right_name","resource_right_itemid"]
+        attributes:["resource_left_max","resource_left","resource_left_name",
+            "resource_right_max","resource_right","resource_right_name"]
     },
     {
         section_name:"repeating_shiptraits",
