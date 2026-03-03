@@ -28,7 +28,7 @@
 <input type="checkbox" name="attr_toggle_single_column_spells" class="toggle-single-column-spells hidden" value="1" checked />
 <input type="checkbox" name="attr_toggle_critdamage" class="toggle-critdamage hidden" value="1" />
 <input type="checkbox" name="attr_toggle_lbs" class="toggle-lbs hidden" value="1" />
-<input type="checkbox" name="attr_toggle_row_banding" class="toggle-row-banding hidden" value="1" />
+<input type="checkbox" name="attr_toggle_row_shading" class="toggle-row-shading hidden" value="1" />
 <div class="background">
   <div class="wrapper">
     <!-- Sheet Header-->
@@ -68,7 +68,7 @@
           </h5>
           <ul>
             <h5>Latest</h5>
-            <li>Row Banding option added. Applies a subtle alternating background contrast to sheet rows.</li>
+            <li>Row Shading option added. Applies a subtle alternating background contrast to sheet rows.</li>
 
             <h5>Recent/Previous</h5>
             <li>Fixed Spell tab bug that only allowed spells to be seen using the "All" tab. Introduced with last weeks update.(TY @Kazdan)</li>
@@ -996,7 +996,7 @@
               <span name="attr_secondary_skill"></span>
             </span>
           </label>
-          <span class="inline-label" style="padding-left: .35em; max-width: -webkit-fill-available;">
+          <span class="inline-label" style="padding-left: .35em;max-width: -webkit-fill-available;margin-top: -3px;">
             <label>
               <button type="roll" class="image-link" value="@{whisper_pc} [**LINK**](@{sheet_image_url})" title="Send image to chat."></button>
               <textarea class="image-link" wrap="off" name="attr_sheet_image_url" title="@{sheet_image_url} | Enter a valid image URL that ends with a proper image extension. ie .png, .jpg, .gif If needed, trim the url to the end of the image extension or add a 3-letter extension to the end of the url.." placeholder="https://app.roll20.net/images/character.png"></textarea>
@@ -4224,9 +4224,9 @@
               <option value="6" style="background-color: oklch(76.676% 0.00009 271.152 / 0.54);">Greyhawk</option>
             </select>
           </label>
-          <label title="@{toggle_row_banding} | Apply subtle alternating background contrast to sheet rows.">
-            <h4>Apply row banding:</h4>
-            <input type="checkbox" name="attr_toggle_row_banding" value="1" title="@{toggle_row_banding}" />
+          <label title="@{toggle_row_shading} | Apply subtle alternating background contrast to sheet rows.">
+            <h4>Apply row shading:</h4>
+            <input type="checkbox" name="attr_toggle_row_shading" value="1" title="@{toggle_row_shading}" />
           </label>
           <label title="@{color_option} | Color will be displayed with sheet rolls.">
             <h4>Roll Template Color:</h4>

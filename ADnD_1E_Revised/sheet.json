@@ -30,7 +30,7 @@
     },
     {
       "attribute": "toggle_row_banding",
-      "displayname": "Toggle Row Banding:",
+      "displayname": "Toggle Row Sanding:",
       "type": "checkbox",
       "value": "1",
       "description": "Apply subtle alternating background contrast to sheet rows."

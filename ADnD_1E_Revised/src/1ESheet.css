@@ -158,13 +158,9 @@
   min-height: 2em;
 }
 
-.tab-content .tab-pane {
-  min-width: min-content;
-}
-
-.sheet-darkmode .tab-content .tab-pane,
-.sheet-darkmode .tab-content .tab-pane .charsheet .background,
-.sheet-darkmode .tab-content .tab-pane .charsheet .background .wrapper {
+.sheet-darkmode .tab-content .charsheet,
+.sheet-darkmode .tab-content .charsheet .background,
+.sheet-darkmode .tab-content .charsheet .background .wrapper {
   background-color: var(--black);
   color: var(--color-white3);
 }
@@ -206,8 +202,8 @@
   background-image: linear-gradient(to top, oklch(100% 0.00011 271.152 / 0.3), oklch(none none none / 0) 90%);
 }
 
-/* darken alternating rows applies banding */
-.charsheet .toggle-row-banding:checked ~ .background {
+/* darken alternating rows applies shading */
+.charsheet .toggle-row-shading:checked ~ .background {
   .abilities-columns > * {
     z-index: 0;
   }
@@ -242,7 +238,7 @@
   }
 }
 
-.sheet-darkmode .charsheet .toggle-row-banding:checked ~ .background {
+.sheet-darkmode .charsheet .toggle-row-shading:checked ~ .background {
   .repcontainer[data-groupname='repeating_weapon'] .repitem:nth-child(even),
   .repcontainer[data-groupname='repeating_equipment'] .repitem:has(.toggle-carry[value="1"] + .toggle-type[value="1"]):nth-child(odd of .repitem:has(.toggle-carry[value="1"] + .toggle-type[value="1"])),
   .repcontainer[data-groupname='repeating_spells'] .repitem:nth-child(odd of .repitem:has(.toggle-show[value='1']):has(.toggle-all:checked, .toggle-memorized:checked)),
@@ -266,11 +262,11 @@
   color: var(--color-black1);
   font-family: var(--font-base);
   font-size: var(--text-med);
+  margin-block: 3em;
   outline: 5px double var(--color-black1);
   outline-offset: 0;
   padding: 7px;
   width: auto;
-  margin-block: 3em;
 }
 
 .sheet-darkmode .tab-content .charsheet .background {
@@ -1184,10 +1180,15 @@ summary::-webkit-details-marker {
   display: grid;
   grid-column: 1/-1;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  left: -1em;
+  left: -1.2em;
   margin: -2em 0 0 0;
   position: relative;
-  width: 102%;
+  width: calc(100% + 1.2em);
+}
+
+.sheet-darkmode section.top-header,
+.sheet-darkmode .charsheet .announcements-box .announcements-title {
+  background-color: var(--dark-surface1);
 }
 
 .charsheet .npc-toggle {
@@ -3054,10 +3055,11 @@ section.npc-box.statblock3 .image-avatar {
 
 /* announcements */
 .charsheet .announcements-box .announcements-title {
+  background-clip: text;
   color: var(--link-hover);
   font-size: 85%;
   line-height: 2em;
-  margin: 1px -2px 0 5px;
+  margin: 1px -1px 0 5px;
   padding: 0 0 0 5px;
   position: relative;
 }
@@ -4103,19 +4105,67 @@ section.npc-box.statblock3 .image-avatar {
   scrollbar-width: none;
 }
 
-.charsheet .background .wrapper button:focus,
-.charsheet .background .wrapper select:focus,
-.charsheet .background .wrapper textarea:focus,
-.charsheet .background .wrapper input[type='number']:focus,
-.charsheet .background .wrapper input[type='text']:focus,
-.charsheet .background .wrapper button[type='roll']:focus-within,
-.charsheet .background .wrapper select:focus-within,
-.charsheet .background .wrapper textarea:focus-within,
-.charsheet .background .wrapper input[type='number']:focus-within,
-.charsheet .background .wrapper input[type='text']:focus-within {
-  background-color: revert;
-  color: var(--color-black1);
-  outline: outset 2px var(--link-hover);
+.ui-dialog .tab-content .charsheet .background .wrapper {
+  input:focus,
+  button:focus,
+  select:focus,
+  textarea:focus,
+  input:focus-within,
+  button:focus-within,
+  select:focus-within,
+  textarea:focus-within,
+  input:hover,
+  button:hover,
+  select:hover,
+  textarea:hover {
+    background-color: revert;
+    color: var(--color-black1);
+    outline: outset 2px var(--link-hover);
+  }
+}
+
+.sheet-darkmode .ui-dialog .tab-content .charsheet .background .wrapper {
+  input:focus,
+  button:focus,
+  select:focus,
+  textarea:focus,
+  input:focus-within,
+  button:focus-within,
+  select:focus-within,
+  textarea:focus-within,
+  input:hover,
+  button:hover,
+  select:hover,
+  textarea:hover {
+    background-color: var(--color-white3);
+    color: var(--black);
+    outline: outset 2px var(--link-hover);
+  }
+}
+
+.ui-dialog .tab-content .charsheet .background .wrapper {
+  input:read-only:focus,
+  input.readonly-span:focus,
+  input:read-only:focus-within,
+  input.readonly-span:focus-within,
+  input:read-only:hover,
+  input.readonly-span:hover {
+    background-color: var(--color-white2);
+    outline: none;
+  }
+}
+
+.sheet-darkmode .ui-dialog .tab-content .charsheet .background .wrapper {
+  input:read-only:focus,
+  input.readonly-span:focus,
+  input:read-only:focus-within,
+  input.readonly-span:focus-within,
+  input:read-only:hover,
+  input.readonly-span:hover {
+    background-color: var(--color-black1);
+    color: var(--color-white3);
+    outline: none;
+  }
 }
 
 .charsheet input[type='checkbox']:focus,
