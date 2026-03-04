@@ -81,7 +81,7 @@ input[readonly]:focus
     {
     width: max-content;
     display: grid;
-    grid-template-columns: 30px 150px 150px 300px 50px auto;
+    grid-template-columns: 30px 150px 150px 300px 50px 30px auto;
     gap: 2px;
     .repcontainer,
     .repitem,
@@ -104,7 +104,7 @@ input[readonly]:focus
     {
     width: max-content;
     display: grid;
-    grid-template-columns: 30px 50px 150px 150px 60px auto;
+    grid-template-columns: 30px 50px 150px 150px 60px auto 30px;
     gap: 2px;
     .repcontainer,
     .repitem,
@@ -614,6 +614,25 @@ textarea
 .editButton:hover
 	{
 	background-image: url("https://www.sync-chess.com/csheetImg/EditDown.png");
+	}
+	
+.damageButton
+	{
+	width: 25px;
+	height: 25px;
+	color: transparent;
+	background-repeat: no-repeat;
+	border-style: none;
+	background-color: transparent;
+	background-image: url("https://www.sync-chess.com/csheetImg/DamageUp.png");
+	vertical-align: middle;
+	box-sizing: border-box;
+	padding: 0;
+	}
+
+.damageButton:hover
+	{
+	background-image: url("https://www.sync-chess.com/csheetImg/DamageDown.png");
 	}
 
 .levelUpButton
@@ -1239,6 +1258,16 @@ input[type="hidden"][value="0"].hide-notes-page ~ .notes-page-hide
 	display: block;
 	}
 	
+input[type="hidden"][value="1"].hide-ammo-prompt ~ .ammo-prompt-hide
+	{
+	display: none;
+	}
+	
+input[type="hidden"][value="0"].hide-ammo-prompt ~ .ammo-prompt-hide
+	{
+	display: block;
+	}
+	
 .tabButton1
 	{
 	color: #B6C2F0;
@@ -1402,6 +1431,21 @@ input[type="hidden"][value="1"].hide-cc-complete ~ .cc-complete-hide
 input[type="hidden"][value="0"].hide-cc-complete ~ .cc-complete-hide
 	{
 	display: block;
+	}
+	
+input[type="hidden"][value="0"].hide-equipped-weapon1 ~ .equipped-weapon1-hide
+	{
+	display: none;
+	}
+	
+input[type="hidden"][value="0"].hide-equipped-weapon2 ~ .equipped-weapon2-hide
+	{
+	display: none;
+	}
+	
+input[type="hidden"][value="0"].hide-equipped-weapon3 ~ .equipped-weapon3-hide
+	{
+	display: none;
 	}
 
 .grid0
