@@ -57,12 +57,13 @@ The player sheet tries to automatically calculate damage from ability rolls, but
 
 This feature is a work in progress and currently expects a format similar to the one found in the books. If the tier effect is not formatted properly, it will just send the plain text to chat instead of a calculated value. The format is as follows:
 
-```<base damage> + <characteristic> <type> damage;<optional: other effects>```
+```<base damage> + <characteristics> <type> damage;<optional: other effects>```
 
 Characteristic uses the single letter abbreviation to add the appropriate value ('M' for might, 'A' for Agility, and so on). Spaces are currently needed around the plus sign.
 
 Will Calculate:
 * 3 + M holy damage 
+* 3 + M or A holy damage
 * 5 damage
 * 3 + A damage; Push 2
 
