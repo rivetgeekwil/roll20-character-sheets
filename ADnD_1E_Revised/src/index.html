@@ -29,6 +29,7 @@
 <input type="checkbox" name="attr_toggle_critdamage" class="toggle-critdamage hidden" value="1" />
 <input type="checkbox" name="attr_toggle_lbs" class="toggle-lbs hidden" value="1" />
 <input type="checkbox" name="attr_toggle_row_shading" class="toggle-row-shading hidden" value="1" />
+<input type="checkbox" name="attr_toggle_linear_background" class="toggle-linear-background hidden" value="1" />
 <div class="background">
   <div class="wrapper">
     <!-- Sheet Header-->
@@ -64,11 +65,12 @@
             <span class="left">
               <span>v<span name="attr_sheet_version">
             </span>
-            <span class="right"> • 3/1/26'</span>
+            <span class="right"> • 3/4/26'</span>
           </h5>
           <ul>
             <h5>Latest</h5>
             <li>Row Shading option added. Applies a subtle alternating background contrast to sheet rows.</li>
+            <li>Linear Gradient option added. Applies subtle linear gradient background to misc. sheet sub-sections. While this has been already been in-use on the sheet, it's now optional.</li>
 
             <h5>Recent/Previous</h5>
             <li>Fixed Spell tab bug that only allowed spells to be seen using the "All" tab. Introduced with last weeks update.(TY @Kazdan)</li>
@@ -213,13 +215,13 @@
       <span class="sect material-icons"></span>
       <div class="sect border">
         <span class="class-columns column-header">
-          <span>Class</span>
+          <span style="margin-left: -16px;">Class</span>
           <span>Lvl</span>
           <span>HD</span>
           <span>HP/Level</span>
-          <span></span>
+          <span>&nbsp;</span>
           <span>HP+Con</span>
-          <span></span>
+          <span>&nbsp;</span>
           <span>XP</span>
           <span>Next Level</span>
           <span>+10%</span>
@@ -264,12 +266,12 @@
           <input type="checkbox" name="attr_xp_3_bonus" title="@{xp_3_bonus} | XP bonus applies." value="1">
         </span>
         <hr class="toggle-multiclass">
-        <span class="class-columns">
+        <span class="class-columns linear-background">
           <label title="@{toggle_multiclass} | Hides additional class fields.">
             <span>Hide Multi-Class:</span>
             <input type="checkbox" name="attr_toggle_multiclass" value="1" checked />
           </label>
-          <label></label>
+          <label>&nbsp;</label>
           <label class="label-under-small" title="@{hitdice_total} | Track total/effective Hit Dice for Spell effects and XP. Single class = level. Multi-class = highest level + 1. Three classes = highest level +2.">
             <input type="text" class="width-small" name="attr_hitdice_total" value="0" />
             <span>Total HD</span>
@@ -279,7 +281,7 @@
               <input type="text" class="width-small" name="attr_hitpoints_class_total" value="0" readonly>
               <span>Total</span>
             </label>
-            <label></label>
+            <label>&nbsp;</label>
             <label class="label-under-small toggle-multiclass">
               <input type="text" class="width-small" name="attr_hp_quotient" title="@{hp_quotient}" value="0" readonly />
               <span>/Classes</span>
@@ -289,7 +291,7 @@
               <input type="text" class="width-small" name="attr_hitpoints_total" value="0" readonly />
               <span>TOTAL HP</span>
             </label>
-            <span></span>
+            <span>&nbsp;</span>
             <!--
             // deprecated since total hp shows fractional hp for multi-class
             // HP max is rounded
@@ -338,7 +340,7 @@
       <input type="hidden" name="attr_armorshield_cost" value="0" />
       <input type="hidden" name="attr_armorhelmet_cost" value="0" />
 
-      <div class="sect border linear-background">
+      <div class="sect border">
         <span class="armor-columns column-header">
           <span>Armor Type</span>
           <span title="Only worn items are included in the AC calculations below.">In Use</span>
@@ -774,8 +776,8 @@
           <span></span>
           <span></span>
         </span>
+        <!--column tally - In Use/Total-->
         <span class="armor-columns">
-          <!--column tally - In Use/Total-->
           <span class="span-three"></span>
           <label class="readonly-span-textonly" title="In Use/Best AC">
             <span>
@@ -828,94 +830,96 @@
         </span>
         <hr>
         <!--AC Calcs-->
-        <span class="ac-calc-columns">
-          <label class="label-under-small" title="@{unarmored_base} | Enter a value for Natural Armor or No Armor rating. Default is 10.">
-            <input type="text" class="readonly-span width-small" name="attr_unarmored_base" value="10" />
-            <span>UnArmored</span>
-          </label>
-          <label class="label-under-small" title="@{armorclass_base} | Compares the UnArmored Base AC to the AC from above and uses the best(lowest) value.">
-            <input type="text" class="readonly-span width-small" name="attr_armorclass_base" value="0" />
-            <span>AC Base</span>
-          </label>
-          <label class="label-under-small" title="@{armorclass_combined_mod_magic} | Magic + Misc. Adjustments from above.">
-            <input type="text" class="hidden" name="attr_armorclass_combined_mod_magic" value="0" />
-            <input type="text" class="readonly-span width-small" name="attr_armorclass_combined_mod_magic_inverted" value="0" />
-            <!--mod and magic totals stored here if needed-->
-            <input type="text" class="hidden" name="attr_armorclass_magic" value="0" readonly />
-            <input type="text" class="hidden" name="attr_armorclass_mod" value="0" readonly />
-            <span>Armor Adj.</span>
-          </label>
-          <input type="checkbox" class="hidden toggle-input-attention" name="attr_encumbrance_flag" value="1" checked />
-          <label class="text-large">=</label>
-          <label class="label-under" title="@{armorclass_rear} | Best AC without a Dex bonus.">
-            <input type="text" class="readonly-span field-border" name="attr_armorclass_rear" value="0" />
-            <span>Rear</span>
-          </label>
-          <input type="checkbox" class="hidden toggle-input-attention" name="attr_encumbrance_flag" value="1" checked />
-          <label class="label-under-small" title="@{armorbonus} | Defensive Adjustment from Dexterity row.">
-            <input type="text" class="readonly-span width-small" name="attr_armorbonus_inverted" value="0" />
-            <span class="material-icons" title="Encumbered! DEX bonus has been removed.">nearby_error</span>
-            <label class="inline-label" title="@{armorbonus_toggle} | DEX bonus can be removed circumstantially. ie Surprise, Backstab, etc.">
-              <span>Dex Adj.</span>
-              <input type="checkbox" name="attr_armorbonus_toggle" value="1" checked />
+        <div class="linear-background">
+          <span class="ac-calc-columns">
+            <label class="label-under-small" title="@{unarmored_base} | Enter a value for Natural Armor or No Armor rating. Default is 10.">
+              <input type="text" class="readonly-span width-small" name="attr_unarmored_base" value="10" />
+              <span>UnArmored</span>
             </label>
-          </label>
-          <label class="text-large">=</label>
-          <label class="label-under" title="@{armorclass_shieldless} | Best AC without a Shield bonus.">
-            <input type="text" class="readonly-span field-border" name="attr_armorclass_shieldless" value="0" />
-            <span>Shieldless</span>
-          </label>
-          <label class="label-under-small" title="@{armorclass_combined_shield_mod_magic} | Magic + Misc. Adjustments from Shield above.">
-            <input type="text" class="hidden" name="attr_armorclass_combined_shield_mod_magic" value="0" />
-            <input type="text" class="readonly-span width-small" name="attr_armorclass_combined_shield_mod_magic_inverted" value="0" />
-            <!--mod and magic totals stored here if needed-->
-            <input type="text" class="hidden" name="attr_armorclass_shield_mod" value="0" readonly />
-            <input type="text" class="hidden" name="attr_armorclass_shield_magic" value="0" readonly />
-            <span>Shield Adj.</span>
-          </label>
-          <label class="text-large">=</label>
-          <label class="label-under" title="@{armorclass_total} | Best AC">
-            <input type="text" class="readonly-span field-border" name="attr_armorclass_total" value="0" />
-            <span>Total AC</span>
-          </label>
-        </span>
-        <span class="five-columns">
-          <span class="inline-label" title="@{autocalc_ac} | This is a persistent setting. Let the sheet auto-calculate AC based on the values entered in the Armor Details table above. This will overwrite all values in the bottom row.">
-            <label>
-              <span>Auto-Calc AC:</span>
-              <input type="checkbox" name="attr_autocalc_ac" value="1" checked />
+            <label class="label-under-small" title="@{armorclass_base} | Compares the UnArmored Base AC to the AC from above and uses the best(lowest) value.">
+              <input type="text" class="readonly-span width-small" name="attr_armorclass_base" value="0" />
+              <span>AC Base</span>
             </label>
-            <button type="action" class="text-only" name="act_calcac" style="padding: inherit;" title="This is an immediate action and works regardless of the Auto-Calc AC setting. Let the sheet auto-calculate AC based on the values entered in the Armor Details table above. This will overwrite all values in the bottom row.">
-              <span class="width-large">Calc AC</span>
-            </button>
-          </span>
-          <span class="inline-label sync-lock" title="@{sync_ac_flag} | Let the sheet sync Total AC from Armor Details with AC ( @{armorclass} ).">
-            <label>
-              <span>Sync AC:</span>
-              <input type="checkbox" name="attr_sync_ac_flag" value="1" checked />
-              <span></span>
+            <label class="label-under-small" title="@{armorclass_combined_mod_magic} | Magic + Misc. Adjustments from above.">
+              <input type="text" class="hidden" name="attr_armorclass_combined_mod_magic" value="0" />
+              <input type="text" class="readonly-span width-small" name="attr_armorclass_combined_mod_magic_inverted" value="0" />
+              <!--mod and magic totals stored here if needed-->
+              <input type="text" class="hidden" name="attr_armorclass_magic" value="0" readonly />
+              <input type="text" class="hidden" name="attr_armorclass_mod" value="0" readonly />
+              <span>Armor Adj.</span>
+            </label>
+            <input type="checkbox" class="hidden toggle-input-attention" name="attr_encumbrance_flag" value="1" checked />
+            <label class="text-large">=</label>
+            <label class="label-under" title="@{armorclass_rear} | Best AC without a Dex bonus.">
+              <input type="text" class="readonly-span field-border" name="attr_armorclass_rear" value="0" />
+              <span>Rear</span>
+            </label>
+            <input type="checkbox" class="hidden toggle-input-attention" name="attr_encumbrance_flag" value="1" checked />
+            <label class="label-under-small" title="@{armorbonus} | Defensive Adjustment from Dexterity row.">
+              <input type="text" class="readonly-span width-small" name="attr_armorbonus_inverted" value="0" />
+              <span class="material-icons" title="Encumbered! DEX bonus has been removed.">nearby_error</span>
+              <label class="inline-label" title="@{armorbonus_toggle} | DEX bonus can be removed circumstantially. ie Surprise, Backstab, etc.">
+                <span>Dex Adj.</span>
+                <input type="checkbox" name="attr_armorbonus_toggle" value="1" checked />
+              </label>
+            </label>
+            <label class="text-large">=</label>
+            <label class="label-under" title="@{armorclass_shieldless} | Best AC without a Shield bonus.">
+              <input type="text" class="readonly-span field-border" name="attr_armorclass_shieldless" value="0" />
+              <span>Shieldless</span>
+            </label>
+            <label class="label-under-small" title="@{armorclass_combined_shield_mod_magic} | Magic + Misc. Adjustments from Shield above.">
+              <input type="text" class="hidden" name="attr_armorclass_combined_shield_mod_magic" value="0" />
+              <input type="text" class="readonly-span width-small" name="attr_armorclass_combined_shield_mod_magic_inverted" value="0" />
+              <!--mod and magic totals stored here if needed-->
+              <input type="text" class="hidden" name="attr_armorclass_shield_mod" value="0" readonly />
+              <input type="text" class="hidden" name="attr_armorclass_shield_magic" value="0" readonly />
+              <span>Shield Adj.</span>
+            </label>
+            <label class="text-large">=</label>
+            <label class="label-under" title="@{armorclass_total} | Best AC">
+              <input type="text" class="readonly-span field-border" name="attr_armorclass_total" value="0" />
+              <span>Total AC</span>
             </label>
           </span>
-          <span></span>
-          <span class="inline-label" title="@{armor_rating_flag} | AC is not from armor. Weapons vs Armor Type does not apply.">
-            <label>
-              <span>Ignore AR:</span>
-              <input type="checkbox" name="attr_armor_rating_flag" value="1" />
+          <span class="five-columns">
+            <span class="inline-label" title="@{autocalc_ac} | This is a persistent setting. Let the sheet auto-calculate AC based on the values entered in the Armor Details table above. This will overwrite all values in the bottom row.">
+              <label>
+                <span>Auto-Calc AC:</span>
+                <input type="checkbox" name="attr_autocalc_ac" value="1" checked />
+              </label>
+              <button type="action" class="text-only" name="act_calcac" style="padding: inherit;" title="This is an immediate action and works regardless of the Auto-Calc AC setting. Let the sheet auto-calculate AC based on the values entered in the Armor Details table above. This will overwrite all values in the bottom row.">
+                <span class="width-large">Calc AC</span>
+              </button>
+            </span>
+            <span class="inline-label sync-lock" title="@{sync_ac_flag} | Let the sheet sync Total AC from Armor Details with AC ( @{armorclass} ).">
+              <label>
+                <span>Sync AC:</span>
+                <input type="checkbox" name="attr_sync_ac_flag" value="1" checked />
+                <span></span>
+              </label>
+            </span>
+            <span></span>
+            <span class="inline-label" title="@{armor_rating_flag} | AC is not from armor. Weapons vs Armor Type does not apply.">
+              <label>
+                <span>Ignore AR:</span>
+                <input type="checkbox" name="attr_armor_rating_flag" value="1" />
+              </label>
+            </span>
+            <span class="inline-label" title="@{armorclass_rating} | Best AR">
+              <label><span>Armor Rating</span></label>
+              <input type="text" class="readonly-span width-small" name="attr_armorclass_rating" value="-" />
+            </span>
+          </span>
+          <span class="inline-label">
+            <label class="width-auto">
+              <button type="roll" name="roll_defensive_notes_roll" class="dice-button text-only" title="%{selected|defensive_notes_roll}" value="@{whisper_pc} &amp;{template:general} {{color=@{color_option}}} {{name=@{character_name}}} {{subtag=Defensive Notes}} {{freetext=@{defensive_notes}}}">
+                <span>Defensive Notes:</span>
+              </button>
             </label>
+            <textarea name="attr_defensive_notes" class="height-short" title="@{defensive_notes}" placeholder="Enter Defensive Notes..."></textarea>
           </span>
-          <span class="inline-label" title="@{armorclass_rating} | Best AR">
-            <label><span>Armor Rating</span></label>
-            <input type="text" class="readonly-span width-small" name="attr_armorclass_rating" value="-" />
-          </span>
-        </span>
-        <span class="inline-label">
-          <label class="width-auto">
-            <button type="roll" name="roll_defensive_notes_roll" class="dice-button text-only" title="%{selected|defensive_notes_roll}" value="@{whisper_pc} &amp;{template:general} {{color=@{color_option}}} {{name=@{character_name}}} {{subtag=Defensive Notes}} {{freetext=@{defensive_notes}}}">
-              <span>Defensive Notes:</span>
-            </button>
-          </label>
-          <textarea name="attr_defensive_notes" class="height-short" title="@{defensive_notes}" placeholder="Enter Defensive Notes..."></textarea>
-        </span>
+        </div>
       </div>
     </section>
     <!-- Personal -->
@@ -1295,73 +1299,75 @@
         </span>
       </div>
       <!-- Movement -->
-      <div class="sect border linear-background">
+      <div class="sect border">
         <span class="subheader center width-fill">Speed and Movement</span>
-        <span class="basemove-columns column-header">
-          <span class="span-five">Adjusted Speed</span>
-          <span></span>
-          <span class="stack-text">Explore/<wbr>Map</span>
-          <span class="stack-text">Known Route</span>
-          <span>Run/Flee</span>
-        </span>
-        <span class="basemove-columns">
-          <label for="move_normal" class="label-under">
-            <input id="move_normal" type="checkbox" class="hidden current-encumbrance" name="attr_current_encumbrance_move" value="0" checked readonly />
-            <input type="text" class="width-smaller field-border" name="attr_movement" title="@{movement}" value="12" />
-            <span>Normal</span>
-          </label>
-          <label for="move_heavy" class="label-under" title="@{movement_heavy} | No DEX Bonus to Init.">
-            <input id="move_heavy" type="checkbox" class="hidden current-encumbrance" name="attr_current_encumbrance_move" value="1" readonly />
-            <input type="text" class="hidden" name="attr_movement_heavy" value="0" readonly />
-            <span class="readonly-span no-border" name="attr_movement_heavy" title="@{movement_heavy}"></span>
-            <span>Heavy</span>
-          </label>
-          <label for="move_very_heavy" class="label-under" title="@{movement_load} | No DEX Bonus to Init, Delayed, +1 Segment if Surprised.">
-            <input id="move_very_heavy" type="checkbox" class="hidden current-encumbrance" name="attr_current_encumbrance_move" value="2" readonly />
-            <input type="text" class="hidden" name="attr_movement_load" value="0" readonly />
-            <span class="readonly-span no-border" name="attr_movement_load" title="@{movement_load}"></span>
-            <span class="nowrap">Very Heavy</span>
-          </label>
-          <label for="move_encumbered" class="label-under" title="@{movement_max} |No DEX Bonus to Init or AC, Go Last in Init, +2 Segments if Surprised, Cannot Charge, Enemies get +2 to-hit.">
-            <input id="move_encumbered" type="checkbox" class="hidden current-encumbrance" name="attr_current_encumbrance_move" value="3" readonly />
-            <input type="text" class="hidden" name="attr_movement_max" value="0" readonly />
-            <span class="readonly-span no-border" name="attr_movement_max" title="@{movement|max}"></span>
-            <span class="long">Encumbered</span>
-          </label>
-          <h4 class="stack-text">Move/<wbr>Round</h4>
-          <label class="text-large">=</label>
-          <label class="label-under" title="@{movement_normal}">
-            <input type="text" class="hidden" name="attr_movement_normal" value="0" readonly />
-            <span class="readonly-span no-border" name="attr_movement_normal" title="@{movement_normal}"></span>
-            <span class="text-small">(Speed x1')</span>
-          </label>
-          <label class="label-under" title="@{movement_known}">
-            <input type="text" class="hidden" name="attr_movement_known" value="0" readonly />
-            <span class="readonly-span no-border" name="attr_movement_known" title="@{movement_known}"></span>
-            <span class="text-small">(Speed x5')</span>
-          </label>
-          <label class="label-under" title="@{movement_run}">
-            <input type="text" class="hidden" name="attr_movement_run" value="0" readonly />
-            <span class="readonly-span no-border" name="attr_movement_run" title="@{movement_run}"></span>
-            <span class="text-small">(Speed x10')</span>
-          </label>
-          <!--deprecated attribute: crawl kept in case attribute is needed -->
-          <input type="text" class="hidden" name="attr_movement_crawl" value="0" readonly />
-          <span class="span-six">
-            <label class="inline-label" title="@{current_bulk_label} | Current Bulk as per active armors, shield, clothing, etc.">
-              <span class="stack-text">Current Armor Bulk:</span>
-              <input type="text" class="width-fill height-short" name="attr_current_bulk_label" value="" placeholder="no bulk" readonly />
+        <div class="linear-background">
+          <span class="basemove-columns column-header">
+            <span class="span-five">Adjusted Speed</span>
+            <span></span>
+            <span class="stack-text">Explore/<wbr>Map</span>
+            <span class="stack-text">Known Route</span>
+            <span>Run/Flee</span>
+          </span>
+          <span class="basemove-columns">
+            <label for="move_normal" class="label-under">
+              <input id="move_normal" type="checkbox" class="hidden current-encumbrance" name="attr_current_encumbrance_move" value="0" checked readonly />
+              <input type="text" class="width-smaller field-border" name="attr_movement" title="@{movement}" value="12" />
+              <span>Normal</span>
             </label>
-            <label class="inline-label" title="@{current_encumbrance_label} | Encumbrance is the current load for carried weight vs strength adjustments.">
-              <span class="stack-text">Current Encumbrance:</span>
-              <input type="text" class="width-fill height-short" style="margin-right: -1em;" name="attr_current_encumbrance_label" value="" placeholder="no encumbrance" readonly />
+            <label for="move_heavy" class="label-under" title="@{movement_heavy} | No DEX Bonus to Init.">
+              <input id="move_heavy" type="checkbox" class="hidden current-encumbrance" name="attr_current_encumbrance_move" value="1" readonly />
+              <input type="text" class="hidden" name="attr_movement_heavy" value="0" readonly />
+              <span class="readonly-span no-border" name="attr_movement_heavy" title="@{movement_heavy}"></span>
+              <span>Heavy</span>
+            </label>
+            <label for="move_very_heavy" class="label-under" title="@{movement_load} | No DEX Bonus to Init, Delayed, +1 Segment if Surprised.">
+              <input id="move_very_heavy" type="checkbox" class="hidden current-encumbrance" name="attr_current_encumbrance_move" value="2" readonly />
+              <input type="text" class="hidden" name="attr_movement_load" value="0" readonly />
+              <span class="readonly-span no-border" name="attr_movement_load" title="@{movement_load}"></span>
+              <span class="nowrap">Very Heavy</span>
+            </label>
+            <label for="move_encumbered" class="label-under" title="@{movement_max} |No DEX Bonus to Init or AC, Go Last in Init, +2 Segments if Surprised, Cannot Charge, Enemies get +2 to-hit.">
+              <input id="move_encumbered" type="checkbox" class="hidden current-encumbrance" name="attr_current_encumbrance_move" value="3" readonly />
+              <input type="text" class="hidden" name="attr_movement_max" value="0" readonly />
+              <span class="readonly-span no-border" name="attr_movement_max" title="@{movement|max}"></span>
+              <span class="long">Encumbered</span>
+            </label>
+            <h4 class="stack-text">Move/<wbr>Round</h4>
+            <label class="text-large">=</label>
+            <label class="label-under" title="@{movement_normal}">
+              <input type="text" class="hidden" name="attr_movement_normal" value="0" readonly />
+              <span class="readonly-span no-border" name="attr_movement_normal" title="@{movement_normal}"></span>
+              <span class="text-small">(Speed x1')</span>
+            </label>
+            <label class="label-under" title="@{movement_known}">
+              <input type="text" class="hidden" name="attr_movement_known" value="0" readonly />
+              <span class="readonly-span no-border" name="attr_movement_known" title="@{movement_known}"></span>
+              <span class="text-small">(Speed x5')</span>
+            </label>
+            <label class="label-under" title="@{movement_run}">
+              <input type="text" class="hidden" name="attr_movement_run" value="0" readonly />
+              <span class="readonly-span no-border" name="attr_movement_run" title="@{movement_run}"></span>
+              <span class="text-small">(Speed x10')</span>
+            </label>
+            <!--deprecated attribute: crawl kept in case attribute is needed -->
+            <input type="text" class="hidden" name="attr_movement_crawl" value="0" readonly />
+            <span class="span-six">
+              <label class="inline-label" title="@{current_bulk_label} | Current Bulk as per active armors, shield, clothing, etc.">
+                <span class="stack-text">Current Armor Bulk:</span>
+                <input type="text" class="width-fill height-short" name="attr_current_bulk_label" value="" placeholder="no bulk" readonly />
+              </label>
+              <label class="inline-label" title="@{current_encumbrance_label} | Encumbrance is the current load for carried weight vs strength adjustments.">
+                <span class="stack-text">Current Encumbrance:</span>
+                <input type="text" class="width-fill height-short" style="margin-right: -1em;" name="attr_current_encumbrance_label" value="" placeholder="no encumbrance" readonly />
+              </label>
+            </span>
+            <label class="inline-label span-three right" title="@{autocalc_movement_flag} | Let the sheet calculate Movement/Speed. Uses base movement and the current encumbrance(STR vs total_weight carried). Note: Load can can be set manually but any changes to base movement, encumbrance, or opening the sheet will trigger a re-calc.">
+              <span class="stack-text">Auto-Calc Movement:</span>
+              <input type="checkbox" name="attr_autocalc_movement_flag" value="1" checked />
             </label>
           </span>
-          <label class="inline-label span-three right" title="@{autocalc_movement_flag} | Let the sheet calculate Movement/Speed. Uses base movement and the current encumbrance(STR vs total_weight carried). Note: Load can can be set manually but any changes to base movement, encumbrance, or opening the sheet will trigger a re-calc.">
-            <span class="stack-text">Auto-Calc Movement:</span>
-            <input type="checkbox" name="attr_autocalc_movement_flag" value="1" checked />
-          </label>
-        </span>
+        </div>
       </div>
       <hr>
     </section>
@@ -4224,8 +4230,12 @@
               <option value="6" style="background-color: oklch(76.676% 0.00009 271.152 / 0.54);">Greyhawk</option>
             </select>
           </label>
+          <label title="@{toggle_linear_background} | Apply subtle linear gradient background to misc. sheet sub-sections.">
+            <h4>Linear Gradient:</h4>
+            <input type="checkbox" name="attr_toggle_linear_background" value="1" title="@{toggle_linear_background}" />
+          </label>
           <label title="@{toggle_row_shading} | Apply subtle alternating background contrast to sheet rows.">
-            <h4>Apply row shading:</h4>
+            <h4>Row Shading:</h4>
             <input type="checkbox" name="attr_toggle_row_shading" value="1" title="@{toggle_row_shading}" />
           </label>
           <label title="@{color_option} | Color will be displayed with sheet rolls.">

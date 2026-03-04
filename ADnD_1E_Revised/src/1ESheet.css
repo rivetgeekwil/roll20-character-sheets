@@ -193,16 +193,20 @@
 .tab-content .charsheet {
   padding: 0;
 }
+/* enables linear gradient background */
+.charsheet .background .linear-background {
+  background-image: none;
+}
 
-.tab-content .charsheet .linear-background {
+.charsheet .toggle-linear-background:checked ~ .background .linear-background {
   background-image: linear-gradient(to top, oklch(0% 0 0 / 0.3), oklch(none none none / 0) 90%);
 }
 
-.sheet-darkmode .tab-content .charsheet .linear-background {
+.sheet-darkmode .charsheet .toggle-linear-background:checked ~ .background .linear-background {
   background-image: linear-gradient(to top, oklch(100% 0.00011 271.152 / 0.3), oklch(none none none / 0) 90%);
 }
 
-/* darken alternating rows applies shading */
+/* row shading */
 .charsheet .toggle-row-shading:checked ~ .background {
   .abilities-columns > * {
     z-index: 0;
@@ -5316,6 +5320,15 @@ section.npc-box.statblock3 .image-avatar {
   outline: 2px solid oklch(62.793% 0.25768 29.223);
   position: relative;
   right: 0;
+}
+
+.ui-dialog .tab-content .charsheet .editmode .itemcontrol .btn-danger:hover,
+.ui-dialog .tab-content .charsheet .editmode .itemcontrol .btn-danger:active,
+.ui-dialog .tab-content .charsheet .editmode .itemcontrol .btn-danger.active,
+.ui-dialog .tab-content .charsheet .editmode .itemcontrol .btn-danger.disabled,
+.ui-dialog .tab-content .charsheet .editmode .itemcontrol .btn-danger[disabled] {
+  background-color: oklch(62.793% 0.25768 29.223);
+  outline: none;
 }
 
 /* print options */
