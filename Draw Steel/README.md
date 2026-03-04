@@ -2,7 +2,7 @@
 
 Welcome to the community-created Roll20 character sheet for [Draw Steel by MCDM](https://www.mcdmproductions.com/). This Draw Steel character sheet for Roll20 is an independent product published under the DRAW STEEL Creator License and is not affiliated with MCDM Productions, LLC. DRAW STEEL © 2024 MCDM Productions, LLC.
 
-Want to help out or give feedback? Please join us on the [Draw Steel over Roll20 Discord](https://discord.com/channels/1264403896634445875/1264403896634445877).
+Want to help out or give feedback? Please join us on the [Draw Steel over Roll20 Discord](https://discord.gg/AsaaHG78wc).
 
 **Happy adventuring. Draw Steel!**
 
