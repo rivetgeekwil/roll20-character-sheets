@@ -5305,8 +5305,7 @@
 		// The first element of parts should contain the damage. The second should have effects, if anything. 
 		// Split the damage section it using spaces to get the individual elements.
 		const damageSection = parts[0].split(' ');
-		const effectSection = parts.length > 1 ? parts[1].split(' ') : [''] ;
-
+		let effectSection = parts.length > 1 ? '; ' + parts[1] : ';';
 		const damageBase = parseInt(damageSection[0]);
 		
 		// If the first element is not a number we aren't dealing with a form we can calculate. 
@@ -5355,34 +5354,29 @@
 			damageCalc.push(other);
 		}
 
-		//add potencis into effect section
+		//add potencies into effect section
 		const potencyArray = [
-		//		The word that will be replaced												What atribute will be used	 Translated text to be put into the "roll" 
-			{ trigger:'[' + getTranslationByKey('potency-weak').toLowerCase() 	+ ']',		macro: '@{potency_weak}',    translation: getTranslationByKey('potency-weak')		}, 
+		//	  The word that will be replaced												What atribute will be used	 Translated text to be put into the "roll" 
+			{ trigger:'[' + getTranslationByKey('potency-weak').toLowerCase() 		+ ']',	macro: '@{potency_weak}',    translation: getTranslationByKey('potency-weak')		}, 
 			{ trigger:'[' + getTranslationByKey('potency-average').toLowerCase() 	+ ']',	macro: '@{potency_average}', translation: getTranslationByKey('potency-average')	},
 			{ trigger:'[' + getTranslationByKey('potency-strong').toLowerCase() 	+ ']',	macro: '@{potency_strong}',  translation: getTranslationByKey('potency-strong')	},
 		];
 
-		let effect = [";"]
-		effectSection.forEach((element) => {
-			//handle potencies
-			const potency = potencyArray.find(({trigger}) => trigger === element.toLowerCase());
-
-			if (potency != undefined){
-				//replace potency with a "roll" of its value
-				effect.push("[[ " + potency.macro + "[" + potency.translation + "]" + " ]]");
-			} else{
-				// if no potency was found, just copy paste the original text
-				effect.push(element);
-			}
-		});
+		//handle potencies
+		potencyArray.forEach((potency) => {
+			// transform potency into a roll
+			// [weak] -> [[@{potency_weak}[Weak]]]
+			effectSection = effectSection.replaceAll( 
+				potency.trigger, 
+				"[[" + potency.macro + "[" + potency.translation + "]"+ "]]");
+		})
 
 		// rebuild the tier effect String
 		const newTierEffect = '[[' +
 			damageCalc.join(' ') 
 			+ ']]' 
 			+ damageType.join(' ')
-			+ effect.join(' ');
+			+ effectSection;
 			
 		return newTierEffect;
 	}
