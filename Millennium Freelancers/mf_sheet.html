@@ -1,4 +1,273 @@
 <script type="text/worker">
+on ("clicked:cancel_damage", cancelDamage);
+
+async function cancelDamage(info)
+    {
+    await setAttrsAsync({"ammo_prompt_hider": "1"});
+    }
+
+on ("clicked:repeating_melees:roll_damage clicked:repeating_ammo:roll_damage clicked:roll_damage", rollDamage);
+
+async function rollDamage(info)
+    {
+    var values;
+    var id;
+    var damage;
+    var target = "b";
+    
+    if (info.htmlAttributes.value == "ammo")
+        {
+        id = info.sourceAttribute.substring(15, 35);
+        values = await getAttrsAsync(["repeating_ammo_" + id + "_ammo_damage"]);
+        damage = values["repeating_ammo_" + id + "_ammo_damage"];
+        }
+        else if (info.htmlAttributes.value == "melee")
+        {
+        id = info.sourceAttribute.substring(17, 37);
+        values = await getAttrsAsync(["repeating_melees_" + id + "_melee_damage"]);
+        damage = values["repeating_melees_" + id + "_melee_damage"];
+        target = "i";
+        }
+        else if (info.htmlAttributes.value.includes("equipped"))
+        {
+        var num = info.htmlAttributes.value.substring(8, 9);
+        values = await getAttrsAsync(["equipped_weapon" + num + "_melee", "equipped_weapon" + num + "_id"]);
+        id = values["equipped_weapon" + num + "_id"];
+        if (values["equipped_weapon" + num + "_melee"] == "1")
+            {
+            var values2 = await getAttrsAsync(["repeating_melees_" + id + "_melee_damage"]);
+            damage = values2["repeating_melees_" + id + "_melee_damage"];
+            target = "i";
+            }
+            else
+            {
+            var values2 = await getAttrsAsync(["repeating_weapons_" + id + "_weapon_ammo"]);
+            var ids = await getSectionIDsAsync("ammo");
+            var ammoData = [];
+            for (var i=0; i<ids.length; i++)
+                {
+                ammoData.push("repeating_ammo_" + ids[i] + "_ammo_class");
+                ammoData.push("repeating_ammo_" + ids[i] + "_ammo_variant");
+                ammoData.push("repeating_ammo_" + ids[i] + "_ammo_damage");
+                }
+                
+            var values3 = await getAttrsAsync(ammoData);
+            var valids = [];
+            
+            for (var i=0; i<ids.length; i++)
+                {
+                if (values3["repeating_ammo_" + ids[i] + "_ammo_class"].toLowerCase() == values2["repeating_weapons_" + id + "_weapon_ammo"].toLowerCase())
+                    {
+                    valids.push(ids[i]);
+                    }
+                }
+                
+            if (valids.length == 0)
+                {
+                console.log("No valid ammo available.");
+                return;
+                }
+                else if (valids.length == 1)
+                {
+                damage = values3["repeating_ammo_" + valids[0] + "_ammo_damage"];
+                }
+                else
+                {
+                var availableAmmo = [];
+                for (var i=0; i<valids.length; i++)
+                    {
+                    availableAmmo.push({});
+                    availableAmmo[i].label = values3["repeating_ammo_" + valids[i] + "_ammo_variant"];
+                    availableAmmo[i].value = valids[i];
+                    }
+                    
+                populateListOptions({elemSelector: ".damage-ammo-select, .damage-ammo-selectBlank",
+            				 optionsArray: availableAmmo});
+                    
+                await setAttrsAsync({"ammo_prompt_hider": "0"});
+                
+                return;
+                }
+            }
+        }
+        else if (info.htmlAttributes.value == "variant")
+        {
+        values = await getAttrsAsync(["damage_ammo"]);
+        values2 = await getAttrsAsync(["repeating_ammo_" + values.damage_ammo + "_ammo_damage"]);
+        damage = values2["repeating_ammo_" + values.damage_ammo + "_ammo_damage"];
+        await setAttrsAsync({"ammo_prompt_hider": "1"});
+        }
+        
+    damage = damage.toLowerCase();
+    damage = damage.replaceAll(' ', '');
+    damage = damage.replaceAll("ballistic", "b");
+    damage = damage.replaceAll("impact", "i");
+    damage = damage.replaceAll("biohazard", "o");
+    damage = damage.replaceAll("thermal", "t");
+    damage = damage.replaceAll("electric", "e");
+    damage = damage.replaceAll("absolute", "a");
+    
+    split = damage.split("+");
+
+    var results = [];
+    for (var i=0; i<split.length; i++)
+    	{
+        split[i] = split[i].replaceAll(" ", "");
+        split[i] = split[i].toLowerCase();
+        if (split[i].match(/^\d+d?\d*[biotea]?$/) != null)
+        	{
+            results.push(split[i]);
+            }
+        }
+        
+    var ballistic = "0";
+    var impact = "0";
+    var biohazard = "0";
+    var thermal = "0";
+    var electric = "0";
+    var absolute = "0";
+    
+    for (var i=results.length - 1; i>= 0; i--)
+        {
+        var type = split[i].match(/[biotea]$/);
+        if (type != null)
+            {
+            target = type[0];
+            }
+            
+        switch (target)
+            {
+            case "b":
+                ballistic = results[i].replaceAll("b", "") + "+" + ballistic;
+            break;
+            
+            case "i":
+                impact = results[i].replaceAll("i", "") + "+" + impact;
+            break;
+            
+            case "o":
+                biohazard = results[i].replaceAll("o", "") + "+" + biohazard;
+            break;
+            
+            case "t":
+                thermal = results[i].replaceAll("t", "") + "+" + thermal;
+            break;
+            
+            case "e":
+                electric = results[i].replaceAll("e", "") + "+" + electric;
+            break;
+            
+            case "a":
+                absolute = results[i].replaceAll("a", "") + "+" + absolute;
+            break;
+            }
+        }  
+        
+    if (ballistic == "0")
+        {
+        ballistic = "";
+        }
+        else
+        {
+        ballistic = "[[" + ballistic + "]]";
+        }
+        
+    if (impact == "0")
+        {
+        impact = "";
+        }
+        else
+        {
+        impact = "[[" + impact + "]]";
+        }
+        
+    if (biohazard == "0")
+        {
+        biohazard = "";
+        }
+        else
+        {
+        biohazard = "[[" + biohazard + "]]";
+        }
+        
+    if (thermal == "0")
+        {
+        thermal = "";
+        }
+        else
+        {
+        thermal = "[[" + thermal + "]]";
+        }
+        
+    if (electric == "0")
+        {
+        electric = "";
+        }
+        else
+        {
+        electric = "[[" + electric + "]]";
+        }
+        
+    if (absolute == "0")
+        {
+        absolute = "";
+        }
+        else
+        {
+        absolute = "[[" + absolute + "]]";
+        }
+    
+    var rollString = "&{template:damage} {{roll1=" + ballistic + "}} {{roll2=" + impact + "}} {{roll3=" + biohazard + "}} {{roll4=" + thermal + "}} {{roll5=" + electric + "}} {{roll6=" + absolute + "}}";
+    	
+    console.log(rollString);
+    	
+    rerollString = rollString;
+    startRoll(rollString, damageCallback);
+    }
+    
+async function damageCallback(resultData)
+    {
+    console.log(resultData);
+    
+    computed = {};
+    
+    for (var i=1; i<7; i++)
+        {
+        if (resultData.results["roll" + i] != null)
+            {
+            computed["roll" + i] = resultData.results["roll" + i].result;
+            switch (i)
+                {
+                case 1:
+                    computed["roll" + i] += "b";
+                break;
+                
+                case 2:
+                    computed["roll" + i] += "i";
+                break;
+                
+                case 3:
+                    computed["roll" + i] += "o";
+                break;
+                
+                case 4:
+                    computed["roll" + i] += "t";
+                break;
+                
+                case 5:
+                    computed["roll" + i] += "e";
+                break;
+                
+                case 6:
+                    computed["roll" + i] += "a";
+                break;
+                }
+            }
+        }
+        
+    finishRoll(resultData.rollId, computed);
+    }
+
 on ("change:attribute_roll_modifier change:skill_roll_modifier", sanitizeAllowNegative);
 
 async function sanitizeAllowNegative(info)
@@ -49,7 +318,7 @@ on ("change:repeating_advantages:advantage_cost change:repeating_resources:resou
 
 async function changeRepeatingXP(info)
     {
-    if (await sanitizeNumberInput(info, true))
+    if (await sanitizeNumberInput(info, false))
         {
         return;
         }
@@ -88,26 +357,22 @@ async function changeRepeatingXP(info)
         console.log(values);
         
         var cost = Number(values[attribA + ids[i] + attribB]);
-        
-        console.log(cost);
-        
         if (cost != NaN)
             {
             total += cost;
-            console.log(total);
             }
         }
         
     switch (property)
         {
         case "advantages":
-            await setAttrsAsync({"advantage_xp": "" + total});
+            await setAttrsAsync({"advantage_xp": total});
         break;
         case "resources":
-            await setAttrsAsync({"resource_xp": "" + total});
+            await setAttrsAsync({"resource_xp": total});
         break;
         case "backgrounds":
-            await setAttrsAsync({"background_xp": "" + total});
+            await setAttrsAsync({"background_xp": total});
         break;
         }
     }
@@ -536,8 +801,7 @@ async function changeTalent(info)
         await setAttrsAsync({"spent_xp": spent - xpDelta,
                             [skillName]: skill - skillDelta});
                             
-        console.log("changeTalent");
-        await setXP();
+        await setXP(null);
         await enableCCComplete();
         }
     }
@@ -694,9 +958,13 @@ on ("clicked:cc_back", ccBack);
 async function ccBack()
 	{
 	var xpInfo = await getXPData();
+    console.log(xpInfo);
 	await setAttrsAsync({"cc2_prompt_hider": 1,
-						 "cc1_prompt_hider": 0});
+						 "cc1_prompt_hider": 0,
+						 "total_xp": (xpInfo.ccSkillXp + 10) + "",
+	                     "spent_xp": 0});
 	init();
+	await setXP(null);
 	}
 
 var arduloM2 = {name: "Ardulo -M2-", description: "", spread:"2", burst: "0", volley: "0", clip_ammo:"7", clip_capacity:"7", ammo:"A"};
@@ -723,8 +991,7 @@ async function closeCC()
     console.log(xpInfo);
 	await setAttrsAsync({"cc2_prompt_hider": 1,
 						 "total_xp": 100 + Number(values.cc_points) * xpInfo.attrCost + xpInfo.ccSkillXp});
-	console.log("closeCC");
-	await setXP();
+	await setXP(null);
 	
 	console.log(values);
 	
@@ -1041,27 +1308,13 @@ on ("clicked:cc1_complete", openCC2);
 async function openCC2()
 	{
 	var xpInfo = await getXPData();
-    var skills = {"bridge_tech": "5", "mounted_weaponry": "5", "pilot_spacecraft": "5", "vehicle_engineering": "5", "drive_ground_vehicle": "3", "knowledge_corporate": "4", "knowledge_planets": "5", "pilot_aircraft": "5", "knowledge_urban": "4", "trade": "4", "aim": "5", "athletics": "3", "endurance": "4", "reaction": "4", "melee": "6", "throw": "3", "notice": "5", "hack_security": "4", "search": "3", "sleight_of_hand": "6", "sneak": "5", "astronomy": "4", "computer_science": "6", "medicine": "5", "natural_sciences": "6", "robotics": "6", "weapons_engineering": "6", "xenobiology": "8", "convince": "5", "deceive": "4", "empathy": "5", "intimidate": "3", "lead": "5"};
+    console.log(xpInfo);
     
     var values = await getAttrsAsync(["planet_select"]);
     var toChange = {"cc1_prompt_hider": 1,
-					"cc2_prompt_hider": 0,
-	                "total_xp": "" + (xpInfo.ccSkillXp + 10),
-	                "spent_xp": "0"};
-	                 
-	toChange.civilizational = " ";
-	toChange.social = " ";
-	toChange.infiltration = " ";
-	toChange.combat = " ";
-	toChange.science = " ";
-	toChange.astronomics = " ";
-	
-	for (var skill in skills)
-	    {
-	    toChange["cc_" + skill + "_diff"] = skills[skill];
-	    toChange["cc_" + skill + "_talent"] = 0;
-	    toChange[skill + "_bonus"] = "0";
-	    }
+					 "cc2_prompt_hider": 0,
+					 "total_xp": xpInfo.ccSkillXp + 10,
+	                 "spent_xp": 0};
     
     switch (values.planet_select)
         {
@@ -1091,9 +1344,7 @@ async function openCC2()
         }
     
 	await setAttrsAsync(toChange);
-	console.log(toChange);
-	console.log("openCC2");
-	await setXP();
+	await setXP(null);
 	await enableCCComplete();
 	}
 
@@ -1858,7 +2109,8 @@ async function rollAttribute()
 	rerollString = rollString;
 	startRoll(rollString, skillCheckCallback);
 	
-	await setAttrsAsync({"attribute_roll_prompt_hider": 1});
+	await setAttrsAsync({"attribute_roll_prompt_hider": "1",
+	                     "attribute_roll_modifier": "0"});
 	}
 
 var attrToRoll;
@@ -2025,7 +2277,8 @@ async function makeSkillRoll(info)
 	rerollString = rollString;
 	startRoll(rollString, skillCheckCallback);
 	
-	await setAttrsAsync({"roll_prompt_hider": 1});
+	await setAttrsAsync({"roll_prompt_hider": "1",
+	                     "skill_roll_modifier": "0"});
 	}
 	
 function skillCheckCallback(results)
@@ -3177,16 +3430,14 @@ on ("change:bought_hp", hpBought);
 
 async function hpBought()
     {
-    console.log("hpBought");
-    await setXP();
-    await setMaxHP();
+    setXP(null);
+    setMaxHP();
     }
 
 async function init()
 	{
 	await log("Sheet opened.");
 	var values = await getAttrsAsync(["cc1_prompt_hider"]);
-	var xpInfo = await getXPData();; 
 	if (values.cc1_prompt_hider == "0")
 	    {
 	    setTerritory();
@@ -3233,7 +3484,8 @@ async function init()
 	                         "attribute_roll_prompt_hider": 1,
 	                         "shoot_prompt_hider": 1,
 	                         "hp_prompt_hider": 1,
-	                         "damage_prompt_hider": 1});
+	                         "damage_prompt_hider": 1,
+	                         "ammo_prompt_hider": 1});
 	                         
 	//var values2 = await getAttrsAsync(["shoot_prompt_hider"]);
 	//console.log("Sheet init complete.\n" + JSON.stringify(values2));
@@ -3244,17 +3496,22 @@ function isInteger(value)
 	return Number(value) != NaN;
 	}
 	
-async function setXP()
+async function setXP(info)
 	{
-	console.log("Setting XP");
+	if (info != null &&
+	    await sanitizeNumberInput(info, false))
+        {
+        return;
+        }
+	console.log("Setting xp.");
 	var values = await getAttrsAsync(["total_xp", "spent_xp", "bought_hp", "advantage_xp", "resource_xp", "background_xp"]);
 	
 	console.log("Values in setXP: " + JSON.stringify(values));
 	
-	let totalXp = Number(values.total_xp);
-	let skillXp = Number(values.spent_xp);
-	let hpXp = Number(values.bought_hp) * 50;
-	let advantageXp = Number(values.advantage_xp);
+	let totalXp = parseInt(values.total_xp);
+	let skillXp = parseInt(values.spent_xp);
+	let hpXp = parseInt(values.bought_hp) * 50;
+	let advantageXp = parseInt(values.advantage_xp);
 	let resourceXp = Number(values.resource_xp);
 	let backgroundXp = Number(values.background_xp);
 	await setAttrsAsync({"xp": totalXp - (skillXp + hpXp + advantageXp + resourceXp + backgroundXp)});
@@ -3586,6 +3843,12 @@ function getSectionIDsAsync(sectionName){
 		<div class="sheet-rolltemplate-hi-roll-label">
 			<span class="sheet-rolltemplate-hi-roll-bold">{{name}}</span><span class="sheet-rolltemplate-hi-roll-label">{{title}}{{computed::roll1}}</span>
 		</div>
+	</div>
+</rolltemplate>
+
+<rolltemplate class="sheet-rolltemplate-damage">
+	<div class="sheet-template-container">
+		Damage: <span class="ballisticDamage">{{computed::roll1}} {{computed::roll2}} {{computed::roll3}} {{computed::roll4}} {{computed::roll5}} {{computed::roll6}}
 	</div>
 </rolltemplate>
 
@@ -4692,7 +4955,7 @@ function getSectionIDsAsync(sectionName){
 		</div>
 	</div>
 
-<input type="hidden" name="attr_damage_prompt_hider" class="hide-damage-prompt" value="1">
+<!-- <input type="hidden" name="attr_damage_prompt_hider" class="hide-damage-prompt" value="1">
 	<div id="damage_prompt" class="prompt damage-prompt-hide">
 		<div class="grid6 table">
 			<span style="grid-row: 1; grid-column: 1;" class="cell">
@@ -4727,7 +4990,8 @@ function getSectionIDsAsync(sectionName){
 				</div>
 			</span>
 		</div>
-	</div>
+	</div> -->
+	
 <input type="hidden" name="attr_attribute_prompt_hider" class="hide-attr-prompt" value="1">
 	<div id="attribute_prompt" class="prompt attr-prompt-hide">
 		<div class="grid7 table">
@@ -4937,6 +5201,33 @@ function getSectionIDsAsync(sectionName){
 				<br>
 				<div align="center">
 					<button type="action" name="act_cancel_shoot" class="promptButton">Cancel</button>
+				</div>
+			</span>
+		</div>
+	</div>
+<input type="hidden" name="attr_ammo_prompt_hider" class="hide-ammo-prompt" value="1">
+	<div id="ammo_prompt" class="prompt ammo-prompt-hide">
+		<div class="grid12 table">
+			<span colspan="2" style="grid-row: 1; grid-column: 1 / span 2;" class="cell">
+				<div align="center">
+					<span class="label3">Select Ammo Variant</span>
+				</div>
+			</span>
+			<span colspan="2" style="grid-row: 2; grid-column: 1 / span 2;" class="cell">
+				<div align="center">
+					<select name="attr_damage_ammo" id="tex6" class="damage-ammo-select"/>
+				</div>
+			</span>
+			<span style="grid-row: 3; grid-column: 1;" class="cell">
+				<br>
+				<div align="center">
+					<button type="action" name="act_roll_damage" value="variant" class="promptButton shoot-hide">Roll Damage</button>
+				</div>
+			</span>
+			<span style="grid-row: 3; grid-column: 2;" class="cell">
+				<br>
+				<div align="center">
+					<button type="action" name="act_cancel_damage" class="promptButton">Cancel</button>
 				</div>
 			</span>
 		</div>
@@ -5286,29 +5577,36 @@ function getSectionIDsAsync(sectionName){
 						</span>
 						<span style="grid-row: 5; grid-column: 1;" class="cell">
 							<br>
-							<div class="title1">
-								Weapons
+							<input type="hidden" name="attr_equipped_weapon1_id" class="hide-equipped-weapon1">
+							<div class="title1 equipped-weapon1-hide">
+								Equipped Weapons
 							</div>
 						</span>
 						<span style="grid-row: 6; grid-column: 1;" class="cell">
-							<div align="center">
-								<input type="hidden" name="attr_equipped_weapon1_id" value="0">
-								<input type="hidden" name="attr_equipped_weapon1_melee" value="-1">
-								<span name="attr_equipped_weapon1"/> <button type="action" name="act_open_shoot" value="1" class="shootButton"/>
+							<input type="hidden" name="attr_equipped_weapon1_melee" value="-1">
+							<input type="hidden" name="attr_equipped_weapon1_id" class="hide-equipped-weapon1" value="0">
+							<div align="center" class="equipped-weapon1-hide">
+								<span name="attr_equipped_weapon1"/>
+								<button type="action" name="act_open_shoot" value="1" class="shootButton"/>
+								<button type="action" name="act_roll_damage" value="equipped1" class="damageButton"/>
 							</div>
 						</span>
 						<span style="grid-row: 7; grid-column: 1;" class="cell">
-							<div align="center">
-								<input type="hidden" name="attr_equipped_weapon2_id" value="0">
-								<input type="hidden" name="attr_equipped_weapon2_melee" value="-1">
-								<span name="attr_equipped_weapon2"/> <button type="action" name="act_open_shoot" value="2" class="shootButton"/>
+							<input type="hidden" name="attr_equipped_weapon2_melee" value="-1">
+							<input type="hidden" name="attr_equipped_weapon2_id" class="hide-equipped-weapon2" value="0">
+							<div align="center" class="equipped-weapon2-hide">
+								<span name="attr_equipped_weapon2"/>
+								<button type="action" name="act_open_shoot" value="2" class="shootButton"/>
+								<button type="action" name="act_roll_damage" value="equipped2" class="damageButton"/>
 							</div>
 						</span>
 						<span style="grid-row: 8; grid-column: 1;" class="cell">
-							<div align="center">
-								<input type="hidden" name="attr_equipped_weapon3_id" value="0">
-								<input type="hidden" name="attr_equipped_weapon3_melee" value="-1">
-								<span name="attr_equipped_weapon3"/> <button type="action" name="act_open_shoot" value="3" class="shootButton"/>
+							<input type="hidden" name="attr_equipped_weapon3_melee" value="-1">
+							<input type="hidden" name="attr_equipped_weapon3_id" class="hide-equipped-weapon3" value="0">
+							<div align="center" class="equipped-weapon3-hide">
+								<span name="attr_equipped_weapon3"/>
+								<button type="action" name="act_open_shoot" value="3" class="shootButton"/>
+								<button type="action" name="act_roll_damage" value="equipped3" class="damageButton"/>
 							</div>
 						</span>
 					</div>
@@ -6223,7 +6521,7 @@ function getSectionIDsAsync(sectionName){
 			</span>
 			<span colspan="2" style="grid-row: 3; grid-column: 1 / span 2;" class="cell">
 				<div id="tiny-font" align="center">
-					Millenium Freelancers Character Sheet v3.2 by Zoltán Király. Join us on Discord: https://discord.gg/XV9MX8Yeme
+					Millenium Freelancers Character Sheet v3.0 by Zoltán Király. Join us on Discord: https://discord.gg/XV9MX8Yeme
 				</div>
 			</span>
 		</div>
@@ -6301,6 +6599,7 @@ function getSectionIDsAsync(sectionName){
 				<span class="small-font">Damage</span>
 				<span class="small-font">Description</span>
 				<span class="small-font">Punch</span>
+				<span class="small-font">Dmg</span>
 				<span class="small-font">Equip</span>
 			</div>
 			<fieldset class="repeating_melees">
@@ -6309,6 +6608,7 @@ function getSectionIDsAsync(sectionName){
 				<input type="text" name="attr_melee_damage" id="tex4">
 				<input type="text" name="attr_melee_description" id="tex5">
 				<button type="action" name="act_openshoot" class="shootButton"/>
+				<button type="action" name="act_roll_damage" value="melee" class="damageButton"/>
 				<input type="checkbox" name="attr_melee_equipped">
 			</fieldset>
 		</div>
@@ -6324,6 +6624,7 @@ function getSectionIDsAsync(sectionName){
 				<span class="small-font">Damage</span>
 				<span class="small-font">Quantity</span>
 				<span class="small-font">Description</span>
+				<span class="small-font">Dmg</span>
 			</div>
 			<fieldset class="repeating_ammo">
 				<button type="action" name="act_delete" class="levelDownButton" style="width:18px; height:18px; background-size: contain;"/>
@@ -6332,6 +6633,7 @@ function getSectionIDsAsync(sectionName){
 				<input type="text" name="attr_ammo_damage" id="tex4">
 				<input type="text" name="attr_ammo_quantity" id="tex3">
 				<input type="text" name="attr_ammo_description" id="tex5">
+				<button type="action" name="act_roll_damage" value="ammo" class="damageButton"/>
 			</fieldset>
 		</div>
 		<br>
