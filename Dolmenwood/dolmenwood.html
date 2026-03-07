@@ -2021,7 +2021,6 @@
           .concat(["strMod", "dexMod", "bab"]);
         getAttrs(attributes, function (values) {
           const attackType = values[`repeating_weapons_${id}_attackType`];
-          console.log(values);
           setAttrs({ [`repeating_weapons_${id}_bab_copy`]: values.bab });
           if (!attackType) {
             if (
