@@ -65,10 +65,11 @@
             <span class="left">
               <span>v<span name="attr_sheet_version">
             </span>
-            <span class="right"> • 3/4/26'</span>
+            <span class="right"> • 3/8/26'</span>
           </h5>
           <ul>
             <h5>Latest</h5>
+            <li>Items removed from the Armor Details section(deleting the item's name field) will also delete the item from Equipment|Armor as well. Previously, synced items in Equipment|Armor were left untouched if the Armor Details name was deleted. These "orphaned" entries have been deemed confusing and unnecessary.</li>
             <li>Row Shading option added. Applies a subtle alternating background contrast to sheet rows.</li>
             <li>Linear Gradient option added. Applies subtle linear gradient background to misc. sheet sub-sections. While this has been already been in-use on the sheet, it's now optional.</li>
 
@@ -355,7 +356,7 @@
         <span class="armor-columns">
           <label class="stack-text"><span>UnArmored Base</span></label>
           <input type="checkbox" name="attr_unarmored_worn" value="1" title="@{unarmored_worn}" checked />
-          <input type="text" class="width-fill" name="attr_unarmored" value="" title="@{unarmored} | Use for Unarmored, Clothing, Natural Armor, etc. NOTE: Adding a new item to Armor Details will also add a new Armor item to Equipment. Similarly, Armor items can be added to the Armor Details list from Equipment|Armor using the '+Add' button. (expand row's sub-section)" placeholder="non-armor" />
+          <input type="text" class="width-fill" name="attr_unarmored" value="" title="@{unarmored} | Use for Unarmored, Clothing, Natural Armor, etc. NOTE: Adding a new item to Armor Details will also add a new Armor item to Equipment. Similarly, Armor items can be added to the Armor Details list from Equipment|Armor using the '+Add' button. (expand row's sub-section) CAUTION: items deleted from Armor Details will also be deleted from Equipment." placeholder="non-armor" />
           <select name="attr_unarmored_ac" title="@{unarmored_ac} | Enter the actual AC value for this item.">
             <option value="10" selected>10</option>
             <option value="9">9</option>
@@ -396,7 +397,7 @@
         <span class="armor-columns">
           <label><span>Armor 1</span></label>
           <input type="checkbox" name="attr_armortype_worn" title="@{armortype_worn}" value="1" checked />
-          <input type="text" class="width-fill" name="attr_armortype" title="@{armortype} | NOTE: Adding a new item to Armor Details will also add a new Armor item to Equipment. Similarly, Armor items can be added to the Armor Details list from Equipment|Armor using the '+Add' button. (expand row's sub-section)" placeholder="Description" />
+          <input type="text" class="width-fill" name="attr_armortype" title="@{armortype} | NOTE: Adding a new item to Armor Details will also add a new Armor item to Equipment. Similarly, Armor items can be added to the Armor Details list from Equipment|Armor using the '+Add' button. (expand row's sub-section) CAUTION: items deleted from Armor Details will also be deleted from Equipment." placeholder="Description" />
           <select name="attr_armortype_ac" title="@{armortype_ac} | Enter the actual AC value for this item.">
             <option value="10" selected>10</option>
             <option value="9">9</option>
@@ -448,7 +449,7 @@
         <span class="armor-columns">
           <label><span>Armor 2</span></label>
           <input type="checkbox" name="attr_armortype2_worn" title="@{armortype2_worn}" value="1" />
-          <input type="text" class="width-fill" name="attr_armortype2" title="@{armortype2} | NOTE: Adding a new item to Armor Details will also add a new Armor item to Equipment. Similarly, Armor items can be added to the Armor Details list from Equipment|Armor using the '+Add' button. (expand row's sub-section)" placeholder="Description" />
+          <input type="text" class="width-fill" name="attr_armortype2" title="@{armortype2} | NOTE: Adding a new item to Armor Details will also add a new Armor item to Equipment. Similarly, Armor items can be added to the Armor Details list from Equipment|Armor using the '+Add' button. (expand row's sub-section) CAUTION: items deleted from Armor Details will also be deleted from Equipment." placeholder="Description" />
           <select name="attr_armortype2_ac" title="@{armortype2_ac} | Enter the actual AC value for this item.">
             <option value="10" selected>10</option>
             <option value="9">9</option>
@@ -489,7 +490,7 @@
         <span class="armor-columns">
           <label><span>Shield</span></label>
           <input type="checkbox" name="attr_armorshield_worn" title="@{armorshield_worn}" value="1" />
-          <input type="text" class="width-fill" name="attr_armorshield" title="@{armorshield} | NOTE: Adding a new item to Armor Details will also add a new Armor item to Equipment. Similarly, Armor items can be added to the Armor Details list from Equipment|Armor using the '+Add' button. (expand row's sub-section)" placeholder="Description" />
+          <input type="text" class="width-fill" name="attr_armorshield" title="@{armorshield} | NOTE: Adding a new item to Armor Details will also add a new Armor item to Equipment. Similarly, Armor items can be added to the Armor Details list from Equipment|Armor using the '+Add' button. (expand row's sub-section) CAUTION: items deleted from Armor Details will also be deleted from Equipment." placeholder="Description" />
           <select name="attr_armorshield_ac" title="@{armorshield_ac} | ie +2 lowers AC by -2.">
             <option value="0" selected>+0</option>
             <option value="-1">+1</option>
@@ -531,7 +532,7 @@
         <span class="armor-columns">
           <label><span>Helm</span></label>
           <input type="checkbox" name="attr_armorhelmet_worn" title="@{armorhelmet_worn}" value="1" />
-          <input type="text" class="width-fill" name="attr_armorhelmet" title="@{armorhelmet} | NOTE: Adding a new item to Armor Details will also add a new Armor item to Equipment. Similarly, Armor items can be added to the Armor Details list from Equipment|Armor using the '+Add' button. (expand row's sub-section)" placeholder="Description" />
+          <input type="text" class="width-fill" name="attr_armorhelmet" title="@{armorhelmet} | NOTE: Adding a new item to Armor Details will also add a new Armor item to Equipment. Similarly, Armor items can be added to the Armor Details list from Equipment|Armor using the '+Add' button. (expand row's sub-section) CAUTION: items deleted from Armor Details will also be deleted from Equipment." placeholder="Description" />
           <select name="attr_armorhelmet_ac" title="@{armorhelmet_ac} | Other than Magic Bonuses, Helms do not impact Total AC calculations.">
             <option value="10" selected>10</option>
             <option value="9">9</option>
@@ -555,7 +556,7 @@
         <span class="armor-columns" style="margin-bottom: -.25em;">
           <label><span>Other</span></label>
           <input type="checkbox" name="attr_armorother_worn" title="@{armorother_worn}" value="1" />
-          <input type="text" class="width-fill" name="attr_armorother" title="@{armorother} | NOTE: Adding a new item to Armor Details will also add a new Armor item to Equipment. Similarly, Armor items can be added to the Armor Details list from Equipment|Armor using the '+Add' button. (expand row's sub-section)" placeholder="Description" />
+          <input type="text" class="width-fill" name="attr_armorother" title="@{armorother} | NOTE: Adding a new item to Armor Details will also add a new Armor item to Equipment. Similarly, Armor items can be added to the Armor Details list from Equipment|Armor using the '+Add' button. (expand row's sub-section) CAUTION: items deleted from Armor Details will also be deleted from Equipment." placeholder="Description" />
           <select name="attr_armorother_ac" title="@{armorother_ac} | Enter the actual AC value for this item.">
             <option value="10" selected>10</option>
             <option value="9">9</option>
@@ -596,7 +597,7 @@
         <span class="sect armor-columns">
           <label><span>Other</span></label>
           <input type="checkbox" name="attr_armorother2_worn" title="@{armorother2_worn}" value="1" />
-          <input type="text" class="width-fill" name="attr_armorother2" title="@{armorother2} | NOTE: Adding a new item to Armor Details will also add a new Armor item to Equipment. Similarly, Armor items can be added to the Armor Details list from Equipment|Armor using the '+Add' button. (expand row's sub-section)" placeholder="Description" />
+          <input type="text" class="width-fill" name="attr_armorother2" title="@{armorother2} | NOTE: Adding a new item to Armor Details will also add a new Armor item to Equipment. Similarly, Armor items can be added to the Armor Details list from Equipment|Armor using the '+Add' button. (expand row's sub-section) CAUTION: items deleted from Armor Details will also be deleted from Equipment." placeholder="Description" />
           <select name="attr_armorother2_ac" title="@{armorother2_ac} | ie +2 lowers AC by -2.">
             <option value="0" selected>+0</option>
             <option value="-1">+1</option>
@@ -633,7 +634,7 @@
         <span class="sect armor-columns">
           <label><span>Other</span></label>
           <input type="checkbox" name="attr_armorother3_worn" title="@{armorother3_worn}" value="1" />
-          <input type="text" class="width-fill" name="attr_armorother3" title="@{armorother3} | NOTE: Adding a new item to Armor Details will also add a new Armor item to Equipment. Similarly, Armor items can be added to the Armor Details list from Equipment|Armor using the '+Add' button. (expand row's sub-section)" placeholder="Description" />
+          <input type="text" class="width-fill" name="attr_armorother3" title="@{armorother3} | NOTE: Adding a new item to Armor Details will also add a new Armor item to Equipment. Similarly, Armor items can be added to the Armor Details list from Equipment|Armor using the '+Add' button. (expand row's sub-section) CAUTION: items deleted from Armor Details will also be deleted from Equipment." placeholder="Description" />
           <select name="attr_armorother3_ac" title="@{armorother3_ac} | ie +2 lowers AC by -2.">
             <option value="0" selected>+0</option>
             <option value="-1">+1</option>
@@ -669,7 +670,7 @@
         <span class="sect armor-columns">
           <label><span>Other</span></label>
           <input type="checkbox" name="attr_armorother4_worn" title="@{armorother4_worn}" value="1" />
-          <input type="text" class="width-fill" name="attr_armorother4" title="@{armorother4} | NOTE: Adding a new item to Armor Details will also add a new Armor item to Equipment. Similarly, Armor items can be added to the Armor Details list from Equipment|Armor using the '+Add' button. (expand row's sub-section)" placeholder="Description" />
+          <input type="text" class="width-fill" name="attr_armorother4" title="@{armorother4} | NOTE: Adding a new item to Armor Details will also add a new Armor item to Equipment. Similarly, Armor items can be added to the Armor Details list from Equipment|Armor using the '+Add' button. (expand row's sub-section) CAUTION: items deleted from Armor Details will also be deleted from Equipment." placeholder="Description" />
           <select name="attr_armorother4_ac" title="@{armorother4_ac} | ie +2 lowers AC by -2.">
             <option value="0" selected>+0</option>
             <option value="-1">+1</option>
@@ -705,7 +706,7 @@
         <span class="sect armor-columns">
           <label><span>Other</span></label>
           <input type="checkbox" name="attr_armorother5_worn" title="@{armorother5_worn}" value="1" />
-          <input type="text" class="width-fill" name="attr_armorother5" title="@{armorother5} | NOTE: Adding a new item to Armor Details will also add a new Armor item to Equipment. Similarly, Armor items can be added to the Armor Details list from Equipment|Armor using the '+Add' button. (expand row's sub-section)" placeholder="Description" />
+          <input type="text" class="width-fill" name="attr_armorother5" title="@{armorother5} | NOTE: Adding a new item to Armor Details will also add a new Armor item to Equipment. Similarly, Armor items can be added to the Armor Details list from Equipment|Armor using the '+Add' button. (expand row's sub-section) CAUTION: items deleted from Armor Details will also be deleted from Equipment." placeholder="Description" />
           <select name="attr_armorother5_ac" title="@{armorother5_ac} | ie +2 lowers AC by -2.">
             <option value="0" selected>+0</option>
             <option value="-1">+1</option>
@@ -742,7 +743,7 @@
         <span class="sect armor-columns">
           <label><span>Other</span></label>
           <input type="checkbox" name="attr_armorother6_worn" title="@{armorother6_worn}" value="1" />
-          <input type="text" class="width-fill" name="attr_armorother6" title="@{armorother6} | NOTE: Adding a new item to Armor Details will also add a new Armor item to Equipment. Similarly, Armor items can be added to the Armor Details list from Equipment|Armor using the '+Add' button. (expand row's sub-section)" placeholder="Description" />
+          <input type="text" class="width-fill" name="attr_armorother6" title="@{armorother6} | NOTE: Adding a new item to Armor Details will also add a new Armor item to Equipment. Similarly, Armor items can be added to the Armor Details list from Equipment|Armor using the '+Add' button. (expand row's sub-section) CAUTION: items deleted from Armor Details will also be deleted from Equipment." placeholder="Description" />
           <select name="attr_armorother6_ac" title="@{armorother6_ac} | ie +2 lowers AC by -2.">
             <option value="0" selected>+0</option>
             <option value="-1">+1</option>
