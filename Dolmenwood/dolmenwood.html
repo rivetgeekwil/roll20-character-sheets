@@ -699,7 +699,7 @@
       </div>
       <div class="sheet-runes-sub">
         <h1 data-i18n="runes-lesser">Lesser Runes</h1>
-        <fieldset class="repeating_lesser_runes">
+        <fieldset class="repeating_lesserRunes">
           <div class="spell-grid-outer">
             <div>
               <div class="spell-row">
@@ -741,7 +741,7 @@
         </fieldset>
         <div class="divider"></div>
         <h1 data-i18n="runes-greater">Greater Runes</h1>
-        <fieldset class="repeating_greater_runes">
+        <fieldset class="repeating_greaterRunes">
           <div class="spell-grid-outer">
             <div>
               <div class="spell-row">
@@ -783,7 +783,7 @@
         </fieldset>
         <div class="divider"></div>
         <h1 data-i18n="runes-mighty">Mighty Runes</h1>
-        <fieldset class="repeating_mighty_runes">
+        <fieldset class="repeating_mightyRunes">
           <div class="spell-grid-outer">
             <div>
               <div class="spell-row">
@@ -2781,6 +2781,7 @@
           }
           
           setAttrs(newAttributes);
+          updateWeaponBonuses();
         }
       );
     }
