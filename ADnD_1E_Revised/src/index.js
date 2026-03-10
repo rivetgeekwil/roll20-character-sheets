@@ -2569,6 +2569,7 @@ const recalcToHitWhisper = async (current_version, final_version) => {
   await versionator(current_version, final_version);
 };
 
+// One-time update: sets flag for To Hit Armor Rating
 const recalcToHitACadj = async (current_version, final_version) => {
   const idArray = await getSectionIDsAsync('repeating_weapon');
   const fields = idArray.flatMap((id) => [`repeating_weapon_${id}_weapon_tohitacadj_flag`, `repeating_weapon_${id}_weapon_tohitacadj`]);
@@ -2577,6 +2578,24 @@ const recalcToHitACadj = async (current_version, final_version) => {
   const output = Object.assign({}, ...updates);
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: recalcToHitACadj completed`);
+  await setAttrsAsync(output, {silent: true});
+  await versionator(current_version, final_version);
+};
+
+// On-time update: check Open Doors for non-d6 value
+const checkOpenDoors = async (current_version, final_version) => {
+  const v = await getAttrsAsync(['minorstrengthfeat', 'strength', 'exceptionalstrength']);
+  const openDoors = +v['minorstrengthfeat'] || 0;
+  // bail if range is within d6
+  if (openDoors <= 6) return;
+
+  const output = {};
+  const stat_str = +v['strength'] || 0;
+  let stat_str_per = +v['exceptionalstrength'] || 0;
+  if (+v['exceptionalstrength'] === '00') stat_str_per = 100;
+  output.minorstrengthfeat = AT_STR.getStrengthValue('Minor', stat_str, stat_str_per);
+  output.sheet_version = current_version;
+  clog(`VERSION UPDATE: checkOpenDoors completed`);
   await setAttrsAsync(output, {silent: true});
   await versionator(current_version, final_version);
 };
@@ -2668,6 +2687,8 @@ versionator = async (current_version, final_version) => {
     await recalcToHitWhisper(1.691, final_version);
   } else if (current_version < 1.692) {
     await recalcToHitACadj(1.692, final_version);
+  } else if (current_version < 1.693) {
+    await checkOpenDoors(1.693, final_version);
     // all updates completed
   } else if (current_version < final_version) {
     output.sheet_version = final_version;
@@ -2681,7 +2702,7 @@ versionator = async (current_version, final_version) => {
 // Versioning
 on('sheet:opened', async () => {
   // SET LATEST VERSION HERE. needs to be => the last update made in versionator
-  const final_version = 1.692;
+  const final_version = 1.693;
   const v = await getAttrsAsync(['sheet_version', 'old_character']);
   const output = {};
   let current_version = float(v.sheet_version);
