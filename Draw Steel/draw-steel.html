@@ -5283,6 +5283,7 @@
 		}
 		// Damage "should" take one of the following forms:
 		// <baseDamage> + <characteristic> <damageType> damage; <added effects>
+		// <baseDamage> + <characteristic> or <characteristic> <damageType> damage; <added effects>
 		// <baseDamage> <damageType> damage; <added effects>
 		// <effects>
 		
@@ -5304,7 +5305,7 @@
 		// The first element of parts should contain the damage. The second should have effects, if anything. 
 		// Split the damage section it using spaces to get the individual elements.
 		const damageSection = parts[0].split(' ');
-		const effectSection = parts.length > 1 ? '; ' + parts[1] : '';
+		let effectSection = parts.length > 1 ? ';' + parts[1] : ';';
 		const damageBase = parseInt(damageSection[0]);
 		
 		// If the first element is not a number we aren't dealing with a form we can calculate. 
@@ -5314,21 +5315,34 @@
 		
 		let damageType = [];
 		let damageCalc = [];
-		// Since the first element is the base damage, if the second should is a '+' the third should be the characteristic.
-		if (damageSection[1] === '+') {
-			if (damageSection[2] in charMap) {
-				damageSection[2] = charMap[damageSection[2]].macro + `[${charMap[damageSection[2]].title}]`;
-				damageType = damageSection.slice(3);
-				damageCalc = damageSection.slice(0,3);
-				console.log('damageType and Calc',damageType, damageCalc);
+		damageCalc.push(damageSection[0]);
 		
-			} else {
-				return tierEffect;
+		// Since the first element is the base damage, if the second is a '+' the following should be characteristics.
+		if (damageSection[1] === '+' && damageSection[2] in charMap) {
+			let itterator = 2;
+			// in case more than one chracteristic is used (example M + A) use roll20's {}kh1 (keep higher) operator
+			damageCalc.push ("+ {");
+			while (damageSection[itterator] in charMap) {
+				damageCalc.push(charMap[damageSection[itterator]].macro + `[${charMap[damageSection[itterator]].title}]`);
+				
+				itterator++;
+
+				if (damageSection[itterator] === "or" 
+				  	&& damageSection[itterator + 1] in charMap) {
+					//prep for another characteristics
+					damageCalc.push(",");
+					itterator++;
+				} else {
+					break;
+				}
 			}
+			damageCalc.push ("}kh1"); // roll20 -> kh1 == keep highest
+			damageType = damageSection.slice(itterator);	
 		} else {
 			damageType = damageSection.slice(1);
-			damageCalc.push(damageSection[0]);
 		}
+
+		console.log('damageType and Calc',damageType, damageCalc);
 		if (kit) {
 			//Add Kit Damage
 			kitTrans = getTranslationByKey('kit');
@@ -5339,6 +5353,24 @@
 		if (other) {
 			damageCalc.push(other);
 		}
+
+		//add potencies into effect section
+		const potencyArray = [
+		//	  The word that will be replaced												What atribute will be used	 Translated text to be put into the "roll" 
+			{ trigger:'[' + getTranslationByKey('potency-weak').toLowerCase() 		+ ']',	macro: '@{potency_weak}',    translation: getTranslationByKey('potency-weak')		}, 
+			{ trigger:'[' + getTranslationByKey('potency-average').toLowerCase() 	+ ']',	macro: '@{potency_average}', translation: getTranslationByKey('potency-average')	},
+			{ trigger:'[' + getTranslationByKey('potency-strong').toLowerCase() 	+ ']',	macro: '@{potency_strong}',  translation: getTranslationByKey('potency-strong')	},
+		];
+
+		//handle potencies
+		potencyArray.forEach((potency) => {
+			// transform potency into a roll
+			// [weak] -> [[@{potency_weak}[Weak]]]
+			effectSection = effectSection.replaceAll( 
+				potency.trigger, 
+				"[[" + potency.macro + "[" + potency.translation + "]"+ "]]");
+		})
+
 		// rebuild the tier effect String
 		const newTierEffect = '[[' +
 			damageCalc.join(' ') 
