@@ -1405,7 +1405,8 @@ const syncArmorToEquipment = async (id, attr, row_removed, migrate) => {
         } else {
           output.unarmored_carried = +v.unarmored_carried || 0;
         }
-        // clog(`syncArmorToEquipment: Armor Details removed - ID Exists. Deleted from Armor Detail unarmored:${newID}`);
+        removeRepeatingRow(`repeating_equipment_${id_low}`);
+        // clog(`syncArmorToEquipment: Armor Details row removed but ID Exists. DELETING repeating_equipment_${id_low}. Resetting unarmored:${newID}`);
       }
     } else if (matchingArray === null && row_removed) {
       // matchingArray === null means repeating_row removed: NO Name and/or id REMOVED - RESETING ROW
@@ -1476,7 +1477,8 @@ const syncArmorToEquipment = async (id, attr, row_removed, migrate) => {
         output.armortype_weight = 0;
         output.armortype_cost = 0;
         output.armortype_carried = 1;
-        // clog(`syncArmorToEquipment: Armor Details row removed. Resetting armor1:${newID}`);
+        removeRepeatingRow(`repeating_equipment_${id_low}`);
+        // clog(`syncArmorToEquipment: Armor Details row removed but ID Exists. DELETING repeating_equipment_${id_low}. Resetting armor1:${newID}`);
       }
     } else if (matchingArray === null && row_removed) {
       // matchingArray === null means repeating_row removed: NO Name and/or id REMOVED - RESETING ROW
@@ -1548,7 +1550,8 @@ const syncArmorToEquipment = async (id, attr, row_removed, migrate) => {
         output.armortype2_weight = 0;
         output.armortype2_cost = 0;
         output.armortype2_carried = 1;
-        // clog(`syncArmorToEquipment: Armor Details row removed. Resetting armor2:${newID}`);
+        removeRepeatingRow(`repeating_equipment_${id_low}`);
+        // clog(`syncArmorToEquipment: Armor Details row removed but ID Exists. DELETING repeating_equipment_${id_low}. Resetting armor2:${newID}`);
       }
     } else if (matchingArray === null && row_removed) {
       // matchingArray === null means repeating_row removed: NO Name and/or id REMOVED - RESETING ROW
@@ -1623,7 +1626,8 @@ const syncArmorToEquipment = async (id, attr, row_removed, migrate) => {
         output.armorshield_weight = 0;
         output.armorshield_cost = 0;
         output.armorshield_carried = 1;
-        // clog(`syncArmorToEquipment: Armor Details row removed. Resetting shield:${newID}`);
+        removeRepeatingRow(`repeating_equipment_${id_low}`);
+        // clog(`syncArmorToEquipment: Armor Details row removed but ID Exists. DELETING repeating_equipment_${id_low}. Resetting shield:${newID}`);
       }
     } else if (matchingArray === null && row_removed) {
       // matchingArray === null means repeating_row removed: NO Name and/or id REMOVED - RESETING ROW
@@ -1692,7 +1696,8 @@ const syncArmorToEquipment = async (id, attr, row_removed, migrate) => {
         output.armorhelmet_weight = 0;
         output.armorhelmet_cost = 0;
         output.armorhelmet_carried = 1;
-        // clog(`syncArmorToEquipment: Armor Details row removed. Resetting helmet:${newID}`);
+        removeRepeatingRow(`repeating_equipment_${id_low}`);
+        // clog(`syncArmorToEquipment: Armor Details row removed but ID Exists. DELETING repeating_equipment_${id_low}. Resetting helmet:${newID}`);
       }
     } else if (matchingArray === null && row_removed) {
       // matchingArray === null means repeating_row removed: NO Name and/or id REMOVED - RESETING ROW
@@ -1752,7 +1757,8 @@ const syncArmorToEquipment = async (id, attr, row_removed, migrate) => {
         output.armorother_magic = 0;
         output.armorother_mod = 0;
         output.armorother_bulk = 0;
-        // clog(`syncArmorToEquipment: Armor Details row removed. Resetting other1:${newID}`);
+        removeRepeatingRow(`repeating_equipment_${id_low}`);
+        // clog(`syncArmorToEquipment: Armor Details row removed but ID Exists. DELETING repeating_equipment_${id_low}. Resetting other1:${newID}`);
       }
     } else if (matchingArray === null && row_removed) {
       // matchingArray === null means repeating_row removed: NO Name and/or id REMOVED - RESETING ROW
@@ -1809,7 +1815,8 @@ const syncArmorToEquipment = async (id, attr, row_removed, migrate) => {
         output.armorother2_magic = 0;
         output.armorother2_mod = 0;
         output.armorother2_bulk = 0;
-        // clog(`syncArmorToEquipment: Armor Details row removed. Resetting other2:${newID}`);
+        removeRepeatingRow(`repeating_equipment_${id_low}`);
+        // clog(`syncArmorToEquipment: Armor Details row removed but ID Exists. DELETING repeating_equipment_${id_low}. Resetting other2:${newID}`);
       }
     } else if (matchingArray === null && row_removed) {
       // matchingArray === null means repeating_row removed: NO Name and/or id REMOVED - RESETING ROW
@@ -1867,7 +1874,8 @@ const syncArmorToEquipment = async (id, attr, row_removed, migrate) => {
         output.armorother3_magic = 0;
         output.armorother3_mod = 0;
         output.armorother3_bulk = 0;
-        // clog(`syncArmorToEquipment: Armor Details row removed. Resetting other3:${newID}`);
+        removeRepeatingRow(`repeating_equipment_${id_low}`);
+        // clog(`syncArmorToEquipment: Armor Details row removed but ID Exists. DELETING repeating_equipment_${id_low}. Resetting other3:${newID}`);
       }
     } else if (matchingArray === null && row_removed) {
       // matchingArray === null means repeating_row removed: NO Name and/or id REMOVED - RESETING ROW
@@ -1925,7 +1933,8 @@ const syncArmorToEquipment = async (id, attr, row_removed, migrate) => {
         output.armorother4_magic = 0;
         output.armorother4_mod = 0;
         output.armorother4_bulk = 0;
-        // clog(`syncArmorToEquipment: Armor Details row removed. Resetting other4:${newID}`);
+        removeRepeatingRow(`repeating_equipment_${id_low}`);
+        // clog(`syncArmorToEquipment: Armor Details row removed but ID Exists. DELETING repeating_equipment_${id_low}. Resetting other4:${newID}`);
       }
     } else if (matchingArray === null && row_removed) {
       // matchingArray === null means repeating_row removed: NO Name and/or id REMOVED - RESETING ROW
@@ -1983,7 +1992,8 @@ const syncArmorToEquipment = async (id, attr, row_removed, migrate) => {
         output.armorother5_magic = 0;
         output.armorother5_mod = 0;
         output.armorother5_bulk = 0;
-        // clog(`syncArmorToEquipment: Armor Details row removed. Resetting other5:${newID}`);
+        removeRepeatingRow(`repeating_equipment_${id_low}`);
+        // clog(`syncArmorToEquipment: Armor Details row removed but ID Exists. DELETING repeating_equipment_${id_low}. Resetting other5:${newID}`);
       }
     } else if (matchingArray === null && row_removed) {
       // matchingArray === null means repeating_row removed: NO Name and/or id REMOVED - RESETING ROW
@@ -2041,7 +2051,8 @@ const syncArmorToEquipment = async (id, attr, row_removed, migrate) => {
         output.armorother6_magic = 0;
         output.armorother6_mod = 0;
         output.armorother6_bulk = 0;
-        // clog(`syncArmorToEquipment: Armor Details row removed. Resetting other6:${newID}`);
+        removeRepeatingRow(`repeating_equipment_${id_low}`);
+        // clog(`syncArmorToEquipment: Armor Details row removed but ID Exists. DELETING repeating_equipment_${id_low}. Resetting other6:${newID}`);
       }
     } else if (matchingArray === null && row_removed) {
       // matchingArray === null means repeating_row removed: NO Name and/or id REMOVED - RESETING ROW
@@ -2558,6 +2569,7 @@ const recalcToHitWhisper = async (current_version, final_version) => {
   await versionator(current_version, final_version);
 };
 
+// One-time update: sets flag for To Hit Armor Rating
 const recalcToHitACadj = async (current_version, final_version) => {
   const idArray = await getSectionIDsAsync('repeating_weapon');
   const fields = idArray.flatMap((id) => [`repeating_weapon_${id}_weapon_tohitacadj_flag`, `repeating_weapon_${id}_weapon_tohitacadj`]);
@@ -2566,6 +2578,24 @@ const recalcToHitACadj = async (current_version, final_version) => {
   const output = Object.assign({}, ...updates);
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: recalcToHitACadj completed`);
+  await setAttrsAsync(output, {silent: true});
+  await versionator(current_version, final_version);
+};
+
+// On-time update: check Open Doors for non-d6 value
+const checkOpenDoors = async (current_version, final_version) => {
+  const v = await getAttrsAsync(['minorstrengthfeat', 'strength', 'exceptionalstrength']);
+  const openDoors = +v['minorstrengthfeat'] || 0;
+  // bail if range is within d6
+  if (openDoors <= 6) return;
+
+  const output = {};
+  const stat_str = +v['strength'] || 0;
+  let stat_str_per = +v['exceptionalstrength'] || 0;
+  if (+v['exceptionalstrength'] === '00') stat_str_per = 100;
+  output.minorstrengthfeat = AT_STR.getStrengthValue('Minor', stat_str, stat_str_per);
+  output.sheet_version = current_version;
+  clog(`VERSION UPDATE: checkOpenDoors completed`);
   await setAttrsAsync(output, {silent: true});
   await versionator(current_version, final_version);
 };
@@ -2657,6 +2687,8 @@ versionator = async (current_version, final_version) => {
     await recalcToHitWhisper(1.691, final_version);
   } else if (current_version < 1.692) {
     await recalcToHitACadj(1.692, final_version);
+  } else if (current_version < 1.693) {
+    await checkOpenDoors(1.693, final_version);
     // all updates completed
   } else if (current_version < final_version) {
     output.sheet_version = final_version;
@@ -2670,7 +2702,7 @@ versionator = async (current_version, final_version) => {
 // Versioning
 on('sheet:opened', async () => {
   // SET LATEST VERSION HERE. needs to be => the last update made in versionator
-  const final_version = 1.692;
+  const final_version = 1.693;
   const v = await getAttrsAsync(['sheet_version', 'old_character']);
   const output = {};
   let current_version = float(v.sheet_version);
