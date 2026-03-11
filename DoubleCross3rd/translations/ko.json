@@ -101,7 +101,7 @@
 	"i_vehicle": "비클",
 	"i_disposable_item": "일회성 아이템",
 	"i_titas": "타이터스",
-	"i_titas_action_0": "행동판정 다이스 +10개",
+	"i_titas_action_0": "",
 	"i_titas_subj_0": "판정 직전 선언",
 	"i_titas_desc_0": "모든 행동판정 다이스 +10개",
 	"i_titas_action_1": "판정 달성치에 +1D10",
