@@ -2,7 +2,7 @@
 
 Welcome to the community-created Roll20 character sheet for [Draw Steel by MCDM](https://www.mcdmproductions.com/). This Draw Steel character sheet for Roll20 is an independent product published under the DRAW STEEL Creator License and is not affiliated with MCDM Productions, LLC. DRAW STEEL © 2024 MCDM Productions, LLC.
 
-Want to help out or give feedback? Please join us on the [Draw Steel over Roll20 Discord](https://discord.com/channels/1264403896634445875/1264403896634445877).
+Want to help out or give feedback? Please join us on the [Draw Steel over Roll20 Discord](https://discord.gg/AsaaHG78wc).
 
 **Happy adventuring. Draw Steel!**
 
@@ -57,12 +57,13 @@ The player sheet tries to automatically calculate damage from ability rolls, but
 
 This feature is a work in progress and currently expects a format similar to the one found in the books. If the tier effect is not formatted properly, it will just send the plain text to chat instead of a calculated value. The format is as follows:
 
-```<base damage> + <characteristic> <type> damage;<optional: other effects>```
+```<base damage> + <characteristics> <type> damage;<optional: other effects>```
 
 Characteristic uses the single letter abbreviation to add the appropriate value ('M' for might, 'A' for Agility, and so on). Spaces are currently needed around the plus sign.
 
 Will Calculate:
 * 3 + M holy damage 
+* 3 + M or A holy damage
 * 5 damage
 * 3 + A damage; Push 2
 

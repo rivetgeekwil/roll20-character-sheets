@@ -29,6 +29,20 @@
       "description": "Choose a sheet background. note: Using Roll20's dark mode option will override this option. This can still be enabled/edited per sheet."
     },
     {
+      "attribute": "toggle_linear_background",
+      "displayname": "Linear Gradient:",
+      "type": "checkbox",
+      "value": "1",
+      "description": "Apply subtle linear gradient background to misc. sheet sub-sections."
+    },
+    {
+      "attribute": "toggle_row_banding",
+      "displayname": "Row Shading:",
+      "type": "checkbox",
+      "value": "1",
+      "description": "Apply subtle alternating background contrast to sheet rows."
+    },
+    {
       "attribute": "color_option",
       "displayname": "Roll Template Color:",
       "type": "select",
@@ -182,6 +196,7 @@
       "displayname": "Hide Multi-Class:",
       "type": "checkbox",
       "value": "1",
+      "checked": "checked",
       "description": "Hide additional class fields by default. This can still be enabled/edited per sheet."
     },
     {
@@ -202,32 +217,34 @@
     },
     {
       "attribute": "whisper_pc",
-      "displayname": "Whisper PC Rolls:",
+      "displayname": "Whisper PC Rolls?:",
       "type": "select",
-      "options": ["Open Rolls| ", "Whisper Rolls|/w gm"],
+      "options": ["Open Rolls| ", "Whisper Rolls|/w gm", "?{Whisper to DM?|no|yes,/w gm}"],
       "default": " ",
-      "description": "Whisper rolls made from the PC portion of the sheet. This can still be enabled/edited per sheet."
+      "description": "Whisper rolls made from the PC portion of the sheet. 'Open' rolls will be shown to all. 'Whispered' rolls will be hidden to other PC's. 'Ask' and rolls will include a query to whisper the roll or not. The DM sees all. This can still be enabled/edited per sheet."
     },
     {
       "attribute": "whisper_npc",
-      "displayname": "Whisper NPC Rolls:",
+      "displayname": "Whisper Monster Rolls?:",
       "type": "select",
-      "options": ["Open Rolls| ", "Whisper Rolls|/w gm"],
+      "options": ["Open Rolls| ", "Whisper Rolls|/w gm", "?{Whisper to DM?|no|yes,/w gm}"],
       "default": " ",
-      "description": "Whisper rolls made from the NPC portion of the sheet. This can still be enabled/edited per sheet."
+      "description": "Whisper rolls made from the NPC portion of the sheet. 'Open' rolls will be shown to all. 'Whispered' rolls will be hidden to other PC's. 'Ask' and rolls will include a query to whisper the roll or not. The DM sees all. This can still be enabled/edited per sheet."
     },
     {
       "attribute": "sync_hp_flag",
       "displayname": "Sync HP:",
       "type": "checkbox",
       "value": "1",
-      "description": "Let the sheet sync Total HP from Class Details with HP ( @{hitpoints_max} ). This can still be enabled/edited per sheet."
+      "checked": "checked",
+      "description": "Let the sheet sync Total HP max from Class Details with HP ( @{hitpoints_max} ). This can still be enabled/edited per sheet."
     },
     {
       "attribute": "sync_ac_flag",
       "displayname": "Sync AC:",
       "type": "checkbox",
       "value": "1",
+      "checked": "checked",
       "description": "Let the sheet sync Total AC from Armor Details with AC ( @{armorclass} ). This can still be enabled/edited per sheet."
     },
     {
@@ -275,7 +292,22 @@
       "type": "checkbox",
       "value": "1",
       "description": "Linking to a class will automatically adjust the thief base  values when the linked class level changes. This can still be enabled/edited per sheet."
+    },
+    {
+      "attribute": "sync_caster_class1",
+      "displayname": "Sync Caster Class 1:",
+      "type": "checkbox",
+      "value": "1",
+      "description": "Linking to a class will automatically adjust the caster name and level values whenever the linked class changes."
+    },
+    {
+      "attribute": "sync_caster_class2",
+      "displayname": "Sync Caster Class 2:",
+      "type": "checkbox",
+      "value": "1",
+      "description": "Linking to a class will automatically adjust the caster name and level values whenever the linked class changes."
     }
   ],
+  "printable": true,
   "legacy": false
 }
