@@ -126,7 +126,7 @@
 	"i_base_effect_01_tar": "자신",
 	"i_base_effect_01_dis": "지근",
 	"i_base_effect_01_reu": "효과참조",
-	"i_base_effect_01_eff": "",
+	"i_base_effect_01_eff": "당신이 전투불능이 되었을 때, 혹은 씬을 마칠 때 사용한다. 당신은 전투불능을 회복하고 HP를 (LV)D점 회복한다. 회복한 HP와 같은 수치만큼 당신의 침식치가 상승한다. 이 이펙트는 침식치 100% 이상일 때는 사용할 수 없다. 이 이펙트는 중압을 입었을 때에도 사용할 수 있다.",
 	"i_base_effect_02_tit": "워딩",
 	"i_base_effect_02_tim": "오토액션",
 	"i_base_effect_02_tar": "씬",
