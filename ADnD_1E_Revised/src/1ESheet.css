@@ -191,6 +191,7 @@
 }
 
 .tab-content .charsheet {
+  accent-color: var(--link-hover);
   padding: 0;
 }
 
