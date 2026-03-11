@@ -376,8 +376,9 @@ label[for*='minimize']::before {
 
 /* Sheet Options Panel */
 
-
-
+.import-panel > div > textarea {
+	width:100%; 
+}
 
 /* Header Panel */
 
@@ -400,7 +401,7 @@ label[for*='minimize']::before {
 	color: orangered;
 }
 
-.profile-panel {
+.profile-panel, .import-panel {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	column-gap: 0.5em;

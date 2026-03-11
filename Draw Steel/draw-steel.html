@@ -28,14 +28,22 @@
 				<input id="options-calculate-damage" name="attr_options_calculate_damage" type="checkbox" value="1" />
 			</div>
 		</div>
-		<div class="sheet-panel-box">
-			<h5 data-i18n="import"></h5>
-			<p data-i18n="import-warning1"></p>
-			<p class="text-warning" data-i18n="import-warning2"></p>
-			<p class="text-warning" data-i18n="import-warning3"></p>
-			<textarea name="attr_forgesteel_json"></textarea>
-			<button type="action" name="act_import" data-i18n="import-player"></button>
-			<button type="action" name="act_importmonster" data-i18n="import-monster"></button>
+		<div class="sheet-panel-box import-panel">
+			<div class="grid-span-full">
+				<h5 data-i18n="import">Import</h5>
+			</div>
+			<div>
+				<p data-i18n="import-warning1">Paste the contents of the Forge Steel data export (*.ds-hero file) into the text box below, then click 'Import'.</p>
+				<p class="text-warning" data-i18n="import-warning2">This will overwrite attributes on this sheet. This cannot be undone.</p>
+				<p class="text-warning" data-i18n="import-warning3">The import feature is a work in progress. Check for mistakes.</p>
+				<textarea name="attr_forgesteel_json" style="width: 100%;"></textarea>
+			</div>
+			<div>
+				<button type="action" name="act_import" data-i18n="import-player">Import Player</button>
+				<button type="action" name="act_importmonster" data-i18n="import-monster">Import Monster</button>
+				<button type="action" name="act_importmonstergroup" data-i18n="import-monster-group">Import From Monster Group</button>
+				<button type="action" name="act_importmalice" data-i18n="import-malice">Import Malice Abilities</button>
+			</div>
 		</div>
 	</div>
 	
@@ -6458,129 +6466,135 @@
 			}
 
 			const data = JSON.parse(forgesteel_json);
-						
-			// 2. CORE MONSTER INFORMATION
-			// -----------------------------
-			
-			// Primary characteristics (attributes).
-			const findCharacteristic = (name) => data.characteristics.find(c => c.characteristic === name)?.value || 0;
-			const might = findCharacteristic('Might');
-			const agility = findCharacteristic('Agility');
-			const reason = findCharacteristic('Reason');
-			const intuition = findCharacteristic('Intuition');
-			const presence = findCharacteristic('Presence');
-			
-			// Keywords and Role
-			const keywords = data.keywords.join(', ');
-			const roletype = data.role.type === 'No Role' ? '' : ` ${data.role.type}`;
-			const role = `${data.role.organization}${roletype}`;
-
-			// Size, Speed and Movement Types
-			const sizeObject = data.size ?? { value: 1, mod: 'M' };
-			const size = `${sizeObject.value}${sizeObject.mod ?? ''}`;
-			const speed = data.speed.value ?? 5;
-			const movement = data.speed.modes.join(', ') ?? '';  
-			
-			// Stability and Stamina
-			const stability = data.stability ?? 0;
-			const stamina = data.stamina ?? 0;
-			
-			// Immunities and Weaknesses
-			const immunity = getDamageModifiers(data.features, 1, 'Immunity');
-			const weakness = getDamageModifiers(data.features, 1, 'Weakness');
-			
-			// EV, With Captain, and Free Strike Damage
-			const encountervalue = data.encounterValue;
-			const withcaptain = data.withCaptain;
-			const freestrike = data.freeStrikeDamage;
-		
-			// 3. REPEATING ABILITIES
-			// ----------------------------------------------------
-			
-			const traits = data.features
-				.filter(f => f.type === FEATURE_TYPES.TEXT)
-				.reduce((acc, f) => {
-					const id = generateRowID();
-					if (f.name === 'Solo Monster' || f.name === 'Ajax') {
-						const parts = f.description.trim().split('\n');
-						
-						const firstPart = parts[0].replace('* **', '').split('** ');
-						const soloOne = firstPart[0];
-						const soloOneText = firstPart[1];
-
-						const secondPart = parts[1].replace('* **', '').split('** ');
-						const soloTwo = secondPart[0];
-						const soloTwoText = secondPart[1];
-
-						acc[`repeating_npcabilities_${id}_ability_name`] = f.name;
-						acc[`repeating_npcabilities_${id}_ability_subtype`] = 'solo-monster';
-						acc[`repeating_npcabilities_${id}_ability_solo_1_name`] = soloOne;
-						acc[`repeating_npcabilities_${id}_ability_solo_1_text`] = soloOneText;
-						acc[`repeating_npcabilities_${id}_ability_solo_2_name`] = soloTwo;
-						acc[`repeating_npcabilities_${id}_ability_solo_2_text`] = soloTwoText;
-					} else {
-						acc[`repeating_npcabilities_${id}_ability_name`] = f.name;
-						acc[`repeating_npcabilities_${id}_ability_subtype`] = 'trait';
-						acc[`repeating_npcabilities_${id}_ability_trait`] = f.description;
-					}
-					return acc;
-				}, {});
-				
-			const abilityFeatures = data.features
-				.filter(f => f.type === FEATURE_TYPES.ABILITY)
-				.reduce((acc, f) => ({ ...acc, ...processMonsterAbility(f.data.ability) }), {});
-				
-
-
-			// 4. FINAL ASSEMBLY & ATTRIBUTE SETTING
-			// -------------------------------------
-			// Consolidate all processed data into a single object for setAttrs.
-			const newAttrs = {
-				forgesteel_json: '', // Clear the import field.
-				is_npc: 'on',
-				
-				// Core Info
-				character_name: data.name,
-				level: data.level,
-				npc_role: role,
-				npc_keywords: keywords,
-				npc_EV: encountervalue,
-				// Stats
-				size,
-				speed,
-				stamina,
-				stability: stability,
-				npc_freestrike: freestrike,
-				
-				immunity,
-				weakness,
-				npc_movement: movement,
-				npc_with_captain: withcaptain,
-				
-				might,
-				agility,
-				reason,
-				intuition,
-				presence,
-				// Spread in repeating section data
-				...traits,
-				...abilityFeatures,
-			};
-
-			// Clear existing repeating sections before adding new data.
-			await clearRepeatingSection('npcabilities');
-			await clearRepeatingSection('malice');
-			await clearRepeatingSection('villainaction');
-			
-			// Set the new attributes on the character sheet.
-			await setAttrsAsync(newAttrs);
-			
-			console.log('Monster import successful!', newAttrs);
-
+			importMonster(data);
 		} catch (error) {
 			console.error("Failed to import monster data. Please ensure the JSON is valid.", error);
 		}
 	});
+
+	/**
+	 * Imports monster data from a loaded JSON file
+	 * @param {object} data the loaded and validated JSON file
+	 **/
+	
+	async function importMonster(data) {
+		// 2. CORE MONSTER INFORMATION
+		// -----------------------------
+		
+		// Primary characteristics (attributes).
+		const findCharacteristic = (name) => data.characteristics.find(c => c.characteristic === name)?.value || 0;
+		const might = findCharacteristic('Might');
+		const agility = findCharacteristic('Agility');
+		const reason = findCharacteristic('Reason');
+		const intuition = findCharacteristic('Intuition');
+		const presence = findCharacteristic('Presence');
+		
+		// Keywords and Role
+		const keywords = data.keywords.join(', ');
+		const roletype = data.role.type === 'No Role' ? '' : ` ${data.role.type}`;
+		const role = `${data.role.organization}${roletype}`;
+			// Size, Speed and Movement Types
+		const sizeObject = data.size ?? { value: 1, mod: 'M' };
+		const size = `${sizeObject.value}${sizeObject.mod ?? ''}`;
+		const speed = data.speed.value ?? 5;
+		const movement = data.speed.modes.join(', ') ?? '';  
+		
+		// Stability and Stamina
+		const stability = data.stability ?? 0;
+		const stamina = data.stamina ?? 0;
+			
+		// Immunities and Weaknesses
+		const immunity = getDamageModifiers(data.features, 1, 'Immunity');
+		const weakness = getDamageModifiers(data.features, 1, 'Weakness');
+		
+		// EV, With Captain, and Free Strike Damage
+		const encountervalue = data.encounterValue;
+		const withcaptain = data.withCaptain;
+		const freestrike = data.freeStrikeDamage;
+		
+		//3. REPEATING ABILITIES
+		// ----------------------------------------------------
+		
+		const traits = data.features
+			.filter(f => f.type === FEATURE_TYPES.TEXT)
+			.reduce((acc, f) => {
+				const id = generateRowID();
+				if (f.name === 'Solo Monster' || f.name === 'Ajax') {
+					const parts = f.description.trim().split('\n');
+					
+					const firstPart = parts[0].replace('* **', '').split('** ');
+					const soloOne = firstPart[0];
+					const soloOneText = firstPart[1];
+
+					const secondPart = parts[1].replace('* **', '').split('** ');
+					const soloTwo = secondPart[0];
+					const soloTwoText = secondPart[1];
+
+					acc[`repeating_npcabilities_${id}_ability_name`] = f.name;
+					acc[`repeating_npcabilities_${id}_ability_subtype`] = 'solo-monster';
+					acc[`repeating_npcabilities_${id}_ability_solo_1_name`] = soloOne;
+					acc[`repeating_npcabilities_${id}_ability_solo_1_text`] = soloOneText;
+					acc[`repeating_npcabilities_${id}_ability_solo_2_name`] = soloTwo;
+					acc[`repeating_npcabilities_${id}_ability_solo_2_text`] = soloTwoText;
+				} else {
+					acc[`repeating_npcabilities_${id}_ability_name`] = f.name;
+					acc[`repeating_npcabilities_${id}_ability_subtype`] = 'trait';
+					acc[`repeating_npcabilities_${id}_ability_trait`] = f.description;
+				}
+				return acc;
+			}, {});
+				
+		const abilityFeatures = data.features
+			.filter(f => f.type === FEATURE_TYPES.ABILITY)
+			.reduce((acc, f) => ({ ...acc, ...processMonsterAbility(f.data.ability) }), {});
+				
+
+
+		// 4. FINAL ASSEMBLY & ATTRIBUTE SETTING
+		// -------------------------------------
+		// Consolidate all processed data into a single object for setAttrs.
+		const newAttrs = {
+			forgesteel_json: '', // Clear the import field.
+			is_npc: 'on',
+				
+			// Core Info
+			character_name: data.name,
+			level: data.level,
+			npc_role: role,
+			npc_keywords: keywords,
+			npc_EV: encountervalue,
+			// Stats
+			size,
+			speed,
+			stamina,
+			stability: stability,
+			npc_freestrike: freestrike,
+			
+			immunity,
+			weakness,
+			npc_movement: movement,
+			npc_with_captain: withcaptain,
+			
+			might,
+			agility,
+			reason,
+			intuition,
+			presence,
+			// Spread in repeating section data
+			...traits,
+			...abilityFeatures,
+		};
+
+		// Clear existing repeating sections before adding new data.
+		await clearRepeatingSection('npcabilities');
+		await clearRepeatingSection('malice');
+		await clearRepeatingSection('villainaction');
+			
+		// Set the new attributes on the character sheet.
+		await setAttrsAsync(newAttrs);
+			
+		console.log('Monster import successful!', newAttrs);
+	}
 
 	/**
 	 * Processes ability data into a flat object for setting repeating section attributes.
@@ -6589,6 +6603,7 @@
 	 */
 
 	function processMonsterAbility(abilityData) {
+	
 		// 1. Determine ability type and get configuration.
 		const usage = ABILITY_TYPE_MAP[abilityData.type.usage].type || ABILITY_TYPE_MAP.default.type;
 		const cost = abilityData.cost === 'signature' ? abilityData.cost : parseInt(abilityData.cost) || 0;
@@ -6665,6 +6680,123 @@
 		return attributes;
 	}
 	
+	function processMaliceAbility(abilityData) {
+		console.log('~~~ processMaliceAbility ~~~');
+		// 1. Determine ability type and get configuration.
+		const usage = 'no-action';
+		const subtype = 'malice-trait';
+		const cost = abilityData.data.cost ? abilityData.data.cost : parseInt(abilityData.data.cost) || 0;
+		
+		const prefix = 'malice';
+		const id = generateRowID();
+
+		// 2. Extract and format primary data fields.
+		const effect = abilityData.data.sections.map(item => {
+				// Check if the item is a dictionary (object) and not null
+				if (typeof item === 'object' && item !== null) {
+					// Format the object into a readable string
+					return `\nTier 1: ${item.tier1}\n` +
+							`Tier 2: ${item.tier2}\n` +
+							`Tier 3: ${item.tier3}\n`;
+				}
+				// If it's already a string, just return it
+				return item;
+			}).join('\n');
+		
+		const special = abilityData.data.sections.find(s => s.type === 'text' && s.text.startsWith('**Special:**'));
+		
+		// 4. Assemble the final attribute object.
+		const attributes = {
+			[`repeating_${prefix}_${id}_ability_name`]: abilityData.name,
+			[`repeating_${prefix}_${id}_ability_description`]: abilityData.description,
+			[`repeating_${prefix}_${id}_ability_type`]: usage,
+			[`repeating_${prefix}_${id}_ability_subtype`]: subtype,
+			[`repeating_${prefix}_${id}_ability_malice_cost`]: cost,
+			[`repeating_${prefix}_${id}_has_effect`]: effect ? 'on' : 0,
+			[`repeating_${prefix}_${id}_ability_effect`]: effect,
+		};
+		
+		if (special) {
+			Object.assign(attributes, {
+				[`repeating_${prefix}_${id}_has_special`]: 'on',
+				[`repeating_${prefix}_${id}_ability_special`]: special.text.replace('**Special:** ', ''),
+			});
+		}
+		
+		return attributes;
+	}
+	
+	on('clicked:importmonstergroup', async () => {
+		try {
+			// 1. DATA RETRIEVAL & PARSING
+			// ---------------------------
+			// Get the raw JSON string from the character sheet attributes.
+			const { forgesteel_json } = await getAttrsAsync(['forgesteel_json']);
+			if (!forgesteel_json) {
+				console.warn('Import data is empty. Aborting.');
+				return;
+			}
+
+			const data = JSON.parse(forgesteel_json);
+			
+			// Make sure the group file actually has monsters
+			if (!data.hasOwnProperty("monsters")) {
+				console.warn('Import data has no monsters. Aborting.');
+				return;
+			}
+			
+			// iterate through the monsters and add them to a list.
+			let queryString = "!{{template:default}}{{ask=![[?{Monster to Import:";
+			for (const [index, monster] of data.monsters.entries()) {
+				
+				queryString += "|" + monster.name + ", " + index.toString();
+			}
+			queryString += "}]]}}";
+			
+			const results = await startRoll(queryString);
+			finishRoll( results.rollId );
+			const choice = results.results.ask.result;
+			importMonster(data.monsters[choice]);
+			console.log(data.monsters[choice].name);
+			
+        	
+			
+		} catch (error) {
+			console.error("Failed to import monster data. Please ensure the JSON is valid.", error);
+		}
+	});			
+	
+	on('clicked:importmalice', async () => {
+		try {
+			// 1. DATA RETRIEVAL & PARSING
+			// ---------------------------
+			// Get the raw JSON string from the character sheet attributes.
+			const { forgesteel_json } = await getAttrsAsync(['forgesteel_json']);
+			if (!forgesteel_json) {
+				console.warn('Import data is empty. Aborting.');
+				return;
+			}
+
+			const data = JSON.parse(forgesteel_json);
+			
+			// Make sure the group file actually has monsters
+			if (!data.hasOwnProperty("malice")) {
+				console.warn('Import data has no malice data. Aborting.');
+				return;
+			}
+			
+			importMalice(data.malice);
+			
+		} catch (error) {
+			console.error("Failed to import monster data. Please ensure the JSON is valid.", error);
+		}
+	});			
+	
+	function importMalice(maliceData) {
+		const maliceFeatures = maliceData.reduce((acc, f) => ({ ...acc, ...processMaliceAbility(f) }), {});
+		console.log(maliceFeatures);
+		setAttrs(maliceFeatures);
+	}
 	/**
 	** import end
 	**/

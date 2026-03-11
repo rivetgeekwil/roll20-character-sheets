@@ -557,5 +557,7 @@
 	"villain-action": "Villain Actions",
 	"villain-toggle": "Has Villain Actions",
 	"magic": "Magic",
-	"psionic": "Psionic"
+	"psionic": "Psionic",
+	"import-malice": "Import Malice Abilities",
+	"import-monster-group": "Import Monster From Group"
 }
