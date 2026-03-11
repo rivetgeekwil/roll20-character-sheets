@@ -193,6 +193,11 @@
 .tab-content .charsheet {
   padding: 0;
 }
+
+.sheet-darkmode .tab-content .charsheet {
+  accent-color: var(--dark-accent);
+}
+
 /* enables linear gradient background */
 .charsheet .background .linear-background {
   background-image: none;
