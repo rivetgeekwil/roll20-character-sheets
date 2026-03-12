@@ -12,9 +12,9 @@
         
       <button type="action" name="act_zero" class="sheet-notebook-tab sheet-button0">CHARACTER </button>
       <button type="action" name="act_un" class="sheet-notebook-tab sheet-button1">PLAYER'S AID</button>
-      <!--  DESACTIVA BOTONS DEL MENU 
-      <button type="action" name="act_dos" class="sheet-notebook-tab sheet-button2">DOS</button>
-      <button type="action" name="act_tres" class="sheet-notebook-tab sheet-button3">TRES</button>
+      <button type="action" name="act_dos" class="sheet-notebook-tab sheet-button2">SPELLS</button>
+      <button type="action" name="act_tres" class="sheet-notebook-tab sheet-button3">VIOLENCE</button>
+     <!--  DESACTIVA BOTONS DEL MENU 
       <button type="action" name="act_cuatre" class="sheet-notebook-tab sheet-button4">QUATRE</button> 
          DESACTIVA BOTONS DEL MENU -->
     </div>
@@ -30,23 +30,157 @@
         </div><!-- end .sheet-esquerrazero -->
     </div><!-- end .sheet-zero -->
 
+      
     <div class="sheet-un">
 
     </div><!-- end .sheet-un -->
 
+      
     <div class="sheet-dos">
-      <h2>DOS</h2>
-      <p>Contenido de la pestaña two</p>
+             <div class="sheet-miscastdice">
+                    <button type="roll" class="sheet-VJbtna" name="roll_miscast" value="@{tirada_secreta} &{template:cloudempressdados} {{title=Miscast Roll}} {{subtitle=@{character_name}}} {{miscast=[[1d10]]}}"/>      
+             </div><!-- end .sheet-miscastdice -->     
+            
+        <div class="sheet-spellcolumn">    
+                <fieldset class="repeating_spell">    
+                     <div class="sheet-spellbox">             
+                         <div class="sheet-espai-5"></div><!-- end .sheet-espai-5 -->
+
+                         <button type="roll" class="sheet-VJbtna" name="roll_spell" value="@{tirada_secreta} &{template:cloudempress} {{title=Spell Roll }} {{subtitle=@{character_name}}} {{spellname=@{spell}}} {{caracteristica=[[@{heart}]]}} {{rollResult=[[?{Difficulty?|Normal,1d100|Advantage,2d100kl1|Disadvantage,2d100kh1}cs<1cf>100+?{Modifier|0}]]}}  "/>   
+
+                         <div class="sheet-etiquetaspell">Spell Name:</div><!-- end .sheet-etiquetaspell -->
+                         <input class="sheet-spellnombre" type="text" name="attr_spell" title="Spell Name" value="Spell Name"/>
+
+                         <div class="sheet-etiquetamarge"></div><!-- end .sheet-etiquetaspell -->
+                         <div class="sheet-etiquetaspell">Chalk Cost:</div><!-- end .sheet-etiquetaspell -->
+                          <input class="sheet-spellchalk" type="number" name="attr_spellchalk" title="Spell Chalk Cost" value="0"/>
+
+                         <div class="sheet-etiquetamarge"></div><!-- end .sheet-etiquetamarge -->
+
+
+                         <details class="sheet-details2">
+                              <summary class="sheet-details2-summary"></summary>
+                             
+                                     <div class="sheet-spelldetalles">
+                                        <textarea name="attr_spelleffect" title="SPELL EFFECT">EFFECT:</textarea>
+                                     </div><!-- end .sheet-spellbox -->
+                             
+                                     <div class="sheet-spelldetalles">
+                                        <textarea name="attr_spellaftereffect" >AFTEREFFECT:</textarea>
+                                     </div><!-- end .sheet-spelldetalles -->
+                         </details>
+                         </div><!-- end .sheet-spellbox -->
+
+                 </fieldset> 
+        </div><!-- end .sheet-spellcolumn --> 
+        
+        
+        
+         <div class="sheet-crestcolumn">    
+                <fieldset class="repeating_crest">    
+                     <div class="sheet-spellbox">             
+                         <div class="sheet-espai-5"></div><!-- end .sheet-espai-5 -->
+
+                         <button type="roll" class="sheet-VJbtna" name="roll_crest" value="@{tirada_secreta} &{template:cloudempress} {{title=Crest Roll }} {{subtitle=@{character_name}}} {{crestname=@{crest}}} {{caracteristica=[[@{mind}]]}} {{rollResult=[[?{Difficulty?|Normal,1d100|Advantage,2d100kl1|Disadvantage,2d100kh1}cs<1cf>100+?{Modifier|0}]]}}  "/>   
+
+                         <input class="sheet-crestnombre" type="text" name="attr_crest" title="Crest Name" value="Crest Name"/>
+
+                         <div class="sheet-etiquetamarge"></div><!-- end .sheet-etiquetamarge -->
+                         <div class="sheet-etiquetaspell">Chalk Cost:</div><!-- end .sheet-etiquetaspell -->
+                          <input class="sheet-spellchalk" type="number" name="attr_crestchalk" title="Crest Chalk Cost" value="0"/>
+
+                         <div class="sheet-etiquetamarge"></div><!-- end .sheet-etiquetaspell -->
+
+
+                         <details class="sheet-details2">
+                              <summary class="sheet-details2-summary"></summary>
+                             
+                                     <div class="sheet-spelldetalles">
+                                        <textarea name="attr_cresteffect" title="CREST EFFECT">EFFECT:</textarea>
+                                     </div><!-- end .sheet-spellbox -->
+                         </details>
+                         </div><!-- end .sheet-spellbox -->
+
+                 </fieldset> 
+        </div><!-- end .sheet-crestcolumn --> 
+        
+        
+        
+        
+        <div class="sheet-espai-10"></div><!-- end .sheet-espai-10 -->
+      
     </div><!-- end .sheet-dos -->
+      
+    
 
     <div class="sheet-tres">
-      <h2>TRES</h2>
-      <p>Contenido de la pestaña three</p>
+        <div class="sheet-toolviolegendbar">
+                    
+        </div><!-- end .sheet-toolviolegendbar -->
+        
+        
+        <div class="sheet-toolvioventana">
+        
+             <div class="sheet-width100">
+                              <div class="sheet-espai10"></div><!-- end .sheet-espai10 -->  
+
+                                    <fieldset class="repeating_armas">
+                                           <input class="sheet-item2A" type="text" name="attr_arma" title="Violence Tool Name" value="Violence Tool"/>
+                                        
+                                           <select  class="sheet-armaselect-A" name="attr_rarity" title="Item Rarity" style="  "> 
+                                                        <option value="@{common}" title="Common" selected>C</option> 
+                                                        <option value="@{uncommon}" title="Uncommon" >U</option>
+                                                        <option value="@{rare}" title="Rare" >R</option>
+                                                        <option value="@{mythical}" title="Mythical" >M</option>
+                                                        <option value="@{none}" title="N/A" >N/A</option>   
+                                            </select>
+                                            
+                                            <select  class="sheet-armaselect-B" name="attr_rangetool" title="Range of the distance attack. " style="  "> 
+                                                        <option value="@{adjacent}" title="Adjacent: Basically touching. Roughly 1–5 ft away." selected>Adjacent</option> 
+                                                        <option value="@{nearby}" title="Nearby: You could poke them with a stick. You could run to them in a couple of seconds. Roughly 10–20 ft away." >Nearby</option>
+                                                        <option value="@{longrange}" title="Long Range: You can hear them yelling. You could reach them in a round. Roughly 30–150 ft away.">Long </option>
+                                                        <option value="@{extremrange}" title="Extreme Range: You can see them. They are quite far off; it might take some time to get to them. 200 ft or more away.">Extreme</option>
+                                            </select>
+                                    
+                                            <select  class="sheet-armaselect-B" name="attr_tipoarma" title="Choose the stat for the tool and his combat roll. " style="  "> 
+                                                        <option value="@{strength}">Strength</option> 
+                                                        <option value="@{speed}" selected>Speed</option>
+                                            </select> 
+                                        
+                                             <button type="roll" style="float: left; margin:6px 0px 0px 3px;" class="sheet-VJbtna3" name="roll_arma" value="@{tirada_secreta} &{template:cloudempress} {{title= @{arma}}} {{subtitle=@{character_name}}} {{caracteristica=[[@{tipoarma}]]}} {{rollResult=[[?{Difficulty?|Normal,1d100|Advantage,2d100kl1|Disadvantage,2d100kh1}cs<1cf>100+?{Modifier|0}]]}} {{Damage= [[@{damage}]] }}"/>
+                                        
+                                            <input class="sheet-item2B" type="text" name="attr_damage" title="Damage of the violence tool" value="0"/> 
+                                        
+                                            <input class="sheet-item2C" type="text" name="attr_reload" title="Attack until Reload" value="0"/>                                     
+                                        
+                                            <details class="sheet-details">
+                                                <summary class="sheet-details-summary"></summary>
+                                                <div class="sheet-item2detalles">
+                                                    <textarea name="attr_armadetalles"></textarea>
+                                                </div>
+                                            </details>
+                                                
+                                      </fieldset> 
+
+                                 <div class="sheet-espai-10"></div><!-- end .sheet-espai-10 -->   
+                     </div><!-- end .sheet-width100 -->                 
+        </div><!-- end .sheet-toolvioventana -->
+        
+        
+         <div class="sheet-othertools">
+                 <input class="sheet-othertoolsinput" type="text" name="attr_othertool" title="Attack until Reload" value="OTHER TOOLS OR CUSTOM FIELD"/>
+             
+                 <textarea class="sheet-textareaothertools"  name="attr_areaothertools" style="width: 500px; height:170px; margin: 5px 0px 0px 0px; padding: 10px 10px 0px 10px; " title="" ></textarea>
+         </div><!-- end .sheet-othertools -->
+        
+        
+        
+        
     </div><!-- end .sheet-tres -->
       
     <div class="sheet-quatre">
       <h2>QUATRE</h2>
-      <p>Contenido de la pestaña four</p>
+      <p>Contingut pestanya quatre</p>
     </div><!-- end .sheet-quatre -->  
 
   </div><!-- end .sheet-container -->
@@ -292,9 +426,9 @@
                             <div class="sheet-habilitat">Scrounging</div><!-- end .sheet-habilitat -->
                     </div><!-- end .sheet-width100 -->   
                 
-                    <div class="sheet-width100">
-                            <input type="checkbox" class="sheet-checkhabilitat" style="margin: 0px 5px 0px 10px;" value="1" name="attr_check_singing" title="Singing: Control the pitch, tone, and timbre of your voice to make beautiful music. Impresses strangers."> 
-                            <div class="sheet-habilitat">Singing</div><!-- end .sheet-habilitat -->
+                    <div class="sheet-width100" >
+                            <input type="checkbox" class="sheet-checkhabilitat" style="margin: 0px 5px 0px 10px;" value="1" name="attr_check_singing" title="Singing: Control the pitch, tone, and timbre of your voice to make beautiful music. Impresses strangers." > 
+                            <div class="sheet-habilitat" >Singing</div><!-- end .sheet-habilitat -->
                     </div><!-- end .sheet-width100 -->   
                 
                     <div class="sheet-width100">   
@@ -358,6 +492,18 @@
                         </div><!-- end .sheet-header -->
 
                             <div class="sheet-contento">
+                              {{#spellname}}
+                                <div class="sheet-filatemplate1">
+                                  Spell: {{spellname}}
+                                </div>
+                              {{/spellname}}
+                                
+                              {{#crestname}}
+                                <div class="sheet-filatemplate1">
+                                  Crest: {{crestname}}
+                                </div>
+                              {{/crestname}}    
+                                
                               {{#caracteristica}}
                                 <div class="sheet-filatemplate1">
                                   Difficulty: {{caracteristica}}
@@ -370,19 +516,22 @@
                                 </div>
                               {{/rollResult}}
 
-                                  <div class="sheet-filatemplate2">
-                                    {{#rollLess() rollResult caracteristica}}
-                                      <span style="color: green; font-weight: bold;">SUCCESS!</span>
-                                    {{/rollLess() rollResult caracteristica}}
-
+                                  
+                                      
                                     {{#rollGreater() rollResult caracteristica}}
-                                      <span style="color: red; font-weight: bold;">FAIL!</span>
+                                        <div class="sheet-filatemplate2">
+                                              <span style="color: red; font-weight: bold;">FAIL!</span>
+                                         </div><!-- end .sheet-filatemplate2 -->    
                                     {{/rollGreater() rollResult caracteristica}}
                                       
-                                    {{#rollTotal() rollResult caracteristica}}
-                                      <span style="color: green; font-weight: bold;">SUCCESS!</span>
-                                    {{/rollTotal() rollResult caracteristica}}  
-                                  </div><!-- end .sheet-filatemplate2 -->
+                                    {{#^rollGreater() rollResult caracteristica}}
+                                         <div class="sheet-filatemplate2">
+                                              <span style="color: green; font-weight: bold;">SUCCESS!</span>
+                                         </div><!-- end .sheet-filatemplate2 -->     
+                                               {{#Damage}}<div class="sheet-filatemplate1"><strong style="color:#ff0000;">DAMAGE:{{Damage}}</strong></div>{{/Damage}}      
+                                    {{/^rollGreater() rollResult caracteristica}}
+  
+                                 
 
                         </div><!-- end .sheet-contento -->
                       </div><!-- end .sheet-fotofondo -->
@@ -399,6 +548,7 @@
                         </div><!-- end .sheet-header -->
 
                             <div class="sheet-contento">
+                           
                               {{#caracteristica}}
                                 <div class="sheet-filatemplate1">
                                   Difficulty: {{caracteristica}}
@@ -411,18 +561,16 @@
                                 </div>
                               {{/rollResult}}
 
-                                  <div class="sheet-filatemplate2">
-                                    {{#rollLess() rollResult caracteristica}}
-                                      <span style="color: green; font-weight: bold;">SUCCESS!</span>
-                                    {{/rollLess() rollResult caracteristica}}
-
+                                   <div class="sheet-filatemplate2">
+                                      
                                     {{#rollGreater() rollResult caracteristica}}
                                       <span style="color: red; font-weight: bold;">FAIL!</span>
                                     {{/rollGreater() rollResult caracteristica}}
                                       
-                                    {{#rollTotal() rollResult caracteristica}}
+                                    {{#^rollGreater() rollResult caracteristica}}
                                       <span style="color: green; font-weight: bold;">SUCCESS!</span>
-                                    {{/rollTotal() rollResult caracteristica}}  
+                                    {{/^rollGreater() rollResult caracteristica}}
+  
                                   </div><!-- end .sheet-filatemplate2 -->
 
                         </div><!-- end .sheet-contento -->
@@ -507,7 +655,6 @@
                                             
                                             
                                             
-                                            
                                              {{#curses}}<div class="sheet-filatemplate2">Result: {{curses}}</div>{{/curses}}
                                             
                                             {{#rollTotal() curses 1}}
@@ -569,6 +716,71 @@
                                                 You fall into an unnatural sleep and cannot wake up. You no longer play this character until a remedy can be found. 
                                               </div>
                                             {{/rollTotal() curses 10}}
+                                            
+                                            
+                                            
+                                            
+                                           {{#miscast}}<div class="sheet-filatemplate2">Result: {{miscast}}</div>{{/miscast}}
+                                            
+                                            {{#rollTotal() miscast 1}}
+                                              <div class="sheet-filatemplate1">
+                                                You are able to fix the mistake at the last minute.
+                                              </div>
+                                            {{/rollTotal() miscast 1}} 
+                                            
+                                            {{#rollTotal() miscast 2}}
+                                              <div class="sheet-filatemplate1">
+                                                You are able to fix the mistake at the last minute.
+                                              </div>
+                                            {{/rollTotal() miscast 2}}
+                                            
+                                            {{#rollTotal() miscast 3}}
+                                              <div class="sheet-filatemplate1">
+                                                The effect hits twice as many targets.
+                                              </div>
+                                            {{/rollTotal() miscast 3}}
+                                            
+                                            {{#rollTotal() miscast 4}}
+                                              <div class="sheet-filatemplate1">
+                                                The effect’s potency is doubled.
+                                              </div>
+                                            {{/rollTotal() miscast 4}}
+                                            
+                                            {{#rollTotal() miscast 5}}
+                                              <div class="sheet-filatemplate1">
+                                               The intended effect does not occur. Instead, a random spell (pgs. 46–48) or crest (pgs. 43–44) effect hits the target.
+                                              </div>
+                                            {{/rollTotal() miscast 5}}
+                                            
+                                            {{#rollTotal() miscast 6}}
+                                              <div class="sheet-filatemplate1">
+                                                The effect occurs, but a random target is affected.
+                                              </div>
+                                            {{/rollTotal() miscast 6}}
+                                            
+                                            {{#rollTotal() miscast 7}}
+                                              <div class="sheet-filatemplate1">
+                                                The effect occurs, but it feels unnerving. Make a Panic Check.
+                                              </div>
+                                            {{/rollTotal() miscast 7}}
+                                            
+                                            {{#rollTotal() miscast 8}}
+                                              <div class="sheet-filatemplate1">
+                                                The effect occurs, but it hurts you. Take 1 Wound.
+                                              </div>
+                                            {{/rollTotal() miscast 8}}
+                                            
+                                            {{#rollTotal() miscast 9}}
+                                              <div class="sheet-filatemplate1">
+                                                The effect occurs, but it’s painful and disturbing to those around you. Take 1 Wound, and everyone who witnesses it takes 1 Stress and makes a Panic Check.
+                                              </div>
+                                            {{/rollTotal() miscast 9}}
+                                            
+                                            {{#rollTotal() miscast 10}}
+                                              <div class="sheet-filatemplate1">
+                                                The effect occurs, but it brings something unnatural with it. You become cursed; roll on the Curses table (pg. 53).
+                                              </div>
+                                            {{/rollTotal() miscast 10}}
    
                                         </div><!--  end .sheet-contento --> 
                                      
@@ -619,8 +831,9 @@
                                             {{/rollTotal() rollResult 1}} 
 
                                             {{#rollTotal() rollResult 2}}
-                                              
-                                        
+                                              <div class="sheet-filatemplate1">
+                                                Clingy. You can’t bear isolation. Take 1 Stress whenever you are alone until you can Rest.
+                                              </div>
                                             {{/rollTotal() rollResult 2}}
                                             
                                             {{#rollTotal() rollResult 3}}

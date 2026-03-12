@@ -442,12 +442,12 @@
 	"bleeding-dying": "Bleeding or Dying:",
 	"d6-level": "1d6 + level:",
 	"bleeding-dying-title": "Roll 1d6 + level",
-	"melee-free-strike-tier1": "2 + (Might or Agility) damage",
-	"melee-free-strike-tier2": "5 + (Might or Agility) damage",
-	"melee-free-strike-tier3": "7 + (Might or Agility) damage",
-	"ranged-free-strike-tier1": "2 + (Might or Agility) damage",
-	"ranged-free-strike-tier2": "4 + (Might or Agility) damage",
-	"ranged-free-strike-tier3": "6 + (Might or Agility) damage",
+	"melee-free-strike-tier1": "2 + M or A damage",
+	"melee-free-strike-tier2": "5 + M or A damage",
+	"melee-free-strike-tier3": "7 + M or A damage",
+	"ranged-free-strike-tier1": "2 + M or A damage",
+	"ranged-free-strike-tier2": "4 + M or A damage",
+	"ranged-free-strike-tier3": "6 + M or A damage",
 	"convert": "Convert",
 	"knockback-tier1": "Push 1",
 	"knockback-tier2": "Push 2",
@@ -555,5 +555,7 @@
 	"faction-malice": "Malice",
 	"malice-abilities": "Malice Abilities",
 	"villain-action": "Villain Actions",
-	"villain-toggle": "Has Villain Actions"
+	"villain-toggle": "Has Villain Actions",
+	"magic": "Magic",
+	"psionic": "Psionic"
 }
