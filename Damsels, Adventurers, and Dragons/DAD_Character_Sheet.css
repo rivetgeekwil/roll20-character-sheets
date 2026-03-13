@@ -1,0 +1,293 @@
+/* BASE */
+
+.sheet-dad{
+  font-family:serif;
+  font-size:12px;
+  max-width:1000px;
+  margin:0 auto;
+}
+
+.sheet-dad input,
+.sheet-dad textarea{
+  width:100%;
+  border:0;
+  background:transparent;
+  font-size:12px;
+  box-sizing:border-box;
+}
+
+.sheet-dad textarea{
+  resize:vertical;
+  min-height:40px;
+}
+
+.sheet-dad table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.sheet-dad th,
+.sheet-dad td{
+  border:1px solid #444;
+  padding:2px;
+  text-align:center;
+}
+
+.sheet-dad th{
+  background:#e8e8e8;
+  font-weight:bold;
+}
+
+/* SECTION TITLES */
+
+.sheet-section-title{
+  border:1px solid #444;
+  background:#e8e8e8;
+  font-weight:bold;
+  text-align:center;
+  padding:3px;
+  margin-top:6px;
+  margin-bottom:2px;
+  font-size:13px;
+}
+
+/* HEADER */
+
+.sheet-header-grid{
+  display:grid;
+  grid-template-columns:2fr 3fr 3fr;
+  gap:6px;
+  margin-bottom:6px;
+}
+
+.sheet-title-block{
+  border:1px solid #444;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:16px;
+  font-weight:bold;
+  text-align:center;
+}
+
+.sheet-right-top table{
+  margin-bottom:4px;
+}
+
+/* META ROWS */
+
+.sheet-meta-row{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:4px;
+  margin-bottom:4px;
+}
+
+.sheet-meta-row2{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:4px;
+  margin-bottom:4px;
+}
+
+/* DESCRIPTION AREA */
+
+.sheet-description-row{
+  display:grid;
+  grid-template-columns:4fr auto;
+  gap:4px;
+  margin-bottom:6px;
+  align-items:start;
+}
+
+/* FIX AGE BOX SIZE */
+
+.sheet-age-table{
+  width:90px;
+  align-self:start;
+}
+
+.sheet-age-table input{
+  text-align:center;
+}
+
+/* MAIN BODY */
+
+.sheet-main-body{
+  display:grid;
+  grid-template-columns:3fr 2fr;
+  gap:8px;
+}
+
+/* ATTRIBUTE TABLE */
+
+.sheet-attr-table th{
+  font-size:11px;
+}
+
+/* WEAPONS */
+
+.sheet-weapons-table{
+  border:1px solid #444;
+  margin-top:6px;
+}
+
+.sheet-weapons-header{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  border-bottom:1px solid #444;
+  background:#e8e8e8;
+  font-weight:bold;
+}
+
+.sheet-weapons-header span{
+  border-right:1px solid #444;
+  padding:2px;
+}
+
+.sheet-weapons-row{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  border-bottom:1px solid #444;
+}
+
+.sheet-weapons-row input{
+  border-right:1px solid #444;
+}
+
+/* ARMOR + MOUNT */
+
+.sheet-lower-left{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:6px;
+  margin-top:6px;
+}
+
+/* SAVING THROWS */
+
+.sheet-saving-table{
+  margin-top:6px;
+}
+
+/* RIGHT SIDE */
+
+.sheet-attack-table{
+  margin-bottom:8px;
+}
+
+.sheet-note-cell{
+  font-size:10px;
+  text-align:left;
+}
+
+/* PAGE 2 */
+
+.sheet-page2{
+  margin-top:20px;
+}
+
+.sheet-page2-grid{
+  display:grid;
+  grid-template-columns:3fr 2fr;
+  gap:10px;
+}
+
+/* EQUIPMENT */
+
+.sheet-carried-equipment-table{
+  border:1px solid #444;
+}
+
+.sheet-equipment-header{
+  display:grid;
+  grid-template-columns:3fr 1fr 1fr;
+  background:#e8e8e8;
+  border-bottom:1px solid #444;
+  font-weight:bold;
+}
+
+.sheet-equipment-header span{
+  border-right:1px solid #444;
+  padding:2px;
+}
+
+.sheet-equipment-row{
+  display:grid;
+  grid-template-columns:3fr 1fr 1fr;
+  border-bottom:1px solid #444;
+}
+
+.sheet-equipment-row input{
+  border-right:1px solid #444;
+}
+
+.sheet-total-weight{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  border-top:1px solid #444;
+}
+
+/* MONEY */
+
+.sheet-money-table{
+  margin-top:6px;
+}
+
+/* NONWEAPON PROFICIENCIES */
+
+.sheet-nwp-table{
+  border:1px solid #444;
+}
+
+.sheet-nwp-header{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr 1fr;
+  background:#e8e8e8;
+  border-bottom:1px solid #444;
+}
+
+.sheet-nwp-header span{
+  border-right:1px solid #444;
+  padding:2px;
+}
+
+.sheet-nwp-row{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr 1fr;
+  border-bottom:1px solid #444;
+}
+
+.sheet-nwp-row input{
+  border-right:1px solid #444;
+}
+
+/* WEAPON PROFICIENCIES */
+
+.sheet-wp-table{
+  border:1px solid #444;
+  margin-top:10px;
+}
+
+.sheet-wp-header{
+  display:grid;
+  grid-template-columns:3fr 1fr;
+  background:#e8e8e8;
+  border-bottom:1px solid #444;
+}
+
+.sheet-wp-row{
+  display:grid;
+  grid-template-columns:3fr 1fr;
+  border-bottom:1px solid #444;
+}
+
+.sheet-wp-row input{
+  border-right:1px solid #444;
+}
+
+/* ROGUE TABLE */
+
+.sheet-rogue-table th{
+  font-size:11px;
+}
