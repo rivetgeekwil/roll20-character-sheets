@@ -3038,7 +3038,7 @@ section.npc-box.statblock3 .image-avatar {
   width: -webkit-fill-available;
 }
 
-.charsheet .options-box .settings > span:nth-child(odd) {
+.charsheet .options-box .settings > span:nth-child(odd of :not(h3)) {
   background-color: var(--color-white2);
   width: 100%;
 }
