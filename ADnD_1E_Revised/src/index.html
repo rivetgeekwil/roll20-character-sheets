@@ -3456,7 +3456,7 @@
             <textarea class="height-short" name="attr_nwp_short_description" title="@{repeating_nonweaponproficiencies_$X_nwp_short_description}" placeholder="Short Description"></textarea>
             <input class="width-small" type="text" name="attr_nwp_slots" title="@{repeating_nonweaponproficiencies_$X_nwp_slots}" value="0" />
             <span>
-              <select name="attr_nwp_attribute" title="Select an applicable NWP Attribute or 'vs Base' for a roll-time query.|%{repeating_nonweaponproficiencies_$X_nwp_attribute}">
+              <select name="attr_nwp_attribute" title="Select an applicable NWP Attribute or 'vs Base' for a roll-time query. | @{repeating_nonweaponproficiencies_$X_nwp_attribute}">
                 <option value="0" selected>None</option>
                 <option value="@{strength}">STR</option>
                 <option value="@{dexterity}">DEX</option>
@@ -3467,7 +3467,7 @@
                 <option value="@{comeliness}" class="toggle-comeliness">COM</option>
                 <option value="?{vs Base Value|20}">vs Base</option>
               </select>
-              <input class="width-small" type="number" name="attr_nwp_attribute_value" value="(@{nwp_attribute})" title="%{repeating_nonweaponproficiencies_$X_nwp_attribute_value}" disabled />
+              <input class="width-small" type="text" name="attr_nwp_attribute_value" value="(@{nwp_attribute})" title="@{repeating_nonweaponproficiencies_$X_nwp_attribute_value}" disabled />
             </span>
             <input class="width-small" type="text" name="attr_nwp_modifier" title="@{repeating_nonweaponproficiencies_$X_nwp_modifier}" value="0" />
           </span>
