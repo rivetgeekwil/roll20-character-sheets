@@ -3017,13 +3017,13 @@ on('sheet:opened change:movement change:current_encumbrance change:current_encum
 });
 
 on('change:current_encumbrance', async (eventInfo) => {
-  clog(`Δ detected: ${eventInfo.sourceAttribute}`);
+  // clog(`Δ detected: ${eventInfo.sourceAttribute}`);
   if (eventInfo.sourceType === 'player') {
     clog(`Encumbrance Set Manually: executing setCurrentEncumbranceFlag`);
     const override = 1;
     await setCurrentEncumbranceFlag(override);
   } else {
-    clog(`Encumbrance Set by sheetworker`);
+    // clog(`Encumbrance Set by sheetworker`);
   }
 });
 
@@ -4745,7 +4745,7 @@ const setAttackMacro = async (id) => {
   const v = await getAttrsAsync(['default_attack_macro']);
   const output = {};
   const defaultAttackMacro = v.default_attack_macro || attackMacroDefault;
-  clog(`set repeating_weapon_${id}_weapon_macro_text macro-text`);
+  // clog(`set repeating_weapon_${id}_weapon_macro_text macro-text`);
   output[`repeating_weapon_${id}_weapon_macro_text`] = defaultAttackMacro;
   await setAttrsAsync(output, {silent: true});
 };
@@ -4874,7 +4874,7 @@ on('sheet:opened', async (eventInfo) => {
 });
 
 on('change:default_attack_macro', async (eventInfo) => {
-  clog(`Δ detected: ${eventInfo.sourceAttribute}`);
+  // clog(`Δ detected: ${eventInfo.sourceAttribute}`);
   const v = await getAttrsAsync(['default_attack_macro']);
   const currentMacroText = v.default_attack_macro;
   if (currentMacroText !== '') return;
@@ -4882,12 +4882,12 @@ on('change:default_attack_macro', async (eventInfo) => {
   // macro has been reset. set default
   const output = {};
   output.default_attack_macro = attackMacroDefault;
-  clog(`Macro has been Reset`);
+  // clog(`Macro has been Reset`);
   await setAttrsAsync(output, {silent: true});
 });
 
 on('change:repeating_weapon:weapon_macro_text', async (eventInfo) => {
-  clog(`Δ detected: ${eventInfo.sourceAttribute}`);
+  // clog(`Δ detected: ${eventInfo.sourceAttribute}`);
   const id = eventInfo.sourceAttribute.split('_')[2];
   const v = await getAttrsAsync([`repeating_weapon_${id}_weapon_macro_text`, 'default_attack_macro']);
   const currentMacroText = v[`repeating_weapon_${id}_weapon_macro_text`];
@@ -4897,20 +4897,20 @@ on('change:repeating_weapon:weapon_macro_text', async (eventInfo) => {
   const output = {};
   const defaultAttackMacro = v.default_attack_macro || attackMacroDefault;
   output[`repeating_weapon_${id}_weapon_macro_text`] = defaultAttackMacro;
-  clog(`Macro has been Reset`);
+  // clog(`Macro has been Reset`);
   await setAttrsAsync(output, {silent: true});
 });
 
 // Update Attack Macros
 on('clicked:updateweaponsmacros', async (eventInfo) => {
-  clog(`Δ detected: ${eventInfo.sourceAttribute}`);
+  // clog(`Δ detected: ${eventInfo.sourceAttribute}`);
   const output = {};
   const v = await getAttrsAsync(['default_attack_macro']);
   const defaultAttackMacro = v.default_attack_macro || attackMacroDefault;
   const idArrayWeapons = await getSectionIDsAsync('weapon');
   _.each(idArrayWeapons, (id) => {
     output[`repeating_weapon_${id}_weapon_macro_text`] = defaultAttackMacro;
-    clog(`macro update completed on: ${id}`);
+    // clog(`macro update completed on: ${id}`);
   });
   await setAttrsAsync(output, {silent: true});
 });

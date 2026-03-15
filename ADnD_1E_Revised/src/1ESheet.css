@@ -1614,6 +1614,7 @@ section.npc-box.statblock3 .image-avatar {
 .charsheet .header-box:has(.toggle-avatar[value="1"] + .image-avatar img),
 .charsheet .header-box:has(.toggle-avatar[value="2"] + .image-avatar img) {
   grid-template-columns: 1fr 1.5fr auto;
+  overflow: hidden;
 }
 
 .charsheet .header-box:has(.image-avatar[style*='http']),
@@ -4090,7 +4091,6 @@ section.npc-box.statblock3 .image-avatar {
   font-family: system-ui;
   font-size: var(--text-med);
   padding: inherit;
-  text-wrap-style: pretty;
 }
 
 .charsheet .wrapper textarea,
