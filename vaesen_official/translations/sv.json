@@ -80,7 +80,7 @@
   "observation": "genomskåda",
   "observation (empathy)": "genomskåda (empati)",
   "PC": "PC",
-  "personnel": "",
+  "personnel": "personer",
   "physical": "fysiska",
   "physique": "physique",
   "power": "power",
@@ -146,11 +146,11 @@
   "update facility": "uppdatera utrymme",
   "update magical-power": "uppdatera magisk kraft",
   "update magic-item": "uppdatera magiskt föremål",
-  "push": "push",
-  "wound query": "Which wound have you gained by pushing?",
-  "roll bonus query": "How many additional dice do you want to roll (including advantages)?",
-  "skill query": "Which skill are you rolling?",
-  "punch": "punch",
-  "sheet type description": "What type of sheet new characters are made as. This can be changed after the character is made.",
-  "whisper description": "whisper description"
+  "push": "pressa slag",
+  "wound query": "Vilken tillstånd orsakar ditt pressade slag?",
+  "roll bonus query": "Hur många ytterligare tärningar vill du slå (inklusive fördelar)?",
+  "skill query": "Vilken färdighet slår du för?",
+  "punch": "slaganfall",
+  "sheet type description": "Vilken typ av formulär nya karaktärer använder. Detta kan ändras efter karaktären är skapad.",
+  "whisper description": "viskningsbeskrivning"
 }
