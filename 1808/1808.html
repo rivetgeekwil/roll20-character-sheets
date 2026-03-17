@@ -936,18 +936,117 @@
     const normalSkillMap = {"arriero": "coo", "chusma": "int", "correr": "vit", "dialectica": "car", "disfraz": "inv", "don_gentes": "int", "intimidar": "car", "escamotear": "coo", "observacion": "per", "ocultar": "inv", "protocolo": "mem", "sigilo": "con", "saltar": "agi", "sanar": "int", "seduccion": "car", "supervivencia": "log", "trepar": "agi", "cerraduras": "coo", "equitacion": "coo", "falsificar": "coo", "idioma_1": "mem", "idioma_2": "mem", "idioma_3": "mem", "idioma_4": "mem", "idioma_5": "mem", "idioma_6": "mem"};
     const specialTree = {"arma_blanca": { attr: "agi", children: ["asta", "contundentes", "cuchillo", "esgrima"] }, "arma_corta":  { attr: "coo", children: ["pistola", "trabuco_corto"] }, "arma_larga":  { attr: "coo", children: ["fusil", "trabuco_largo"] }, "lanzar":      { attr: "agi", children: ["arrojadiza", "granada"] }, "pelea":       { attr: "agi", children: ["cuchillo_pelea", "desarmado"] }, "zapador":     { attr: "log", children: ["artilleria", "minado"] }, "artesania":      { attr: "coo", children: ["artesania_spec1", "artesania_spec2", "artesania_spec3"] }, "con_academico":  { attr: "mem", children: ["con_academico_spec1", "con_academico_spec2", "con_academico_spec3"] }, "con_cientifico": { attr: "mem", children: ["con_cientifico_spec1", "con_cientifico_spec2", "con_cientifico_spec3"] }, "con_militar":    { attr: "log", children: ["con_militar_spec1", "con_militar_spec2", "con_militar_spec3"] }, "hab_escenicas":  { attr: "car", children: ["hab_escenicas_spec1", "hab_escenicas_spec2", "hab_escenicas_spec3"] }, "hab_plasticas":  { attr: "inv", children: ["hab_plasticas_spec1", "hab_plasticas_spec2", "hab_plasticas_spec3"] }};
     const influenceList = ["influencia_1", "influencia_2", "influencia_3", "influencia_4", "influencia_5", "influencia_6"];
-    const characteristics = Object.keys(charHierarchy); const attributes = Object.values(charHierarchy).flat(); const normalSkills = Object.keys(normalSkillMap); const rootSkills = Object.keys(specialTree); let childSkills = []; rootSkills.forEach(root => { childSkills = [...childSkills, ...specialTree[root].children]; });
-    const charEvents = characteristics.map(c => `change:${c}`).join(" "); const attrEvents = attributes.map(a => `change:${a}`).join(" "); const normalSkillEvents = normalSkills.map(s => `change:${s}_nivel`).join(" "); const rootSkillEvents = rootSkills.map(r => `change:${r}_nivel`).join(" "); const childSkillEvents = childSkills.map(c => `change:${c}_nivel`).join(" "); const influenceEvents = influenceList.map(i => `change:${i}_nivel`).join(" "); const socialEvent = "change:nivel_social";
+    const characteristics = Object.keys(charHierarchy);
+    const attributes = Object.values(charHierarchy).flat();
+    const normalSkills = Object.keys(normalSkillMap);
+    const rootSkills = Object.keys(specialTree);
+    
+    let childSkills = [];
+    rootSkills.forEach(root => {
+        childSkills = [...childSkills, ...specialTree[root].children];
+    });
+
+    const charEvents = characteristics.map(c => `change:${c}`).join(" ");
+    const attrEvents = attributes.map(a => `change:${a}`).join(" ");
+    const normalSkillEvents = normalSkills.map(s => `change:${s}_nivel`).join(" ");
+    const rootSkillEvents = rootSkills.map(r => `change:${r}_nivel`).join(" ");
+    const childSkillEvents = childSkills.map(c => `change:${c}_nivel`).join(" ");
+    const influenceEvents = influenceList.map(i => `change:${i}_nivel`).join(" ");
+    const socialEvent = "change:nivel_social";
+
+    // === CÁLCULOS AUTOMÁTICOS AL CAMBIAR ATRIBUTOS/HABILIDADES ===
     on(`${charEvents} ${attrEvents} ${normalSkillEvents} ${rootSkillEvents} ${childSkillEvents} ${influenceEvents} ${socialEvent} sheet:opened`, () => {
-        const attrsToGet = ["nivel_social", ...characteristics, ...attributes, ...normalSkills.map(s => `${s}_nivel`), ...rootSkills.map(r => `${r}_nivel`), ...childSkills.map(c => `${c}_nivel`), ...influenceList.map(i => `${i}_nivel`)];
+        
+        const attrsToGet = [
+            "nivel_social", 
+            ...characteristics, 
+            ...attributes, 
+            ...normalSkills.map(s => `${s}_nivel`), 
+            ...rootSkills.map(r => `${r}_nivel`), 
+            ...childSkills.map(c => `${c}_nivel`), 
+            ...influenceList.map(i => `${i}_nivel`)
+        ];
+
         getAttrs(attrsToGet, (values) => {
-            const update = {}; const finalAttrs = {}; 
-            characteristics.forEach(charName => { const charValue = parseInt(values[charName], 10) || 5; const children = charHierarchy[charName]; children.forEach(attrName => { let attrValue = parseInt(values[attrName], 10) || 5; if (attrValue > charValue) { attrValue = charValue; update[attrName] = charValue; } finalAttrs[attrName] = attrValue; }); });
-            update["hp_max"] = (finalAttrs.res || 0) * 3; update["entereza_max"] = (finalAttrs.con || 0) + (2 * (finalAttrs.vol || 0)); update["fatiga_max"] = (finalAttrs.vit || 0) * 3;
-            normalSkills.forEach(skillName => { const governingAttrName = normalSkillMap[skillName]; const governingAttrValue = finalAttrs[governingAttrName] || 0; let skillLevel = parseInt(values[`${skillName}_nivel`], 10) || 0; if (skillLevel < 0) { skillLevel = 0; update[`${skillName}_nivel`] = 0; } update[`${skillName}_base`] = governingAttrValue; update[`${skillName}_total`] = governingAttrValue + skillLevel; });
-            rootSkills.forEach(rootName => { const rootData = specialTree[rootName]; const governingAttrName = rootData.attr; const governingAttrValue = finalAttrs[governingAttrName] || 0; let rootLevel = parseInt(values[`${rootName}_nivel`], 10) || 0; if (rootLevel > governingAttrValue) { rootLevel = governingAttrValue; update[`${rootName}_nivel`] = rootLevel; } if (rootLevel < 0) rootLevel = 0; update[`${rootName}_base`] = governingAttrValue; update[`${rootName}_total`] = governingAttrValue + rootLevel; rootData.children.forEach(childName => { let childLevel = parseInt(values[`${childName}_nivel`], 10) || 0; if (childLevel < rootLevel) { childLevel = rootLevel; update[`${childName}_nivel`] = childLevel; } update[`${childName}_base`] = governingAttrValue; update[`${childName}_total`] = governingAttrValue + childLevel; }); });
-            let nivelSocial = parseInt(values.nivel_social, 10) || 0; let carisma = finalAttrs.car || 0; let baseInfluencia = nivelSocial + carisma;
-            influenceList.forEach(inflName => { let inflLevel = parseInt(values[`${inflName}_nivel`], 10) || 0; if (inflLevel < 0) { inflLevel = 0; update[`${inflName}_nivel`] = 0; } update[`${inflName}_base`] = baseInfluencia; update[`${inflName}_total`] = baseInfluencia + inflLevel; });
+            const update = {};
+            const finalAttrs = {}; 
+            
+            // 1. Límite de Características sobre los Atributos
+            characteristics.forEach(charName => {
+                const charValue = parseInt(values[charName], 10) || 5;
+                const children = charHierarchy[charName];
+                
+                children.forEach(attrName => {
+                    let attrValue = parseInt(values[attrName], 10) || 5;
+                    if (attrValue > charValue) {
+                        attrValue = charValue;
+                        update[attrName] = charValue;
+                    }
+                    finalAttrs[attrName] = attrValue;
+                });
+            });
+
+            // 2. Barras de estado (Vida, Entereza, Fatiga)
+            update["hp_max"] = (finalAttrs.res || 0) * 3;
+            update["entereza_max"] = (finalAttrs.con || 0) + (2 * (finalAttrs.vol || 0));
+            update["fatiga_max"] = (finalAttrs.vit || 0) * 3;
+
+            // 3. Habilidades Normales
+            normalSkills.forEach(skillName => {
+                const governingAttrName = normalSkillMap[skillName];
+                const governingAttrValue = finalAttrs[governingAttrName] || 0;
+                let skillLevel = parseInt(values[`${skillName}_nivel`], 10) || 0;
+                
+                if (skillLevel < 0) {
+                    skillLevel = 0;
+                    update[`${skillName}_nivel`] = 0;
+                }
+                
+                update[`${skillName}_base`] = governingAttrValue;
+                update[`${skillName}_total`] = governingAttrValue + skillLevel;
+            });
+
+            // 4. Habilidades Especiales (Raíces y sub-habilidades)
+            rootSkills.forEach(rootName => {
+                const rootData = specialTree[rootName];
+                const governingAttrName = rootData.attr;
+                const governingAttrValue = finalAttrs[governingAttrName] || 0;
+                
+                let rootLevel = parseInt(values[`${rootName}_nivel`], 10) || 0;
+                if (rootLevel > governingAttrValue) {
+                    rootLevel = governingAttrValue;
+                    update[`${rootName}_nivel`] = rootLevel;
+                }
+                if (rootLevel < 0) rootLevel = 0;
+                
+                update[`${rootName}_base`] = governingAttrValue;
+                update[`${rootName}_total`] = governingAttrValue + rootLevel;
+                
+                rootData.children.forEach(childName => {
+                    let childLevel = parseInt(values[`${childName}_nivel`], 10) || 0;
+                    if (childLevel < rootLevel) {
+                        childLevel = rootLevel;
+                        update[`${childName}_nivel`] = childLevel;
+                    }
+                    update[`${childName}_base`] = governingAttrValue;
+                    update[`${childName}_total`] = governingAttrValue + childLevel;
+                });
+            });
+
+            // 5. Influencia y Social
+            let nivelSocial = parseInt(values.nivel_social, 10) || 0;
+            let carisma = finalAttrs.car || 0;
+            let baseInfluencia = nivelSocial + carisma;
+            
+            influenceList.forEach(inflName => {
+                let inflLevel = parseInt(values[`${inflName}_nivel`], 10) || 0;
+                if (inflLevel < 0) {
+                    inflLevel = 0;
+                    update[`${inflName}_nivel`] = 0;
+                }
+                update[`${inflName}_base`] = baseInfluencia;
+                update[`${inflName}_total`] = baseInfluencia + inflLevel;
+            });
      
 
      // --- CÁLCULO DE CAPACIDADES ---
