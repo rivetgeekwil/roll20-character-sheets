@@ -1,0 +1,347 @@
+.sheet-dad {
+  font-family: "Times New Roman", Georgia, serif;
+  font-size: 12px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #f7f7f7;
+  color: #000;
+}
+
+/* HARD OVERRIDE ROLL20 TEXT COLORS */
+
+.sheet-dad,
+.sheet-dad * {
+  box-sizing: border-box;
+  color: #000 !important;
+}
+
+/* INPUTS */
+
+.sheet-dad input[type="text"],
+.sheet-dad textarea {
+  width: 100%;
+  border: 1px solid #666;
+  background: #fff;
+  padding: 4px 6px;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #000 !important;
+}
+
+.sheet-dad textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+/* LABELS */
+
+.sheet-dad label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 2px;
+  text-align: center;
+}
+
+/* TITLES */
+
+.sheet-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  margin: 8px 0 12px 0;
+}
+
+.sheet-subtitle {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.sheet-help {
+  margin-top: 8px;
+  text-align: center;
+  font-style: italic;
+}
+
+/* SECTIONS */
+
+.sheet-section {
+  border: 2px solid #444;
+  background: #ececec;
+  padding: 8px;
+  margin-bottom: 12px;
+}
+
+.sheet-field {
+  margin-bottom: 6px;
+}
+
+/* TABS */
+
+.sheet-tabbar {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.sheet-tab-button {
+  flex: 1;
+  border: 2px solid #444;
+  background: #d8d8d8;
+  font-weight: bold;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.sheet-tab {
+  display: none;
+}
+
+/* TAB VISIBILITY */
+
+.sheet-dad input[name="attr_sheetTab"][value="core"] ~ .sheet-core { display: block; }
+.sheet-dad input[name="attr_sheetTab"][value="equipment"] ~ .sheet-equipment { display: block; }
+.sheet-dad input[name="attr_sheetTab"][value="proficiencies"] ~ .sheet-proficiencies { display: block; }
+.sheet-dad input[name="attr_sheetTab"][value="spells"] ~ .sheet-spells { display: block; }
+.sheet-dad input[name="attr_sheetTab"][value="notes"] ~ .sheet-notes { display: block; }
+
+/* GRID SYSTEM */
+
+.sheet-grid {
+  display: grid;
+  gap: 8px;
+  align-items: center;
+}
+
+.sheet-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.sheet-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.sheet-grid-4 { grid-template-columns: repeat(4, 1fr); }
+.sheet-grid-5 { grid-template-columns: repeat(5, 1fr); }
+.sheet-grid-6 { grid-template-columns: repeat(6, 1fr); }
+.sheet-grid-8 { grid-template-columns: repeat(8, 1fr); }
+
+/* SPECIAL GRIDS */
+
+.sheet-grid-weapons {
+  grid-template-columns: 2fr .6fr .6fr .8fr .9fr .9fr 1fr .8fr .8fr;
+}
+
+.sheet-grid-armor {
+  grid-template-columns: 3fr 1fr;
+}
+
+.sheet-grid-equipment {
+  grid-template-columns: 3fr .8fr .8fr;
+}
+
+.sheet-grid-nwp {
+  grid-template-columns: 2.5fr .8fr .7fr .7fr .7fr;
+}
+
+.sheet-grid-wp {
+  grid-template-columns: 3fr .8fr;
+}
+
+.sheet-grid-spells {
+  grid-template-columns: .7fr 2.5fr 1fr;
+}
+
+/* MOUNT GRID */
+
+.sheet-grid-mount-wide {
+  display: grid;
+  grid-template-columns: 1.8fr .6fr .8fr .8fr .8fr .8fr 1.2fr .7fr .8fr .9fr;
+  gap: 8px;
+  align-items: center;
+}
+
+/* ALIGN INPUTS */
+
+.sheet-grid-mount-wide input,
+.sheet-grid-weapons input,
+.sheet-grid-armor input,
+.sheet-grid-equipment input,
+.sheet-grid-nwp input,
+.sheet-grid-wp input,
+.sheet-grid-spells input {
+  text-align: center;
+}
+
+/* HEADER ROWS */
+
+.sheet-mount-header {
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid #555;
+  padding-bottom: 2px;
+}
+
+.sheet-mount-header div {
+  font-size: 11px;
+}
+
+/* SPANS */
+
+.sheet-span-2 { grid-column: span 2; }
+.sheet-span-3 { grid-column: span 3; }
+
+/* TWO COLUMN LAYOUT */
+
+.sheet-two-col {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+}
+
+.sheet-maincol,
+.sheet-sidecol {
+  min-width: 0;
+}
+
+/* FULL WIDTH */
+
+.sheet-fullwidth {
+  grid-column: 1 / -1;
+}
+
+/* TABLE */
+
+.sheet-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  background: #fdfdfd;
+}
+
+.sheet-table th,
+.sheet-table td {
+  border: 1px solid #555;
+  padding: 3px;
+  text-align: center;
+}
+
+.sheet-table th {
+  background: #d9d9d9;
+  font-weight: bold;
+}
+
+.sheet-table input {
+  border: none;
+  background: transparent;
+  text-align: center;
+}
+
+/* NOTES */
+
+.sheet-notes-area {
+  min-height: 500px;
+}
+
+/* OTHER DEFENSES */
+
+.sheet-dad textarea[name="attr_other_defenses"] {
+  min-height: 120px;
+  max-height: 120px;
+}
+
+/* HIT POINTS */
+
+.sheet-hp-box {
+  border: 2px solid #444;
+  padding: 6px;
+  background: #f4f4f4;
+}
+
+.sheet-hp-box input {
+  text-align: center;
+  font-size: 14px;
+  padding: 6px;
+}
+
+.sheet-hp-box .sheet-grid {
+  gap: 10px;
+}
+
+.sheet-hp-box label {
+  font-size: 11px;
+}
+
+/* REPEATING */
+
+.repcontrol {
+  margin-top: 6px;
+}
+
+.repcontrol .btn {
+  border: 1px solid #444;
+  background: #d8d8d8;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 2px 8px;
+}
+
+.repcontainer .repitem {
+  border-bottom: 1px solid #bbb;
+  padding-bottom: 6px;
+  margin-bottom: 6px;
+}
+
+/* ATTACK TABLE */
+
+.sheet-attack-top {
+  margin-bottom: 10px;
+}
+
+.sheet-attack-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.sheet-attack-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sheet-attack-col .sheet-field {
+  margin-bottom: 0;
+}
+
+/* SAVING THROWS */
+
+.sheet-saving-throws {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* MOBILE */
+
+@media screen and (max-width: 1000px) {
+
+  .sheet-two-col {
+    grid-template-columns: 1fr;
+  }
+
+  .sheet-grid,
+  .sheet-grid-8,
+  .sheet-grid-6,
+  .sheet-grid-5,
+  .sheet-grid-4,
+  .sheet-grid-3,
+  .sheet-grid-2,
+  .sheet-grid-weapons,
+  .sheet-grid-equipment,
+  .sheet-grid-nwp,
+  .sheet-grid-wp,
+  .sheet-grid-spells,
+  .sheet-grid-armor,
+  .sheet-grid-mount-wide,
+  .sheet-saving-throws {
+    grid-template-columns: 1fr;
+  }
+
+  .sheet-attack-grid {
+    grid-template-columns: 1fr;
+  }
+}
