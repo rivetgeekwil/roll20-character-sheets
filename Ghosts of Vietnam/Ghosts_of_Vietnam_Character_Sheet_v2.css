@@ -1,0 +1,410 @@
+.sheet-gvn {
+  font-family: "Times New Roman", Georgia, serif;
+  font-size: 12px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #f7f7f7;
+  color: #000;
+}
+
+.sheet-gvn,
+.sheet-gvn *,
+.sheet-gvn *:before,
+.sheet-gvn *:after {
+  box-sizing: border-box;
+  color: #000 !important;
+}
+
+/* BASE INPUTS */
+
+.sheet-gvn input,
+.sheet-gvn textarea,
+.sheet-gvn select {
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.sheet-gvn input:not([type="checkbox"]),
+.sheet-gvn textarea,
+.sheet-gvn select {
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid #666;
+  background: #fff;
+  padding: 2px 4px;
+}
+
+.sheet-gvn textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.sheet-gvn label {
+  display: block;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 2px;
+  font-size: 11px;
+}
+
+/* TITLES */
+
+.sheet-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  margin: 6px 0 10px 0;
+}
+
+.sheet-subtitle {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+/* TABS */
+
+.sheet-tabbar {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.sheet-tab-button {
+  flex: 1;
+  border: 2px solid #444;
+  background: #d8d8d8;
+  font-weight: bold;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.sheet-tab {
+  display: none;
+}
+
+.sheet-gvn input[name="attr_sheetTab"][value="core"] ~ .sheet-core {
+  display: block;
+}
+
+.sheet-gvn input[name="attr_sheetTab"][value="equipment"] ~ .sheet-equipment {
+  display: block;
+}
+
+.sheet-gvn input[name="attr_sheetTab"][value="proficiencies"] ~ .sheet-proficiencies {
+  display: block;
+}
+
+.sheet-gvn input[name="attr_sheetTab"][value="command"] ~ .sheet-command {
+  display: block;
+}
+
+.sheet-gvn input[name="attr_sheetTab"][value="notes"] ~ .sheet-notes {
+  display: block;
+}
+
+/* SECTIONS */
+
+.sheet-section {
+  border: 2px solid #444;
+  background: #ececec;
+  padding: 6px;
+  margin-bottom: 10px;
+}
+
+/* GRID SYSTEM */
+
+.sheet-grid {
+  display: grid;
+  gap: 5px;
+  align-items: start;
+}
+
+.sheet-grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.sheet-grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sheet-grid-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.sheet-grid-5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.sheet-grid-6 {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.sheet-grid-7 {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.sheet-grid-10 {
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+}
+
+.sheet-grid-gov-weapons {
+  grid-template-columns: minmax(0, 2fr) minmax(0, .6fr) minmax(0, .6fr) minmax(0, .8fr) minmax(0, .8fr) minmax(0, 1fr) minmax(0, .8fr) minmax(0, .6fr);
+}
+
+.sheet-grid-armor {
+  grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+}
+
+/* ALIGNMENT IN GRID AREAS */
+
+.sheet-grid input:not([type="checkbox"]),
+.sheet-grid select {
+  text-align: center;
+}
+
+/* HEADER ROWS */
+
+.sheet-mount-header {
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid #555;
+  padding-bottom: 2px;
+}
+
+.sheet-mount-header div {
+  font-size: 11px;
+}
+
+/* TWO COLUMN CORE LAYOUT */
+
+.sheet-two-col {
+  display: grid;
+  grid-template-columns: minmax(0, 2.15fr) minmax(280px, 1fr);
+  gap: 10px;
+  align-items: start;
+}
+
+.sheet-maincol,
+.sheet-sidecol {
+  min-width: 0;
+}
+
+.sheet-sidecol {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sheet-fullwidth {
+  width: 100%;
+}
+
+/* HP BOX */
+
+.sheet-hp-box {
+  border: 2px solid #444;
+  background: #f4f4f4;
+  padding: 5px;
+}
+
+.sheet-hp-box input:not([type="checkbox"]) {
+  text-align: center;
+  font-size: 13px;
+}
+
+/* TABLES */
+
+.sheet-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  background: #fdfdfd;
+}
+
+.sheet-table th,
+.sheet-table td {
+  border: 1px solid #555;
+  padding: 2px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.sheet-table th {
+  background: #d9d9d9;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.sheet-table input:not([type="checkbox"]) {
+  width: 100%;
+  max-width: 100%;
+  border: none;
+  background: transparent;
+  text-align: center;
+  padding: 1px 2px;
+  font-size: 11px;
+}
+
+/* RIGHT PANEL */
+
+.sheet-sidecol .sheet-grid-3 {
+  align-items: end;
+}
+
+.sheet-sidecol .sheet-grid-3 > div,
+.sheet-sidecol .sheet-grid-2 > div {
+  min-width: 0;
+}
+
+.sheet-sidecol .sheet-grid-3 input:not([type="checkbox"]) {
+  width: 58px;
+  max-width: 100%;
+  margin: 0 auto;
+  display: block;
+  padding: 2px 3px;
+}
+
+.sheet-sidecol .sheet-grid-2 input:not([type="checkbox"]) {
+  width: 90px;
+  max-width: 100%;
+  margin: 0 auto;
+  display: block;
+  padding: 2px 3px;
+}
+
+.sheet-sidecol .sheet-table {
+  font-size: 11px;
+}
+
+.sheet-sidecol .sheet-table td {
+  padding: 1px 2px;
+}
+
+.sheet-sidecol .sheet-table input:not([type="checkbox"]) {
+  width: 44px;
+  max-width: 100%;
+  margin: 0 auto;
+  display: block;
+  padding: 1px 2px;
+  font-size: 11px;
+}
+
+.sheet-gvn textarea[name="attr_other_defenses"] {
+  min-height: 100px;
+  max-height: 100px;
+}
+
+/* WEAPONS SECTION */
+
+.sheet-grid-gov-weapons {
+  gap: 4px;
+}
+
+.sheet-grid-gov-weapons input:not([type="checkbox"]) {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 2px 3px;
+  font-size: 11px;
+}
+
+/* ROGUE ABILITIES */
+
+.sheet-grid-10 {
+  gap: 4px;
+}
+
+.sheet-grid-10 > div,
+.sheet-grid-7 > div {
+  min-width: 0;
+}
+
+.sheet-grid-10 label {
+  font-size: 10px;
+}
+
+.sheet-grid-10 input:not([type="checkbox"]),
+.sheet-grid-10 select {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 2px 3px;
+  font-size: 10px;
+}
+
+.sheet-grid-10 input[type="checkbox"] {
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* SAVING THROWS */
+
+.sheet-grid-7 {
+  gap: 4px;
+}
+
+.sheet-grid-7 input:not([type="checkbox"]) {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 2px 3px;
+  font-size: 11px;
+  text-align: center;
+}
+
+/* REPEATING CONTROLS */
+
+.repcontrol {
+  margin-top: 4px;
+}
+
+.repcontrol .btn {
+  border: 1px solid #444;
+  background: #d8d8d8;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 2px 6px;
+}
+
+.repcontainer .repitem {
+  border-bottom: 1px solid #bbb;
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+}
+
+/* NOTES */
+
+.sheet-notes-area {
+  min-height: 500px;
+}
+
+/* MOBILE */
+
+@media screen and (max-width: 1000px) {
+  .sheet-two-col {
+    grid-template-columns: 1fr;
+  }
+
+  .sheet-grid,
+  .sheet-grid-10,
+  .sheet-grid-7,
+  .sheet-grid-6,
+  .sheet-grid-5,
+  .sheet-grid-4,
+  .sheet-grid-3,
+  .sheet-grid-2,
+  .sheet-grid-gov-weapons,
+  .sheet-grid-armor {
+    grid-template-columns: 1fr;
+  }
+
+  .sheet-sidecol .sheet-grid-3 input:not([type="checkbox"]),
+  .sheet-sidecol .sheet-grid-2 input:not([type="checkbox"]),
+  .sheet-sidecol .sheet-table input:not([type="checkbox"]) {
+    width: 100%;
+  }
+}
