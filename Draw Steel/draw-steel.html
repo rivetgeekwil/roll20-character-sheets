@@ -6152,17 +6152,22 @@
 				importMonster(data, []);
 			} else if (data.hasOwnProperty('monsters')) {
 				// iterate through the monsters and add them to a list.
-				let queryString = "!{{template:default}}{{ask=![[?{Monster to Import";
+				
+				let queryString = `!{{template:default}}{{ask=![[?{${getTranslationByKey('import-monster')}|${getTranslationByKey('import-select-prompt')},-1`;
 				for (const [index, monster] of data.monsters.entries()) {
 					
-					queryString += "|" + monster.name + ", " + index.toString();
+					queryString += '|' + monster.name + ', ' + index.toString();
 				}
-				queryString += "}]]}}";
+				queryString += '}]]}}';
 				
 				// Use a roll to provide the user with an choice of the monsters in the
 				const results = await startRoll(queryString);
 				finishRoll( results.rollId );
 				const choice = results.results.ask.result;
+				if (parseInt(choice) < 0) {
+					console.log('Invalid monster selection');
+					return;
+				}
 				await importMonster(data.monsters[choice], data.malice);
 				console.log(data.monsters[choice].name);
 			}
@@ -6178,6 +6183,12 @@
 	 * @param {object} data the loaded and validated JSON file
 	 **/
 	async function importPlayer(data) {
+		console.log('~~~ importPlayer ~~~');
+		
+		if (!data) {
+			console.log('No Player Data Found');
+			return;
+		}
 		const {
 			name: character_name,
 			ancestry,
@@ -6376,6 +6387,12 @@
 	 **/
 	
 	async function importMonster(data, malice) {
+		console.log('~~~ importMonster ~~~');
+		
+		if (!data) {
+			console.log('No Monster Data Found');
+			return;
+		}
 		const {
 			name, level, characteristics, keywords, role: dataRole, 
 			size: dataSize, speed: dataSpeed, stability, stamina, 
