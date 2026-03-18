@@ -55,6 +55,9 @@
       {{#rollLess() maneuver 0}}
       + {{maneuver}}&nbsp;[Maneuver Penalty / 10]
       {{/rollLess() maneuver 0}}
+      {{#tiebreaker}}
+	<span style='font-size: 50%'>Tiebreaker : {{tiebreaker}}</span>
+      {{/tiebreaker}}
   </div>
 </rolltemplate>
 
@@ -2617,7 +2620,7 @@ Lists Selected <input type='number' name='comp_cmbaselistcount'> / 6
           <option value="13">Leviathan</option>
         </select>
         <select class='fancyselect' name='attr_type'>
-        <option value='bx'>Battle Axe</option><option value='fba'>Fire ball</option><option value='lbo'>Ligtning Bolt</option><option value='cl'>Claw</option><option value='cr'>Crush</option><option value='all'>Arming Sword</option><option value='handcrossbow'>Hand Crossbow</option><option value='lb'>Bow, Long</option><option value='we'>Arming Sword</option><option value='any'>Arming Sword</option><option value='hf'>Heavy Flail</option><option value='tx'>Two Handed Axe</option><option value='tr'>Trample</option><option value='si'>Stinger</option><option value='wm'>War Mattock</option><option value='px'>Pole Axe</option><option value='gr'>Grapple</option><option value='wi'>Whip</option><option value='rt'>Thrown Rock</option><option value='sl'>Sling</option><option value='wbo'>Water Bolt</option><option value='tp'>Thrown Spear</option><option value='sp'>Spear</option><option value='rp'>Rapier</option><option value='un'>Unarmed Strike</option><option value='lba'>Lightning Ball</option><option value='cba'>Cold Ball</option><option value='ts'>Two Handed Sword</option><option value='hc'>Heavy Crossbow</option><option value='cu'>Club</option><option value='tc'>Two Handed Club</option><option value='ta'>Thrown Hand Axe</option><option value='fa'>Falchion</option><option value='sw'>Sweep</option><option value='da'>Dagger</option><option value='bs'>Broadsword</option><option value='ra'>Ram</option><option value='be'>Beak</option><option value='sh'>Shield Bash</option><option value='ma'>Mace</option><option value='lc'>Light Crossbow</option><option value='as'>Arming Sword</option><option value='bi'>Bite</option><option value='ho'>Horn</option><option value='ls'>Long Sword</option><option value='sc'>Scimitar</option><option value='ebo'>Earth Ball</option><option value='rw'>Arming Sword</option><option value='sb'>Bow, Short</option><option value='tw'>War Hammer</option><option value='hx'>Hand Axe</option><option value='ss'>Short Sword</option><option value='td'>Thrown Dagger</option><option value='ro'>Thrown Rock</option><option value='bo'>Bola</option><option value='ibo'>Ice bolt</option><option value='fbo'>Fire Bolt</option><option value='qs'>Quarterstaff</option><option value='ja'>Javelin</option>
+        <option value='all'>Arming Sword</option><option value='any'>Arming Sword</option><option value='as'>Arming Sword</option><option value='be'>Beak</option><option value='bi'>Bite</option><option value='bo'>Bola</option><option value='bs'>Broadsword</option><option value='bx'>Battle Axe</option><option value='cba'>Cold Ball</option><option value='cl'>Claw</option><option value='cr'>Crush</option><option value='cu'>Club</option><option value='da'>Dagger</option><option value='ebo'>Earth Ball</option><option value='fa'>Falchion</option><option value='fba'>Fire ball</option><option value='fbo'>Fire Bolt</option><option value='gr'>Grapple</option><option value='handcrossbow'>Hand Crossbow</option><option value='hc'>Heavy Crossbow</option><option value='hf'>Heavy Flail</option><option value='ho'>Horn</option><option value='hx'>Hand Axe</option><option value='ibo'>Ice bolt</option><option value='ja'>Javelin</option><option value='lb'>Bow, Long</option><option value='lba'>Lightning Ball</option><option value='lbo'>Ligtning Bolt</option><option value='lc'>Light Crossbow</option><option value='ls'>Long Sword</option><option value='ma'>Mace</option><option value='px'>Pole Axe</option><option value='qs'>Quarterstaff</option><option value='ra'>Ram</option><option value='ro'>Thrown Rock</option><option value='rp'>Rapier</option><option value='rt'>Thrown Rock</option><option value='rw'>Arming Sword</option><option value='sb'>Bow, Short</option><option value='sc'>Scimitar</option><option value='sh'>Shield Bash</option><option value='si'>Stinger</option><option value='sl'>Sling</option><option value='sp'>Spear</option><option value='ss'>Short Sword</option><option value='sw'>Sweep</option><option value='ta'>Thrown Hand Axe</option><option value='tc'>Two Handed Club</option><option value='td'>Thrown Dagger</option><option value='tp'>Thrown Spear</option><option value='tr'>Trample</option><option value='ts'>Two Handed Sword</option><option value='tw'>War Hammer</option><option value='tx'>Two Handed Axe</option><option value='un'>Unarmed Strike</option><option value='wbo'>Water Bolt</option><option value='we'>Arming Sword</option><option value='wi'>Whip</option><option value='wm'>War Mattock</option>
         </select>
           
 
@@ -2981,11 +2984,15 @@ Lists Selected <input type='number' name='comp_cmbaselistcount'> / 6
       <option value="2">2 AP/Phase</option>
       <option value="4">4 AP/Phase</option>
     </select>
+    <!--
+    <button type='action' name='act_trackernewcombat' class='fancybutton'>New Combat</button>
+    -->
     <button type='action' name='act_trackerrollinitiative' class='fancybutton'>Initiative</button>
     <button type='action' name='act_trackernextturn' class='fancybutton'>Next Turn</button>
 
     <!-- These should all become visible when in combat mode only -->
     Current Init: <span name='attr_currentinitcount'></span>
+
     <button type='action' name='act_endcombat' class='fancybutton'>End Combat</button>
   </div>
 
@@ -3013,6 +3020,7 @@ Lists Selected <input type='number' name='comp_cmbaselistcount'> / 6
           </div>
           <div style='float: right'> 
             Init: <span name='attr_tvrow1_lastinitiative'></span>         
+            (<span name='attr_tvrow1_lastinitiativetiebreaker'></span>)
 
             HP <span name="attr_tvrow1_hp"></span>/<span name="attr_tvrow1_hp_max"></span>
             <!--  Disabling these as they seem a pain for now 
@@ -3200,6 +3208,7 @@ Lists Selected <input type='number' name='comp_cmbaselistcount'> / 6
           </div>
           <div style='float: right'> 
             Init: <span name='attr_tvrow2_lastinitiative'></span>         
+            (<span name='attr_tvrow2_lastinitiativetiebreaker'></span>)
 
             HP <span name="attr_tvrow2_hp"></span>/<span name="attr_tvrow2_hp_max"></span>
             <!--  Disabling these as they seem a pain for now 
@@ -3387,6 +3396,7 @@ Lists Selected <input type='number' name='comp_cmbaselistcount'> / 6
           </div>
           <div style='float: right'> 
             Init: <span name='attr_tvrow3_lastinitiative'></span>         
+            (<span name='attr_tvrow3_lastinitiativetiebreaker'></span>)
 
             HP <span name="attr_tvrow3_hp"></span>/<span name="attr_tvrow3_hp_max"></span>
             <!--  Disabling these as they seem a pain for now 
@@ -3574,6 +3584,7 @@ Lists Selected <input type='number' name='comp_cmbaselistcount'> / 6
           </div>
           <div style='float: right'> 
             Init: <span name='attr_tvrow4_lastinitiative'></span>         
+            (<span name='attr_tvrow4_lastinitiativetiebreaker'></span>)
 
             HP <span name="attr_tvrow4_hp"></span>/<span name="attr_tvrow4_hp_max"></span>
             <!--  Disabling these as they seem a pain for now 
@@ -3761,6 +3772,7 @@ Lists Selected <input type='number' name='comp_cmbaselistcount'> / 6
           </div>
           <div style='float: right'> 
             Init: <span name='attr_tvrow5_lastinitiative'></span>         
+            (<span name='attr_tvrow5_lastinitiativetiebreaker'></span>)
 
             HP <span name="attr_tvrow5_hp"></span>/<span name="attr_tvrow5_hp_max"></span>
             <!--  Disabling these as they seem a pain for now 
@@ -3948,6 +3960,7 @@ Lists Selected <input type='number' name='comp_cmbaselistcount'> / 6
           </div>
           <div style='float: right'> 
             Init: <span name='attr_tvrow6_lastinitiative'></span>         
+            (<span name='attr_tvrow6_lastinitiativetiebreaker'></span>)
 
             HP <span name="attr_tvrow6_hp"></span>/<span name="attr_tvrow6_hp_max"></span>
             <!--  Disabling these as they seem a pain for now 
@@ -4135,6 +4148,7 @@ Lists Selected <input type='number' name='comp_cmbaselistcount'> / 6
           </div>
           <div style='float: right'> 
             Init: <span name='attr_tvrow7_lastinitiative'></span>         
+            (<span name='attr_tvrow7_lastinitiativetiebreaker'></span>)
 
             HP <span name="attr_tvrow7_hp"></span>/<span name="attr_tvrow7_hp_max"></span>
             <!--  Disabling these as they seem a pain for now 
@@ -4322,6 +4336,7 @@ Lists Selected <input type='number' name='comp_cmbaselistcount'> / 6
           </div>
           <div style='float: right'> 
             Init: <span name='attr_tvrow8_lastinitiative'></span>         
+            (<span name='attr_tvrow8_lastinitiativetiebreaker'></span>)
 
             HP <span name="attr_tvrow8_hp"></span>/<span name="attr_tvrow8_hp_max"></span>
             <!--  Disabling these as they seem a pain for now 
@@ -4509,6 +4524,7 @@ Lists Selected <input type='number' name='comp_cmbaselistcount'> / 6
           </div>
           <div style='float: right'> 
             Init: <span name='attr_tvrow9_lastinitiative'></span>         
+            (<span name='attr_tvrow9_lastinitiativetiebreaker'></span>)
 
             HP <span name="attr_tvrow9_hp"></span>/<span name="attr_tvrow9_hp_max"></span>
             <!--  Disabling these as they seem a pain for now 
@@ -4696,6 +4712,7 @@ Lists Selected <input type='number' name='comp_cmbaselistcount'> / 6
           </div>
           <div style='float: right'> 
             Init: <span name='attr_tvrow10_lastinitiative'></span>         
+            (<span name='attr_tvrow10_lastinitiativetiebreaker'></span>)
 
             HP <span name="attr_tvrow10_hp"></span>/<span name="attr_tvrow10_hp_max"></span>
             <!--  Disabling these as they seem a pain for now 
@@ -4883,6 +4900,7 @@ Lists Selected <input type='number' name='comp_cmbaselistcount'> / 6
           </div>
           <div style='float: right'> 
             Init: <span name='attr_tvrow11_lastinitiative'></span>         
+            (<span name='attr_tvrow11_lastinitiativetiebreaker'></span>)
 
             HP <span name="attr_tvrow11_hp"></span>/<span name="attr_tvrow11_hp_max"></span>
             <!--  Disabling these as they seem a pain for now 
@@ -5070,6 +5088,7 @@ Lists Selected <input type='number' name='comp_cmbaselistcount'> / 6
           </div>
           <div style='float: right'> 
             Init: <span name='attr_tvrow12_lastinitiative'></span>         
+            (<span name='attr_tvrow12_lastinitiativetiebreaker'></span>)
 
             HP <span name="attr_tvrow12_hp"></span>/<span name="attr_tvrow12_hp_max"></span>
             <!--  Disabling these as they seem a pain for now 
@@ -5257,6 +5276,7 @@ Lists Selected <input type='number' name='comp_cmbaselistcount'> / 6
           </div>
           <div style='float: right'> 
             Init: <span name='attr_tvrow13_lastinitiative'></span>         
+            (<span name='attr_tvrow13_lastinitiativetiebreaker'></span>)
 
             HP <span name="attr_tvrow13_hp"></span>/<span name="attr_tvrow13_hp_max"></span>
             <!--  Disabling these as they seem a pain for now 
@@ -5444,6 +5464,7 @@ Lists Selected <input type='number' name='comp_cmbaselistcount'> / 6
           </div>
           <div style='float: right'> 
             Init: <span name='attr_tvrow14_lastinitiative'></span>         
+            (<span name='attr_tvrow14_lastinitiativetiebreaker'></span>)
 
             HP <span name="attr_tvrow14_hp"></span>/<span name="attr_tvrow14_hp_max"></span>
             <!--  Disabling these as they seem a pain for now 
@@ -5631,6 +5652,7 @@ Lists Selected <input type='number' name='comp_cmbaselistcount'> / 6
           </div>
           <div style='float: right'> 
             Init: <span name='attr_tvrow15_lastinitiative'></span>         
+            (<span name='attr_tvrow15_lastinitiativetiebreaker'></span>)
 
             HP <span name="attr_tvrow15_hp"></span>/<span name="attr_tvrow15_hp_max"></span>
             <!--  Disabling these as they seem a pain for now 
@@ -5818,6 +5840,7 @@ Lists Selected <input type='number' name='comp_cmbaselistcount'> / 6
           </div>
           <div style='float: right'> 
             Init: <span name='attr_tvrow16_lastinitiative'></span>         
+            (<span name='attr_tvrow16_lastinitiativetiebreaker'></span>)
 
             HP <span name="attr_tvrow16_hp"></span>/<span name="attr_tvrow16_hp_max"></span>
             <!--  Disabling these as they seem a pain for now 
@@ -6005,6 +6028,7 @@ Lists Selected <input type='number' name='comp_cmbaselistcount'> / 6
           </div>
           <div style='float: right'> 
             Init: <span name='attr_tvrow17_lastinitiative'></span>         
+            (<span name='attr_tvrow17_lastinitiativetiebreaker'></span>)
 
             HP <span name="attr_tvrow17_hp"></span>/<span name="attr_tvrow17_hp_max"></span>
             <!--  Disabling these as they seem a pain for now 
@@ -6192,6 +6216,7 @@ Lists Selected <input type='number' name='comp_cmbaselistcount'> / 6
           </div>
           <div style='float: right'> 
             Init: <span name='attr_tvrow18_lastinitiative'></span>         
+            (<span name='attr_tvrow18_lastinitiativetiebreaker'></span>)
 
             HP <span name="attr_tvrow18_hp"></span>/<span name="attr_tvrow18_hp_max"></span>
             <!--  Disabling these as they seem a pain for now 
@@ -6379,6 +6404,7 @@ Lists Selected <input type='number' name='comp_cmbaselistcount'> / 6
           </div>
           <div style='float: right'> 
             Init: <span name='attr_tvrow19_lastinitiative'></span>         
+            (<span name='attr_tvrow19_lastinitiativetiebreaker'></span>)
 
             HP <span name="attr_tvrow19_hp"></span>/<span name="attr_tvrow19_hp_max"></span>
             <!--  Disabling these as they seem a pain for now 
@@ -6566,6 +6592,7 @@ Lists Selected <input type='number' name='comp_cmbaselistcount'> / 6
           </div>
           <div style='float: right'> 
             Init: <span name='attr_tvrow20_lastinitiative'></span>         
+            (<span name='attr_tvrow20_lastinitiativetiebreaker'></span>)
 
             HP <span name="attr_tvrow20_hp"></span>/<span name="attr_tvrow20_hp_max"></span>
             <!--  Disabling these as they seem a pain for now 
@@ -6735,6 +6762,23 @@ Lists Selected <input type='number' name='comp_cmbaselistcount'> / 6
       </div>
     </div>
   </div></div>
+
+
+  
+  <div class='trackercharacter gridordered'>
+    <input class='trackerorder' name='attr_tvrowendphase_order' type='hidden'>
+    <input type='checkbox' name='attr_tveop_inuse' class='toggle'>
+    End of Phase
+  </div>
+
+  
+  <!--
+ <div class='trackercharacter gridordered'>
+    <input class='trackerorder' name='attr_tveot_order' type='hidden'>
+    <input type='checkbox' name='attr_tveot_inuse' class='toggle'>
+    End of Turn
+  </div>
+-->
 
 </div> <!-- tracked -->
 
@@ -10459,7 +10503,7 @@ Sheet Version: <span name='attr_version'></span>
 
 <br>
 
-Revision ead72a44557d53190c1cf469987201727ecba285
+Revision 073b3ea014cb7b7ec3de3c495dddd914428ba68f
 
 
 <hr>
@@ -12404,7 +12448,7 @@ const skillrollresults = {
     absolutesuccess : "Your diligence is rewarded with your latest masterwork!  Everyone else can see the remarkable quality of your work, and your abilities will be more highly regarded than ever.  Item has +10 Strength.",
   },
   delving : {
-    absolutefailure: "You not only fail to attune, you manage to deattune yourself to any items you have already attuned to.  You may attempt to reattuneto those items at -20.",
+    absolutefailure: "You not only fail to attune, you manage to deattune yourself to any items you have already attuned to.  You may attempt to reattune to those items at -20.",
     failure: "You fail to match auras with the item and a period of contemplation is in order.  You may not try again until you have developed another rank in Attunement.",
     unusualevent : "You glimpse a series of visions associated with the item's past over 3 rounds during which time you are in an unwakeable trance.  When you emerge from the trance you will know about the item's past, even if you've not successfully attuned to it.",
     partialsuccess : "You learn one ability of the item but you cannot use it.  You may try again to attune after a good night's sleep.",
@@ -12472,7 +12516,7 @@ science	: {
 absolutefailure : "Pitiful.  You not only fail to produce accurate results, you produce wrong results.  You cannot discover where you made your mistake and get  -25 to this skill until an Absolute Success is achieved.",
 failure : "You fail to grasp the problem and any time you have spent is waisted.  You may not attempt again until you have reflected on this and 24 hours has passed.",
 unusualevent : "Good heavens!  In the course of your analysis you have stumbled across a hitherto unrealized theorem!  Abandoning your current task for several minutes you follow this line of reasoning instead of your original task. The world must be told of your revelation.",
-partialsuccess : "Persistence yields results.  So persis.  You may try the maneuver again (requirign the normal time) and get +10 to the roll.",
+partialsuccess : "Persistence yields results.  So persist.  You may try the maneuver again (requiring the normal time) and get +10 to the roll.",
 success : "You have blinded them with science!  You have arrived at what you are sure is the right answer.  No, it's right.  Almost certainly right.",
 absolutesuccess : "Brilliant!  Your seldom-appreciated genius rises to heretofore unforseen levels.  In half the time normally required, you manage to hold a command of the material that gives you +10 on your next analysis.",
 	
@@ -12489,7 +12533,7 @@ technical : {
 absolutefailure : "You manage to ruin a tool of your trade through carelessness and frustration, and get -25 to all future uses of this skill until an absolute Success is achieved.  Is this your idea of fun?",
 failure : "Your attempt fails utterly and your are dejected.  If this is a trap, there is a 20% chance it will activate affecting you.  You may not try this problem again for 24 hours.",
 unusualevent : "As you are working on it, the mechanism activates but incompletely.  You have both hands occupied in the mechanism and if you let go with either hand, it will activate or otherwise damage you.  Hopefully you brought a friend…",
-partialsuccess : "Unusual complications haeve arisen.  Nothing you can't handle but it's going to take you some extra time.  You may attempt to finish your work at -10.",
+partialsuccess : "Unusual complications have arisen.  Nothing you can't handle but it's going to take you some extra time.  You may attempt to finish your work at -10.",
 success : "You perform the task with admirable skill.  Now quit patting yourself on the back and get back to work.",
 absolutesuccess : "Your subtle technical mastery is reflecting in your remarkable success.  You may perform this specific maneuver at +20 (not cumulative) until you receive an Absolute Failure.",
 
@@ -22457,15 +22501,17 @@ function doRollInitiative() {
 function doRollInitiativeNoTracker(donefn) {
   // roll20 treats floor as round to negative infinity, so ceil since they should be negative
   startRoll('@{whispertype} &{template:rmuinit} [[ [[ 2d10 ]] + @{initiative} + [[ceil(@{statuspenalty} / 10)]] ]] ' +
+      '[[d10000]] ' +
       '{\{actor=@{character_name} }} ' +
       '{\{bonus=@{initiative} }} ' +
       '{\{total=$[[2]]}} {\{roll=$[[0]]}} ' +
-      '{\{maneuver=$[[1]] }}',
+      '{\{maneuver=$[[1]] }}' +
+      '{\{tiebreaker=$[[3]] }}',
       (roll) => {
 	setAttrs({lastinitiative: roll.results.total.result}, {silent:true});
 	finishRoll(roll.rollId, {});
 	if (donefn && typeof(donefn) === 'function') {
-	  donefn(roll.results.total.result);
+	  donefn(roll.results.total.result, roll.results.tiebreaker.result);
 	}
   });
 }
@@ -24529,69 +24575,130 @@ tracker.forEachFetch = function(extra, func) {
   });
 }
 
+/* */
+tracker.charsSortByInit = function(chars) {
+  'use strict';
+  chars.sort((a,b) => {
+      if (a.init != b.init) {
+        return b.init - a.init;
+      }
+      if (a.tiebreaker != b.tiebreaker) {
+        return b.tiebreaker - a.tiebreaker;
+      }
+      if (a.sheetselect != b.sheetselect) {
+        if (a.sheetselect === 'playersheet') {
+          return -1;
+        } else {
+          return 1;
+        }
+      }
+      return a.characterid.localeCompare(b.characterid);
+  });
+  for (let i = 0 ; i < chars.length ; i ++) {
+    // Avoid 0 as it's the default for grid orders
+    chars[i].initiativeorder = i + 1;
+  }
+}
+
 /* Send the data from the Tracker init rolls to all the PC sheets */
-tracker.updatePCSheetInit = function(newphase) {
-  sendMessage("All init done!");
-  const toget = ['currentinitcount'];
+tracker.updatePCSheetInit = function(newround) {
+  'use strict';
+  const toget = ['currentinitcharacter'];
   for (let i = 1 ; i <= 20 ; i ++) {
-    toget.push(`tvrow${i}_characterid`, `tvrow${i}_inuse`, `tvrow${i}_lastinitiative`,
-                `tvrow${i}_character_name`, `tvrow${i}_character_token`,
-                `tvrow${i}_sheettype`);
+    toget.push(
+            `tvrow${i}_inuse`, `tvrow${i}_characterid`, 
+            `tvrow${i}_lastinitiative`, `tvrow${i}_lastinitiativetiebreaker`,
+            `tvrow${i}_character_name`, `tvrow${i}_character_token`,
+            `tvrow${i}_sheettype`, `tvrow${i}_initiativeorder`,
+            `tvrow${i}_tokenid`);
   }
   getAttrs(toget, (data) => {
+      console.log("Fetched at start for update Sheet", data, "newround", newround);
       // Our (eventually) sorted array
       let chars = []
       for (let i = 1 ; i <= 20 ; i ++) {
         if (data[`tvrow${i}_inuse`] === 'on') {
           let ch = {}
           ch.init = data[`tvrow${i}_lastinitiative`];
+          ch.tiebreaker = data[`tvrow${i}_lastinitiativetiebreaker`];
           ch.rowid = i;
           ch.characterid = data[`tvrow${i}_characterid`];
           ch.character_name = data[`tvrow${i}_character_name`];
           ch.character_token = data[`tvrow${i}_character_token`];
           ch.sheettype = data[`tvrow${i}_sheettype`];
+          ch.initiativeorder = data[`tvrow${i}_initiativeorder`];
+          ch.tokenid = data[`tvrow${i}_tokenid`];
           console.log('adding', ch)
           chars.push(ch);
         }
       }
 
-      let currentinit = 999;
-      if (!newphase) {
-        // Subtract half so it's in the middle
-        currentinit = parseIntDefault(data.currentinitcount) - 0.5;
-      }
-
-      const updates = {};
+      // Push the end of phase marker
+      chars.push({init: -1000, tiebreaker: -1000, rowid: 'endphase', characterid: 'endofphase' });
 
       // Have our list of PCs: Now sort it
-      chars.sort((a,b) => {
-          return ((a.init > currentinit && b.init > currentinit) ||
-                  (a.init < currentinit && b.init < currentinit)) ?
-            b.init - a.init : a.init - b.init});
-      console.log("sorted", currentinit, chars)
-      updates.currentinitcount = chars[0].init;
+      tracker.charsSortByInit(chars)
 
+      const updates = {};
+      if (!data.currentinitcharacter || data.currentinitcharacter == 'endofphase') {
+        console.log("No current init: Doing new round");
+        newround = true;
+      }
+
+      if (newround) {
+        console.log("New round: Init goes to #1");
+      } else {
+        console.log("Not new round: Sorting"); 
+        // FIXME: So when a character is deleted from the tracker, we need to handle
+        // that case - probably not here; probably in delete
+        let i = 0;
+        for ( ; i < chars.length ; i ++) {
+          if (chars[i].characterid == data.currentinitcharacter) {
+            break;
+          }
+        }
+        console.log("Current char is at ", i, data.currentinitcharacter);
+        chars = chars.slice(i + 1).concat(chars.slice(0, i + 1));
+        console.log("After slice", chars);
+      }
+
+      updates.currentinitcharacter = chars[0].characterid;
+      if (chars[0].tokenid) {
+        startRoll(`/fx explode-holy ${chars[0].tokenid}`, (x) => { finishRoll(x.rollId,x)});
+      }
+      if (chars[0].character_name) {
+        sendMessage(`${chars[0].character_name} takes their turn.`)
+      }
+
+
+      // FIXME: Should send a message about whos turn it is.
       // Awesome now, lets set them
       let pos = 40;
       const remoteupdates = {}
       remoteupdates.pctrackactive = 'on';
       let pcrow = 1;
-      for (ch of chars) {
+      for (let ch of chars) {
         console.log(ch)
         updates[`tvrow${ch.rowid}_order`] = pos;
-        remoteupdates[`pctrack${pcrow}_order`] = pos;
-        remoteupdates[`pctrack${pcrow}_token`] = ch.character_token;
-        remoteupdates[`pctrack${pcrow}_name`] = ch.character_name;
-        remoteupdates[`pctrack${pcrow}_inuse`] = 'on';
+        if (ch.rowid != 'endphase') {
+          remoteupdates[`pctrack${pcrow}_order`] = pos;
+          remoteupdates[`pctrack${pcrow}_token`] = ch.character_token;
+          remoteupdates[`pctrack${pcrow}_name`] = ch.character_name;
+          remoteupdates[`pctrack${pcrow}_inuse`] = 'on';
+          pcrow ++;
+        }
         pos --;
-        pcrow ++;
       }
       for ( ; pcrow <= 20; pcrow ++) {
         remoteupdates[`pctrack${pcrow}_inuse`] = false;
       }
-      console.log(updates);
+      console.log("Turn updates: ", updates, chars);
       setAttrs(updates);
-      for (ch of chars) {
+      for (let ch of chars) {
+        if (!ch.characterid) {
+          // Skips end of phase ans simildr
+          continue;
+        }
         rmuSetAttrsRemote(ch.characterid, remoteupdates);
         console.log("remote test", ch.characterid, remoteupdates);
       }
@@ -24599,10 +24706,12 @@ tracker.updatePCSheetInit = function(newphase) {
 }
 
 onCheck("clicked:endcombat", () => {
-  const toget = []
+  'use strict';
+  const toget = [];
   for (let i = 1 ; i <= 20 ; i ++) {
     toget.push(`tvrow${i}_characterid`, `tvrow${i}_sheettype`);
   }
+  setAttrs({trackerincombat: false}); 
   getAttrs(toget, (data) => {
       for (let i = 1 ; i <= 20 ; i ++) {
         rmuSetAttrsRemote(data[`tvrow${i}_characterid`], { pctrackactive : false });
@@ -24610,25 +24719,36 @@ onCheck("clicked:endcombat", () => {
   });
 });
 
-onCheck("clicked:trackerrollinitiative", (_) => {
+// Add a second button:
+//new combat  - toggle at the end of combat
+onCheck("clicked:trackernewcombat", () => {
+
+});
+
+tracker.rollallpcinit = function() {
+  'use strict';
   let count = 0;
   const updates = {};
   let trackerid = getActiveCharacterId();
   tracker.forAllSheets((id, row) => {
-    count ++;
-    asCharacter(id, () => {
-        doRollInitiativeNoTracker((result) => {
-            updates[`tvrow${row}_lastinitiative`] = result;
-            count --;
-            if (count == 0) {
+      count ++;
+      asCharacter(id, () => {
+          doRollInitiativeNoTracker((result, tiebreaker) => {
+              updates[`tvrow${row}_lastinitiative`] = result;
+              updates[`tvrow${row}_lastinitiativetiebreaker`] = tiebreaker;
+              count --;
+              if (count == 0) {
               asCharacter(trackerid, () => {
-                setAttrs(updates, () => { tracker.updatePCSheetInit(true);});
-              });
-            }
-        })
-    });
-  });
-});
+                  setAttrs(updates, () => { tracker.updatePCSheetInit(true);});
+                  });
+              }
+              })
+          });
+      });
+}
+
+
+onCheck("clicked:trackerrollinitiative", tracker.rollallpcinit);
 
 onCheck("clicked:trackernextturn", () => {
   // False: just the next phase
