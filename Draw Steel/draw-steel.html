@@ -6298,7 +6298,6 @@
 			getConditionImmunities(allFeatures),
 			].filter(Boolean).join(', ');
 		
-		console.log(immunity);
 		// ATTRIBUTE MAPPING
 		const newAttrs = {
 			forgesteel_json: '', // Clear the import field.
@@ -6485,7 +6484,9 @@
 	 */
 
 	function _processAbilityCore(abilityData, isNPC = false) {
+		console.log('~~~ processAbilityCore ```');
 		const id = generateRowID();
+		//console.log(abilityData);
 		const { type: usageData, sections, cost: rawCost, name, description, keywords, target } = abilityData;
     
 		// Configuration & Naming
@@ -6652,17 +6653,18 @@
 	}
 	
 	function importMalice(maliceData) {
-		if (maliceData === undefined ) {
+		console.log('~~~ importMalice ~~~');
+		if (maliceData === undefined ||  maliceData.length === 0) {
 			return [];
 		}
 		const maliceFeatures = maliceData.reduce((acc, f) => {
 			if (f.type === FEATURE_TYPES.MALICE_ABILITY) {
-				return {...acc, ...processAbility(f)};
+				return {...acc, ...processMonsterAbility(f.data.ability)};
 			} else
 			{
 				return {...acc, ...processMaliceAbility(f)};
 			}
-		});
+		},[]);
 		console.log(maliceFeatures);
 		return maliceFeatures;
 	}
