@@ -99,7 +99,7 @@
   margin-bottom: 10px;
 }
 
-/* GRID SYSTEM */
+/* GRID */
 
 .sheet-grid {
   display: grid;
@@ -133,18 +133,30 @@
   grid-template-columns: 1fr 2fr .6fr;
 }
 
-/* 🔥 THAC0 GRID FIX (LOCKED) */
+/* THAC0 GRID */
 
 .sheet-attack-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
+  gap: 10px;
 }
 
 .sheet-attack-col {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
+}
+
+/* WIDTH CONTROL (keeps right column compact) */
+
+.sheet-attack-col input,
+.sheet-sidecol .sheet-grid-3 input,
+.sheet-sidecol .sheet-grid-2 input {
+  width: 60px;
+  max-width: 60px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 2px 3px;
 }
 
 /* ABILITY SCORES */
@@ -168,14 +180,6 @@
   padding-left: 4px;
 }
 
-/* ALIGN INPUTS */
-
-.sheet-grid input,
-.sheet-grid select,
-.sheet-ability-row input {
-  text-align: center;
-}
-
 /* HEADERS */
 
 .sheet-mount-header {
@@ -189,29 +193,26 @@
   font-size: 10px;
 }
 
-/* TWO COLUMN */
+/* 🔥 FIX: TRUE TWO-COLUMN BEHAVIOR */
 
 .sheet-two-col {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
+  display: flex;
   gap: 10px;
+  align-items: flex-start;
 }
 
-.sheet-maincol,
-.sheet-sidecol {
-  min-width: 0;
-}
-
-.sheet-sidecol {
+.sheet-maincol {
+  flex: 2;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-/* FULL WIDTH */
-
-.sheet-fullwidth {
-  grid-column: 1 / -1;
+.sheet-sidecol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 /* HP */
@@ -227,19 +228,11 @@
   font-size: 13px;
 }
 
-/* RIGHT PANEL */
-
-.sheet-sidecol .sheet-grid-3 input,
-.sheet-sidecol .sheet-grid-2 input {
-  max-width: 80px;
-  margin: 0 auto;
-}
-
 /* TEXT */
 
 .sheet-gvn textarea[name="attr_other_defenses"] {
-  min-height: 100px;
-  max-height: 120px;
+  min-height: 80px;
+  max-height: 80px;
 }
 
 .sheet-notes-area {
@@ -271,10 +264,8 @@
 @media screen and (max-width: 1000px) {
 
   .sheet-two-col {
-    grid-template-columns: 1fr;
+    flex-direction: column;
   }
-
-  /* collapse general grids BUT NOT attack grid */
 
   .sheet-grid,
   .sheet-grid-10,
@@ -292,11 +283,11 @@
     grid-template-columns: 1fr;
   }
 
-  /* KEEP THAC0 TWO COLUMN */
   .sheet-attack-grid {
     grid-template-columns: 1fr 1fr;
   }
 
+  .sheet-attack-col input,
   .sheet-sidecol .sheet-grid-3 input,
   .sheet-sidecol .sheet-grid-2 input {
     max-width: 100%;
