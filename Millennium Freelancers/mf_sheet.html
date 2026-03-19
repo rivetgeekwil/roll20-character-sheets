@@ -1,12 +1,112 @@
 <script type="text/worker">
-on ("clicked:cancel_damage", cancelDamage);
+on("clicked:repeating_quickactions:roll", rollQuickAction);
 
-async function cancelDamage(info)
+async function rollQuickAction(info)
     {
-    await setAttrsAsync({"ammo_prompt_hider": "1"});
+    var id = info.sourceAttribute.split('_')[2];
+    var type = info.htmlAttributes.value;
+    
+    var values = await getAttrsAsync(["repeating_quickactions_" + id + "_quick_attribute",
+                                      "repeating_quickactions_" + id + "_quick_skill"]);
+    
+    var attribute = values["repeating_quickactions_" + id + "_quick_attribute"];
+    var skill = values["repeating_quickactions_" + id + "_quick_skill"];
+                                      
+    var values2 = await getAttrsAsync([attribute, skill]);
+    
+    var attributeName = await attributeToName(attribute);
+    var skillName = await skillToName(skill);
+    
+    var rollString = "&{template:";
+	if (type=="high")
+		{
+		rollString += "hi-roll} {{name=@{character_name}}} {{title=: High intensity " + attributeName + " + " + skillName + " check: }} {{roll1=[[1d12" + " + " + values2[attribute] + " + " + values2[skill] + "]]}}";
+		}
+		else
+		{
+		rollString += "li-roll} {{name=@{character_name}}} {{title=: Low intensity " + attributeName + " + " + skillName + " check: }} {{roll1=[[abs(1d20 - 1d20)" + " + " + values2[attribute] + " + " + values2[skill] + "]]}}";
+		}
+		
+	rerollString = rollString;
+	startRoll(rollString, skillCheckCallback);
+	
+    console.log(info);
     }
 
-on ("clicked:repeating_melees:roll_damage clicked:repeating_ammo:roll_damage clicked:roll_damage", rollDamage);
+on("change:repeating_advantages:advantage_name", handleAdvantage);
+
+async function handleAdvantage(info)
+    {
+    console.log(info);
+    var advantage = info.newValue.replaceAll(' ', '');
+    advantage = advantage.toLowerCase();
+    
+    var prevAdvantage = "";
+    if (info.previousValue != undefined)
+        {
+        prevAdvantage = info.previousValue.replaceAll(' ', '');
+        prevAdvantrage = prevAdvantage.toLowerCase();
+        }
+        
+    if (advantage == "stronglifeforce")
+        {
+        await setAttrsAsync({"health_levels": "6"});
+        setMaxHP();
+        setPainFromDamage(null);
+        }
+        else if (prevAdvantage == "stronglifeforce")
+        {
+        await setAttrsAsync({"health_levels": "5"});
+        setMaxHP();
+        setPainFromDamage(null);
+        }
+    }
+
+on ("clicked:repeating_weapons:reload", reload);
+
+async function reload(info)
+    {
+    var id = info.sourceAttribute.substring(18, 38);
+    
+    var ammoIds = await getSectionIDsAsync("ammo");
+    
+    var gets = ["repeating_weapons_" + id + "_weapon_ammo",
+                "repeating_weapons_" + id + "_weapon_clip_ammo",
+                "repeating_weapons_" + id + "_weapon_clip_capacity"];
+    
+    for (var i=0; i<ammoIds.length; i++)
+        {
+        gets.push("repeating_ammo_" + ammoIds[i] + "_ammo_id");
+        gets.push("repeating_ammo_" + ammoIds[i] + "_ammo_quantity");
+        }
+    
+    var values = await getAttrsAsync(gets);
+    
+    for (var i=0; i<ammoIds.length; i++)
+        {
+        if (values["repeating_ammo_" + ammoIds[i] + "_ammo_id"] == values["repeating_weapons_" + id + "_weapon_ammo"])
+            {
+            if (isNaN(Number(values["repeating_weapons_" + id + "_weapon_clip_ammo"])) ||
+                isNaN(Number(values["repeating_weapons_" + id + "_weapon_clip_capacity"])) ||
+                isNaN(Number(values["repeating_ammo_" + ammoIds[i] + "_ammo_quantity"])))
+                {
+                console.log(values);
+                return;
+                }
+                
+            var loaded = Number(values["repeating_weapons_" + id + "_weapon_clip_ammo"]);
+            var capacity = Number(values["repeating_weapons_" + id + "_weapon_clip_capacity"]);
+            var pack = Number(values["repeating_ammo_" + ammoIds[i] + "_ammo_quantity"]);
+                
+            var delta = Math.min(pack, capacity-loaded);
+                
+            await setAttrsAsync({["repeating_weapons_" + id + "_weapon_clip_ammo"]: "" + (loaded + delta),
+                                 ["repeating_ammo_" + ammoIds[i] + "_ammo_quantity"]: "" + (pack - delta)});
+            }
+        }
+    }
+
+on ("clicked:repeating_melees:rolldamage clicked:repeating_ammo:rolldamage clicked:roll_damage", rollDamage);
 
 async function rollDamage(info)
     {
@@ -14,6 +114,8 @@ async function rollDamage(info)
     var id;
     var damage;
     var target = "b";
+    
+    console.log(info.htmlAttributes.value);
     
     if (info.htmlAttributes.value == "ammo")
         {
@@ -46,56 +148,26 @@ async function rollDamage(info)
             var ammoData = [];
             for (var i=0; i<ids.length; i++)
                 {
-                ammoData.push("repeating_ammo_" + ids[i] + "_ammo_class");
-                ammoData.push("repeating_ammo_" + ids[i] + "_ammo_variant");
+                ammoData.push("repeating_ammo_" + ids[i] + "_ammo_id");
                 ammoData.push("repeating_ammo_" + ids[i] + "_ammo_damage");
                 }
                 
             var values3 = await getAttrsAsync(ammoData);
-            var valids = [];
             
             for (var i=0; i<ids.length; i++)
                 {
-                if (values3["repeating_ammo_" + ids[i] + "_ammo_class"].toLowerCase() == values2["repeating_weapons_" + id + "_weapon_ammo"].toLowerCase())
+                if (values3["repeating_ammo_" + ids[i] + "_ammo_id"] == values2["repeating_weapons_" + id + "_weapon_ammo"])
                     {
-                    valids.push(ids[i]);
+                    damage = values3["repeating_ammo_" + ids[i] + "_ammo_damage"];
                     }
-                }
-                
-            if (valids.length == 0)
-                {
-                console.log("No valid ammo available.");
-                return;
-                }
-                else if (valids.length == 1)
-                {
-                damage = values3["repeating_ammo_" + valids[0] + "_ammo_damage"];
-                }
-                else
-                {
-                var availableAmmo = [];
-                for (var i=0; i<valids.length; i++)
-                    {
-                    availableAmmo.push({});
-                    availableAmmo[i].label = values3["repeating_ammo_" + valids[i] + "_ammo_variant"];
-                    availableAmmo[i].value = valids[i];
-                    }
-                    
-                populateListOptions({elemSelector: ".damage-ammo-select, .damage-ammo-selectBlank",
-            				 optionsArray: availableAmmo});
-                    
-                await setAttrsAsync({"ammo_prompt_hider": "0"});
-                
-                return;
                 }
             }
         }
-        else if (info.htmlAttributes.value == "variant")
+        
+    if (damage == undefined || damage == "")
         {
-        values = await getAttrsAsync(["damage_ammo"]);
-        values2 = await getAttrsAsync(["repeating_ammo_" + values.damage_ammo + "_ammo_damage"]);
-        damage = values2["repeating_ammo_" + values.damage_ammo + "_ammo_damage"];
-        await setAttrsAsync({"ammo_prompt_hider": "1"});
+        console.log("No valid ammo available.");
+        return;
         }
         
     damage = damage.toLowerCase();
@@ -106,6 +178,7 @@ async function rollDamage(info)
     damage = damage.replaceAll("thermal", "t");
     damage = damage.replaceAll("electric", "e");
     damage = damage.replaceAll("absolute", "a");
+    damage = damage.replaceAll("emp", "m");
     
     split = damage.split("+");
 
@@ -114,8 +187,12 @@ async function rollDamage(info)
     	{
         split[i] = split[i].replaceAll(" ", "");
         split[i] = split[i].toLowerCase();
-        if (split[i].match(/^\d+d?\d*[biotea]?$/) != null)
+        if (split[i].match(/^\d*d?\d*[bioteam]?$/) != null)
         	{
+        	if (split[i][0] == 'd')
+        	    {
+        	    split[i] = "1" + split[i];
+        	    }
             results.push(split[i]);
             }
         }
@@ -126,10 +203,11 @@ async function rollDamage(info)
     var thermal = "0";
     var electric = "0";
     var absolute = "0";
+    var emp = "0";
     
     for (var i=results.length - 1; i>= 0; i--)
         {
-        var type = split[i].match(/[biotea]$/);
+        var type = split[i].match(/[bioteam]$/);
         if (type != null)
             {
             target = type[0];
@@ -160,6 +238,10 @@ async function rollDamage(info)
             case "a":
                 absolute = results[i].replaceAll("a", "") + "+" + absolute;
             break;
+            
+            case "m":
+                emp = results[i].replaceAll("m", "") + "+" + emp;
+            break;
             }
         }  
         
@@ -169,6 +251,9 @@ async function rollDamage(info)
         }
         else
         {
+        console.log(ballistic);
+        ballistic = ballistic.substring(0, ballistic.length - 2);
+        console.log(ballistic);
         ballistic = "[[" + ballistic + "]]";
         }
         
@@ -178,6 +263,7 @@ async function rollDamage(info)
         }
         else
         {
+        impact = impact.substring(0, impact.length - 2);
         impact = "[[" + impact + "]]";
         }
         
@@ -187,6 +273,7 @@ async function rollDamage(info)
         }
         else
         {
+        biohazard = biohazard.substring(0, biohazard.length - 2);
         biohazard = "[[" + biohazard + "]]";
         }
         
@@ -196,6 +283,7 @@ async function rollDamage(info)
         }
         else
         {
+        thermal = thermal.substring(0, thermal.length - 2);
         thermal = "[[" + thermal + "]]";
         }
         
@@ -205,6 +293,7 @@ async function rollDamage(info)
         }
         else
         {
+        electric = electric.substring(0, electric.length - 2);
         electric = "[[" + electric + "]]";
         }
         
@@ -214,10 +303,21 @@ async function rollDamage(info)
         }
         else
         {
+        absolute = absolute.substring(0, absolute.length - 2);
         absolute = "[[" + absolute + "]]";
         }
+        
+    if (emp == "0")
+        {
+        emp = "";
+        }
+        else
+        {
+        emp = emp.substring(0, emp.length - 2);
+        emp = "[[" + emp + "]]";
+        }
     
-    var rollString = "&{template:damage} {{roll1=" + ballistic + "}} {{roll2=" + impact + "}} {{roll3=" + biohazard + "}} {{roll4=" + thermal + "}} {{roll5=" + electric + "}} {{roll6=" + absolute + "}}";
+    var rollString = "&{template:damage} {{roll1=" + ballistic + "}} {{roll2=" + impact + "}} {{roll3=" + biohazard + "}} {{roll4=" + thermal + "}} {{roll5=" + electric + "}} {{roll6=" + absolute + "}} {{roll7=" + emp + "}}";
     	
     console.log(rollString);
     	
@@ -231,7 +331,7 @@ async function damageCallback(resultData)
     
     computed = {};
     
-    for (var i=1; i<7; i++)
+    for (var i=1; i<8; i++)
         {
         if (resultData.results["roll" + i] != null)
             {
@@ -261,6 +361,10 @@ async function damageCallback(resultData)
                 case 6:
                     computed["roll" + i] += "a";
                 break;
+                
+                case 7:
+                    computed["roll" + i] += "m";
+                break;
                 }
             }
         }
@@ -268,7 +372,7 @@ async function damageCallback(resultData)
     finishRoll(resultData.rollId, computed);
     }
 
-on ("change:attribute_roll_modifier change:skill_roll_modifier", sanitizeAllowNegative);
+on ("change:repeating_weapons:weapon_modifier change:attribute_roll_modifier change:skill_roll_modifier", sanitizeAllowNegative);
 
 async function sanitizeAllowNegative(info)
     {
@@ -626,7 +730,7 @@ async function setPain(info)
     await setAttrsAsync({"pain": Math.min(0, wil + pfd + pm)});
     }
 
-on ("clicked:repeating_backgrounds:delete clicked:repeating_weapons:delete clicked:repeating_armor:delete clicked:repeating_ammo:delete clicked:repeating_advantages:delete clicked:repeating_resources:delete clicked:repeating_melees:delete", deleteLine);
+on ("clicked:repeating_backgrounds:delete clicked:repeating_weapons:delete clicked:repeating_armor:delete clicked:repeating_ammo:delete clicked:repeating_advantages:delete clicked:repeating_resources:delete clicked:repeating_melees:delete clicked:repeating_quickactions:delete", deleteLine);
 
 async function deleteLine(info)
     {
@@ -674,6 +778,64 @@ async function deleteLine(info)
             }
         }
         
+    if (info.sourceAttribute.includes("advantages"))
+        {
+        var id = info.sourceAttribute.split("_")[2];
+        var values = await getAttrsAsync(["repeating_advantages_" + id + "_advantage_name",
+                                          "repeating_advantages_" + id + "_advantage_cost",
+                                          "advantage_xp"]);
+                                          
+        var name = values["repeating_advantages_" + id + "_advantage_name"];
+        var cost = Number(values["repeating_advantages_" + id + "_advantage_cost"]);
+        var xp = Number(values.advantage_xp);
+        
+        console.log(values);
+        
+        name = name.replaceAll(' ', '');
+        name = name.toLowerCase();
+        
+        var sets = {"advantage_xp": "" + (xp - cost)};
+        
+        if (name = "stronglifeforce")
+            {
+            sets["health_levels"] = "5";
+            }
+            
+        await setAttrsAsync(sets);
+        
+        setXP(null);
+        setMaxHP();
+        setPainFromDamage(null);
+        }
+        
+    if (info.sourceAttribute.includes("resources"))
+        {
+        var id = info.sourceAttribute.split("_")[2];
+        var values = await getAttrsAsync(["repeating_resources_" + id + "_resource_cost",
+                                          "resource_xp"]);
+                                          
+        var cost = Number(values["repeating_resources_" + id + "_resource_cost"]);
+        var xp = Number(values.resource_xp);
+        
+        await setAttrsAsync({"resource_xp": "" + (xp - cost)});
+          
+        setXP(null);
+        }
+        
+    if (info.sourceAttribute.includes("backgrounds"))
+        {
+        var id = info.sourceAttribute.split("_")[2];
+        var values = await getAttrsAsync(["repeating_backgrounds_" + id + "_background_cost",
+                                          "background_xp"]);
+                                          
+        var cost = Number(values["repeating_backgrounds_" + id + "_background_cost"]);
+        var xp = Number(values.background_xp);
+        
+        await setAttrsAsync({"background_xp": "" + (xp - cost)});
+          
+        setXP(null);
+        }
+        
     removeRepeatingRow("repeating_" + info.sourceAttribute.split('_')[1] + "_" + info.sourceAttribute.split('_')[2]);
     }
 
@@ -683,12 +845,22 @@ async function addLine(info)
     {
     var id = generateRowID();
     console.log("repeating_" + info.htmlAttributes.value + "_" + id + "_" + info.htmlAttributes.value + "_generator");
+    
+    var values = await getAttrsAsync(["ammo_next_id"]);
+    
     await setAttrsAsync({["repeating_" + info.htmlAttributes.value + "_" + id + "_" + info.htmlAttributes.value + "_generator"]: "1"});
+    if (info.htmlAttributes.value == "ammo")
+        {
+        await setAttrsAsync({["repeating_ammo_" + id + "_ammo_id"]: values.ammo_next_id,
+                             "ammo_next_id": "" + (Number(values.ammo_next_id) + 1)});
+        }
+        
     console.log("ID: " + id + "\n");
+    
     return id;
     }
 
-on ("change:cc_bridge_tech_talent change:cc_mounted_weaponry_talent change:cc_pilot_spacecraft_talent change:cc_vehicle_engineering_talent change:cc_drive_ground_vehicle_talent change:cc_knowledge_corporate_talent change:cc_knowledge_planets_talent change:cc_knowledge_urban_talent change:cc_pilot_aircraft_talent change:cc_trade_talent change:cc_aim_talent change:cc_athletics_talent change:cc_endurance_talent change:cc_melee_talent change:cc_reaction_talent change:cc_throw_talent change:cc_notice_talent change:cc_hack_security_talent change:cc_search_talent change:cc_sleight_of_hand_talent change:cc_sneak_talent change:cc_astronomy_talent change:cc_computer_science_talent change:cc_medicine_talent change:cc_natural_sciences_talent change:cc_robotics_talent change:cc_weapons_engineering_talent change:cc_xenobiology_talent change:cc_convince_talent change:cc_deceive_talent change:cc_empathy_talent change:cc_intimidate_talent change:cc_lead_talent", changeTalent);
+on ("change:cc_bridge_tech_talent change:cc_mounted_weaponry_talent change:cc_pilot_spacecraft_talent change:cc_vehicle_engineering_talent change:cc_drive_ground_vehicle_talent change:cc_knowledge_corporate_talent change:cc_knowledge_urban_talent change:cc_pilot_aircraft_talent change:cc_trade_talent change:cc_aim_talent change:cc_athletics_talent change:cc_endurance_talent change:cc_melee_talent change:cc_reaction_talent change:cc_throw_talent change:cc_notice_talent change:cc_hack_security_talent change:cc_search_talent change:cc_sleight_of_hand_talent change:cc_sneak_talent change:cc_astronomy_talent change:cc_computer_science_talent change:cc_medicine_talent change:cc_natural_sciences_talent change:cc_robotics_talent change:cc_weapons_engineering_talent change:cc_xenobiology_talent change:cc_convince_talent change:cc_deceive_talent change:cc_empathy_talent change:cc_intimidate_talent change:cc_lead_talent", changeTalent);
 
 async function changeTalent(info)
     {
@@ -812,7 +984,7 @@ async function setPlanetTalentSpent(category)
     switch (category)
         {
         case "a":
-            values = await getAttrsAsync(["drive_ground_vehicle_talent", "knowledge_corporate_talent", "knowledge_planets_talent", "knowledge_urban_talent", "pilot_aircraft_talent", "trade_talent"]);
+            values = await getAttrsAsync(["drive_ground_vehicle_talent", "knowledge_corporate_talent", "knowledge_urban_talent", "pilot_aircraft_talent", "trade_talent"]);
         break;
         
         case "b":
@@ -870,7 +1042,6 @@ function skillToCategory(skill)
         
         case "drive_ground_vehicle":
         case "knowledge_corporate":
-        case "knowledge_planets":
         case "knowledge_urban":
         case "pilot_aircraft":
         case "trade":
@@ -933,7 +1104,7 @@ async function enableCCComplete()
         }
     }
 
-on ("clicked:lead_cc_down clicked:intimidate_cc_down clicked:empathy_cc_down clicked:deceive_cc_down clicked:convince_cc_down clicked:xenobiology_cc_down clicked:weapons_engineering_cc_down clicked:robotics_cc_down clicked:natural_sciences_cc_down clicked:medicine_cc_down clicked:computer_science_cc_down clicked:astronomy_cc_down clicked:sneak_cc_down clicked:sleight_of_hand_cc_down clicked:search_cc_down clicked:hack_security_cc_down clicked:notice_cc_down clicked:throw_cc_down clicked:reaction_cc_down clicked:melee_cc_down clicked:endurance_cc_down clicked:athletics_cc_down clicked:aim_cc_down clicked:trade_cc_down clicked:pilot_aircraft_cc_down clicked:knowledge_urban_cc_down clicked:knowledge_planets_cc_down clicked:knowledge_corporate_cc_down clicked:drive_ground_vehicle_cc_down clicked:vehicle_engineering_cc_down clicked:pilot_spacecraft_cc_down clicked:mounted_weaponry_cc_down clicked:bridge_tech_cc_down", reduceSkillCC);
+on ("clicked:lead_cc_down clicked:intimidate_cc_down clicked:empathy_cc_down clicked:deceive_cc_down clicked:convince_cc_down clicked:xenobiology_cc_down clicked:weapons_engineering_cc_down clicked:robotics_cc_down clicked:natural_sciences_cc_down clicked:medicine_cc_down clicked:computer_science_cc_down clicked:astronomy_cc_down clicked:sneak_cc_down clicked:sleight_of_hand_cc_down clicked:search_cc_down clicked:hack_security_cc_down clicked:notice_cc_down clicked:throw_cc_down clicked:reaction_cc_down clicked:melee_cc_down clicked:endurance_cc_down clicked:athletics_cc_down clicked:aim_cc_down clicked:trade_cc_down clicked:pilot_aircraft_cc_down clicked:knowledge_urban_cc_down clicked:knowledge_corporate_cc_down clicked:drive_ground_vehicle_cc_down clicked:vehicle_engineering_cc_down clicked:pilot_spacecraft_cc_down clicked:mounted_weaponry_cc_down clicked:bridge_tech_cc_down", reduceSkillCC);
 
 async function reduceSkillCC(info)
 	{
@@ -941,7 +1112,7 @@ async function reduceSkillCC(info)
 	await enableCCComplete();
 	}
 
-on ("clicked:lead_cc_up clicked:intimidate_cc_up clicked:empathy_cc_up clicked:deceive_cc_up clicked:convince_cc_up clicked:xenobiology_cc_up clicked:weapons_engineering_cc_up clicked:robotics_cc_up clicked:natural_sciences_cc_up clicked:medicine_cc_up clicked:computer_science_cc_up clicked:astronomy_cc_up clicked:sneak_cc_up clicked:sleight_of_hand_cc_up clicked:search_cc_up clicked:hack_security_cc_up clicked:notice_cc_up clicked:throw_cc_up clicked:reaction_cc_up clicked:melee_cc_up clicked:endurance_cc_up clicked:athletics_cc_up clicked:aim_cc_up clicked:trade_cc_up clicked:pilot_aircraft_cc_up clicked:knowledge_urban_cc_up clicked:knowledge_planets_cc_up clicked:knowledge_corporate_cc_up clicked:drive_ground_vehicle_cc_up clicked:vehicle_engineering_cc_up clicked:pilot_spacecraft_cc_up clicked:mounted_weaponry_cc_up clicked:bridge_tech_cc_up", raiseSkillCC);
+on ("clicked:lead_cc_up clicked:intimidate_cc_up clicked:empathy_cc_up clicked:deceive_cc_up clicked:convince_cc_up clicked:xenobiology_cc_up clicked:weapons_engineering_cc_up clicked:robotics_cc_up clicked:natural_sciences_cc_up clicked:medicine_cc_up clicked:computer_science_cc_up clicked:astronomy_cc_up clicked:sneak_cc_up clicked:sleight_of_hand_cc_up clicked:search_cc_up clicked:hack_security_cc_up clicked:notice_cc_up clicked:throw_cc_up clicked:reaction_cc_up clicked:melee_cc_up clicked:endurance_cc_up clicked:athletics_cc_up clicked:aim_cc_up clicked:trade_cc_up clicked:pilot_aircraft_cc_up clicked:knowledge_urban_cc_up clicked:knowledge_corporate_cc_up clicked:drive_ground_vehicle_cc_up clicked:vehicle_engineering_cc_up clicked:pilot_spacecraft_cc_up clicked:mounted_weaponry_cc_up clicked:bridge_tech_cc_up", raiseSkillCC);
 
 async function raiseSkillCC(info)
 	{
@@ -1376,7 +1547,7 @@ async function setCharacterInfo()
 	{
 	console.log("Setting character info.");
 	var values = await getAttrsAsync(["str", "sta", "agi", "per", "int", "cha", "wil", "territory_select", "planet_select", "social_class_select", "profession_select", "hobby1", "hobby1_name", "language1", "language1_name", "language2", "language2_name", "gavadai_attribute1", "gavadai_attribute2", "saturnada_creature", "gt_robot", "zaidong_augmentation"]);
-	var skills = await getAttrsAsync(["bridge_tech", "mounted_weaponry", "pilot_spacecraft", "vehicle_engineering", "drive_ground_vehicle", "knowledge_corporate", "knowledge_planets", "pilot_aircraft", "knowledge_urban", "trade", "aim", "athletics", "endurance", "reaction", "melee", "throw", "notice", "hack_security", "search", "sleight_of_hand", "sneak", "astronomy", "computer_science", "medicine", "natural_sciences", "robotics", "weapons_engineering", "xenobiology", "convince", "deceive", "empathy", "intimidate", "lead"]);
+	var skills = await getAttrsAsync(["bridge_tech", "mounted_weaponry", "pilot_spacecraft", "vehicle_engineering", "drive_ground_vehicle", "knowledge_corporate", "pilot_aircraft", "knowledge_urban", "trade", "aim", "athletics", "endurance", "reaction", "melee", "throw", "notice", "hack_security", "search", "sleight_of_hand", "sneak", "astronomy", "computer_science", "medicine", "natural_sciences", "robotics", "weapons_engineering", "xenobiology", "convince", "deceive", "empathy", "intimidate", "lead"]);
 	
 	var s = "Character stats:\n";
 	s += "Attributes: Strength " + values["str"] + ", Stamina " + values["sta"] + ", Agility " + values["agi"] + ", Perception " + values["per"] + ", Intelligence " + values["int"] + ", Charisma " + values["cha"] + ", Willpower " + values["wil"] + "\n";
@@ -1637,20 +1808,44 @@ async function setAttributes()
 	await setAttribute("cha");
 	await setAttribute("wil");
 	}
+	
+on ("change:per change:agi", setInitiative);
+
+async function setInitiative(info)
+    {
+    var values = await getAttrsAsync(["agi", "per"]);
+    
+    var agi = Number(values.agi);
+    var per = Number(values.per);
+    
+    await setAttrsAsync({"init": "" + Math.max(agi, per)});
+    }
 
 //-------------------------------------------------------------------------------------
 on ("clicked:roll_condition", rollCondition);
 
 async function rollCondition(info)
     {
-    var values = await getAttrsAsync(["hp", "max_hp"]);
-    var hpLevel = Number(values.max_hp)/5;
-    var modLevel = Math.ceil((Number(values.max_hp) - Number(values.hp))/hpLevel);
+    var values = await getAttrsAsync(["hp", "max_hp", "health_levels"]);
+    var hpLevel = Number(values.max_hp)/Number(values.health_levels);
+    var modLevel = Math.ceil((Number(values.max_hp) - Number(values.hp))/hpLevel) - (Number(values.health_levels) - 5);
     
-    var rollString = "&{template:hi-assist} {{name=@{character_name}}} {{title=: Condition: }} {{roll1=[[abs(1d4-1d4) + " + modLevel + "]]}}";
-    rerollString = rollString;
+    var rollString = "";
     
-    startRoll(rollString, conditionRollCallback);
+    if (modLevel <= 0)
+        {
+        rollString = "&{template:hi-assist} {{name=@{character_name}}} {{title=: Condition: }} {{roll1=[[0]]}}";
+        rerollString = rollString;
+    
+        startRoll(rollString, conditionRollCallback);
+        }
+        else
+        {
+        rollString = "&{template:hi-assist} {{name=@{character_name}}} {{title=: Condition: }} {{roll1=[[abs(1d4-1d4) + " + modLevel + "]]}}";
+        rerollString = rollString;
+    
+        startRoll(rollString, conditionRollCallback);
+        }
     }
     
 async function conditionRollCallback(resultData)
@@ -1662,34 +1857,37 @@ async function conditionRollCallback(resultData)
     switch (rollResult)
         {
         case 0:
+            computed = "Healthy";
+        break;
+        case 1:
             computed = "Stable, quickly healing";
         break;
         
-        case 1:
+        case 2:
             computed = "Stable, normally healing";
         break;
         
-        case 2:
+        case 3:
             computed = "Stable, slowly healing";
         break;
         
-        case 3:
+        case 4:
             computed = "Slowly degrading";
         break;
         
-        case 4:
+        case 5:
             computed = "Degrading";
         break;
         
-        case 5:
+        case 6:
             computed = "Quickly degrading";
         break;
         
-        case 6:
+        case 7:
             computed = "Critical";
         break;
         
-        case 7:
+        case 8:
             computed = "Dead";
         break;
         }
@@ -1705,7 +1903,7 @@ async function initiative(info)
     
     var modifier = Math.max(Number(values.agi), Number(values.per));
     
-    var rollString = "&{template:hi-assist} {{name=@{character_name}}} {{title=: Initiative (" + values["init_mod"] + "): }} {{roll1=[[1d12 + " + modifier + " + @{init_mod}]]}}";
+    var rollString = "&{template:hi-assist} {{name=@{character_name}}} {{title=: Initiative (" + values["init_mod"] + "): }} {{roll1=[[1d12 + " + modifier + " + @{init_mod} + " + modifier + " / 100 &{tracker}]]}}";
     
     startRoll(rollString, skillCheckCallback);
     }
@@ -1794,7 +1992,7 @@ async function fireWeapon()
 	var values = await getAttrsAsync(["firing_mode"]);
 	
 	var firingMode = values.firing_mode;
-	console.log(firingMode);
+	console.log(weapon);
 	if (firingMode != "melee")
 	    {
     	var modeString = "";
@@ -1823,14 +2021,14 @@ async function fireWeapon()
     		}
     		
     	
-    	var rollString = "&{template:hi-roll} {{name=@{character_name}}} {{title= fires " + modeString + " their " + weapon.name + " (" + remainingAmmo + "/" + weapon.clip_capacity + "): }} {{roll1=[[1d12 + @{per} + @{aim} + @{pain} + @{shoot_modifier}]]}}";
+    	var rollString = "&{template:hi-roll} {{name=@{character_name}}} {{title= fires " + modeString + " their " + weapon.name + " (" + remainingAmmo + "/" + weapon.clip_capacity + "): }} {{roll1=[[1d12 + @{per} + @{aim} + @{pain} + " + weapon.modifier + "]]}}";
     	
     	rerollString = rollString;
     	startRoll(rollString, shootCallback);
 	    }
 	    else
 	    {
-	    var rollString = "&{template:hi-roll} {{name=@{character_name}}} {{title= punches with their " + weapon.name + ": }} {{roll1=[[1d12 + @{agi} + @{melee} + @{pain} + @{shoot_modifier}]]}}";
+	    var rollString = "&{template:hi-roll} {{name=@{character_name}}} {{title= punches with their " + weapon.name + ": }} {{roll1=[[1d12 + @{agi} + @{melee} + @{pain} + " + weapon.modifier + "]]}}";
     	
     	rerollString = rollString;
     	startRoll(rollString, shootCallback);
@@ -1881,13 +2079,22 @@ async function openShootPrompt(info)
     	                                   "repeating_weapons_" + id + "_weapon_burst",
     	                                   "repeating_weapons_" + id + "_weapon_volley",
     	                                   "repeating_weapons_" + id + "_weapon_clip_capacity",
-    	                                   "repeating_weapons_" + id + "_weapon_clip_ammo"]);
+    	                                   "repeating_weapons_" + id + "_weapon_clip_ammo",
+    	                                   "repeating_weapons_" + id + "_weapon_modifier"]);
     	                                   
     	weapon["name"] = values["repeating_weapons_" + id + "_weapon_name"];
     	weapon["burst"] = Number(values["repeating_weapons_" + id + "_weapon_burst"]);
     	weapon["volley"] = Number(values["repeating_weapons_" + id + "_weapon_volley"]);
     	weapon["clip_capacity"] = Number(values["repeating_weapons_" + id + "_weapon_clip_capacity"]);
     	weapon["clip_ammo"] = Number(values["repeating_weapons_" + id + "_weapon_clip_ammo"]);
+    	if (isNaN(Number(values["repeating_weapons_" + id + "_weapon_modifier"])))
+    	    {
+    	    weapon["modifier"] = 0;
+    	    }
+    	    else
+    	    {
+    	    weapon["modifier"] = Number(values["repeating_weapons_" + id + "_weapon_modifier"]);
+    	    }
     	weapon["id"] = id;
     	
     	await setAttrsAsync({"firing_mode": "single"});
@@ -1946,7 +2153,17 @@ async function openShootPrompt(info)
 	    options[0].selected = false;
 	    delete options[0].selected;
 	    options[3].selected = true;
-	    var values = await getAttrsAsync(["repeating_melees_" + id + "_melee_name"]);
+	    var values = await getAttrsAsync(["repeating_melees_" + id + "_melee_name",
+	                                      "repeating_melees_" + id + "_melee_modifier"]);
+	    console.log(values["repeating_melees_" + id + "_melee_modifier"]);
+	    if (isNaN(Number(values["repeating_melees_" + id + "_melee_modifier"])))
+    	    {
+    	    weapon["modifier"] = 0;
+    	    }
+    	    else
+    	    {
+    	    weapon["modifier"] = Number(values["repeating_melees_" + id + "_melee_modifier"]);
+    	    }
 	    weapon["name"] = values["repeating_melees_" + id + "_melee_name"];
 	    await setAttrsAsync({"firing_text": "Strike with " + values["repeating_melees_" + id + "_melee_name"],
     					  	 "shoot_prompt_hider": 0,
@@ -2099,11 +2316,11 @@ async function rollAttribute()
 	var rollString = "&{template:";
 	if (values.attribute_roll_intensity == "on")
 		{
-		rollString += "hi-roll} {{name=@{character_name}}} {{title=: High intensity " + attributeName + " roll: }} {{roll1=[[1d12" + as + ams + hms + "]]}}";
+		rollString += "hi-roll} {{name=@{character_name}}} {{title=: High intensity " + attributeName + " check: }} {{roll1=[[1d12" + as + ams + hms + "]]}}";
 		}
 		else
 		{
-		rollString += "li-roll} {{name=@{character_name}}} {{title=: Low intensity " + attributeName + " roll: }} {{roll1=[[abs(1d20 - 1d20)" + as + ams + hms + "]]}}";
+		rollString += "li-roll} {{name=@{character_name}}} {{title=: Low intensity " + attributeName + " check: }} {{roll1=[[abs(1d20 - 1d20)" + as + ams + hms + "]]}}";
 		}
 		
 	rerollString = rollString;
@@ -2288,7 +2505,7 @@ function skillCheckCallback(results)
 
 var skillToRoll;
 
-on ("clicked:roll_bridge_tech clicked:roll_mounted_weaponry clicked:roll_pilot_spacecraft clicked:roll_vehicle_engineering clicked:roll_drive_ground_vehicle clicked:roll_knowledge_corporate clicked:roll_knowledge_planets clicked:roll_pilot_aircraft clicked:roll_knowledge_urban clicked:roll_trade clicked:roll_aim clicked:roll_athletics clicked:roll_endurance clicked:roll_melee clicked:roll_reaction clicked:roll_throw clicked:roll_notice clicked:roll_hack_security clicked:roll_search clicked:roll_sleight_of_hand clicked:roll_sneak clicked:roll_astronomy clicked:roll_computer_science clicked:roll_medicine clicked:roll_natural_sciences clicked:roll_robotics clicked:roll_weapons_engineering clicked:roll_xenobiology clicked:roll_convince clicked:roll_deceive clicked:roll_empathy clicked:roll_intimidate clicked:roll_lead clicked:roll_art1 clicked:roll_art2 clicked:roll_hobby1 clicked:roll_hobby2 clicked:roll_language1 clicked:roll_language2 clicked:roll_language3 clicked:roll_language4 clicked:roll_profession1 clicked:roll_profession2", openRollPrompt);
+on ("clicked:roll_bridge_tech clicked:roll_mounted_weaponry clicked:roll_pilot_spacecraft clicked:roll_vehicle_engineering clicked:roll_drive_ground_vehicle clicked:roll_knowledge_corporate  clicked:roll_pilot_aircraft clicked:roll_knowledge_urban clicked:roll_trade clicked:roll_aim clicked:roll_athletics clicked:roll_endurance clicked:roll_melee clicked:roll_reaction clicked:roll_throw clicked:roll_notice clicked:roll_hack_security clicked:roll_search clicked:roll_sleight_of_hand clicked:roll_sneak clicked:roll_astronomy clicked:roll_computer_science clicked:roll_medicine clicked:roll_natural_sciences clicked:roll_robotics clicked:roll_weapons_engineering clicked:roll_xenobiology clicked:roll_convince clicked:roll_deceive clicked:roll_empathy clicked:roll_intimidate clicked:roll_lead clicked:roll_art1 clicked:roll_art2 clicked:roll_hobby1 clicked:roll_hobby2 clicked:roll_language1 clicked:roll_language2 clicked:roll_language3 clicked:roll_language4 clicked:roll_profession1 clicked:roll_profession2", openRollPrompt);
 
 async function openRollPrompt(info)
 	{
@@ -2335,7 +2552,7 @@ async function skillToName(skill)
 	switch (skill)
 		{
 		case "bridge_tech":
-			return "Bridge Tech";
+			return "Bridge Technology";
 		break;
 		case "mounted_weaponry":
 			return "Mounted Weaponry";
@@ -2351,9 +2568,6 @@ async function skillToName(skill)
 		break;
 		case "knowledge_corporate":
 			return "Knowledge (Corporate)";
-		break;
-		case "knowledge_planets":
-			return "Knowledge (Planets)";
 		break;
 		case "pilot_aircraft":
 			return "Pilot Aircraft";
@@ -2468,7 +2682,7 @@ async function skillToName(skill)
 	return "Bullshit is bullshit";
 	}
 
-on ("clicked:edit_bridge_tech clicked:edit_mounted_weaponry clicked:edit_pilot_spacecraft clicked:edit_vehicle_engineering clicked:edit_drive_ground_vehicle clicked:edit_knowledge_corporate clicked:edit_knowledge_planets clicked:edit_pilot_aircraft clicked:edit_knowledge_urban clicked:edit_trade clicked:edit_aim clicked:edit_athletics clicked:edit_endurance clicked:edit_melee clicked:edit_reaction clicked:edit_throw clicked:edit_notice clicked:edit_hack_security clicked:edit_search clicked:edit_sleight_of_hand clicked:edit_sneak clicked:edit_astronomy clicked:edit_computer_science clicked:edit_medicine clicked:edit_natural_sciences clicked:edit_robotics clicked:edit_weapons_engineering clicked:edit_xenobiology clicked:edit_convince clicked:edit_deceive clicked:edit_empathy clicked:edit_intimidate clicked:edit_lead clicked:edit_art1 clicked:edit_art2 clicked:edit_hobby1 clicked:edit_hobby2 clicked:edit_language1 clicked:edit_language2 clicked:edit_language3 clicked:edit_language4 clicked:edit_profession1 clicked:edit_profession2", editSkill);
+on ("clicked:edit_bridge_tech clicked:edit_mounted_weaponry clicked:edit_pilot_spacecraft clicked:edit_vehicle_engineering clicked:edit_drive_ground_vehicle clicked:edit_knowledge_corporate  clicked:edit_pilot_aircraft clicked:edit_knowledge_urban clicked:edit_trade clicked:edit_aim clicked:edit_athletics clicked:edit_endurance clicked:edit_melee clicked:edit_reaction clicked:edit_throw clicked:edit_notice clicked:edit_hack_security clicked:edit_search clicked:edit_sleight_of_hand clicked:edit_sneak clicked:edit_astronomy clicked:edit_computer_science clicked:edit_medicine clicked:edit_natural_sciences clicked:edit_robotics clicked:edit_weapons_engineering clicked:edit_xenobiology clicked:edit_convince clicked:edit_deceive clicked:edit_empathy clicked:edit_intimidate clicked:edit_lead clicked:edit_art1 clicked:edit_art2 clicked:edit_hobby1 clicked:edit_hobby2 clicked:edit_language1 clicked:edit_language2 clicked:edit_language3 clicked:edit_language4 clicked:edit_profession1 clicked:edit_profession2", editSkill);
 
 async function editSkill(info)
 	{
@@ -2651,6 +2865,7 @@ async function setSkillText(info)
 	        }
         }
     }
+
 	
 //=========================================================================
 on ("clicked:switch_to_character", openCharacter);
@@ -2823,14 +3038,13 @@ var attributeOptions =
 var customOptions = 
 	[
 	{label: "ASTRONAUTICS", value: "ASTRONAUTICS", disabled: "true"},
-	{label: "Bridge Tech", value: "bridge_tech"},
+	{label: "Bridge Technology", value: "bridge_tech"},
 	{label: "Mounted Weaponry", value: "mounted_weaponry"},
 	{label: "Pilot Spacecraft", value: "pilot_spacecraft"},
 	{label: "Vehicle Engineering", value: "vehicle_engineering"},
 	{label: "CIVILIZATIONAL", value: "CIVILIZATIONAL", disabled: "true"},
 	{label: "Drive Ground Vehicle", value: "drive_ground_vehicle"},
 	{label: "Knowledge (Corporate)", value: "knowledge_corporate"},
-	{label: "Knowledge (Planets)", value: "knowledge_planets"},
 	{label: "Pilot Aircraft", value: "pilot_aircraft"},
 	{label: "Knowledge (Urban)", value: "knowledge_urban"},
 	{label: "Trade", value: "trade"},
@@ -3041,7 +3255,6 @@ async function resetSkills()
 	                     "vehicle_engineering": 0,
 	                     "drive_ground_vehicle": 0,
 	                     "knowledge_corporate": 0,
-	                     "knowledge_planets": 0,
 	                     "pilot_aircraft": 0,
 	                     "knowledge_urban": 0,
 	                     "trade": 0,
@@ -3098,7 +3311,6 @@ async function setProfession()
 	                     "vehicle_engineering_bonus": 0,
 	                     "drive_ground_vehicle_bonus": 0,
 	                     "knowledge_corporate_bonus": 0,
-	                     "knowledge_planets_bonus": 0,
 	                     "pilot_aircraft_bonus": 0,
 	                     "knowledge_urban_bonus": 0,
 	                     "trade_bonus": 0,
@@ -3189,7 +3401,7 @@ async function setProfession()
 		case "smuggler":
 			bonuses = ["agi", "cha"];
 			await setAttrsAsync({"deceive": 2,
-            					  "knowledge_planets": 1,
+            					  "aim": 1,
             					  "knowledge_corporate": 1,
             					  "pilot_spacecraft": 1,
             					  "trade": 1,
@@ -3242,7 +3454,7 @@ async function setProfession()
 			await setAttrsAsync({"trade": 2,
             					  "empathy": 1,
             					  "notice": 1,
-            					  "knowledge_planets": 1,
+            					  "knowledge_corporate": 1,
             					  "knowledge_urban": 1,
 			                      "profession": "Trader"});
 		break;
@@ -3253,7 +3465,7 @@ async function setProfession()
             					  "astronomy": 1,
             					  "endurance": 1,
             					  "vehicle_engineering": 1,
-            					  "knowledge_planets": 1,
+            					  "knowledge_corporate": 1,
 			                      "profession": "Astronaut"});
 		break;
 
@@ -3402,14 +3614,15 @@ on ("change:hp", setPainFromDamage);
 async function setPainFromDamage(info)
 	{
 	console.log("HP changed, setting pain.");
-	if (await sanitizeNumberInput(info, false))
+	if (info != null && info.sourceType == "player" && await sanitizeNumberInput(info, false))
         {
         return;
         }
-	var values = await getAttrsAsync(["hp", "max_hp"]);
+	var values = await getAttrsAsync(["hp", "max_hp", "health_levels"]);
 	
 	var hp = parseInt(values.hp);
 	var maxHp = parseInt(values.max_hp);
+	var levels = Number(values.health_levels);
 		
 	if (hp > maxHp)
 		{
@@ -3417,7 +3630,7 @@ async function setPainFromDamage(info)
 		await setAttrsAsync({"hp": maxHp});
 		}
 			
-	var modGroup = Math.ceil((maxHp - hp)/parseFloat(maxHp/5));
+	var modGroup = Math.ceil((maxHp - hp)/parseFloat(maxHp/levels));
 	await setAttrsAsync({"pain_from_damage": -2 * modGroup});
 	}
 	
@@ -3449,7 +3662,6 @@ async function init()
 	                         "cc_vehicle_engineering_talent": 0,
 	                         "cc_drive_ground_vehicle_talent": 0,
 	                         "cc_knowledge_corporate_talent": 0,
-	                         "cc_knowledge_planets_talent": 0,
 	                         "cc_knowledge_urban_talent": 0,
 	                         "cc_pilot_aircraft_talent": 0,
 	                         "cc_trade_talent": 0,
@@ -3484,8 +3696,44 @@ async function init()
 	                         "attribute_roll_prompt_hider": 1,
 	                         "shoot_prompt_hider": 1,
 	                         "hp_prompt_hider": 1,
-	                         "damage_prompt_hider": 1,
-	                         "ammo_prompt_hider": 1});
+	                         "damage_prompt_hider": 1});
+	                         
+	var ammoIds = await getSectionIDsAsync("ammo");
+	var gets = ["ammo_next_id", "init", "per", "agi"];
+	
+	for (var i=0; i<ammoIds.length; i++)
+	    {
+	    gets.push("repeating_ammo_" + ammoIds[i] + "_ammo_id");
+	    }
+	    
+	var values2 = await getAttrsAsync(gets);
+	var sets = {};
+	
+	var count = Number(values2.ammo_next_id);
+	
+	for (var i=0; i<ammoIds.length; i++)
+	    {
+	    console.log(i + ": " + Number(values2["repeating_ammo_" + ammoIds[i] + "_ammo_id"]))
+	    if (isNaN(Number(values2["repeating_ammo_" + ammoIds[i] + "_ammo_id"])))
+	        {
+	        sets["repeating_ammo_" + ammoIds[i] + "_ammo_id"] = count;
+	        count++;
+	        
+	        console.log(sets);
+	        console.log(count);
+	        }
+	    }
+	
+	if (count != values2.ammo_next_id)
+	    {
+	    sets.ammo_next_id = count;
+	    await setAttrsAsync(sets);
+	    }
+	    
+	if (values2.init == -1)
+	    {
+	    await setAttrsAsync({"init": "" + (Math.max(Number(values2.per),Number(values2.agi)))});
+	    }
 	                         
 	//var values2 = await getAttrsAsync(["shoot_prompt_hider"]);
 	//console.log("Sheet init complete.\n" + JSON.stringify(values2));
@@ -3519,17 +3767,18 @@ async function setXP(info)
 	
 async function setMaxHP()
 	{
-	var values = await getAttrsAsync(["bought_hp", "sta", "cc2_prompt_hider", "cc1_prompt_hider"]);
+	var values = await getAttrsAsync(["bought_hp", "sta", "cc2_prompt_hider", "cc1_prompt_hider", "health_levels"]);
 	
 	let ccMode = values.character_creation_mode == "on";
 	let bought = parseInt(values.bought_hp);
 	let stamina = parseInt(values.sta);
+	let levels = Number(values.health_levels);
 
-	await setAttrsAsync({"max_hp": (bought * 5 + stamina * 5)});
+	await setAttrsAsync({"max_hp": (bought * levels + stamina * levels)});
 	if (values.cc2_prompt_hider == "0" ||
 	    values.cc1_prompt_hider == "0")
 		{
-		await setAttrsAsync({"hp": (bought * 5 + stamina * 5)});
+		await setAttrsAsync({"hp": (bought * levels + stamina * levels)});
 		}
 	await log("Hp set");
 	}
@@ -3848,7 +4097,14 @@ function getSectionIDsAsync(sectionName){
 
 <rolltemplate class="sheet-rolltemplate-damage">
 	<div class="sheet-template-container">
-		Damage: <span class="ballisticDamage">{{computed::roll1}} {{computed::roll2}} {{computed::roll3}} {{computed::roll4}} {{computed::roll5}} {{computed::roll6}}
+		<span class="sheet-rolltemplate-hi-roll-bold">Damage: </span>
+		<span class="sheet-rolltemplate-ballistic-damage">{{computed::roll1}}</span>
+		<span class="sheet-rolltemplate-impact-damage">{{computed::roll2}}</span>
+		<span class="sheet-rolltemplate-biohazard-damage">{{computed::roll3}}</span>
+		<span class="sheet-rolltemplate-thermal-damage">{{computed::roll4}}</span>
+		<span class="sheet-rolltemplate-electric-damage">{{computed::roll5}}</span>
+		<span class="sheet-rolltemplate-absolute-damage">{{computed::roll6}}</span>
+		<span class="sheet-rolltemplate-emp-damage">{{computed::roll7}}</span>
 	</div>
 </rolltemplate>
 
@@ -3856,6 +4112,8 @@ function getSectionIDsAsync(sectionName){
 <input type="hidden" name="attr_attribute_cost" value="15">
 <input type="hidden" name="attr_max_attribute_points" value="18">
 <input type="hidden" name="attr_cc_skill_xp" value="100">
+<input type="hidden" name="attr_health_levels" value="5">
+<input type="hidden" name="attr_init" value="-1">
 <div align="center">
 	<div width="800" class="grid0 table">
 		<span style="grid-row: 1; grid-column: 1;" class="cell">
@@ -4115,429 +4373,414 @@ function getSectionIDsAsync(sectionName){
 							<input type="text" name="attr_cc_knowledge_corporate_talent" value="0" id="num">
 						</span>
 						<span style="grid-row: 12; grid-column: 1;" class="cell">
-							Knowledge (Planets)  (<span name="attr_cc_knowledge_planets_diff">5</span>)
-						</span>
-						<span style="grid-row: 12; grid-column: 2;" class="cell">
-							<input type="text" name="attr_knowledge_planets" id="num" readonly>
-						</span>
-						<span style="grid-row: 12; grid-column: 3;" class="cell">
-							<button type="action" name="act_knowledge_planets_cc_up" class="levelUpButton"/>
-						</span>
-						<span style="grid-row: 12; grid-column: 4;" class="cell">
-							<button type="action" name="act_knowledge_planets_cc_down" class="levelDownButton"/>
-						</span>
-						<span style="grid-row: 12; grid-column: 5;" class="cell">
-							<input type="text" name="attr_cc_knowledge_planets_talent" value="0" id="num">
-						</span>
-						<span style="grid-row: 13; grid-column: 1;" class="cell">
 							Knowledge (Urban) (<span name="attr_cc_knowledge_urban_diff">4</span>)
 						</span>
-						<span style="grid-row: 13; grid-column: 2;" class="cell">
+						<span style="grid-row: 12; grid-column: 2;" class="cell">
 							<input type="text" name="attr_knowledge_urban" id="num" readonly>
 						</span>
-						<span style="grid-row: 13; grid-column: 3;" class="cell">
+						<span style="grid-row: 12; grid-column: 3;" class="cell">
 							<button type="action" name="act_knowledge_urban_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 13; grid-column: 4;" class="cell">
+						<span style="grid-row: 12; grid-column: 4;" class="cell">
 							<button type="action" name="act_knowledge_urban_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 13; grid-column: 5;" class="cell">
+						<span style="grid-row: 12; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_knowledge_urban_talent" value="0" id="num">
 						</span>
-						<span style="grid-row: 14; grid-column: 1;" class="cell">
+						<span style="grid-row: 13; grid-column: 1;" class="cell">
 							Pilot Aircraft  (<span name="attr_cc_pilot_aircraft_diff">5</span>)
 						</span>
-						<span style="grid-row: 14; grid-column: 2;" class="cell">
+						<span style="grid-row: 13; grid-column: 2;" class="cell">
 							<input type="text" name="attr_pilot_aircraft" id="num" readonly>
 						</span>
-						<span style="grid-row: 14; grid-column: 3;" class="cell">
+						<span style="grid-row: 13; grid-column: 3;" class="cell">
 							<button type="action" name="act_pilot_aircraft_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 14; grid-column: 4;" class="cell">
+						<span style="grid-row: 13; grid-column: 4;" class="cell">
 							<button type="action" name="act_pilot_aircraft_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 14; grid-column: 5;" class="cell">
+						<span style="grid-row: 13; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_pilot_aircraft_talent" value="0" id="num">
 						</span>
-						<span style="grid-row: 15; grid-column: 1;" class="cell">
+						<span style="grid-row: 14; grid-column: 1;" class="cell">
 							Trade (<span name="attr_cc_trade_diff">4</span>)
 						</span>
-						<span style="grid-row: 15; grid-column: 2;" class="cell">
+						<span style="grid-row: 14; grid-column: 2;" class="cell">
 							<input type="text" name="attr_trade" id="num" readonly>
 						</span>
-						<span style="grid-row: 15; grid-column: 3;" class="cell">
+						<span style="grid-row: 14; grid-column: 3;" class="cell">
 							<button type="action" name="act_trade_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 15; grid-column: 4;" class="cell">
+						<span style="grid-row: 14; grid-column: 4;" class="cell">
 							<button type="action" name="act_trade_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 15; grid-column: 5;" class="cell">
+						<span style="grid-row: 14; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_trade_talent" value="0" id="num">
 						</span>
-						<span colspan="5" style="grid-row: 16; grid-column: 1 / span 5;" class="cell">
+						<span colspan="5" style="grid-row: 15; grid-column: 1 / span 5;" class="cell">
 							<div align="center">
 								Combat <span class="small-font" name="attr_combat"/>
 							</div>
 						</span>
-						<span style="grid-row: 17; grid-column: 1;" class="cell">
+						<span style="grid-row: 16; grid-column: 1;" class="cell">
 							Aim (<span name="attr_cc_aim_diff">5</span>)
 						</span>
-						<span style="grid-row: 17; grid-column: 2;" class="cell">
+						<span style="grid-row: 16; grid-column: 2;" class="cell">
 							<input type="text" name="attr_aim" id="num" readonly>
 						</span>
-						<span style="grid-row: 17; grid-column: 3;" class="cell">
+						<span style="grid-row: 16; grid-column: 3;" class="cell">
 							<button type="action" name="act_aim_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 17; grid-column: 4;" class="cell">
+						<span style="grid-row: 16; grid-column: 4;" class="cell">
 							<button type="action" name="act_aim_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 17; grid-column: 5;" class="cell">
+						<span style="grid-row: 16; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_aim_talent" value="0" id="num">
 						</span>
-						<span style="grid-row: 18; grid-column: 1;" class="cell">
+						<span style="grid-row: 17; grid-column: 1;" class="cell">
 							Athletics (<span name="attr_cc_athletics_diff">3</span>)
 						</span>
-						<span style="grid-row: 18; grid-column: 2;" class="cell">
+						<span style="grid-row: 17; grid-column: 2;" class="cell">
 							<input type="text" name="attr_athletics" id="num" readonly>
 						</span>
-						<span style="grid-row: 18; grid-column: 3;" class="cell">
+						<span style="grid-row: 17; grid-column: 3;" class="cell">
 							<button type="action" name="act_athletics_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 18; grid-column: 4;" class="cell">
+						<span style="grid-row: 17; grid-column: 4;" class="cell">
 							<button type="action" name="act_athletics_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 18; grid-column: 5;" class="cell">
+						<span style="grid-row: 17; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_athletics_talent" value="0" id="num">
 						</span>
-						<span style="grid-row: 19; grid-column: 1;" class="cell">
+						<span style="grid-row: 18; grid-column: 1;" class="cell">
 							Endurance (<span name="attr_cc_endurance_diff">4</span>)
 						</span>
-						<span style="grid-row: 19; grid-column: 2;" class="cell">
+						<span style="grid-row: 18; grid-column: 2;" class="cell">
 							<input type="text" name="attr_endurance" id="num" readonly>
 						</span>
-						<span style="grid-row: 19; grid-column: 3;" class="cell">
+						<span style="grid-row: 18; grid-column: 3;" class="cell">
 							<button type="action" name="act_endurance_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 19; grid-column: 4;" class="cell">
+						<span style="grid-row: 18; grid-column: 4;" class="cell">
 							<button type="action" name="act_endurance_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 19; grid-column: 5;" class="cell">
+						<span style="grid-row: 18; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_endurance_talent" value="0" id="num">
 						</span>
-						<span style="grid-row: 20; grid-column: 1;" class="cell">
+						<span style="grid-row: 19; grid-column: 1;" class="cell">
 							Melee (<span name="attr_cc_melee_diff">6</span>)
 						</span>
-						<span style="grid-row: 20; grid-column: 2;" class="cell">
+						<span style="grid-row: 19; grid-column: 2;" class="cell">
 							<input type="text" name="attr_melee" id="num" readonly>
 						</span>
-						<span style="grid-row: 20; grid-column: 3;" class="cell">
+						<span style="grid-row: 19; grid-column: 3;" class="cell">
 							<button type="action" name="act_melee_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 20; grid-column: 4;" class="cell">
+						<span style="grid-row: 19; grid-column: 4;" class="cell">
 							<button type="action" name="act_melee_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 20; grid-column: 5;" class="cell">
+						<span style="grid-row: 19; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_melee_talent" value="0" id="num">
 						</span>
-						<span style="grid-row: 21; grid-column: 1;" class="cell">
+						<span style="grid-row: 20; grid-column: 1;" class="cell">
 							Reaction  (<span name="attr_cc_reaction_diff">4</span>)
 						</span>
-						<span style="grid-row: 21; grid-column: 2;" class="cell">
+						<span style="grid-row: 20; grid-column: 2;" class="cell">
 							<input type="text" name="attr_reaction" id="num" readonly>
 						</span>
-						<span style="grid-row: 21; grid-column: 3;" class="cell">
+						<span style="grid-row: 20; grid-column: 3;" class="cell">
 							<button type="action" name="act_reaction_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 21; grid-column: 4;" class="cell">
+						<span style="grid-row: 20; grid-column: 4;" class="cell">
 							<button type="action" name="act_reaction_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 21; grid-column: 5;" class="cell">
+						<span style="grid-row: 20; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_reaction_talent" value="0" id="num">
 						</span>
-						<span style="grid-row: 22; grid-column: 1;" class="cell">
+						<span style="grid-row: 21; grid-column: 1;" class="cell">
 							Throw (<span name="attr_cc_throw_diff">3</span>)
 						</span>
-						<span style="grid-row: 22; grid-column: 2;" class="cell">
+						<span style="grid-row: 21; grid-column: 2;" class="cell">
 							<input type="text" name="attr_throw" id="num" readonly>
 						</span>
-						<span style="grid-row: 22; grid-column: 3;" class="cell">
+						<span style="grid-row: 21; grid-column: 3;" class="cell">
 							<button type="action" name="act_throw_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 22; grid-column: 4;" class="cell">
+						<span style="grid-row: 21; grid-column: 4;" class="cell">
 							<button type="action" name="act_throw_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 22; grid-column: 5;" class="cell">
+						<span style="grid-row: 21; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_throw_talent" value="0" id="num">
 						</span>
-						<span colspan="5" style="grid-row: 23; grid-column: 1 / span 5;" class="cell">
+						<span colspan="5" style="grid-row: 22; grid-column: 1 / span 5;" class="cell">
 							<div align="center">
 								Infiltration <span class="small-font" name="attr_infiltration"/>
 							</div>
 						</span>
-						<span style="grid-row: 24; grid-column: 1;" class="cell">
+						<span style="grid-row: 23; grid-column: 1;" class="cell">
 							Notice (<span name="attr_cc_notice_diff">5</span>)
 						</span>
-						<span style="grid-row: 24; grid-column: 2;" class="cell">
+						<span style="grid-row: 23; grid-column: 2;" class="cell">
 							<input type="text" name="attr_notice" id="num" readonly>
 						</span>
-						<span style="grid-row: 24; grid-column: 3;" class="cell">
+						<span style="grid-row: 23; grid-column: 3;" class="cell">
 							<button type="action" name="act_notice_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 24; grid-column: 4;" class="cell">
+						<span style="grid-row: 23; grid-column: 4;" class="cell">
 							<button type="action" name="act_notice_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 24; grid-column: 5;" class="cell">
+						<span style="grid-row: 23; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_notice_talent" value="0" id="num">
 						</span>
-						<span style="grid-row: 25; grid-column: 1;" class="cell">
+						<span style="grid-row: 24; grid-column: 1;" class="cell">
 							Hack Security (<span name="attr_cc_hack_security_diff">4</span>)
 						</span>
-						<span style="grid-row: 25; grid-column: 2;" class="cell">
+						<span style="grid-row: 24; grid-column: 2;" class="cell">
 							<input type="text" name="attr_hack_security" id="num" readonly>
 						</span>
-						<span style="grid-row: 25; grid-column: 3;" class="cell">
+						<span style="grid-row: 24; grid-column: 3;" class="cell">
 							<button type="action" name="act_hack_security_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 25; grid-column: 4;" class="cell">
+						<span style="grid-row: 24; grid-column: 4;" class="cell">
 							<button type="action" name="act_hack_security_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 25; grid-column: 5;" class="cell">
+						<span style="grid-row: 24; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_hack_security_talent" value="0" id="num">
 						</span>
-						<span style="grid-row: 26; grid-column: 1;" class="cell">
+						<span style="grid-row: 25; grid-column: 1;" class="cell">
 							Search (<span name="attr_cc_search_diff">3</span>)
 						</span>
-						<span style="grid-row: 26; grid-column: 2;" class="cell">
+						<span style="grid-row: 25; grid-column: 2;" class="cell">
 							<input type="text" name="attr_search" id="num" readonly>
 						</span>
-						<span style="grid-row: 26; grid-column: 3;" class="cell">
+						<span style="grid-row: 25; grid-column: 3;" class="cell">
 							<button type="action" name="act_search_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 26; grid-column: 4;" class="cell">
+						<span style="grid-row: 25; grid-column: 4;" class="cell">
 							<button type="action" name="act_search_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 26; grid-column: 5;" class="cell">
+						<span style="grid-row: 25; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_search_talent" value="0" id="num">
 						</span>
-						<span style="grid-row: 27; grid-column: 1;" class="cell">
+						<span style="grid-row: 26; grid-column: 1;" class="cell">
 							Sleight of Hand (<span name="attr_cc_sleight_of_hand_diff">6</span>)
 						</span>
-						<span style="grid-row: 27; grid-column: 2;" class="cell">
+						<span style="grid-row: 26; grid-column: 2;" class="cell">
 							<input type="text" name="attr_sleight_of_hand" id="num" readonly>
 						</span>
-						<span style="grid-row: 27; grid-column: 3;" class="cell">
+						<span style="grid-row: 26; grid-column: 3;" class="cell">
 							<button type="action" name="act_sleight_of_hand_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 27; grid-column: 4;" class="cell">
+						<span style="grid-row: 26; grid-column: 4;" class="cell">
 							<button type="action" name="act_sleight_of_hand_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 27; grid-column: 5;" class="cell">
+						<span style="grid-row: 26; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_sleight_of_hand_talent" value="0" id="num">
 						</span>
-						<span style="grid-row: 28; grid-column: 1;" class="cell">
+						<span style="grid-row: 27; grid-column: 1;" class="cell">
 							Sneak (<span name="attr_cc_sneak_diff">5</span>)
 						</span>
-						<span style="grid-row: 28; grid-column: 2;" class="cell">
+						<span style="grid-row: 27; grid-column: 2;" class="cell">
 							<input type="text" name="attr_sneak" id="num" readonly>
 						</span>
-						<span style="grid-row: 28; grid-column: 3;" class="cell">
+						<span style="grid-row: 27; grid-column: 3;" class="cell">
 							<button type="action" name="act_sneak_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 28; grid-column: 4;" class="cell">
+						<span style="grid-row: 27; grid-column: 4;" class="cell">
 							<button type="action" name="act_sneak_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 28; grid-column: 5;" class="cell">
+						<span style="grid-row: 27; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_sneak_talent" value="0" id="num">
 						</span>
-						<span colspan="5" style="grid-row: 29; grid-column: 1 / span 5;" class="cell">
+						<span colspan="5" style="grid-row: 28; grid-column: 1 / span 5;" class="cell">
 							<div align="center">
 								Science <span class="small-font" name="attr_science"/>
 							</div>
 						</span>
-						<span style="grid-row: 30; grid-column: 1;" class="cell">
+						<span style="grid-row: 29; grid-column: 1;" class="cell">
 							Astronomy (<span name="attr_cc_astronomy_diff">4</span>)
 						</span>
-						<span style="grid-row: 30; grid-column: 2;" class="cell">
+						<span style="grid-row: 29; grid-column: 2;" class="cell">
 							<input type="text" name="attr_astronomy" id="num" readonly>
 						</span>
-						<span style="grid-row: 30; grid-column: 3;" class="cell">
+						<span style="grid-row: 29; grid-column: 3;" class="cell">
 							<button type="action" name="act_astronomy_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 30; grid-column: 4;" class="cell">
+						<span style="grid-row: 29; grid-column: 4;" class="cell">
 							<button type="action" name="act_astronomy_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 30; grid-column: 5;" class="cell">
+						<span style="grid-row: 29; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_astronomy_talent" value="0" id="num">
 						</span>
-						<span style="grid-row: 31; grid-column: 1;" class="cell">
+						<span style="grid-row: 30; grid-column: 1;" class="cell">
 							Computer Science (<span name="attr_cc_computer_science_diff">6</span>)
 						</span>
-						<span style="grid-row: 31; grid-column: 2;" class="cell">
+						<span style="grid-row: 30; grid-column: 2;" class="cell">
 							<input type="text" name="attr_computer_science" id="num" readonly>
 						</span>
-						<span style="grid-row: 31; grid-column: 3;" class="cell">
+						<span style="grid-row: 30; grid-column: 3;" class="cell">
 							<button type="action" name="act_computer_science_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 31; grid-column: 4;" class="cell">
+						<span style="grid-row: 30; grid-column: 4;" class="cell">
 							<button type="action" name="act_computer_science_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 31; grid-column: 5;" class="cell">
+						<span style="grid-row: 30; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_computer_science_talent" value="0" id="num">
 						</span>
-						<span style="grid-row: 32; grid-column: 1;" class="cell">
+						<span style="grid-row: 31; grid-column: 1;" class="cell">
 							Medicine (<span name="attr_cc_medicine_diff">5</span>)
 						</span>
-						<span style="grid-row: 32; grid-column: 2;" class="cell">
+						<span style="grid-row: 31; grid-column: 2;" class="cell">
 							<input type="text" name="attr_medicine" id="num" readonly>
 						</span>
-						<span style="grid-row: 32; grid-column: 3;" class="cell">
+						<span style="grid-row: 31; grid-column: 3;" class="cell">
 							<button type="action" name="act_medicine_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 32; grid-column: 4;" class="cell">
+						<span style="grid-row: 31; grid-column: 4;" class="cell">
 							<button type="action" name="act_medicine_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 32; grid-column: 5;" class="cell">
+						<span style="grid-row: 31; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_medicine_talent" value="0" id="num">
 						</span>
-						<span style="grid-row: 33; grid-column: 1;" class="cell">
+						<span style="grid-row: 32; grid-column: 1;" class="cell">
 							Natural Sciences (<span name="attr_cc_natural_sciences_diff">6</span>)
 						</span>
-						<span style="grid-row: 33; grid-column: 2;" class="cell">
+						<span style="grid-row: 32; grid-column: 2;" class="cell">
 							<input type="text" name="attr_natural_sciences" id="num" readonly>
 						</span>
-						<span style="grid-row: 33; grid-column: 3;" class="cell">
+						<span style="grid-row: 32; grid-column: 3;" class="cell">
 							<button type="action" name="act_natural_sciences_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 33; grid-column: 4;" class="cell">
+						<span style="grid-row: 32; grid-column: 4;" class="cell">
 							<button type="action" name="act_natural_sciences_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 33; grid-column: 5;" class="cell">
+						<span style="grid-row: 32; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_natural_sciences_talent" value="0" id="num">
 						</span>
-						<span style="grid-row: 34; grid-column: 1;" class="cell">
+						<span style="grid-row: 33; grid-column: 1;" class="cell">
 							Robotics (<span name="attr_cc_robotics_diff">6</span>)
 						</span>
-						<span style="grid-row: 34; grid-column: 2;" class="cell">
+						<span style="grid-row: 33; grid-column: 2;" class="cell">
 							<input type="text" name="attr_robotics" id="num" readonly>
 						</span>
-						<span style="grid-row: 34; grid-column: 3;" class="cell">
+						<span style="grid-row: 33; grid-column: 3;" class="cell">
 							<button type="action" name="act_robotics_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 34; grid-column: 4;" class="cell">
+						<span style="grid-row: 33; grid-column: 4;" class="cell">
 							<button type="action" name="act_robotics_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 34; grid-column: 5;" class="cell">
+						<span style="grid-row: 33; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_robotics_talent" value="0" id="num">
 						</span>
-						<span style="grid-row: 35; grid-column: 1;" class="cell">
+						<span style="grid-row: 34; grid-column: 1;" class="cell">
 							Weapons Engineering (<span name="attr_cc_weapons_engineering_diff">6</span>)
 						</span>
-						<span style="grid-row: 35; grid-column: 2;" class="cell">
+						<span style="grid-row: 34; grid-column: 2;" class="cell">
 							<input type="text" name="attr_weapons_engineering" id="num" readonly>
 						</span>
-						<span style="grid-row: 35; grid-column: 3;" class="cell">
+						<span style="grid-row: 34; grid-column: 3;" class="cell">
 							<button type="action" name="act_weapons_engineering_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 35; grid-column: 4;" class="cell">
+						<span style="grid-row: 34; grid-column: 4;" class="cell">
 							<button type="action" name="act_weapons_engineering_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 35; grid-column: 5;" class="cell">
+						<span style="grid-row: 34; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_weapons_engineering_talent" value="0" id="num">
 						</span>
-						<span style="grid-row: 36; grid-column: 1;" class="cell">
+						<span style="grid-row: 35; grid-column: 1;" class="cell">
 							Xenobiology (<span name="attr_cc_xenobiology_diff">8</span>)
 						</span>
-						<span style="grid-row: 36; grid-column: 2;" class="cell">
+						<span style="grid-row: 35; grid-column: 2;" class="cell">
 							<input type="text" name="attr_xenobiology" id="num" readonly>
 						</span>
-						<span style="grid-row: 36; grid-column: 3;" class="cell">
+						<span style="grid-row: 35; grid-column: 3;" class="cell">
 							<button type="action" name="act_xenobiology_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 36; grid-column: 4;" class="cell">
+						<span style="grid-row: 35; grid-column: 4;" class="cell">
 							<button type="action" name="act_xenobiology_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 36; grid-column: 5;" class="cell">
+						<span style="grid-row: 35; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_xenobiology_talent" value="0" id="num">
 
 						</span>
-						<span colspan="5" style="grid-row: 37; grid-column: 1 / span 5;" class="cell">
+						<span colspan="5" style="grid-row: 36; grid-column: 1 / span 5;" class="cell">
 							<div align="center">
 								Social <span class="small-font" name="attr_social"/>
 							</div>
 						</span>
-						<span style="grid-row: 38; grid-column: 1;" class="cell">
+						<span style="grid-row: 37; grid-column: 1;" class="cell">
 							Convince (<span name="attr_cc_convince_diff">5</span>) 
 						</span>
-						<span style="grid-row: 38; grid-column: 2;" class="cell">
+						<span style="grid-row: 37; grid-column: 2;" class="cell">
 							<input type="text" name="attr_convince" id="num" readonly>
 						</span>
-						<span style="grid-row: 38; grid-column: 3;" class="cell">
+						<span style="grid-row: 37; grid-column: 3;" class="cell">
 							<button type="action" name="act_convince_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 38; grid-column: 4;" class="cell">
+						<span style="grid-row: 37; grid-column: 4;" class="cell">
 							<button type="action" name="act_convince_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 38; grid-column: 5;" class="cell">
+						<span style="grid-row: 37; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_convince_talent" value="0" id="num">
 						</span>
-						<span style="grid-row: 39; grid-column: 1;" class="cell">
+						<span style="grid-row: 38; grid-column: 1;" class="cell">
 							Deceive (<span name="attr_cc_deceive_diff">4</span>)
 						</span>
-						<span style="grid-row: 39; grid-column: 2;" class="cell">
+						<span style="grid-row: 38; grid-column: 2;" class="cell">
 							<input type="text" name="attr_deceive" id="num" readonly>
 						</span>
-						<span style="grid-row: 39; grid-column: 3;" class="cell">
+						<span style="grid-row: 38; grid-column: 3;" class="cell">
 							<button type="action" name="act_deceive_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 39; grid-column: 4;" class="cell">
+						<span style="grid-row: 38; grid-column: 4;" class="cell">
 							<button type="action" name="act_deceive_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 39; grid-column: 5;" class="cell">
+						<span style="grid-row: 38; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_deceive_talent" value="0" id="num">
 						</span>
-						<span style="grid-row: 40; grid-column: 1;" class="cell">
+						<span style="grid-row: 39; grid-column: 1;" class="cell">
 							Empathy (<span name="attr_cc_empathy_diff">5</span>)
 						</span>
-						<span style="grid-row: 40; grid-column: 2;" class="cell">
+						<span style="grid-row: 39; grid-column: 2;" class="cell">
 							<input type="text" name="attr_empathy" id="num" readonly>
 						</span>
-						<span style="grid-row: 40; grid-column: 3;" class="cell">
+						<span style="grid-row: 39; grid-column: 3;" class="cell">
 							<button type="action" name="act_empathy_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 40; grid-column: 4;" class="cell">
+						<span style="grid-row: 39; grid-column: 4;" class="cell">
 							<button type="action" name="act_empathy_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 40; grid-column: 5;" class="cell">
+						<span style="grid-row: 39; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_empathy_talent" value="0" id="num">
 						</span>
-						<span style="grid-row: 41; grid-column: 1;" class="cell">
+						<span style="grid-row: 40; grid-column: 1;" class="cell">
 							Intimidate (<span name="attr_cc_intimidate_diff">3</span>)
 						</span>
-						<span style="grid-row: 41; grid-column: 2;" class="cell">
+						<span style="grid-row: 40; grid-column: 2;" class="cell">
 							<input type="text" name="attr_intimidate" id="num" readonly>
 						</span>
-						<span style="grid-row: 41; grid-column: 3;" class="cell">
+						<span style="grid-row: 40; grid-column: 3;" class="cell">
 							<button type="action" name="act_intimidate_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 41; grid-column: 4;" class="cell">
+						<span style="grid-row: 40; grid-column: 4;" class="cell">
 							<button type="action" name="act_intimidate_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 41; grid-column: 5;" class="cell">
+						<span style="grid-row: 40; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_intimidate_talent" value="0" id="num">
 						</span>
-						<span style="grid-row: 42; grid-column: 1;" class="cell">
+						<span style="grid-row: 41; grid-column: 1;" class="cell">
 							Lead (<span name="attr_cc_lead_diff">5</span>)  
 						</span>
-						<span style="grid-row: 42; grid-column: 2;" class="cell">
+						<span style="grid-row: 41; grid-column: 2;" class="cell">
 							<input type="text" name="attr_lead" id="num" readonly>
 						</span>
-						<span style="grid-row: 42; grid-column: 3;" class="cell">
+						<span style="grid-row: 41; grid-column: 3;" class="cell">
 							<button type="action" name="act_lead_cc_up" class="levelUpButton"/>
 						</span>
-						<span style="grid-row: 42; grid-column: 4;" class="cell">
+						<span style="grid-row: 41; grid-column: 4;" class="cell">
 							<button type="action" name="act_lead_cc_down" class="levelDownButton"/>
 						</span>
-						<span style="grid-row: 42; grid-column: 5;" class="cell">
+						<span style="grid-row: 41; grid-column: 5;" class="cell">
 							<input type="text" name="attr_cc_lead_talent" value="0" id="num">
 						</span>
 					</div>
@@ -4699,13 +4942,12 @@ function getSectionIDsAsync(sectionName){
 								</select><br>
 								<span style="font-size: 10px">Skills</span><br><select name="attr_custom_skill1" id="tex2" style="width: 200px" class="skill1-select">
 									<option value="Astronautics" disabled>ASTRONAUTICS</option>
-									<option value="bridge_tech" selected="selected">Bridge tech</option>
+									<option value="bridge_tech" selected="selected">Bridge technology</option>
 									<option value="mounted_weaponry">Mounted weaponry</option>
 									<option value="pilot_spacecraft">Pilot spacecraft</option>
 									<option value="vehicle_engineering">Vehicle engineering</option>
 									<option value="Civilizational" disabled>CIVILIZATIONAL</option>
 									<option value="knowledge_corporate">Knowledge (corporate)</option>
-									<option value="knowledge_planets">Knowledge (planets)</option>
 									<option value="pilot_aircraft">Pilot aircraft</option>
 									<option value="knowledge_urban">Knowledge (Urban)</option>
 									<option value="trade">Trade</option>
@@ -4742,7 +4984,6 @@ function getSectionIDsAsync(sectionName){
 									<option value="Civilizational" disabled>CIVILIZATIONAL</option>
 									<option value="drive_ground_vehicle" selected="selected">Drive ground vehicle</option>
 									<option value="knowledge_corporate">Knowledge (corporate)</option>
-									<option value="knowledge_planets">Knowledge (planets)</option>
 									<option value="pilot_aircraft">Pilot aircraft</option>
 									<option value="knowledge_urban">Knowledge (Urban)</option>
 									<option value="trade">Trade</option>
@@ -4778,7 +5019,6 @@ function getSectionIDsAsync(sectionName){
 									<option value="vehicle_engineering">Vehicle engineering</option>
 									<option value="Civilizational" disabled>CIVILIZATIONAL</option>
 									<option value="knowledge_corporate">Knowledge (corporate)</option>
-									<option value="knowledge_planets">Knowledge (planets)</option>
 									<option value="pilot_aircraft">Pilot aircraft</option>
 									<option value="knowledge_urban">Knowledge (Urban)</option>
 									<option value="trade">Trade</option>
@@ -4815,7 +5055,6 @@ function getSectionIDsAsync(sectionName){
 									<option value="vehicle_engineering">Vehicle engineering</option>
 									<option value="Civilizational" disabled>CIVILIZATIONAL</option>
 									<option value="knowledge_corporate">Knowledge (corporate)</option>
-									<option value="knowledge_planets">Knowledge (planets)</option>
 									<option value="pilot_aircraft">Pilot aircraft</option>
 									<option value="knowledge_urban">Knowledge (Urban)</option>
 									<option value="trade">Trade</option>
@@ -4852,7 +5091,6 @@ function getSectionIDsAsync(sectionName){
 									<option value="vehicle_engineering">Vehicle engineering</option>
 									<option value="Civilizational" disabled>CIVILIZATIONAL</option>
 									<option value="knowledge_corporate">Knowledge (corporate)</option>
-									<option value="knowledge_planets">Knowledge (planets)</option>
 									<option value="pilot_aircraft">Pilot aircraft</option>
 									<option value="knowledge_urban">Knowledge (Urban)</option>
 									<option value="trade">Trade</option>
@@ -5185,49 +5423,17 @@ function getSectionIDsAsync(sectionName){
 					</select>
 				</div>
 			</span>
-			<span colspan="2" style="grid-row: 3; grid-column: 1 / span 2;" class="cell">
-				<div align="center">
-					Modifier: <input type="text" id="num" name="attr_shoot_modifier" value="0">
-				</div>
-			</span>
-			<span style="grid-row: 4; grid-column: 1;" class="cell">
+			<span style="grid-row: 3; grid-column: 1;" class="cell">
 				<br>
 				<div align="center">
 					<input type="hidden" name="attr_shoot_hider" value="0" class="hide-shoot">
 					<button type="action" name="act_shoot" class="promptButton shoot-hide">Attack</button>
 				</div>
 			</span>
-			<span style="grid-row: 4; grid-column: 2;" class="cell">
-				<br>
-				<div align="center">
-					<button type="action" name="act_cancel_shoot" class="promptButton">Cancel</button>
-				</div>
-			</span>
-		</div>
-	</div>
-<input type="hidden" name="attr_ammo_prompt_hider" class="hide-ammo-prompt" value="1">
-	<div id="ammo_prompt" class="prompt ammo-prompt-hide">
-		<div class="grid12 table">
-			<span colspan="2" style="grid-row: 1; grid-column: 1 / span 2;" class="cell">
-				<div align="center">
-					<span class="label3">Select Ammo Variant</span>
-				</div>
-			</span>
-			<span colspan="2" style="grid-row: 2; grid-column: 1 / span 2;" class="cell">
-				<div align="center">
-					<select name="attr_damage_ammo" id="tex6" class="damage-ammo-select"/>
-				</div>
-			</span>
-			<span style="grid-row: 3; grid-column: 1;" class="cell">
-				<br>
-				<div align="center">
-					<button type="action" name="act_roll_damage" value="variant" class="promptButton shoot-hide">Roll Damage</button>
-				</div>
-			</span>
 			<span style="grid-row: 3; grid-column: 2;" class="cell">
 				<br>
 				<div align="center">
-					<button type="action" name="act_cancel_damage" class="promptButton">Cancel</button>
+					<button type="action" name="act_cancel_shoot" class="promptButton">Cancel</button>
 				</div>
 			</span>
 		</div>
@@ -5614,14 +5820,17 @@ function getSectionIDsAsync(sectionName){
 					<div class="grid20 table">
 						<span style="grid-row: 1; grid-column: 1;" class="cell">
 							<div align="center">
-								Roll initiative: <select id="tex4" name="attr_init_mod">
+								<div class="title1" align="center" style="color: #C95327;">
+								    Roll initiative:
+								</div
+								><select class="weapon-medium" name="attr_init_mod" style="color: #C95327; border-color: #C95327;">
 									<option value="-4">-4 ini, +2 AP</option>
 									<option value="-2">-2 ini, +1 AP</option>
 									<option value="0" selected>Unmodified</option>
 									<option value="2">+2 ini, -1 AP</option>
 									<option value="4">+4 ini, -2 AP</option>
 								</select>
-								<button type="action" name="act_roll_initiative" class="rollButton" style="position: relative; top: 6px;"/>
+								<button type="roll" name="roll_roll_initiative" class="highIntensityButton" value="&{template:hi-assist} {{name=@{character_name}}} {{title=: Initiative (@{init_mod}): }} {{roll1=[[1d12 + @{init} * 1.01 + @{init_mod} &{tracker}]]}}" style="position: relative; top: -2px;"/>
 							</div>
 						</span>
 					</div>
@@ -5719,6 +5928,61 @@ function getSectionIDsAsync(sectionName){
 				</div>
 			</span>
 			<span width="400" style="grid-row: 2; grid-column: 2;" class="cell">
+			    <div class="grid26 table">
+			        <span colspan="4" style="grid-row: 1; grid-column: 1 / span 5;" class="cell">
+						<div class="title1">
+							Quick Actions <button type="action" name="act_addLine" value="quickactions" class="levelUpButton" style="width:18px; height:18px; background-size: contain;"/>
+						</div>
+					</span>
+					<fieldset class="repeating_quickactions">
+        				<button type="action" name="act_delete" class="levelDownButton" style="width:18px; height:18px; background-size: contain;"/>
+        				<select name="attr_quick_attribute" class="quick-roll-select">
+        				    <option value="str">Strength</option>
+        				    <option value="sta">Stamina</option>
+        				    <option value="agi">Agility</option>
+        				    <option value="per">Perception</option>
+        				    <option value="int">Intelligence</option>
+        				    <option value="cha">Charisma</option>
+        				    <option value="wil">Willpower</option>
+        				</select>
+        				<select name="attr_quick_skill" class="quick-roll-select">
+        				    <option value="bridge_tech">Bridge Technology</option>
+        				    <option value="pilot_spacecraft">Pilot Spacecraft</option>
+        				    <option value="mounted_weaponry">Mounted Weaponry</option>
+        				    <option value="vehicle_engineering">Vehicle Engineering</option>
+        				    <option value="drive_ground_vehicle">Drive Ground Vehicle</option>
+        				    <option value="knowledge_corporate">Knowledge (Corporate)</option>
+        				    <option value="pilot_aircraft">Pilot Aircraft</option>
+        				    <option value="knowledge_urban">Knowledge (Urban)</option>
+        				    <option value="trade">Trade</option>
+        				    <option value="aim">Aim</option>
+        				    <option value="athletics">Athletics</option>
+        				    <option value="endurance">Endurance</option>
+        				    <option value="melee">Melee</option>
+        				    <option value="reaction">Reaction</option>
+        				    <option value="throw">Throw</option>
+        				    <option value="notice">Notice</option>
+        				    <option value="hack_security">Hack Security</option>
+        				    <option value="search">Search</option>
+        				    <option value="sleight_of_hand">Sleight of Hand</option>
+        				    <option value="sneak">Sneak</option>
+        				    <option value="astronomy">Astronomy</option>
+        				    <option value="computer_science">Computer Science</option>
+        				    <option value="medicine">Medicine</option>
+        				    <option value="natural_science">Natural Sciences</option>
+        				    <option value="robotics">Robotics</option>
+        				    <option value="weapons_engineering">Weapons Engineering</option>
+        				    <option value="xenobiology">Xenobiology</option>
+        				    <option value="convince">Convince</option>
+        				    <option value="deceive">Deceive</option>
+        				    <option value="empathy">Empathy</option>
+        				    <option value="intimidate">Intimidate</option>
+        				    <option value="lead">Lead</option>
+        				</select>
+        				<button type="action" name="act_roll" value="low" class="rollButton" style="width:18px; height:18px; background-size: contain; position: relative; top: 5px;"/>
+        				<button type="action" name="act_roll" value="high" class="highIntensityButton" style="width:18px; height:18px; background-size: contain;"/>
+        			</fieldset>
+			    </div>
 				<div id="medium-font" class="grid24 table">
 					<span colspan="4" style="grid-row: 1; grid-column: 1 / span 4;" class="cell">
 						<div class="title1">
@@ -5732,7 +5996,7 @@ function getSectionIDsAsync(sectionName){
 						</div>
 					</span>
 					<span style="grid-row: 3; grid-column: 1;" class="cell">
-						Bridge Tech
+						Bridge Technology
 						<input type="hidden" name="attr_bridge_tech_talent" value="0">
 						<input type="hidden" name="attr_bridge_tech_XP" value="0">
 						<input type="hidden" name="attr_bridge_tech_bonus" value="0">
@@ -5840,23 +6104,6 @@ function getSectionIDsAsync(sectionName){
 						<button type="action" name="act_edit_knowledge_corporate" class="editButton"/>
 					</span>
 					<span style="grid-row: 10; grid-column: 1;" class="cell">
-						Knowledge (Planets)
-						<input type="hidden" name="attr_knowledge_planets_talent" value="0">
-						<input type="hidden" name="attr_knowledge_planets_XP" value="0">
-						<input type="hidden" name="attr_knowledge_planets_bonus" value="0">
-						<input type="hidden" name="attr_knowledge_planets_training_time" value="6 months">
-						<input type="hidden" name="attr_knowledge_planets_difficulty" value="7">
-					</span>
-					<span style="grid-row: 10; grid-column: 2;" class="cell">
-						<input type="text" id="num" name="attr_knowledge_planets" value="0" readonly>
-					</span>
-					<span style="grid-row: 10; grid-column: 3;" class="cell">
-						<button type="action" name="act_roll_knowledge_planets" class="rollButton"/>
-					</span>
-					<span style="grid-row: 10; grid-column: 4;" class="cell">
-						<button type="action" name="act_edit_knowledge_planets" class="editButton"/>
-					</span>
-					<span style="grid-row: 11; grid-column: 1;" class="cell">
 						Pilot Aircraft
 						<input type="hidden" name="attr_pilot_aircraft_talent" value="0">
 						<input type="hidden" name="attr_pilot_aircraft_XP" value="0">
@@ -5864,16 +6111,16 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_pilot_aircraft_training_time" value="2 months">
 						<input type="hidden" name="attr_pilot_aircraft_difficulty" value="7">
 					</span>
-					<span style="grid-row: 11; grid-column: 2;" class="cell">
+					<span style="grid-row: 10; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_pilot_aircraft" value="0" readonly>
 					</span>
-					<span style="grid-row: 11; grid-column: 3;" class="cell">
+					<span style="grid-row: 10; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_pilot_aircraft" class="rollButton"/>
 					</span>
-					<span style="grid-row: 11; grid-column: 4;" class="cell">
+					<span style="grid-row: 10; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_pilot_aircraft" class="editButton"/>
 					</span>
-					<span style="grid-row: 12; grid-column: 1;" class="cell">
+					<span style="grid-row: 11; grid-column: 1;" class="cell">
 						Knowledge (Urban)
 						<input type="hidden" name="attr_knowledge_urban_talent" value="0">
 						<input type="hidden" name="attr_knowledge_urban_XP" value="0">
@@ -5881,16 +6128,16 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_knowledge_urban_training_time" value="0">
 						<input type="hidden" name="attr_knowledge_urban_difficulty" value="6">
 					</span>
-					<span style="grid-row: 12; grid-column: 2;" class="cell">
+					<span style="grid-row: 11; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_knowledge_urban" value="0" readonly>
 					</span>
-					<span style="grid-row: 12; grid-column: 3;" class="cell">
+					<span style="grid-row: 11; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_knowledge_urban" class="rollButton"/>
 					</span>
-					<span style="grid-row: 12; grid-column: 4;" class="cell">
+					<span style="grid-row: 11; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_knowledge_urban" class="editButton"/>
 					</span>
-					<span style="grid-row: 13; grid-column: 1;" class="cell">
+					<span style="grid-row: 12; grid-column: 1;" class="cell">
 						Trade
 						<input type="hidden" name="attr_trade_talent" value="0">
 						<input type="hidden" name="attr_trade_XP" value="0">
@@ -5898,22 +6145,22 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_trade_training_time" value="1 month">
 						<input type="hidden" name="attr_trade_difficulty" value="6">
 					</span>
-					<span style="grid-row: 13; grid-column: 2;" class="cell">
+					<span style="grid-row: 12; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_trade" value="0" readonly>
 					</span>
-					<span style="grid-row: 13; grid-column: 3;" class="cell">
+					<span style="grid-row: 12; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_trade" class="rollButton"/>
 					</span>
-					<span style="grid-row: 13; grid-column: 4;" class="cell">
+					<span style="grid-row: 12; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_trade" class="editButton"/>
 					</span>
-					<span colspan="4" style="grid-row: 14; grid-column: 1 / span 4;" class="cell">
+					<span colspan="4" style="grid-row: 13; grid-column: 1 / span 4;" class="cell">
 						<div class="title2" align="center">
 							<br>
 							Combat
 						</div>
 					</span>
-					<span style="grid-row: 15; grid-column: 1;" class="cell">
+					<span style="grid-row: 14; grid-column: 1;" class="cell">
 						Aim
 						<input type="hidden" name="attr_aim_talent" value="0">
 						<input type="hidden" name="attr_aim_XP" value="0">
@@ -5921,16 +6168,16 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_aim_training_time" value="0">
 						<input type="hidden" name="attr_aim_difficulty" value="7">
 					</span>
-					<span style="grid-row: 15; grid-column: 2;" class="cell">
+					<span style="grid-row: 14; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_aim" value="2" readonly>
 					</span>
-					<span style="grid-row: 15; grid-column: 3;" class="cell">
+					<span style="grid-row: 14; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_aim" class="rollButton"/>
 					</span>
-					<span style="grid-row: 15; grid-column: 4;" class="cell">
+					<span style="grid-row: 14; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_aim" class="editButton"/>
 					</span>
-					<span style="grid-row: 16; grid-column: 1;" class="cell">
+					<span style="grid-row: 15; grid-column: 1;" class="cell">
 						Athletics
 						<input type="hidden" name="attr_athletics_talent" value="0">
 						<input type="hidden" name="attr_athletics_XP" value="0">
@@ -5938,16 +6185,16 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_athletics_training_time" value="0">
 						<input type="hidden" name="attr_athletics_difficulty" value="5">
 					</span>
-					<span style="grid-row: 16; grid-column: 2;" class="cell">
+					<span style="grid-row: 15; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_athletics" value="1" readonly>
 					</span>
-					<span style="grid-row: 16; grid-column: 3;" class="cell">
+					<span style="grid-row: 15; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_athletics" class="rollButton"/>
 					</span>
-					<span style="grid-row: 16; grid-column: 4;" class="cell">
+					<span style="grid-row: 15; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_athletics" class="editButton"/>
 					</span>
-					<span style="grid-row: 17; grid-column: 1;" class="cell">
+					<span style="grid-row: 16; grid-column: 1;" class="cell">
 						Endurance
 						<input type="hidden" name="attr_endurance_talent" value="0">
 						<input type="hidden" name="attr_endurance_XP" value="0">
@@ -5955,16 +6202,16 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_endurance_training_time" value="0">
 						<input type="hidden" name="attr_endurance_difficulty" value="6">
 					</span>
-					<span style="grid-row: 17; grid-column: 2;" class="cell">
+					<span style="grid-row: 16; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_endurance" value="1" readonly>
 					</span>
-					<span style="grid-row: 17; grid-column: 3;" class="cell">
+					<span style="grid-row: 16; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_endurance" class="rollButton"/>
 					</span>
-					<span style="grid-row: 17; grid-column: 4;" class="cell">
+					<span style="grid-row: 16; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_endurance" class="editButton"/>
 					</span>
-					<span style="grid-row: 18; grid-column: 1;" class="cell">
+					<span style="grid-row: 17; grid-column: 1;" class="cell">
 						Melee
 						<input type="hidden" name="attr_melee_talent" value="0">
 						<input type="hidden" name="attr_melee_XP" value="0">
@@ -5972,16 +6219,16 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_melee_training_time" value="0">
 						<input type="hidden" name="attr_melee_difficulty" value="8">
 					</span>
-					<span style="grid-row: 18; grid-column: 2;" class="cell">
+					<span style="grid-row: 17; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_melee" value="0" readonly>
 					</span>
-					<span style="grid-row: 18; grid-column: 3;" class="cell">
+					<span style="grid-row: 17; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_melee" class="rollButton"/>
 					</span>
-					<span style="grid-row: 18; grid-column: 4;" class="cell">
+					<span style="grid-row: 17; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_melee" class="editButton"/>
 					</span>
-					<span style="grid-row: 19; grid-column: 1;" class="cell">
+					<span style="grid-row: 18; grid-column: 1;" class="cell">
 						Reaction
 						<input type="hidden" name="attr_reaction_talent" value="0">
 						<input type="hidden" name="attr_reaction_XP" value="0">
@@ -5989,16 +6236,16 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_reaction_training_time" value="0">
 						<input type="hidden" name="attr_reaction_difficulty" value="6">
 					</span>
-					<span style="grid-row: 19; grid-column: 2;" class="cell">
+					<span style="grid-row: 18; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_reaction" value="0" readonly>
 					</span>
-					<span style="grid-row: 19; grid-column: 3;" class="cell">
+					<span style="grid-row: 18; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_reaction" class="rollButton"/>
 					</span>
-					<span style="grid-row: 19; grid-column: 4;" class="cell">
+					<span style="grid-row: 18; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_reaction" class="editButton"/>
 					</span>
-					<span style="grid-row: 20; grid-column: 1;" class="cell">
+					<span style="grid-row: 19; grid-column: 1;" class="cell">
 						Throw
 						<input type="hidden" name="attr_throw_talent" value="0">
 						<input type="hidden" name="attr_throw_XP" value="0">
@@ -6006,22 +6253,22 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_throw_training_time" value="0">
 						<input type="hidden" name="attr_throw_difficulty" value="5">
 					</span>
-					<span style="grid-row: 20; grid-column: 2;" class="cell">
+					<span style="grid-row: 19; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_throw" value="0" readonly>
 					</span>
-					<span style="grid-row: 20; grid-column: 3;" class="cell">
+					<span style="grid-row: 19; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_throw" class="rollButton"/>
 					</span>
-					<span style="grid-row: 20; grid-column: 4;" class="cell">
+					<span style="grid-row: 19; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_throw" class="editButton"/>
 					</span>
-					<span colspan="4" style="grid-row: 21; grid-column: 1 / span 4;" class="cell">
+					<span colspan="4" style="grid-row: 20; grid-column: 1 / span 4;" class="cell">
 						<div class="title2" align="center">
 							<br>
 							Infiltration
 						</div>
 					</span>
-					<span style="grid-row: 22; grid-column: 1;" class="cell">
+					<span style="grid-row: 21; grid-column: 1;" class="cell">
 						Notice
 						<input type="hidden" name="attr_notice_talent" value="0">
 						<input type="hidden" name="attr_notice_XP" value="0">
@@ -6029,16 +6276,16 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_notice_training_time" value="0">
 						<input type="hidden" name="attr_notice_difficulty" value="7">
 					</span>
-					<span style="grid-row: 22; grid-column: 2;" class="cell">
+					<span style="grid-row: 21; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_notice" value="0" readonly>
 					</span>
-					<span style="grid-row: 22; grid-column: 3;" class="cell">
+					<span style="grid-row: 21; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_notice" class="rollButton"/>
 					</span>
-					<span style="grid-row: 22; grid-column: 4;" class="cell">
+					<span style="grid-row: 21; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_notice" class="editButton"/>
 					</span>
-					<span style="grid-row: 23; grid-column: 1;" class="cell">
+					<span style="grid-row: 22; grid-column: 1;" class="cell">
 						Hack Security
 						<input type="hidden" name="attr_hack_security_talent" value="0">
 						<input type="hidden" name="attr_hack_security_XP" value="0">
@@ -6046,16 +6293,16 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_hack_security_training_time" value="2 months">
 						<input type="hidden" name="attr_hack_security_difficulty" value="6">
 					</span>
-					<span style="grid-row: 23; grid-column: 2;" class="cell">
+					<span style="grid-row: 22; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_hack_security" value="0" readonly>
 					</span>
-					<span style="grid-row: 23; grid-column: 3;" class="cell">
+					<span style="grid-row: 22; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_hack_security" class="rollButton"/>
 					</span>
-					<span style="grid-row: 23; grid-column: 4;" class="cell">
+					<span style="grid-row: 22; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_hack_security" class="editButton"/>
 					</span>
-					<span style="grid-row: 24; grid-column: 1;" class="cell">
+					<span style="grid-row: 23; grid-column: 1;" class="cell">
 						Search
 						<input type="hidden" name="attr_search_talent" value="0">
 						<input type="hidden" name="attr_search_XP" value="0">
@@ -6063,16 +6310,16 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_search_training_time" value="0">
 						<input type="hidden" name="attr_search_difficulty" value="5">
 					</span>
-					<span style="grid-row: 24; grid-column: 2;" class="cell">
+					<span style="grid-row: 23; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_search" value="0" readonly>
 					</span>
-					<span style="grid-row: 24; grid-column: 3;" class="cell">
+					<span style="grid-row: 23; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_search" class="rollButton"/>
 					</span>
-					<span style="grid-row: 24; grid-column: 4;" class="cell">
+					<span style="grid-row: 23; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_search" class="editButton"/>
 					</span>
-					<span style="grid-row: 25; grid-column: 1;" class="cell">
+					<span style="grid-row: 24; grid-column: 1;" class="cell">
 						Sleight of Hand
 						<input type="hidden" name="attr_sleight_of_hand_talent" value="0">
 						<input type="hidden" name="attr_sleight_of_hand_XP" value="0">
@@ -6080,16 +6327,16 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_sleight_of_hand_training_time" value="1 month">
 						<input type="hidden" name="attr_sleight_of_hand_difficulty" value="8">
 					</span>
-					<span style="grid-row: 25; grid-column: 2;" class="cell">
+					<span style="grid-row: 24; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_sleight_of_hand" value="0" readonly>
 					</span>
-					<span style="grid-row: 25; grid-column: 3;" class="cell">
+					<span style="grid-row: 24; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_sleight_of_hand" class="rollButton"/>
 					</span>
-					<span style="grid-row: 25; grid-column: 4;" class="cell">
+					<span style="grid-row: 24; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_sleight_of_hand" class="editButton"/>
 					</span>
-					<span style="grid-row: 26; grid-column: 1;" class="cell">
+					<span style="grid-row: 25; grid-column: 1;" class="cell">
 						Sneak
 						<input type="hidden" name="attr_sneak_talent" value="0">
 						<input type="hidden" name="attr_sneak_XP" value="0">
@@ -6097,22 +6344,22 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_sneak_training_time" value="0">
 						<input type="hidden" name="attr_sneak_difficulty" value="7">
 					</span>
-					<span style="grid-row: 26; grid-column: 2;" class="cell">
+					<span style="grid-row: 25; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_sneak" value="0" readonly>
 					</span>
-					<span style="grid-row: 26; grid-column: 3;" class="cell">
+					<span style="grid-row: 25; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_sneak" class="rollButton"/>
 					</span>
-					<span style="grid-row: 26; grid-column: 4;" class="cell">
+					<span style="grid-row: 25; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_sneak" class="editButton"/>
 					</span>
-					<span colspan="4" style="grid-row: 27; grid-column: 1 / span 4;" class="cell">
+					<span colspan="4" style="grid-row: 26; grid-column: 1 / span 4;" class="cell">
 						<div class="title2" align="center">
 							<br>
 							Science
 						</div>
 					</span>
-					<span style="grid-row: 28; grid-column: 1;" class="cell">
+					<span style="grid-row: 27; grid-column: 1;" class="cell">
 						Astronomy
 						<input type="hidden" name="attr_astronomy_talent" value="0">
 						<input type="hidden" name="attr_astronomy_XP" value="0">
@@ -6120,16 +6367,16 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_astronomy_training_time" value="3 months">
 						<input type="hidden" name="attr_astronomy_difficulty" value="6">
 					</span>
-					<span style="grid-row: 28; grid-column: 2;" class="cell">
+					<span style="grid-row: 27; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_astronomy" value="0" readonly>
 					</span>
-					<span style="grid-row: 28; grid-column: 3;" class="cell">
+					<span style="grid-row: 27; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_astronomy" class="rollButton"/>
 					</span>
-					<span style="grid-row: 28; grid-column: 4;" class="cell">
+					<span style="grid-row: 27; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_astronomy" class="editButton"/>
 					</span>
-					<span style="grid-row: 29; grid-column: 1;" class="cell">
+					<span style="grid-row: 28; grid-column: 1;" class="cell">
 						Computer Science
 						<input type="hidden" name="attr_computer_science_talent" value="0">
 						<input type="hidden" name="attr_computer_science_XP" value="0">
@@ -6137,16 +6384,16 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_computer_science_training_time" value="6 months">
 						<input type="hidden" name="attr_computer_science_difficulty" value="8">
 					</span>
-					<span style="grid-row: 29; grid-column: 2;" class="cell">
+					<span style="grid-row: 28; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_computer_science" value="0" readonly>
 					</span>
-					<span style="grid-row: 29; grid-column: 3;" class="cell">
+					<span style="grid-row: 28; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_computer_science" class="rollButton"/>
 					</span>
-					<span style="grid-row: 29; grid-column: 4;" class="cell">
+					<span style="grid-row: 28; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_computer_science" class="editButton"/>
 					</span>
-					<span style="grid-row: 30; grid-column: 1;" class="cell">
+					<span style="grid-row: 29; grid-column: 1;" class="cell">
 						Medicine
 						<input type="hidden" name="attr_medicine_talent" value="0">
 						<input type="hidden" name="attr_medicine_XP" value="0">
@@ -6154,16 +6401,16 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_medicine_training_time" value="6 months">
 						<input type="hidden" name="attr_medicine_difficulty" value="7">
 					</span>
-					<span style="grid-row: 30; grid-column: 2;" class="cell">
+					<span style="grid-row: 29; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_medicine" value="1" readonly>
 					</span>
-					<span style="grid-row: 30; grid-column: 3;" class="cell">
+					<span style="grid-row: 29; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_medicine" class="rollButton"/>
 					</span>
-					<span style="grid-row: 30; grid-column: 4;" class="cell">
+					<span style="grid-row: 29; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_medicine" class="editButton"/>
 					</span>
-					<span style="grid-row: 31; grid-column: 1;" class="cell">
+					<span style="grid-row: 30; grid-column: 1;" class="cell">
 						Natural Sciences
 						<input type="hidden" name="attr_natural_sciences_talent" value="0">
 						<input type="hidden" name="attr_natural_sciences_XP" value="0">
@@ -6171,16 +6418,16 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_natural_sciences_training_time" value="6 months">
 						<input type="hidden" name="attr_natural_sciences_difficulty" value="8">
 					</span>
-					<span style="grid-row: 31; grid-column: 2;" class="cell">
+					<span style="grid-row: 30; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_natural_sciences" value="0" readonly>
 					</span>
-					<span style="grid-row: 31; grid-column: 3;" class="cell">
+					<span style="grid-row: 30; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_natural_sciences" class="rollButton"/>
 					</span>
-					<span style="grid-row: 31; grid-column: 4;" class="cell">
+					<span style="grid-row: 30; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_natural_sciences" class="editButton"/>
 					</span>
-					<span style="grid-row: 32; grid-column: 1;" class="cell">
+					<span style="grid-row: 31; grid-column: 1;" class="cell">
 						Robotics
 						<input type="hidden" name="attr_robotics_talent" value="0">
 						<input type="hidden" name="attr_robotics_XP" value="0">
@@ -6188,16 +6435,16 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_robotics_training_time" value="6 months">
 						<input type="hidden" name="attr_robotics_difficulty" value="8">
 					</span>
-					<span style="grid-row: 32; grid-column: 2;" class="cell">
+					<span style="grid-row: 31; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_robotics" value="0" readonly>
 					</span>
-					<span style="grid-row: 32; grid-column: 3;" class="cell">
+					<span style="grid-row: 31; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_robotics" class="rollButton"/>
 					</span>
-					<span style="grid-row: 32; grid-column: 4;" class="cell">
+					<span style="grid-row: 31; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_robotics" class="editButton"/>
 					</span>
-					<span style="grid-row: 33; grid-column: 1;" class="cell">
+					<span style="grid-row: 32; grid-column: 1;" class="cell">
 						Weapons Engineering
 						<input type="hidden" name="attr_weapons_engineering_talent" value="0">
 						<input type="hidden" name="attr_weapons_engineering_XP" value="0">
@@ -6205,16 +6452,16 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_weapons_engineering_training_time" value="6 months">
 						<input type="hidden" name="attr_weapons_engineering_difficulty" value="8">
 					</span>
-					<span style="grid-row: 33; grid-column: 2;" class="cell">
+					<span style="grid-row: 32; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_weapons_engineering" value="0" readonly>
 					</span>
-					<span style="grid-row: 33; grid-column: 3;" class="cell">
+					<span style="grid-row: 32; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_weapons_engineering" class="rollButton"/>
 					</span>
-					<span style="grid-row: 33; grid-column: 4;" class="cell">
+					<span style="grid-row: 32; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_weapons_engineering" class="editButton"/>
 					</span>
-					<span style="grid-row: 34; grid-column: 1;" class="cell">
+					<span style="grid-row: 33; grid-column: 1;" class="cell">
 						Xenobiology
 						<input type="hidden" name="attr_xenobiology_talent" value="0">
 						<input type="hidden" name="attr_xenobiology_XP" value="0">
@@ -6222,22 +6469,22 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_xenobiology_training_time" value="1 year">
 						<input type="hidden" name="attr_xenobiology_difficulty" value="10">
 					</span>
-					<span style="grid-row: 34; grid-column: 2;" class="cell">
+					<span style="grid-row: 33; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_xenobiology" value="0" readonly>
 					</span>
-					<span style="grid-row: 34; grid-column: 3;" class="cell">
+					<span style="grid-row: 33; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_xenobiology" class="rollButton"/>
 					</span>
-					<span style="grid-row: 34; grid-column: 4;" class="cell">
+					<span style="grid-row: 33; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_xenobiology" class="editButton"/>
 					</span>
-					<span colspan="4" style="grid-row: 35; grid-column: 1 / span 4;" class="cell">
+					<span colspan="4" style="grid-row: 34; grid-column: 1 / span 4;" class="cell">
 						<div class="title2" align="center">
 							<br>
 							Social
 						</div>
 					</span>
-					<span style="grid-row: 36; grid-column: 1;" class="cell">
+					<span style="grid-row: 35; grid-column: 1;" class="cell">
 						Convince
 						<input type="hidden" name="attr_convince_talent" value="0">
 						<input type="hidden" name="attr_convince_XP" value="0">
@@ -6245,16 +6492,16 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_convince_training_time" value="0">
 						<input type="hidden" name="attr_convince_difficulty" value="7">
 					</span>
-					<span style="grid-row: 36; grid-column: 2;" class="cell">
+					<span style="grid-row: 35; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_convince" value="0" readonly>
 					</span>
-					<span style="grid-row: 36; grid-column: 3;" class="cell">
+					<span style="grid-row: 35; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_convince" class="rollButton"/>
 					</span>
-					<span style="grid-row: 36; grid-column: 4;" class="cell">
+					<span style="grid-row: 35; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_convince" class="editButton"/>
 					</span>
-					<span style="grid-row: 37; grid-column: 1;" class="cell">
+					<span style="grid-row: 36; grid-column: 1;" class="cell">
 						Deceive
 						<input type="hidden" name="attr_deceive_talent" value="0">
 						<input type="hidden" name="attr_deceive_XP" value="0">
@@ -6262,16 +6509,16 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_deceive_training_time" value="0">
 						<input type="hidden" name="attr_deceive_difficulty" value="6">
 					</span>
-					<span style="grid-row: 37; grid-column: 2;" class="cell">
+					<span style="grid-row: 36; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_deceive" value="0" readonly>
 					</span>
-					<span style="grid-row: 37; grid-column: 3;" class="cell">
+					<span style="grid-row: 36; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_deceive" class="rollButton"/>
 					</span>
-					<span style="grid-row: 37; grid-column: 4;" class="cell">
+					<span style="grid-row: 36; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_deceive" class="editButton"/>
 					</span>
-					<span style="grid-row: 38; grid-column: 1;" class="cell">
+					<span style="grid-row: 37; grid-column: 1;" class="cell">
 						Empathy
 						<input type="hidden" name="attr_empathy_talent" value="0">
 						<input type="hidden" name="attr_empathy_XP" value="0">
@@ -6279,16 +6526,16 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_empathy_training_time" value="0">
 						<input type="hidden" name="attr_empathy_difficulty" value="7">
 					</span>
-					<span style="grid-row: 38; grid-column: 2;" class="cell">
+					<span style="grid-row: 37; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_empathy" value="0" readonly>
 					</span>
-					<span style="grid-row: 38; grid-column: 3;" class="cell">
+					<span style="grid-row: 37; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_empathy" class="rollButton"/>
 					</span>
-					<span style="grid-row: 38; grid-column: 4;" class="cell">
+					<span style="grid-row: 37; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_empathy" class="editButton"/>
 					</span>
-					<span style="grid-row: 39; grid-column: 1;" class="cell">
+					<span style="grid-row: 38; grid-column: 1;" class="cell">
 						Intimidate
 						<input type="hidden" name="attr_intimidate_talent" value="0">
 						<input type="hidden" name="attr_intimidate_XP" value="0">
@@ -6296,16 +6543,16 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_intimidate_training_time" value="0">
 						<input type="hidden" name="attr_intimidate_difficulty" value="5">
 					</span>
-					<span style="grid-row: 39; grid-column: 2;" class="cell">
+					<span style="grid-row: 38; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_intimidate" value="0" readonly>
 					</span>
-					<span style="grid-row: 39; grid-column: 3;" class="cell">
+					<span style="grid-row: 38; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_intimidate" class="rollButton"/>
 					</span>
-					<span style="grid-row: 39; grid-column: 4;" class="cell">
+					<span style="grid-row: 38; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_intimidate" class="editButton"/>
 					</span>
-					<span style="grid-row: 40; grid-column: 1;" class="cell">
+					<span style="grid-row: 39; grid-column: 1;" class="cell">
 						Lead
 						<input type="hidden" name="attr_lead_talent" value="0">
 						<input type="hidden" name="attr_lead_XP" value="0">
@@ -6313,62 +6560,62 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_lead_training_time" value="0">
 						<input type="hidden" name="attr_lead_difficulty" value="7">
 					</span>
-					<span style="grid-row: 40; grid-column: 2;" class="cell">
+					<span style="grid-row: 39; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_lead" value="1" readonly>
 					</span>
-					<span style="grid-row: 40; grid-column: 3;" class="cell">
+					<span style="grid-row: 39; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_lead" class="rollButton"/>
 					</span>
-					<span style="grid-row: 40; grid-column: 4;" class="cell">
+					<span style="grid-row: 39; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_lead" class="editButton"/>
 					</span>
-					<span colspan="4" style="grid-row: 41; grid-column: 1 / span 4;" class="cell">
+					<span colspan="4" style="grid-row: 40; grid-column: 1 / span 4;" class="cell">
 						<div class="title2" align="center">
 							<br>
 							Supplementary (Art)
 							<input type="hidden" name="attr_art_talent" value="0">
 						</div>
 					</span>
-					<span style="grid-row: 42; grid-column: 1;" class="cell">
+					<span style="grid-row: 41; grid-column: 1;" class="cell">
 						<input type="text" id="tex" name="attr_art1_name" value="">
 						<input type="hidden" name="attr_art1_XP" value="0">
 						<input type="hidden" name="attr_art1_bonus" value="0">
 						<input type="hidden" name="attr_art1_training_time" value="0">
 						<input type="hidden" name="attr_art1_difficulty" value="5">
 					</span>
-					<span style="grid-row: 42; grid-column: 2;" class="cell">
+					<span style="grid-row: 41; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_art1" value="0" readonly>
 					</span>
-					<span style="grid-row: 42; grid-column: 3;" class="cell">
+					<span style="grid-row: 41; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_art1" class="rollButton"/>
 					</span>
-					<span style="grid-row: 42; grid-column: 4;" class="cell">
+					<span style="grid-row: 41; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_art1" class="editButton"/>
 					</span>
-					<span style="grid-row: 43; grid-column: 1;" class="cell">
+					<span style="grid-row: 42; grid-column: 1;" class="cell">
 						<input type="text" id="tex" name="attr_art2_name" value="">
 						<input type="hidden" name="attr_art2_XP" value="0">
 						<input type="hidden" name="attr_art2_bonus" value="0">
 						<input type="hidden" name="attr_art2_training_time" value="0">
 						<input type="hidden" name="attr_art2_difficulty" value="5">
 					</span>
-					<span style="grid-row: 43; grid-column: 2;" class="cell">
+					<span style="grid-row: 42; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_art2" value="0" readonly>
 					</span>
-					<span style="grid-row: 43; grid-column: 3;" class="cell">
+					<span style="grid-row: 42; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_art2" class="rollButton"/>
 					</span>
-					<span style="grid-row: 43; grid-column: 4;" class="cell">
+					<span style="grid-row: 42; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_art2" class="editButton"/>
 					</span>
-					<span colspan="4" style="grid-row: 44; grid-column: 1 / span 4;" class="cell">
+					<span colspan="4" style="grid-row: 43; grid-column: 1 / span 4;" class="cell">
 						<div class="title2" align="center">
 							<br>
 							Supplementary (Hobby)
 							<input type="hidden" name="attr_hobby_talent" value="0">
 						</div>
 					</span>
-					<span style="grid-row: 45; grid-column: 1;" class="cell">
+					<span style="grid-row: 44; grid-column: 1;" class="cell">
 						<input type="hidden" name="attr_hobby1_name_disabler" class="disable-hobby1-name" value="1">
 						<input type="text" id="tex" name="attr_hobby1_name" value="" class="hobby1-name-enabled">
 						<input type="text" id="tex" name="attr_hobby1_name" class="hobby1-name-disabled" readonly>
@@ -6377,39 +6624,39 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_hobby1_training_time" value="0">
 						<input type="hidden" name="attr_hobby1_difficulty" value="5">
 					</span>
-					<span style="grid-row: 45; grid-column: 2;" class="cell">
+					<span style="grid-row: 44; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_hobby1" value="0" readonly>
 					</span>
-					<span style="grid-row: 45; grid-column: 3;" class="cell">
+					<span style="grid-row: 44; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_hobby1" class="rollButton"/>
 					</span>
-					<span style="grid-row: 45; grid-column: 4;" class="cell">
+					<span style="grid-row: 44; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_hobby1" class="editButton"/>
 					</span>
-					<span style="grid-row: 46; grid-column: 1;" class="cell">
+					<span style="grid-row: 45; grid-column: 1;" class="cell">
 						<input type="text" id="tex" name="attr_hobby2_name" value="">
 						<input type="hidden" name="attr_hobby2_XP" value="0">
 						<input type="hidden" name="attr_hobby2_bonus" value="0">
 						<input type="hidden" name="attr_hobby2_training_time" value="0">
 						<input type="hidden" name="attr_hobby2_difficulty" value="5">
 					</span>
-					<span style="grid-row: 46; grid-column: 2;" class="cell">
+					<span style="grid-row: 45; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_hobby2" value="0" readonly>
 					</span>
-					<span style="grid-row: 46; grid-column: 3;" class="cell">
+					<span style="grid-row: 45; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_hobby2" class="rollButton"/>
 					</span>
-					<span style="grid-row: 46; grid-column: 4;" class="cell">
+					<span style="grid-row: 45; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_hobby2" class="editButton"/>
 					</span>
-					<span colspan="4" style="grid-row: 47; grid-column: 1 / span 4;" class="cell">
+					<span colspan="4" style="grid-row: 46; grid-column: 1 / span 4;" class="cell">
 						<div class="title2" align="center">
 							<br>
 							Supplementary (Language)
 							<input type="hidden" name="attr_language_talent" value="0">
 						</div>
 					</span>
-					<span style="grid-row: 48; grid-column: 1;" class="cell">
+					<span style="grid-row: 47; grid-column: 1;" class="cell">
 						<input type="hidden" name="attr_language1_name_disabler" class="disable-language1-name" value="1">
 						<input type="text" id="tex" name="attr_language1_name" value="Syndicate English" class="language1-name-enabled">
 						<input type="text" id="tex" name="attr_language1_name" value="Syndicate English" class="language1-name-disabled" readonly>
@@ -6418,17 +6665,17 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_language1_training_time" value="2 months">
 						<input type="hidden" name="attr_language1_difficulty" value="5">
 					</span>
-					<span style="grid-row: 48; grid-column: 2;" class="cell">
+					<span style="grid-row: 47; grid-column: 2;" class="cell">
 						<input type="hidden" name="attr_language1" value="3"/>
 						<input type="text" id="num" name="attr_language1" value="@{language1}" readonly>
 					</span>
-					<span style="grid-row: 48; grid-column: 3;" class="cell">
+					<span style="grid-row: 47; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_language1" class="rollButton"/>
 					</span>
-					<span style="grid-row: 48; grid-column: 4;" class="cell">
+					<span style="grid-row: 47; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_language1" class="editButton"/>
 					</span>
-					<span style="grid-row: 49; grid-column: 1;" class="cell">
+					<span style="grid-row: 48; grid-column: 1;" class="cell">
 						<input type="hidden" name="attr_language2_name_disabler" class="disable-language2-name" value="1">
 						<input type="text" id="tex" name="attr_language2_name" value="Russian" class="language2-name-enabled"/>
 						<input type="text" id="tex" name="attr_language2_name" value="Russian" class="language2-name-disabled" readonly>
@@ -6437,91 +6684,91 @@ function getSectionIDsAsync(sectionName){
 						<input type="hidden" name="attr_language2_training_time" value="2 months">
 						<input type="hidden" name="attr_language2_difficulty" value="5">
 					</span>
-					<span style="grid-row: 49; grid-column: 2;" class="cell">
+					<span style="grid-row: 48; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_language2" value="5" readonly>
 					</span>
-					<span style="grid-row: 49; grid-column: 3;" class="cell">
+					<span style="grid-row: 48; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_language2" class="rollButton"/>
 					</span>
-					<span style="grid-row: 49; grid-column: 4;" class="cell">
+					<span style="grid-row: 48; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_language2" class="editButton"/>
 					</span>
-					<span style="grid-row: 50; grid-column: 1;" class="cell">
+					<span style="grid-row: 49; grid-column: 1;" class="cell">
 						<input type="text" id="tex" name="attr_language3_name" value=""/>
 						<input type="hidden" name="attr_language3_XP" value="0">
 						<input type="hidden" name="attr_language3_bonus" value="0">
 						<input type="hidden" name="attr_language3_training_time" value="2 months">
 						<input type="hidden" name="attr_language3_difficulty" value="5">
 					</span>
-					<span style="grid-row: 50; grid-column: 2;" class="cell">
+					<span style="grid-row: 49; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_language3" value="0" readonly>
 					</span>
-					<span style="grid-row: 50; grid-column: 3;" class="cell">
+					<span style="grid-row: 49; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_language3" class="rollButton"/>
 					</span>
-					<span style="grid-row: 50; grid-column: 4;" class="cell">
+					<span style="grid-row: 49; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_language3" class="editButton"/>
 					</span>
-					<span style="grid-row: 51; grid-column: 1;" class="cell">
+					<span style="grid-row: 50; grid-column: 1;" class="cell">
 						<input type="text" id="tex" name="attr_language4_name" value=""/>
 						<input type="hidden" name="attr_language4_XP" value="0">
 						<input type="hidden" name="attr_language4_bonus" value="0">
 						<input type="hidden" name="attr_language4_training_time" value="2 months">
 						<input type="hidden" name="attr_language4_difficulty" value="5">
 					</span>
-					<span style="grid-row: 51; grid-column: 2;" class="cell">
+					<span style="grid-row: 50; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_language4" value="0" readonly>
 					</span>
-					<span style="grid-row: 51; grid-column: 3;" class="cell">
+					<span style="grid-row: 50; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_language4" class="rollButton"/>
 					</span>
-					<span style="grid-row: 51; grid-column: 4;" class="cell">
+					<span style="grid-row: 50; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_language4" class="editButton"/>
 					</span>
-					<span colspan="4" style="grid-row: 52; grid-column: 1 / span 4;" class="cell">
+					<span colspan="4" style="grid-row: 51; grid-column: 1 / span 4;" class="cell">
 						<div class="title2" align="center">
 							<br>
 							Supplementary (Profession)
 							<input type="hidden" name="attr_profession_talent" value="0">
 						</div>
 					</span>
-					<span style="grid-row: 53; grid-column: 1;" class="cell">
+					<span style="grid-row: 52; grid-column: 1;" class="cell">
 						<input type="text" id="tex" name="attr_profession1_name" value="">
 						<input type="hidden" name="attr_profession1_XP" value="0">
 						<input type="hidden" name="attr_profession1_bonus" value="0">
 						<input type="hidden" name="attr_profession1_training_time" value="0">
 						<input type="hidden" name="attr_profession1_difficulty" value="5">
 					</span>
-					<span style="grid-row: 53; grid-column: 2;" class="cell">
+					<span style="grid-row: 52; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_profession1" value="0" readonly>
 					</span>
-					<span style="grid-row: 53; grid-column: 3;" class="cell">
+					<span style="grid-row: 52; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_profession1" class="rollButton"/>
 					</span>
-					<span style="grid-row: 53; grid-column: 4;" class="cell">
+					<span style="grid-row: 52; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_profession1" class="editButton"/>
 					</span>
-					<span style="grid-row: 54; grid-column: 1;" class="cell">
+					<span style="grid-row: 53; grid-column: 1;" class="cell">
 						<input type="text" id="tex" name="attr_profession2_name" value="">
 						<input type="hidden" name="attr_profession2_XP" value="0">
 						<input type="hidden" name="attr_profession2_bonus" value="0">
 						<input type="hidden" name="attr_profession2_training_time" value="0">
 						<input type="hidden" name="attr_profession2_difficulty" value="5">
 					</span>
-					<span style="grid-row: 54; grid-column: 2;" class="cell">
+					<span style="grid-row: 53; grid-column: 2;" class="cell">
 						<input type="text" id="num" name="attr_profession2" value="0" readonly>
 					</span>
-					<span style="grid-row: 54; grid-column: 3;" class="cell">
+					<span style="grid-row: 53; grid-column: 3;" class="cell">
 						<button type="action" name="act_roll_profession2" class="rollButton"/>
 					</span>
-					<span style="grid-row: 54; grid-column: 4;" class="cell">
+					<span style="grid-row: 53; grid-column: 4;" class="cell">
 						<button type="action" name="act_edit_profession2" class="editButton"/>
 					</span>
 				</div>
 			</span>
 			<span colspan="2" style="grid-row: 3; grid-column: 1 / span 2;" class="cell">
 				<div id="tiny-font" align="center">
-					Millenium Freelancers Character Sheet v3.0 by Zoltán Király. Join us on Discord: https://discord.gg/XV9MX8Yeme
+					Millenium Freelancers Character Sheet v3.1 by Zoltán Király. Join us on Discord: https://discord.gg/XV9MX8Yeme
 				</div>
 			</span>
 		</div>
@@ -6558,35 +6805,6 @@ function getSectionIDsAsync(sectionName){
 				Resupply list:<br>
 				<textarea></textarea>
 			</span>
-		</div><br>
-		<div class="title3">
-			Ranged Weapons <button type="action" name="act_addLine" value="weapons" class="levelUpButton" style="width:18px; height:18px; background-size: contain;"/>
-		</div>
-		<div class="repeating-section-weapons">
-			<div class="repeating-section__header">
-				<span class="small-font">X</span>
-				<span class="small-font">Name</span>
-				<span class="small-font">Description/mods</span>
-				<span class="small-font">Spread</span>
-				<span class="small-font">Burst</span>
-				<span class="small-font">Volley</span>
-				<span class="small-font">Clip</span>
-				<span class="small-font">Ammo</span>
-				<span class="small-font">Fire</span>
-				<span class="small-font">Equip</span>
-			</div>
-			<fieldset class="repeating_weapons">
-				<button type="action" name="act_delete" class="levelDownButton" style="width:18px; height:18px; background-size: contain;"/>
-				<input type="text" name="attr_weapon_name" id="tex4">
-				<input type="text" name="attr_weapon_mods" id="tex5">
-				<input type="text" name="attr_weapon_spread" id="tex3">
-				<input type="text" name="attr_weapon_burst" id="tex3">
-				<input type="text" name="attr_weapon_volley" id="tex3">
-				<span><input type="text" name="attr_weapon_clip_ammo" id="tex3">/<input type="text" name="attr_weapon_clip_capacity" id="tex3"></span>
-				<input type="text" name="attr_weapon_ammo" id="tex3">
-				<button type="action" name="act_openshoot" class="shootButton"/>
-				<input type="checkbox" name="attr_weapon_equipped">
-			</fieldset>
 		</div>
 		<br>
 		<div class="title3">
@@ -6597,6 +6815,7 @@ function getSectionIDsAsync(sectionName){
 				<span class="small-font">X</span>
 				<span class="small-font">Name</span>
 				<span class="small-font">Damage</span>
+				<span class="small-font">+Atk</span>
 				<span class="small-font">Description</span>
 				<span class="small-font">Punch</span>
 				<span class="small-font">Dmg</span>
@@ -6606,19 +6825,119 @@ function getSectionIDsAsync(sectionName){
 				<button type="action" name="act_delete" class="levelDownButton" style="width:18px; height:18px; background-size: contain;"/>
 				<input type="text" name="attr_melee_name" id="tex4">
 				<input type="text" name="attr_melee_damage" id="tex4">
+				<input type="text" name="attr_melee_modifier" id="tex3">
 				<input type="text" name="attr_melee_description" id="tex5">
 				<button type="action" name="act_openshoot" class="shootButton"/>
-				<button type="action" name="act_roll_damage" value="melee" class="damageButton"/>
+				<button type="action" name="act_rolldamage" value="melee" class="damageButton"/>
 				<input type="checkbox" name="attr_melee_equipped">
 			</fieldset>
 		</div>
 		<br>
+		<div class="title3">
+			Ranged Weapons <button type="action" name="act_addLine" value="weapons" class="levelUpButton" style="width:18px; height:18px; background-size: contain;"/>
+		</div>
+		<fieldset class="repeating_weapons">
+            <table cellpadding="2">
+                <tr>
+                    <td>
+                        <div align="center">
+                            <span class="small-font" style="width: 30px;">X</span>
+                        </div>
+                    </td>
+                    <td colspan="3">
+                        <span class="small-font">Name</span>
+                    </td>
+                    <td colspan="3">
+                        <span class="small-font">Description/mods</span>
+                    </td>
+                    <td colspan="2">
+                        <span class="small-font">+Atk</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="3" style="width: 30px;">
+                        <div align="center">
+                            <button type="action" name="act_delete" class="levelDownButton" style="width:18px; height:18px; background-size: contain;"/>
+                        </div>
+                    </td>
+                    <td colspan="3">
+                        <input type="text" name="attr_weapon_name" class="weapon-medium" style="height: 25px;">
+                    </td>
+                    <td colspan="3">
+                        <input type="text" name="attr_weapon_mods" class="weapon-long" style="height: 25px;">
+                    </td>
+                    <td colspan="2">
+                        <input type="text" name="attr_weapon_modifier" class="weapon-short" style="height: 25px;">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="small-font">Spread</span>
+                    </td>
+                    <td>
+                        <span class="small-font">Burst</span>
+                    </td>
+                    <td>
+                        <span class="small-font">Volley</span>
+                    </td>
+                    <td>
+                        <div align="center">
+                            <span class="small-font">Clip</span>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="small-font">Ammo</span>
+                    </td>
+                    <td>
+                        <span class="small-font">Fi</span>
+                    </td>
+                    <td>
+                        <span class="small-font">Re</span>
+                    </td>
+                    <td>
+                        <span class="small-font" style="grid-row: 3; grid-column: 9;">Eq</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" name="attr_weapon_spread" class="weapon-short">
+                    </td>
+                    <td>
+                        <input type="text" name="attr_weapon_burst" class="weapon-short">
+                    </td>
+                    <td>
+                        <input type="text" name="attr_weapon_volley" class="weapon-short">
+                    </td>
+                    <td>
+                        <div align="center">
+                            <span><input type="text" name="attr_weapon_clip_ammo" class="weapon-short"> / <input type="text" name="attr_weapon_clip_capacity" class="weapon-short"></span>
+                        </div>
+                    </td>
+                    <td>
+                        <input type="text" name="attr_weapon_ammo" class="weapon-short">
+                    </td>
+                    <td>
+                        <button type="action" name="act_openshoot" class="shootButton" style="width:18px; height:25px; background-size: contain; position: relative; top: 5px;"/>
+                    </td>
+                    <td>
+                        <button type="action" name="act_reload" class="rerollButton" style="width:18px; height:25px; background-size: contain; position: relative; top: 5px;"/>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="attr_weapon_equipped">
+                    </td>
+                </tr>
+                <br>
+            </table>	
+        </fieldset>
+		<br>
+		<input type="hidden" name="attr_ammo_next_id" value="1">
 		<div class="title3">
 			Ammunition <button type="action" name="act_addLine" value="ammo" class="levelUpButton" style="width:18px; height:18px; background-size: contain;"/>
 		</div>
 		<div class="repeating-section-ammo">
 			<div class="repeating-section-ammo__header">
 				<span class="small-font">X</span>
+				<span class="small-font">ID</span>
 				<span class="small-font">Class</span>
 				<span class="small-font">Variant</span>
 				<span class="small-font">Damage</span>
@@ -6628,12 +6947,13 @@ function getSectionIDsAsync(sectionName){
 			</div>
 			<fieldset class="repeating_ammo">
 				<button type="action" name="act_delete" class="levelDownButton" style="width:18px; height:18px; background-size: contain;"/>
-				<input type="text" name="attr_ammo_class" id="tex3">
+				<span name="attr_ammo_id"/>
+				<input type="text" name="attr_ammo_class" id="tex3" style="width: 35px;">
 				<input type="text" name="attr_ammo_variant" id="tex4">
 				<input type="text" name="attr_ammo_damage" id="tex4">
 				<input type="text" name="attr_ammo_quantity" id="tex3">
 				<input type="text" name="attr_ammo_description" id="tex5">
-				<button type="action" name="act_roll_damage" value="ammo" class="damageButton"/>
+				<button type="action" name="act_rolldamage" value="ammo" class="damageButton"/>
 			</fieldset>
 		</div>
 		<br>
