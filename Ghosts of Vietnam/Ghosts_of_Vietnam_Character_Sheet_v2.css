@@ -133,7 +133,21 @@
   grid-template-columns: 1fr 2fr .6fr;
 }
 
-/* ABILITY SCORES (GRID VERSION) */
+/* 🔥 THAC0 GRID FIX (LOCKED) */
+
+.sheet-attack-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.sheet-attack-col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ABILITY SCORES */
 
 .sheet-ability-block {
   display: flex;
@@ -200,7 +214,7 @@
   grid-column: 1 / -1;
 }
 
-/* HP BOX */
+/* HP */
 
 .sheet-hp-box {
   border: 2px solid #444;
@@ -213,7 +227,7 @@
   font-size: 13px;
 }
 
-/* RIGHT PANEL FIXES */
+/* RIGHT PANEL */
 
 .sheet-sidecol .sheet-grid-3 input,
 .sheet-sidecol .sheet-grid-2 input {
@@ -221,7 +235,7 @@
   margin: 0 auto;
 }
 
-/* TEXT AREAS */
+/* TEXT */
 
 .sheet-gvn textarea[name="attr_other_defenses"] {
   min-height: 100px;
@@ -260,6 +274,8 @@
     grid-template-columns: 1fr;
   }
 
+  /* collapse general grids BUT NOT attack grid */
+
   .sheet-grid,
   .sheet-grid-10,
   .sheet-grid-7,
@@ -274,6 +290,11 @@
   .sheet-grid-command-log,
   .sheet-ability-row {
     grid-template-columns: 1fr;
+  }
+
+  /* KEEP THAC0 TWO COLUMN */
+  .sheet-attack-grid {
+    grid-template-columns: 1fr 1fr;
   }
 
   .sheet-sidecol .sheet-grid-3 input,
