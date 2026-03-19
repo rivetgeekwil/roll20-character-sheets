@@ -7,15 +7,15 @@
   color: #000;
 }
 
+/* GLOBAL RESET */
+
 .sheet-gvn,
-.sheet-gvn *,
-.sheet-gvn *:before,
-.sheet-gvn *:after {
+.sheet-gvn * {
   box-sizing: border-box;
   color: #000 !important;
 }
 
-/* BASE INPUTS */
+/* INPUTS */
 
 .sheet-gvn input,
 .sheet-gvn textarea,
@@ -29,16 +29,17 @@
 .sheet-gvn textarea,
 .sheet-gvn select {
   width: 100%;
-  max-width: 100%;
-  border: 1px solid #666;
+  border: 1px solid #555;
   background: #fff;
-  padding: 2px 4px;
+  padding: 3px 4px;
 }
 
 .sheet-gvn textarea {
   resize: vertical;
   min-height: 60px;
 }
+
+/* LABELS */
 
 .sheet-gvn label {
   display: block;
@@ -52,9 +53,9 @@
 
 .sheet-title {
   text-align: center;
-  font-size: 28px;
+  font-size: 26px;
   font-weight: bold;
-  margin: 6px 0 10px 0;
+  margin: 6px 0 10px;
 }
 
 .sheet-subtitle {
@@ -81,29 +82,13 @@
   cursor: pointer;
 }
 
-.sheet-tab {
-  display: none;
-}
+.sheet-tab { display: none; }
 
-.sheet-gvn input[name="attr_sheetTab"][value="core"] ~ .sheet-core {
-  display: block;
-}
-
-.sheet-gvn input[name="attr_sheetTab"][value="equipment"] ~ .sheet-equipment {
-  display: block;
-}
-
-.sheet-gvn input[name="attr_sheetTab"][value="proficiencies"] ~ .sheet-proficiencies {
-  display: block;
-}
-
-.sheet-gvn input[name="attr_sheetTab"][value="command"] ~ .sheet-command {
-  display: block;
-}
-
-.sheet-gvn input[name="attr_sheetTab"][value="notes"] ~ .sheet-notes {
-  display: block;
-}
+.sheet-gvn input[name="attr_sheetTab"][value="core"] ~ .sheet-core { display: block; }
+.sheet-gvn input[name="attr_sheetTab"][value="equipment"] ~ .sheet-equipment { display: block; }
+.sheet-gvn input[name="attr_sheetTab"][value="proficiencies"] ~ .sheet-proficiencies { display: block; }
+.sheet-gvn input[name="attr_sheetTab"][value="command"] ~ .sheet-command { display: block; }
+.sheet-gvn input[name="attr_sheetTab"][value="notes"] ~ .sheet-notes { display: block; }
 
 /* SECTIONS */
 
@@ -119,53 +104,65 @@
 .sheet-grid {
   display: grid;
   gap: 5px;
-  align-items: start;
+  align-items: center;
 }
 
-.sheet-grid-2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
+.sheet-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.sheet-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.sheet-grid-4 { grid-template-columns: repeat(4, 1fr); }
+.sheet-grid-5 { grid-template-columns: repeat(5, 1fr); }
+.sheet-grid-6 { grid-template-columns: repeat(6, 1fr); }
+.sheet-grid-7 { grid-template-columns: repeat(7, 1fr); }
+.sheet-grid-10 { grid-template-columns: repeat(10, 1fr); }
 
-.sheet-grid-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.sheet-grid-4 {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-.sheet-grid-5 {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-}
-
-.sheet-grid-6 {
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-}
-
-.sheet-grid-7 {
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-}
-
-.sheet-grid-10 {
-  grid-template-columns: repeat(10, minmax(0, 1fr));
-}
+/* SPECIAL GRIDS */
 
 .sheet-grid-gov-weapons {
-  grid-template-columns: minmax(0, 2fr) minmax(0, .6fr) minmax(0, .6fr) minmax(0, .8fr) minmax(0, .8fr) minmax(0, 1fr) minmax(0, .8fr) minmax(0, .6fr);
+  grid-template-columns: 2fr .6fr .6fr .7fr .7fr 1fr .7fr .6fr;
 }
 
 .sheet-grid-armor {
-  grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+  grid-template-columns: 3fr 1fr;
 }
 
-/* ALIGNMENT IN GRID AREAS */
+.sheet-grid-equipment-gov {
+  grid-template-columns: 3fr .8fr;
+}
 
-.sheet-grid input:not([type="checkbox"]),
-.sheet-grid select {
+.sheet-grid-command-log {
+  grid-template-columns: 1fr 2fr .6fr;
+}
+
+/* ABILITY SCORES (GRID VERSION) */
+
+.sheet-ability-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sheet-ability-row {
+  display: grid;
+  grid-template-columns: 110px repeat(7, 1fr);
+  gap: 2px;
+  align-items: center;
+}
+
+.sheet-ability-name {
+  font-weight: bold;
+  text-align: left;
+  padding-left: 4px;
+}
+
+/* ALIGN INPUTS */
+
+.sheet-grid input,
+.sheet-grid select,
+.sheet-ability-row input {
   text-align: center;
 }
 
-/* HEADER ROWS */
+/* HEADERS */
 
 .sheet-mount-header {
   font-weight: bold;
@@ -175,16 +172,15 @@
 }
 
 .sheet-mount-header div {
-  font-size: 11px;
+  font-size: 10px;
 }
 
-/* TWO COLUMN CORE LAYOUT */
+/* TWO COLUMN */
 
 .sheet-two-col {
   display: grid;
-  grid-template-columns: minmax(0, 2.15fr) minmax(280px, 1fr);
+  grid-template-columns: 2fr 1fr;
   gap: 10px;
-  align-items: start;
 }
 
 .sheet-maincol,
@@ -198,8 +194,10 @@
   gap: 10px;
 }
 
+/* FULL WIDTH */
+
 .sheet-fullwidth {
-  width: 100%;
+  grid-column: 1 / -1;
 }
 
 /* HP BOX */
@@ -207,156 +205,34 @@
 .sheet-hp-box {
   border: 2px solid #444;
   background: #f4f4f4;
-  padding: 5px;
+  padding: 4px;
 }
 
-.sheet-hp-box input:not([type="checkbox"]) {
+.sheet-hp-box input {
   text-align: center;
   font-size: 13px;
 }
 
-/* TABLES */
+/* RIGHT PANEL FIXES */
 
-.sheet-table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
-  background: #fdfdfd;
-}
-
-.sheet-table th,
-.sheet-table td {
-  border: 1px solid #555;
-  padding: 2px;
-  text-align: center;
-  vertical-align: middle;
-}
-
-.sheet-table th {
-  background: #d9d9d9;
-  font-weight: bold;
-  font-size: 11px;
-}
-
-.sheet-table input:not([type="checkbox"]) {
-  width: 100%;
-  max-width: 100%;
-  border: none;
-  background: transparent;
-  text-align: center;
-  padding: 1px 2px;
-  font-size: 11px;
-}
-
-/* RIGHT PANEL */
-
-.sheet-sidecol .sheet-grid-3 {
-  align-items: end;
-}
-
-.sheet-sidecol .sheet-grid-3 > div,
-.sheet-sidecol .sheet-grid-2 > div {
-  min-width: 0;
-}
-
-.sheet-sidecol .sheet-grid-3 input:not([type="checkbox"]) {
-  width: 58px;
-  max-width: 100%;
+.sheet-sidecol .sheet-grid-3 input,
+.sheet-sidecol .sheet-grid-2 input {
+  max-width: 80px;
   margin: 0 auto;
-  display: block;
-  padding: 2px 3px;
 }
 
-.sheet-sidecol .sheet-grid-2 input:not([type="checkbox"]) {
-  width: 90px;
-  max-width: 100%;
-  margin: 0 auto;
-  display: block;
-  padding: 2px 3px;
-}
-
-.sheet-sidecol .sheet-table {
-  font-size: 11px;
-}
-
-.sheet-sidecol .sheet-table td {
-  padding: 1px 2px;
-}
-
-.sheet-sidecol .sheet-table input:not([type="checkbox"]) {
-  width: 44px;
-  max-width: 100%;
-  margin: 0 auto;
-  display: block;
-  padding: 1px 2px;
-  font-size: 11px;
-}
+/* TEXT AREAS */
 
 .sheet-gvn textarea[name="attr_other_defenses"] {
   min-height: 100px;
-  max-height: 100px;
+  max-height: 120px;
 }
 
-/* WEAPONS SECTION */
-
-.sheet-grid-gov-weapons {
-  gap: 4px;
+.sheet-notes-area {
+  min-height: 450px;
 }
 
-.sheet-grid-gov-weapons input:not([type="checkbox"]) {
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  padding: 2px 3px;
-  font-size: 11px;
-}
-
-/* ROGUE ABILITIES */
-
-.sheet-grid-10 {
-  gap: 4px;
-}
-
-.sheet-grid-10 > div,
-.sheet-grid-7 > div {
-  min-width: 0;
-}
-
-.sheet-grid-10 label {
-  font-size: 10px;
-}
-
-.sheet-grid-10 input:not([type="checkbox"]),
-.sheet-grid-10 select {
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  padding: 2px 3px;
-  font-size: 10px;
-}
-
-.sheet-grid-10 input[type="checkbox"] {
-  width: auto;
-  display: block;
-  margin: 0 auto;
-}
-
-/* SAVING THROWS */
-
-.sheet-grid-7 {
-  gap: 4px;
-}
-
-.sheet-grid-7 input:not([type="checkbox"]) {
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  padding: 2px 3px;
-  font-size: 11px;
-  text-align: center;
-}
-
-/* REPEATING CONTROLS */
+/* REPEATING */
 
 .repcontrol {
   margin-top: 4px;
@@ -376,15 +252,10 @@
   margin-bottom: 4px;
 }
 
-/* NOTES */
-
-.sheet-notes-area {
-  min-height: 500px;
-}
-
 /* MOBILE */
 
 @media screen and (max-width: 1000px) {
+
   .sheet-two-col {
     grid-template-columns: 1fr;
   }
@@ -398,13 +269,15 @@
   .sheet-grid-3,
   .sheet-grid-2,
   .sheet-grid-gov-weapons,
-  .sheet-grid-armor {
+  .sheet-grid-armor,
+  .sheet-grid-equipment-gov,
+  .sheet-grid-command-log,
+  .sheet-ability-row {
     grid-template-columns: 1fr;
   }
 
-  .sheet-sidecol .sheet-grid-3 input:not([type="checkbox"]),
-  .sheet-sidecol .sheet-grid-2 input:not([type="checkbox"]),
-  .sheet-sidecol .sheet-table input:not([type="checkbox"]) {
-    width: 100%;
+  .sheet-sidecol .sheet-grid-3 input,
+  .sheet-sidecol .sheet-grid-2 input {
+    max-width: 100%;
   }
 }

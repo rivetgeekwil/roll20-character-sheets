@@ -121,113 +121,81 @@
       <div class="sheet-maincol">
 
         <div class="sheet-section">
-          <div class="sheet-subtitle">Ability Scores</div>
+  <div class="sheet-subtitle">Ability Scores</div>
 
-          <table class="sheet-table">
-            <tr>
-              <th>Strength</th>
-              <th>To Hit Bonus</th>
-              <th>Damage Bonus</th>
-              <th>Weight Allow</th>
-              <th>Max Press</th>
-              <th>Brute Force Entry</th>
-              <th>Defeat Obstacles</th>
-            </tr>
-            <tr>
-              <td><input type="text" name="attr_strength"></td>
-              <td><input type="text" name="attr_str_to_hit_bonus"></td>
-              <td><input type="text" name="attr_str_damage_bonus"></td>
-              <td><input type="text" name="attr_str_weight_allowance"></td>
-              <td><input type="text" name="attr_str_max_press"></td>
-              <td><input type="text" name="attr_str_brute_force_entry"></td>
-              <td><input type="text" name="attr_str_defeat_obstacles"></td>
-            </tr>
+  <div class="sheet-ability-block">
 
-            <tr>
-              <th>Dexterity</th>
-              <th>Reaction Adj.</th>
-              <th>Ranged Attack Bonus</th>
-              <th>Defense Adj.</th>
-              <th colspan="3"></th>
-            </tr>
-            <tr>
-              <td><input type="text" name="attr_dexterity"></td>
-              <td><input type="text" name="attr_dex_reaction_adjustment"></td>
-              <td><input type="text" name="attr_dex_ranged_attack_bonus"></td>
-              <td><input type="text" name="attr_dex_defense_adjustment"></td>
-              <td colspan="3"></td>
-            </tr>
+    <!-- STRENGTH -->
+    <div class="sheet-ability-row">
+      <div class="sheet-ability-name">Strength</div>
+      <input type="text" name="attr_strength">
+      <input type="text" name="attr_str_to_hit_bonus">
+      <input type="text" name="attr_str_damage_bonus">
+      <input type="text" name="attr_str_weight_allowance">
+      <input type="text" name="attr_str_max_press">
+      <input type="text" name="attr_str_brute_force_entry">
+      <input type="text" name="attr_str_defeat_obstacles">
+    </div>
 
-            <tr>
-              <th>Constitution</th>
-              <th>Hit Point Adj.</th>
-              <th>System Shock</th>
-              <th>Resurrection Survival</th>
-              <th>Poison Save Bonus</th>
-              <th colspan="2"></th>
-            </tr>
-            <tr>
-              <td><input type="text" name="attr_constitution"></td>
-              <td><input type="text" name="attr_con_hit_point_adjustment"></td>
-              <td><input type="text" name="attr_con_system_shock"></td>
-              <td><input type="text" name="attr_con_resurrection_survival"></td>
-              <td><input type="text" name="attr_con_poison_save_bonus"></td>
-              <td colspan="2"></td>
-            </tr>
+    <!-- DEXTERITY -->
+    <div class="sheet-ability-row">
+      <div class="sheet-ability-name">Dexterity</div>
+      <input type="text" name="attr_dexterity">
+      <input type="text" name="attr_dex_reaction_adjustment">
+      <input type="text" name="attr_dex_ranged_attack_bonus">
+      <input type="text" name="attr_dex_defense_adjustment">
+      <div></div><div></div><div></div>
+    </div>
 
-            <tr>
-              <th>Intelligence</th>
-              <th># Languages</th>
-              <th>Technical Knowledge</th>
-              <th>Shock Adj.</th>
-              <th colspan="3"></th>
-            </tr>
-            <tr>
-              <td><input type="text" name="attr_intelligence"></td>
-              <td><input type="text" name="attr_int_languages"></td>
-              <td><input type="text" name="attr_int_technical_knowledge"></td>
-              <td><input type="text" name="attr_int_shock_adjustment"></td>
-              <td colspan="3"></td>
-            </tr>
+    <!-- CONSTITUTION -->
+    <div class="sheet-ability-row">
+      <div class="sheet-ability-name">Constitution</div>
+      <input type="text" name="attr_constitution">
+      <input type="text" name="attr_con_hit_point_adjustment">
+      <input type="text" name="attr_con_system_shock">
+      <input type="text" name="attr_con_resurrection_survival">
+      <input type="text" name="attr_con_poison_save_bonus">
+      <div></div><div></div>
+    </div>
 
-            <tr>
-              <th>Wisdom</th>
-              <th>Resolve Adj.</th>
-              <th colspan="5"></th>
-            </tr>
-            <tr>
-              <td><input type="text" name="attr_wisdom"></td>
-              <td><input type="text" name="attr_wis_resolve_adjustment"></td>
-              <td colspan="5"></td>
-            </tr>
+    <!-- INTELLIGENCE -->
+    <div class="sheet-ability-row">
+      <div class="sheet-ability-name">Intelligence</div>
+      <input type="text" name="attr_intelligence">
+      <input type="text" name="attr_int_languages">
+      <input type="text" name="attr_int_technical_knowledge">
+      <input type="text" name="attr_int_shock_adjustment">
+      <div></div><div></div><div></div>
+    </div>
 
-            <tr>
-              <th>Charisma</th>
-              <th>Max Henchmen</th>
-              <th>Loyalty Adj.</th>
-              <th>Reaction Adj.</th>
-              <th colspan="3"></th>
-            </tr>
-            <tr>
-              <td><input type="text" name="attr_charisma"></td>
-              <td><input type="text" name="attr_cha_max_henchmen"></td>
-              <td><input type="text" name="attr_cha_loyalty_adjustment"></td>
-              <td><input type="text" name="attr_cha_reaction_adjustment"></td>
-              <td colspan="3"></td>
-            </tr>
+    <!-- WISDOM -->
+    <div class="sheet-ability-row">
+      <div class="sheet-ability-name">Wisdom</div>
+      <input type="text" name="attr_wisdom">
+      <input type="text" name="attr_wis_resolve_adjustment">
+      <div></div><div></div><div></div><div></div><div></div>
+    </div>
 
-            <tr>
-              <th>Appearance</th>
-              <th>Reaction Adj.</th>
-              <th colspan="5"></th>
-            </tr>
-            <tr>
-              <td><input type="text" name="attr_appearance"></td>
-              <td><input type="text" name="attr_app_reaction_adjustment"></td>
-              <td colspan="5"></td>
-            </tr>
-          </table>
-        </div>
+    <!-- CHARISMA -->
+    <div class="sheet-ability-row">
+      <div class="sheet-ability-name">Charisma</div>
+      <input type="text" name="attr_charisma">
+      <input type="text" name="attr_cha_max_henchmen">
+      <input type="text" name="attr_cha_loyalty_adjustment">
+      <input type="text" name="attr_cha_reaction_adjustment">
+      <div></div><div></div><div></div>
+    </div>
+
+    <!-- APPEARANCE -->
+    <div class="sheet-ability-row">
+      <div class="sheet-ability-name">Appearance</div>
+      <input type="text" name="attr_appearance">
+      <input type="text" name="attr_app_reaction_adjustment">
+      <div></div><div></div><div></div><div></div><div></div>
+    </div>
+
+  </div>
+</div>
 
         <div class="sheet-section">
           <div class="sheet-subtitle">Armor</div>
