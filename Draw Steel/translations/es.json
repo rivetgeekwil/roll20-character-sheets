@@ -565,5 +565,6 @@
 	"roll-surge-potency": "Using Surges for Potency",
 	"roll-surge-potency-desc": "Surges used to increase potency by 1",
 	"roll-resource-gain": "Gana",
-	"damage-calc-or": "o"
+	"damage-calc-or": "o",
+	"import-select-prompt": "Select One"
 }
