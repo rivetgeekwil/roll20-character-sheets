@@ -188,7 +188,7 @@
 	"power-roll-total": "Total",
 	"tier": "Tier",
 	"free-strike": "Free Strike",
-	"npc-toggle": "Monster",
+	"npc-toggle": "Use Monster Sheet",
 	"movement": "Movement",
 	"immunity": "Immunity",
 	"weakness": "Weakness",
@@ -428,7 +428,7 @@
 	"respite": "Respite",
 	"initiative-title": "Roll 1d10",
 	"initiative": "Initiative:",
-	"import-warning1": "Paste the contents of the Forge Steel data export (*.ds-hero file) into the text box below, then click 'Import'.",
+	"import-warning1": "Paste the contents of the Forge Steel data export (*.ds-hero, *.ds-monster, or *.ds-monster-group file) into the text box below, then click 'Import'.",
 	"import-warning2": "This will overwrite attributes on this sheet. This cannot be undone.",
 	"import-warning3": "The import feature is a work in progress. Check for mistakes.",
 	"import-player": "Import Player",
@@ -557,5 +557,14 @@
 	"villain-action": "Villain Actions",
 	"villain-toggle": "Has Villain Actions",
 	"magic": "Magic",
-	"psionic": "Psionic"
+	"psionic": "Psionic",
+	"npc-options-title": "Monster Options",
+	"has-villain-actions": "Has Villain Actions",
+	"free-strike-ability-text": "This ability may be used as a free strike.",
+	"roll-surge-damage": "Using Surges for Damage",
+	"roll-surge-potency": "Using Surges for Potency",
+	"roll-surge-potency-desc": "Surges used to increase potency by 1",
+	"roll-resource-gain": "Gain",
+	"damage-calc-or": "or",
+	"import-select-prompt": "Select One"
 }

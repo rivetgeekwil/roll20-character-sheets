@@ -3094,7 +3094,11 @@
 				<input type="hidden" name="attr_psydice" value=""/>
 				<input type="hidden" name="attr_epr" value=""/>
 				<!-- hidden attributes for script -->
-				<input name="attr_PsyName" type="text" style="width:53%" data-i18n-placeholder="name" placeholder="Name"/>
+				<label class="fancyButton" style="width:4%">
+					<input type="checkbox" name="attr_sustainingpower" value="1" hidden="true"/>
+					<div><b data-i18n-title="sustain">e</b></div>
+				</label>
+				<input name="attr_PsyName" type="text" style="width:50%" data-i18n-placeholder="name" placeholder="Name"/>
 				<div class="spacing" style="width:0.5%"></div>
 				<select name="attr_psystrength" style="width:19%">
 					<option data-i18n="Psy-Strength" disabled style="background:gray;font-weight:bold;color:white;">Psy Strength</option>
@@ -3108,7 +3112,7 @@
 				<div class="spacing" style="width:0.5%"></div>
 				<button name="roll_PsyHit" type="roll" style="width:15%" value="@{gmroll}&{template:custom} {{name=@{character_name}&#10;@{PsyName}}} {{dosdof=[[((( ([[@{PsyFocusPower} + (?{@{modifier}|0}) + (5 * (@{epr} + @{PsyRatingModifier} - @{Sustaining}) )]] - [[@{psydice}]] ) * 100 % 999 % 100 )))]] }} {{testtarget= $[[0]] }} {{d100p= $[[1]] }} {{psydmg=^{damage} [[@{PsyDamage} + (@{PsyDmgB} * (@{epr} + @{PsyRatingModifier} - (@{Sustaining})) )]] @{PsyDamageType}}} {{psypen= [[@{PsyPen}]]}}"><label data-i18n="manifest">Manifest</label></button>
 				<div class="spacing" style="width:0.5%"></div>
-				<button name="roll_PsyInfo" type="roll" style="width:8%" value="@{gmroll}&{template:custom} {{name=@{PsyName}}} {{d1=^{activation-time} @{PsyAction}}} {{t1=^{range} @{PsyRange}}} {{p1=^{sustain} @{PsySustained}}} {{desc=@{PsyPowersEffect} }}"><label class="shct">R</label></button>
+				<button name="roll_PsyInfo" type="roll" style="width:7%" value="@{gmroll}&{template:custom} {{name=@{PsyName}}} {{d1=^{activation-time} @{PsyAction}}} {{t1=^{range} @{PsyRange}}} {{p1=^{sustain} @{PsySustained}}} {{desc=@{PsyPowersEffect} }}"><label class="shct">R</label></button>
 				<input class="arrow icon" style="width:3.5%" name="attr_hidepsypower1" type="checkbox" value="1"/>
 				<!-- end of line -->
 				<div class="hbody">
@@ -3308,7 +3312,7 @@
                         <input style="width:16%" name="attr_NavPowerRange" type="text" data-i18n-placeholder="range-placeholder" placeholder="Range" data-i18n-title="range-placeholder" title="Range"/>
                         <div class="spacing" style="width:0.5%"></div>
                         <input style="width:17%" name="attr_NavPowerDamage" type="text" data-i18n-placeholder="damage" placeholder="Damage" data-i18n-title="damage" title="Damage"/>
-                        <input name="attr_PsyDamageType" style="width:12.5%" type="text" data-i18n-placeholder="damage-type" placeholder="Type" data-i18n-title="damage-type" title="Type"/>
+                        <input name="attr_NavPowerDamageType" style="width:12.5%" type="text" data-i18n-placeholder="damage-type" placeholder="Type" data-i18n-title="damage-type" title="Type"/>
                         <div class="spacing" style="width:0.5%"></div>
                         <button name="roll_NavPowerDamage" type="roll" style="width:15%"
                         value="@{gmroll}&{template:custom} {{name=@{NavPowerName}}} {{d1=[[@{NavPowerDamage}]] @{NavPowerDamageType}}}">

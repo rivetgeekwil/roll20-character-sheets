@@ -259,7 +259,7 @@
 }
 
 .charsheet label.sublabel {
-	height: 16px;
+	height: min-content;
 	font-size: 0.8em;
 	font-weight: normal;
 	color: var(--color-text-accent);
@@ -376,8 +376,9 @@ label[for*='minimize']::before {
 
 /* Sheet Options Panel */
 
-
-
+.import-panel > div > textarea {
+	width:100%; 
+}
 
 /* Header Panel */
 
@@ -400,7 +401,7 @@ label[for*='minimize']::before {
 	color: orangered;
 }
 
-.profile-panel {
+.profile-panel, .import-panel {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	column-gap: 0.5em;
@@ -507,11 +508,12 @@ label[for*='minimize']::before {
   display: flex;
   gap: 2px;
   flex-direction: row;
+  width: 90%;
 }
 
 .dashboard-stat-group {
   text-align: center;
-  width: 75px;
+  width: 100%;
   position: relative;
   display: grid;
   justify-items: center;
@@ -1010,9 +1012,15 @@ input[name="attr_growingresource_show_12"]:not([value="1"]) ~ .growing-resource-
 	grid-column-end: span 2;
 }
 
-.repcontainer[data-groupname="repeating_classfeatures"] {
+.repcontainer[data-groupname="repeating_classfeatures"],
+.repcontainer[data-groupname="repeating_perks"] {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
+	grid-gap: 0.2em;
+}
+
+.repcontainer[data-groupname="repeating_ancestrytraits"] {
+	display: grid;
 	grid-gap: 0.2em;
 }
 
@@ -1053,7 +1061,9 @@ input[name="attr_growingresource_show_12"]:not([value="1"]) ~ .growing-resource-
 }
 
 .repcontainer[data-groupname="repeating_classfeatures"] > .repitem,
-.repcontainer[data-groupname="repeating_ancestrytraits"] > .repitem {
+.repcontainer[data-groupname="repeating_ancestrytraits"] > .repitem,
+.repcontainer[data-groupname="repeating_perks"] > .repitem,
+.repcontainer[data-groupname="repeating_titles"] > .repitem {
 	display: grid;
 	grid-gap: 0.3em;
 	overflow-wrap: anywhere;
@@ -1070,7 +1080,9 @@ input[name="attr_growingresource_show_12"]:not([value="1"]) ~ .growing-resource-
 }
 
 .repcontainer[data-groupname="repeating_classfeatures"] > .repitem > textarea,
-.repcontainer[data-groupname="repeating_ancestrytraits"] > .repitem > textarea {
+.repcontainer[data-groupname="repeating_ancestrytraits"] > .repitem > textarea,
+.repcontainer[data-groupname="repeating_perks"] > .repitem > textarea,
+.repcontainer[data-groupname="repeating_titles"] > .repitem > textarea {
 	height: 50px;
 	resize: vertical;
 }
@@ -1083,17 +1095,7 @@ input[name="attr_growingresource_show_12"]:not([value="1"]) ~ .growing-resource-
 	grid-column-end: span 2;
 }
 
-.repcontainer[data-groupname="repeating_perks"] {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	grid-gap: 0.2em;
-	box-shadow:
-		inset 1px 1px 2px #555,
-		inset -1px -1px 2px #111,
-		0 2px 6px rgba(0, 0, 0, 0.5);
-}
-
-.repcontainer[data-groupname="repeating_titles"] {
+] {
 	display: grid;
 	grid-gap: 0.2em;
 	box-shadow:

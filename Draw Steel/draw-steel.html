@@ -11,9 +11,7 @@
 	<input id="sheet-options-checkbox" class="sheet-options-checkbox" type="checkbox" />
 	<div class="sheet-panel sheet-options-toggle">
 	<!-- Options Panel for choosing Player/NPC sheet and imports -->
-		<div class="sheet-panel-box">
-			<input id="npc-checkbox" name="attr_is_npc" class="npc-checkbox" type="checkbox" />
-			<label for="npc-checkbox" data-i18n="npc-toggle"></label>
+		<div class="sheet-panel-box import-panel">
 			<div>
 				<span data-i18n="whisper-gm"></span>
 				<select name="attr_wtype">
@@ -21,21 +19,42 @@
 					<option value="?{Whisper?|Public Roll,|Whisper Roll,/w gm }" data-i18n="query-whisper-roll"></option>
 					<option value="/w gm " data-i18n="always-whisper-roll"></option>
 				</select>	
+				<div class="sheet-panel-box">
+					<h5><span data-i18n="damage-autocalc">Damage Calculator</span></h5>
+					<label for="options-calculate-damage" data-i18n="options-calculate-damage">Automatically Calculate Damage:</label>
+					<input id="options-calculate-damage" name="attr_options_calculate_damage" type="checkbox" value="1" />
+				</div>
 			</div>
-			<div class="sheet-panel-box">
-				<h4><span data-i18n="damage-autocalc">Damage Calculator</span></h4>
-				<label for="options-calculate-damage" data-i18n="options-calculate-damage">Automatically Calculate Damage:</label>
-				<input id="options-calculate-damage" name="attr_options_calculate_damage" type="checkbox" value="1" />
+			<div>
+				<div class="grid-span-full">
+					<h5 data-i18n="npc-options-title"></h5>
+				</div>
+				<div>
+					<input id="npc-checkbox" name="attr_is_npc" class="npc-checkbox" type="checkbox" />
+					<label for="npc-checkbox" data-i18n="npc-toggle"></label>
+				</div>
+				<div>
+					<input id="npc-has-villain-actions" name="attr_villain_action_show" class="npc-checkbox" type="checkbox" value="1" />
+					<label for="npc-has-villain-actions" data-i18n="has-villain-actions"></label>
+				</div>
 			</div>
+			
 		</div>
-		<div class="sheet-panel-box">
-			<h5 data-i18n="import"></h5>
-			<p data-i18n="import-warning1"></p>
-			<p class="text-warning" data-i18n="import-warning2"></p>
-			<p class="text-warning" data-i18n="import-warning3"></p>
-			<textarea name="attr_forgesteel_json"></textarea>
-			<button type="action" name="act_import" data-i18n="import-player"></button>
-			<button type="action" name="act_importmonster" data-i18n="import-monster"></button>
+		<div class="sheet-panel-box import-panel">
+			<div class="grid-span-full">
+				<h5 data-i18n="import">Import</h5>
+			</div>
+			<div>
+				<p data-i18n="import-warning1">Paste the contents of the Forge Steel data export (*.ds-hero file) into the text box below, then click 'Import'.</p>
+				<p class="text-warning" data-i18n="import-warning2">This will overwrite attributes on this sheet. This cannot be undone.</p>
+				<p class="text-warning" data-i18n="import-warning3">The import feature is a work in progress. Check for mistakes.</p>
+				
+			</div>
+			<div>
+				<textarea name="attr_forgesteel_json" style="width: 100%;"></textarea>
+				<button type="action" name="act_import" data-i18n="import-player">Import Player</button>
+				<button type="action" name="act_importmonster" data-i18n="import-monster">Import Monster</button>
+			</div>
 		</div>
 	</div>
 	
@@ -417,7 +436,7 @@
 		<div class="conditions-panel sheet-panel-box">
 			<h5 class="panel-title" data-i18n="conditions"></h5>
 			<fieldset class="repeating_conditions">
-				<input type="text" name="attr_condition_name" data-i18n-placeholder="condition"  title="Macro: @{NAME|repeating_conditions_<id>_cocndition_name}" />
+				<input type="text" name="attr_condition_name" data-i18n-placeholder="condition"  title="Macro: @{NAME|repeating_conditions_<id>_condition_name}" />
 				<div>
 					<input type="radio" name="attr_end" value="eot" title="Macro: @{NAME|repeating_conditions_<id>_end}" />
 					<label data-i18n="eot"></label>
@@ -4697,6 +4716,31 @@
 	// Sheet version used to deal with major changes
 	const version = "1.3"; 
 
+/**
+ ** Sheet Utilities
+ **/
+	
+	/**
+	 * Removes all rows from a given repeating section.
+	 * @param {string} sectionName The name of the section (e.g., 'abilities', 'modifiers').
+	 */
+	async function clearRepeatingSection(sectionName) {
+		try {
+			const rowIDs = await getSectionIDsAsync(sectionName);
+			// Create an array of promises for each row removal.
+			const removalPromises = rowIDs.map(id => 
+				removeRepeatingRow(`repeating_${sectionName}_${id}`)
+			);
+			// Execute all removals concurrently.
+			await Promise.all(removalPromises);
+		} catch (error) {
+			console.error(`Failed to clear repeating section "${sectionName}":`, error);
+		}
+	}
+
+	/**
+	 * Sets the Active Character ID
+	 */
 	function setActiveCharacterId(id) {
 		const ocid = getActiveCharacterId();
 		const data = {
@@ -4714,6 +4758,10 @@
 		}
 		return ocid;
 	}
+	
+	/**
+	 * Async workaround for getAttrs
+	 */
 	function getAttrsAsync(props) {
 		const acid = getActiveCharacterId();
 		let ocid = null;
@@ -4729,6 +4777,9 @@
 			setActiveCharacterId(ocid);
 		});
 	}
+	/**
+	 * Async workaround for setAttrs
+	 */
 	function setAttrsAsync(props) {
 		const acid = getActiveCharacterId();
 		let ocid = null;
@@ -4744,6 +4795,9 @@
 			setActiveCharacterId(ocid);
 		});
 	}
+	/**
+	 * Async workaround for getSectionIDs
+	 */
 	function getSectionIDsAsync(sectionName) {
 		const acid = getActiveCharacterId();
 		let ocid = null;
@@ -4760,10 +4814,11 @@
 		});
 	}
 
-/**
-**Tab switching in Ability Panel
-**/
 
+	/**
+	**Tab switching in Ability Panel
+	**/
+	// Tab Button list and event listener
     const buttonlist = ["action", "maneuver", "triggered","noaction","move"];
     buttonlist.forEach(button => {
         on(`clicked:${button}`, function() {
@@ -4772,7 +4827,8 @@
             });
         });
     });
-
+	
+	// NPC tab button list and event listener
     const npcbuttonlist = ["npcabilities", "malice", "villainaction"];
     npcbuttonlist.forEach(button => {
         on(`clicked:${button}`, function() {
@@ -4792,6 +4848,7 @@
 		ABILITYROLL: 'powerrollability',
 		SIMPLE:      'simpleroll',
 	}
+	
 	/** 
 	 ** Processes two sources of information and constructs the roll string used by Roll20. Then it executes the roll.	 
 	 ** @param {string}        templateName   The template to be used for the roll
@@ -4807,113 +4864,77 @@
 			console.log('Could not build roll: missing data');
 			return;
 		}
+		// Translation helper
+		const getKeys = (keys) => keys.reduce((acc, k) => {
+			acc[k] = getTranslationByKey(k) || k;
+			return acc;
+		}, {});
+		
+		const t = getKeys([
+			'power-roll', 'edge-or-bane', 'no-edge-or-bane', 'double-edge', 
+			'edge', 'bane', 'double-bane', 'bonus-or-penalty'
+		]);	
+		
 		// Setup the template for the roll
-		const template = `@{wtype}&{template:${templateName}} {{charactername=@{character_name}}} `;
+		let rollString = `@{wtype}&{template:${templateName}} {{charactername=@{character_name}}} `;
 		
 		let powerroll = '';
 		
 		// Check if we need to add the extra information for a power roll.
 		if (isPowerRoll && rollValueMap) {
-			if (rollValueMap.characteristicValue.length < 1) {
+			const charValue = rollValueMap.characteristicValue;
+			if (charValue === undefined || charValue === null) {
 				console.log('Could not build roll: no characteristic value specified');
 				return;
 			}
+			
+			
 			const STATNAMES = ['might', 'agility', 'reason', 'intuition', 'presence'];
 			
 			const characteristicTranslation = getTranslationByKey(directMap.characteristic) || directMap.characteristic;
-			const powerRollTranslation = getTranslationByKey('power-roll') || 'Power Roll';
-			const edgeOrBaneTranslation = getTranslationByKey('edge-or-bane') || 'edge-or-bane';
-			const noEdgeOrBaneTranslation = getTranslationByKey('no-edge-or-bane') || 'no-edge-or-bane';
-			const doubleEdgeTranslation = getTranslationByKey('double-edge') || 'double-edge';
-			const edgeTranslation = getTranslationByKey('edge') || 'edge';
-			const baneTranslation = getTranslationByKey('bane') || 'bane';
-			const doubleBaneTranslation = getTranslationByKey('double-bane') || 'double-bane';
-			const bonusOrPenaltyTranslation = getTranslationByKey('bonus-or-penalty') || 'bonus-or-penalty';
-			const name = !directMap.name ? '{{name=' + characteristicTranslation + ` ` + powerRollTranslation + '}} ': '';
-			powerroll = '[[ [[2d10cs>11cf<0]][2d10] ' +
-						` + [[${rollValueMap.characteristicValue}[${characteristicTranslation}]]][${characteristicTranslation}] ` +
-						' + [[?{' +
-							edgeOrBaneTranslation +
-							`|${noEdgeOrBaneTranslation},0` +
-							`|${doubleEdgeTranslation},0[${doubleEdgeTranslation}]` +
-							`|${edgeTranslation},2[${edgeTranslation}]` +
-							`|${baneTranslation},-2[${baneTranslation}]` +
-							`|${doubleBaneTranslation},0[${doubleBaneTranslation}]` +
-							`}]][${edgeOrBaneTranslation}] ` +
-							` + [[?{${bonusOrPenaltyTranslation}|0}]][${bonusOrPenaltyTranslation}] ` +
-						']] ' +
-						'{{2d10=$[[0]]}} ' +
-						'{{edgeBane=$[[2]]}} ' +
-						'{{bonus=$[[3]]}} ' +
-						'{{total=$[[4]]}} ' +
-						`{{isDoubleEdge=[[0]]}} ` +
-						`{{isDoubleBane=[[0]]}} ` +
-						'{{tier=[[0]]}} ' +
-						name;
+
+			const name = !directMap.name ? `{{name=${characteristicTranslation} ${t['power-roll']}}} `: '';
+			rollString += [
+				'[[ [[2d10cs>11cf<0]][2d10]',
+				`+ [[${rollValueMap.characteristicValue}[${characteristicTranslation}]]][${characteristicTranslation}]`,
+				`+ [[?{${t['edge-or-bane']}|${t['no-edge-or-bane']},0|${t['double-edge']},0[${t['double-edge']}]|${t['edge']},2[${t['edge']}]|${t['bane']},-2[${t['bane']}]|${t['double-bane']},0[${t['double-bane']}]} ]][${t['edge-or-bane']}]`,
+				`+ [[?{${t['bonus-or-penalty']}|0}]][${t['bonus-or-penalty']}] ]]`,
+				`{{2d10=$[[0]]}} {{edgeBane=$[[2]]}} {{bonus=$[[3]]}} {{total=$[[4]]}}`,
+				`{{isDoubleEdge=[[0]]}} {{isDoubleBane=[[0]]}} {{tier=[[0]]}}`,
+				name
+			].join(' ');
 						
 		}
 		
-		// Helper function to trim empty values from the roll.
-		const isDefined = (value) => {
-			// Exclude null, undefined, and empty strings
-			if (!value) return false;
-			// Specifically exclude the string '0' (for things like ability_cost = 0)
-			if (typeof value === 'string' && value.trim() === '0') return false;
-			return true;
-		};
-		
-		// Build the roll. Starts with the template and powerroll, then adds the directMap entries and the rollValueMap entries. 
-		const roll = template +
-					 powerroll +
-					 Object.entries(directMap)
-					 .filter(([key, value]) => value)
-					 .map(([key, value]) => `{{${key}=${value}}} `)
-					 .join(' ') +
-					 Object.entries(rollValueMap)
-					 .filter(([key, value]) => value === 1 || key === 'characteristicValue')
-					 .map(([key, value]) => `{{${key}=[[${value}]]}} `)
-					 .join(' ');
-		
-		if (isPowerRoll) {
-			// If we are making a power roll we need to make extra calculations to determine the tier result.
-			const doubleEdgeTranslation = getTranslationByKey('double-edge') || 'double-edge';
-			const doubleBaneTranslation = getTranslationByKey('double-bane') || 'double-bane';
+		// Mapping Attributes
+		const directEntries = Object.entries(directMap)
+			.filter(([_, v]) => v)
+			.map(([k, v]) => `{{${k}=${v}}}`);
+
+		const valueEntries = Object.entries(rollValueMap)
+			.filter(([k, v]) => v === 1 || k === 'characteristicValue')
+			.map(([k, v]) => `{{${k}=[[${v}]]}}`);
 			
-			startRoll(roll, ({ rollId, results }) => {
-				console.log('roll results', results);
-				// Set for toggles for Double Edge and Double Bane 
-				const isDoubleEdge = results.edgeBane.expression === `0[${doubleEdgeTranslation}]`
-					? 1 : 0;
-				const isDoubleBane = results.edgeBane.expression === `0[${doubleBaneTranslation}]`
-					? 1 : 0;
-					
-				// Calculate the Tier result from the roll 2-11, 12-16, 17-20
-				const tierBase = (() => {
-					if (results.total.result >= 17) {
-						return 3;
-					}
-					return results.total.result >= 12
-						? 2
-						: 1;
-				})();
-				const tierMod = (() => {
-					switch (results.edgeBane.expression) {
-						case `0[${doubleEdgeTranslation}]`:
-							return 1;
-						case `0[${doubleBaneTranslation}]`:
-							return -1;
-						default:
-							return 0;
-					}
-				})();
-				// Adjust the Tier result if Double Edge/Bane
-				const tier = Math.max(1, Math.min(3, tierBase + tierMod));
-				finishRoll(rollId, { isDoubleEdge, isDoubleBane, tier });
-			});
-		} else {
-			// Simple roll for everything else.
-			startRoll(roll, ({ rollId }) => finishRoll(rollId));
-		}
+		rollString += ` ${directEntries.join(' ')} ${valueEntries.join(' ')}`;
+		
+		startRoll(rollString, ({rollId, results}) => {
+			if (!isPowerRoll) {
+				return finishRoll(rollId);
+			}
+			
+			// Logic for Tier Calculation
+			const expr = results.edgeBane.expression;
+			const isDoubleEdge = expr.includes(`[${t['double-edge']}]`) ? 1 : 0;
+			const isDoubleBane = expr.includes(`[${t['double-bane']}]`) ? 1 : 0;
+
+			const total = results.total.result;
+			const tierBase = total >= 17 ? 3 : (total >= 12 ? 2 : 1);
+			const tierMod = isDoubleEdge ? 1 : (isDoubleBane ? -1 : 0);
+			
+			const tier = Math.max(1, Math.min(3, tierBase + tierMod));
+
+			finishRoll(rollId, { isDoubleEdge, isDoubleBane, tier });
+		});
 	}
 	
 	/**
@@ -4933,109 +4954,93 @@
 
 	/**
 	 ** Simple Roll to display Recovery use
-         ** And adjust automatically in sheet
+     ** And adjust automatically in sheet
 	 **/
 	async function rollRecovery() {
 		console.log("~~~ rollRecovery ~~~");
 		// Get the recovery amount and populate the translations for use in the roll.
-		const attrs = await getAttrsAsync(['recovery_amount']);
-		const recovery_amount = attrs.recovery_amount;
+		const attrs = await getAttrsAsync(['stamina_max', 'recovery_amount', 'stamina', 'recoveries']);
 		
-		buildRoll(ROLLTEMPLATES.SIMPLE, { name: "Recovery", rolltitle: "Stamina Gain", roll: `[[${recovery_amount}]]` }, {} );
-	}
+		const max = parseInt(attrs.stamina_max) || 0;
+		const current = parseInt(attrs.stamina) || 0;
+		const amount = parseInt(attrs.recovery_amount) || 0;
+		const available = parseInt(attrs.recoveries) || 0;
+		
+		if (available <= 0) {
+			console.log("No recoveries remaining.");
+			//insert logic to let player know they don't have recoveries
+			return;
+		}
+		
+		const rollTemplate = `@{wtype}&{template:${ROLLTEMPLATES.SIMPLE}} {{charactername=@{character_name}}} {{name=Recovery}} {{rolltitle=Stamina Gain}} {{roll=[[${amount}]]}}`;
 
-	function calculateRecoverySpent() {
-		console.log('~~~ calculateRecoverySpent ~~~');
-		getAttrs(["stamina_max", "recovery_amount", "stamina", "recoveries"], function(values) {
-			let stamina_max = parseInt(values.stamina_max)||0;
-			let recovery_amount = parseInt(values.recovery_amount)||0;
-			let stamina = parseInt(values.stamina)||0;
-			let stamina_set = Math.min(stamina_max, stamina + recovery_amount);
-			let recoveries = parseInt(values.recoveries)||0;
-			let recoveries_set = Math.max(recoveries - 1,0);
-			if (recoveries > 0) {
-				setAttrs({
-					"stamina": stamina_set,
-					"recoveries": recoveries_set
-				});
-			}
+		startRoll(rollTemplate, (results) => {
+			// Calculate new values: Add recovery to current stamina (cap at max) and subtract 1 recovery.
+			const newStamina = Math.min(max, current + amount);
+			const newRecoveries = Math.max(0, available - 1);
+
+			setAttrs({
+				stamina: newStamina,
+				recoveries: newRecoveries
+			});
+
+			finishRoll(results.rollId);
 		});
 	}
 
 	/**
 	 ** Simple Roll to display Heroic Resource gain
-         ** And adjust automatically in sheet
+     ** And adjust automatically in sheet
 	 **/
 	async function rollResource() {
 		console.log("~~~ rollResource ~~~");
 		// Get the resource name and resource amount.
 		const attrs = await getAttrsAsync(['resource', 'resource_name', 'resource_amount']);
-		const resource_name = attrs.resource_name;
-		const resource = parseInt(attrs.resource) || 0;
-		const rollQuery = attrs.resource_amount ? `[[${attrs.resource_amount}]]` : `[[?{d3 or number|0}]]`;
+		
+		const current = parseInt(attrs.resource) || 0;
+		const name = attrs.resource_name || "Resource";
+		const gainExpr = attrs.resource_amount || "?{d3 or number|0}";
 
-		const rollTemplate = `@{wtype}&{template:${ROLLTEMPLATES.SIMPLE}} {{charactername=@{character_name}}} {{name=${resource_name} Gain}} {{rolltitle=${resource_name}}} {{roll=${rollQuery}}}`;
+		const rollTemplate = `@{wtype}&{template:${ROLLTEMPLATES.SIMPLE}} {{charactername=@{character_name}}} {{name=${name} ^{roll-resource-gain}}} {{rolltitle=${name}}} {{roll=[[${gainExpr}]]}}`;
 
 		startRoll(rollTemplate, ({ rollId, results }) => {
-			const resource_gain = results.roll.result || 0;
-                        const resource_updated = resource + resource_gain;
-			
-			setAttrs({ "resource": resource_updated });
-			
+			const gain = results.roll.result || 0;
+			setAttrs({ resource: current + gain });
 			finishRoll(rollId);
 		});
 	}
-
+	
 	/**
-	 ** Simple Roll to apply Damage Surges
-         ** And adjust automatically in sheet
-	 **/
-	async function rollDamageSurges() {
-		console.log("~~~ rollDamageSurges ~~~");
-		// Get the necessary attributes.
+	 * Surge Rolling Logic
+	 * Handles both Damage and Potency surges use.
+	 * @param {string} type either 'damage' or 'potency'
+	**/
+	async function rollSurge(type = 'damage') {
+		console.log(`~~~ rollSurge: ${type} ~~~`);
 		const attrs = await getAttrsAsync(["surges", "surge_damage"]);
-		const damage = attrs.surge_damage;
-		const surges = parseInt(attrs.surges) || 0;
-		
-		// Check to see we actually have surges to spend
-		if (surges > 0) {
-			const rollQuery = `[[?{How many?|1|2|3}]]`;
-			const rollTemplate = `@{wtype}&{template:${ROLLTEMPLATES.SIMPLE}} {{charactername=@{character_name}}} {{name=Using Surges for Damage}} {{rolltitle=${rollQuery}}} {{roll=Surges used for [[${rollQuery}*${damage}]] damage}}`;
-			
-			startRoll(rollTemplate, ({ rollId, results }) => {
-				const surges_lose = results.rolltitle.result || 0;
-				// If we have enough, adjust the surges by the amount we just used
-				if (surges_lose <= surges) {
-					const surges_updated = surges - surges_lose;
-					setAttrs({ "surges": surges_updated });
+		const available = parseInt(attrs.surges) || 0;
+		const damagePerSurge = parseInt(attrs.surge_damage) || 0;
+	
+		if (type === 'damage' && available > 0) {
+			const query = `?{How many?|1|2|3}`;
+			const template = `@{wtype}&{template:${ROLLTEMPLATES.SIMPLE}} {{charactername=@{character_name}}} {{name=^{roll-surge-damage}}} {{rolltitle=[[${query}]]}} {{roll=[[([[${query}]]*${damagePerSurge})]] ^{surges-damage}}}`;
+	
+			startRoll(template, ({ rollId, results }) => {
+				const used = results.rolltitle.result || 0;
+				if (used <= available) {
+					setAttrs({ surges: available - used });
 				}
-				
+				finishRoll(rollId);
+			});
+	
+		} else if (type === 'potency' && available >= 2) {
+			const template = `@{wtype}&{template:${ROLLTEMPLATES.SIMPLE}} {{charactername=@{character_name}}} {{name=^{roll-surge-damage}}} {{rolltitle=[[2]]}} {{roll=^{roll-surge-potency-desc}}}`;
+	
+			startRoll(template, ({ rollId }) => {
+				setAttrs({ surges: available - 2 });
 				finishRoll(rollId);
 			});
 		}
-	}
-
-	/**
-	 ** Simple Roll to apply Potency Surges
-         ** And adjust automatically in sheet
-	 **/
-	async function rollPotencySurges() {
-		console.log("~~~ rollPotencySurges ~~~");
-		// Get the necessary attributes.
-		const attrs = await getAttrsAsync(["surges"]);
-		const surges = parseInt(attrs.surges) || 0;
-		if (surges < 2) return; 
-
-		const rollTemplate = `@{wtype}&{template:${ROLLTEMPLATES.SIMPLE}} {{charactername=@{character_name}}} {{name=Using Surges for Potency Increase}} {{rolltitle=[[2]]}} {{roll=Surges used to increase potency by 1}}`;
-
-		startRoll(rollTemplate, ({ rollId, results }) => {
-			const surges_lose = results.rolltitle.result || 0;
-			const surges_updated = surges - surges_lose;
-			
-			setAttrs({ "surges": surges_updated });
-			
-			finishRoll(rollId);
-		});
 	}
 
 	/**
@@ -5047,12 +5052,14 @@
 	
 	function featureDisplay(name, subtitle, description) {
 		console.log('~~~ featureDisplay ~~~');
-		const roll = `@{wtype}&{template:monsterability}` 
-			+ '{{charactername=@{character_name}}} ' 
-			+ '{{name=' + name + '}} ' 
-			+ '{{trait=' + description + '}} '
-			+ '{{subtype=' + subtitle + '}} '
-			+ '{{hasTrait=[[1]]}}';
+		const roll = [
+			`@{wtype}&{template:${ROLLTEMPLATES.DISPLAY}}`,
+			'{{charactername=@{character_name}}}',
+			'{{name=' + name + '}}',
+			'{{trait=' + description + '}}',
+			'{{subtype=' + subtitle + '}}',
+			'{{hasTrait=[[1]]}}',
+		].join(' ');
 		startRoll(roll, ({ rollId }) => finishRoll(rollId));
 	}
 	
@@ -5107,7 +5114,56 @@
 		const roll = buildRoll(template, directMap, rollValueMap, isPowerRoll);
 
 	}
+	
 	const NPC_ABILITIES = ["repeating_npcabilities", "repeating_malice", "repeating_villainaction"];
+
+	 
+	/**
+	 * Helper to handle the complex damage calculation logic
+	 */
+	function getTierDamage(attrs, prefix, abilityPrefix, keywords) {
+		const rawTiers = [
+			attrs[`${prefix}_${abilityPrefix}tier_1`] || '',
+			attrs[`${prefix}_${abilityPrefix}tier_2`] || '',
+			attrs[`${prefix}_${abilityPrefix}tier_3`] || ''
+		];
+
+		if (attrs['options_calculate_damage'] !== "1" || !rawTiers[0]) {
+			return rawTiers;
+		}
+
+		let kit = [];
+		let otherDamage = "";
+		const weapon = getTranslationByKey('weapon');
+
+		// Kit Calculation
+		if (keywords.includes(weapon)) {
+			const isMelee = keywords.includes(getTranslationByKey('melee'));
+			const type = isMelee ? 'melee' : 'ranged';
+			kit = [
+				parseInt(attrs[`kit_${type}_damage_1`]) || 0,
+				parseInt(attrs[`kit_${type}_damage_2`]) || 0,
+				parseInt(attrs[`kit_${type}_damage_3`]) || 0
+			];
+
+			if (attrs['sanct_weap']) {
+				otherDamage += `+${attrs['sanct_weap']}[${getTranslationByKey('sanct-weap')}]`;
+			}
+		}
+
+		// Magic/Psionic Calculation
+		const magPsiDam = attrs['mag_psi_dam'];
+		if (magPsiDam) {
+			['psionic', 'magic'].forEach(key => {
+				if (keywords.includes(getTranslationByKey(key))) {
+					otherDamage += `+${magPsiDam}[${getTranslationByKey(key)}]`;
+				}
+			});
+		}
+
+		return rawTiers.map((val, i) => damageCalculation(val, kit[i] || 0, otherDamage));
+	}
+	
 	/**
 	 * Creates the attribute maps needed to build an ability sharing roll.
 	 * @param {Array<Object>} Character and ability attributes.
@@ -5120,150 +5176,77 @@
 	function getAbilityMaps(attrs, prefix, abilityPrefix) {
 		console.log('~~~ getAbilityMaps ~~~');
 		
-		let directMap = {};
-		let rollValueMap = {};
-		let translateMap = {};
-		let subtype = '';
-		let trait = '';
-		let hasTrait = 0;
-		let hasEffect = 0;
-		let characteristic = '';
-		let description = '';
-		let powerroll = '';
-		let characteristicValue = '';
+		const base = `${prefix}_${abilityPrefix}`;
+		const subtypeVal = attrs[`${base}subtype`] || '';
+		const isNpc = NPC_ABILITIES.some(p => prefix.startsWith(p));
 		
-		const subtypeValue = attrs[`${prefix}_${abilityPrefix}subtype`] || '';
-		const isNpcAbility = NPC_ABILITIES.some(p => prefix === p || prefix.startsWith(`${p}_`));
+		let subtype = '', characteristic = '', characteristicValue = 0, hasEffect = 0;
 		
-		if (isNpcAbility) {
-			// NPC Ability Logic
-			switch(subtypeValue) {
-				case 'signature-ability':
-				case 'villain-ability':
-					subtype = getTranslationByKey(attrs[`${prefix}_${abilityPrefix}subtype`]) || '';
-					break;
-				case 'malice-ability':
-				case 'malice-trait':
-					subtype = attrs[`${prefix}_${abilityPrefix}malice_cost`] + ' ' + getTranslationByKey('malice');
-					break;
+		// Core Branching Logic (NPC vs Player)
+		if (isNpc) {
+			if (subtypeVal.includes('malice')) {
+				subtype = `${attrs[`${base}malice_cost`]} ${getTranslationByKey('malice')}`;
+			} else {
+				subtype = getTranslationByKey(subtypeVal) || '';
 			}
 			characteristic = 'modifiers';
-			trait = attrs[`${prefix}_${abilityPrefix}trait`] || '';
-			hasTrait = subtypeValue.includes('trait') && trait ? 1 : 0;
+			characteristicValue = parseInt(attrs[`${base}characteristic`]) || 0;
 			hasEffect = attrs[`${prefix}_has_effect`] === 'on' ? 1 : 0;
-			characteristicValue = parseInt(attrs[`${prefix}_${abilityPrefix}characteristic`]) || 0;
 		} else {
-			// PLAYER Ability Logic
-			const resourceName = attrs.resource_name || getTranslationByKey('resource-name-placeholder');
-			const cost = attrs[`${prefix}_${abilityPrefix}cost`];
-			subtype = cost && cost !== '0' ? `(${cost} ${resourceName})` : '';
-			characteristic = attrs[`${prefix}_${abilityPrefix}characteristic`] ? getTranslationByKey(attrs[`${prefix}_${abilityPrefix}characteristic`]) || '' : '';
-			description = attrs[`${prefix}_${abilityPrefix}description`] || '';
-			trait = attrs[`${prefix}_${abilityPrefix}trait`] || '';
-			hasTrait = trait ? 1 : 0;
-			hasEffect = attrs[`${prefix}_${abilityPrefix}effect`] ? 1 : 0;
-			characteristicValue = attrs[attrs[`${prefix}_${abilityPrefix}characteristic`]];
+			const resName = attrs.resource_name || getTranslationByKey('resource-name-placeholder');
+			const cost = attrs[`${base}cost`];
+			subtype = (cost && cost !== '0') ? `(${cost} ${resName})` : '';
+			characteristic = getTranslationByKey(attrs[`${base}characteristic`]) || '';
+			characteristicValue = attrs[attrs[`${base}characteristic`]] || 0;
+			hasEffect = attrs[`${base}effect`] ? 1 : 0;
 		}
 		
-		if (attrs[`${prefix}_has_power_roll`] === 'on') {
-			powerroll = getTranslationByKey('power-roll');
-		}
-		
-		const melee = getTranslationByKey('melee');
-		const ranged = getTranslationByKey('ranged');
-		const weapon = getTranslationByKey('weapon');
-		const abilityKeywords = attrs[`${prefix}_${abilityPrefix}keywords`] ? attrs[`${prefix}_${abilityPrefix}keywords`].split(',').map(item => item.trim()) : '';
-		const kit = [];
-		let otherdamage = "";
-		let tier1 = "", tier2 = "", tier3 = "";
-		
-		if (attrs['options_calculate_damage'] === "1" && attrs[`${prefix}_${abilityPrefix}tier_1`] && attrs[`${prefix}_${abilityPrefix}tier_2`] && attrs[`${prefix}_${abilityPrefix}tier_3`]) {
-			if (abilityKeywords.includes(weapon)) {
-				if (abilityKeywords.includes(melee)) {
-					kit.push(parseInt(attrs['kit_melee_damage_1']));
-					kit.push(parseInt(attrs['kit_melee_damage_2']));
-					kit.push(parseInt(attrs['kit_melee_damage_3']));
-				} else if (abilityKeywords.includes(ranged)) {
-					kit.push(parseInt(attrs['kit_ranged_damage_1']));
-					kit.push(parseInt(attrs['kit_ranged_damage_2']));
-					kit.push(parseInt(attrs['kit_ranged_damage_3']));
-				}
-				if (attrs['sanct_weap']) {
-					const sanctweaptrans = getTranslationByKey('sanct-weap');
-					otherdamage = otherdamage + '+' + attrs['sanct_weap'] + `[${sanctweaptrans}]`;
-				}				
-			}
-			if (attrs['mag_psi_dam']) {
-				const psionic = getTranslationByKey('psionic');
-				const magic = getTranslationByKey('magic');
-				
-				if (abilityKeywords.includes(psionic)) {
-					otherdamage = otherdamage + '+' + attrs['mag_psi_dam'] + `[${psionic}]`;
-				}
-				else if (abilityKeywords.includes(magic)) {
-					otherdamage = otherdamage + '+' + attrs['mag_psi_dam'] + `[${magic}]`;
-				}
-			}
-			tier1 = damageCalculation(attrs[`${prefix}_${abilityPrefix}tier_1`], kit[0] || 0, otherdamage);
-			tier2 = damageCalculation(attrs[`${prefix}_${abilityPrefix}tier_2`], kit[1] || 0, otherdamage);
-			tier3 = damageCalculation(attrs[`${prefix}_${abilityPrefix}tier_3`], kit[2] || 0, otherdamage);
-		} else {
-			tier1 = attrs[`${prefix}_${abilityPrefix}tier_1`] || '';
-			tier2 = attrs[`${prefix}_${abilityPrefix}tier_2`] || '';
-			tier3 = attrs[`${prefix}_${abilityPrefix}tier_3`] || '';
-		}
-		
-			
-		
-		
-		const type = attrs[`${prefix}_${abilityPrefix}type`] === 'no-action' ? '' : getTranslationByKey(attrs[`${prefix}_${abilityPrefix}type`]);
-		// check keywords for damage calculation
-		
+		// Keywords and Damage
+		const keywordsRaw = attrs[`${base}keywords`] || '';
+		const keywordsArr = keywordsRaw.split(',').map(k => k.trim());
+		const [tier1, tier2, tier3] = getTierDamage(attrs, prefix, abilityPrefix, keywordsArr);
 		
 		// Build the directMap - these will be transformed into a {{key=value}} format.
-		directMap = {
-			name: attrs[`${prefix}_${abilityPrefix}name`],
-			subtype: subtype,
-			trait: trait,
-			description: description,
-			type: type, 
-			keywords: attrs[`${prefix}_${abilityPrefix}keywords`] || '',
-			distance: attrs[`${prefix}_${abilityPrefix}distance`] || '',
-			target: attrs[`${prefix}_${abilityPrefix}target`] || '',
-			trigger: attrs[`${prefix}_${abilityPrefix}trigger`] || '',
-			characteristic: characteristic,
-			tier1: tier1,
-			tier2: tier2,
-			tier3: tier3,
-			special: attrs[`${prefix}_${abilityPrefix}special`] || '',
-			effect: attrs[`${prefix}_${abilityPrefix}effect`] || '',
-			pre_effect: attrs[`${prefix}_${abilityPrefix}pre_effect`] || '',
-			malprop: attrs[`${prefix}_${abilityPrefix}malice`] || '',
-			malpropcost: attrs[`${prefix}_${abilityPrefix}cost`] || '',
-			solo1name: attrs[`${prefix}_${abilityPrefix}solo_1_name`] || '',
-			solo1text: attrs[`${prefix}_${abilityPrefix}solo_1_text`] || '',
-			solo2name: attrs[`${prefix}_${abilityPrefix}solo_2_name`] || '',
-			solo2text: attrs[`${prefix}_${abilityPrefix}solo_2_text`] || '',
-			customlabel: attrs[`${prefix}_${abilityPrefix}custom_label`] || '',
-			custom: attrs[`${prefix}_${abilityPrefix}custom`] || '',
-			spend: attrs[`${prefix}_${abilityPrefix}spend`] || '',
-			spendcost: attrs[`${prefix}_${abilityPrefix}spend_cost`] || '',
-			powerRoll: powerroll,
-		}	
-
+		const directMap = {
+			name:           attrs[`${base}name`],
+			subtype,
+			characteristic,
+			tier1, tier2, tier3,
+			type:           attrs[`${base}type`] === 'no-action' ? '' : getTranslationByKey(attrs[`${base}type`]),
+			keywords:       keywordsRaw,
+			description:    attrs[`${base}description`] || '',
+			distance:       attrs[`${base}distance`] || '',
+			target:         attrs[`${base}target`] || '',
+			trigger:        attrs[`${base}trigger`] || '',
+			special:        attrs[`${base}special`] || '',
+			effect:         attrs[`${base}effect`] || '',
+			pre_effect:     attrs[`${base}pre_effect`] || '',
+			malprop:        attrs[`${base}malice`] || '',
+			malpropcost:    attrs[`${base}cost`] || '',
+			solo1name:      attrs[`${base}solo_1_name`] || '',
+			solo1text:      attrs[`${base}solo_1_text`] || '',
+			solo2name:      attrs[`${base}solo_2_name`] || '',
+			solo2text:      attrs[`${base}solo_2_text`] || '',
+			customlabel:    attrs[`${base}custom_label`] || '',
+			custom:         attrs[`${base}custom`] || '',
+			spend:          attrs[`${base}spend`] || '',
+			spendcost:      attrs[`${base}spend_cost`] || '',
+			powerRoll:      attrs[`${prefix}_has_power_roll`] === 'on' ? getTranslationByKey('power-roll') : ''
+		};
+		
 		//Build the rollValueMap - these will be transformed into a {{key=[[value]]}} format.
-		rollValueMap = {
-			hasTrait: hasTrait,
-			hasSolo: attrs[`${prefix}_${abilityPrefix}subtype`] && attrs[`${prefix}_${abilityPrefix}subtype`].includes('solo') ? 1 : 0,
-			hasTrigger: attrs[`${prefix}_${abilityPrefix}type`].includes('triggered') && attrs[`${prefix}_${abilityPrefix}trigger`] ? 1 : 0,
-			hasPowerRoll: attrs[`${prefix}_has_power_roll`] === 'on' ? 1 : 0,
-			hasSpecial: attrs[`${prefix}_has_special`] === 'on' ? 1 : 0,
-			hasEffect: hasEffect,
-			hasPreEffect: attrs[`${prefix}_has_pre_effect`] === 'on' ? 1 : 0,
-			hasMalprop: attrs[`${prefix}_has_malice`] === 'on' ? 1 : 0,
-			hasSpend: attrs[`${prefix}_has_spend`] === 'on' ? 1 : 0,
-			hasCustom: attrs[`${prefix}_has_custom`] === 'on' ? 1 : 0,
-			characteristicValue: characteristicValue || 0,
+		const rollValueMap = {
+			hasTrait:       (subtypeVal.includes('trait') || !isNpc) && attrs[`${base}trait`] ? 1 : 0,
+			hasSolo:        subtypeVal.includes('solo') ? 1 : 0,
+			hasTrigger:     attrs[`${base}type`]?.includes('triggered') && attrs[`${base}trigger`] ? 1 : 0,
+			hasPowerRoll:   attrs[`${prefix}_has_power_roll`] === 'on' ? 1 : 0,
+			hasSpecial:     attrs[`${prefix}_has_special`] === 'on' ? 1 : 0,
+			hasEffect:      hasEffect,
+			hasPreEffect:   attrs[`${prefix}_has_pre_effect`] === 'on' ? 1 : 0,
+			hasMalprop:     attrs[`${prefix}_has_malice`] === 'on' ? 1 : 0,
+			hasSpend:       attrs[`${prefix}_has_spend`] === 'on' ? 1 : 0,
+			hasCustom:      attrs[`${prefix}_has_custom`] === 'on' ? 1 : 0,
+			characteristicValue
 		};
 
 		return { directMap, rollValueMap };
@@ -5271,114 +5254,96 @@
 	
 	
 	/**
-	 ** Adds inline Damage Calculations for tier effects 
-	 ** @param {string} tierEffect  The name of the repeating ability (e.g "repeating_abilities").
+	 ** Adds inline Damage and Potency Calculations for tier effects 
+	 ** @param {string} tierEffect  The raw tier effect text.
+	 ** @param {int} 	kit 		Kit damage for the specific tier
+	 ** @param {int} 	other		Other damage	
 	 ** @returns {string}           Altered tier effect for roll template
 	 **/
 	function damageCalculation(tierEffect, kit = 0, other = 0) {
+		if (!tierEffect) return '';
 		console.log('~~~ damageCalculation ~~~');
-	
-		if (!tierEffect) {
-			return '';
-		}
-		// Damage "should" take one of the following forms:
-		// <baseDamage> + <characteristic> <damageType> damage; <added effects>
-		// <baseDamage> + <characteristic> or <characteristic> <damageType> damage; <added effects>
-		// <baseDamage> <damageType> damage; <added effects>
-		// <effects>
-		
-		const might = getTranslationByKey('might');
-		const agility = getTranslationByKey('agility');
-		const reason = getTranslationByKey('reason');
-		const intuition = getTranslationByKey('intuition');
-		const presence = getTranslationByKey('presence');
-		const charMap = { 
-			M: { macro: '@{might}',     title: might}, 
-			A: { macro: '@{agility}',   title: agility},
-			R: { macro: '@{reason}',    title: reason},
-			I: { macro: '@{intuition}', title: intuition},
-			P: { macro: '@{presence}',  title: presence},
+
+		// Create a reference for the characteristics that is translated into the language being used by the sheet
+		const charMap = {
+			[getTranslationByKey("M")]: { macro: '@{might}',     label: getTranslationByKey('might') },
+			[getTranslationByKey("A")]: { macro: '@{agility}',   label: getTranslationByKey('agility') },
+			[getTranslationByKey("R")]: { macro: '@{reason}',    label: getTranslationByKey('reason') },
+			[getTranslationByKey("I")]: { macro: '@{intuition}', label: getTranslationByKey('intuition') },
+			[getTranslationByKey("P")]: { macro: '@{presence}',  label: getTranslationByKey('presence') }
 		};
 		
-		// Split the tier effect at the semi colon.
-		const parts = tierEffect.split(';');
-		// The first element of parts should contain the damage. The second should have effects, if anything. 
-		// Split the damage section it using spaces to get the individual elements.
-		const damageSection = parts[0].split(' ');
-		let effectSection = parts.length > 1 ? ';' + parts[1] : ';';
-		const damageBase = parseInt(damageSection[0]);
+		const charList = Object.keys(charMap).join('');
 		
-		// If the first element is not a number we aren't dealing with a form we can calculate. 
-		if (!damageBase) {
-			return tierEffect;
-		}
+		// Separate Damage from Effects
+		const [rawDamage, ...rest] = tierEffect.split(';');
+		let effectSection = rest.length ? ';' + rest.join(';') : '';
 		
-		let damageType = [];
-		let damageCalc = [];
-		damageCalc.push(damageSection[0]);
+		const orTrans = getTranslationByKey("damage-calc-or");
 		
-		// Since the first element is the base damage, if the second is a '+' the following should be characteristics.
-		if (damageSection[1] === '+' && damageSection[2] in charMap) {
-			let itterator = 2;
-			// in case more than one chracteristic is used (example M + A) use roll20's {}kh1 (keep higher) operator
-			damageCalc.push ("+ {");
-			while (damageSection[itterator] in charMap) {
-				damageCalc.push(charMap[damageSection[itterator]].macro + `[${charMap[damageSection[itterator]].title}]`);
+		/**
+		 * Tier effects typically use one of the following formats:
+		 * <baseDamage> + <characteristic> <damageType> damage; <added effects>
+		 * <baseDamage> + <characteristic> or <characteristic> <damageType> damage; <added effects>
+		 * <baseDamage> <damageType> damage; <added effects>
+		 * <effects>
+		 *
+		 * REGEX to get characteristics from the tier effect:
+		 * ^(\d+)              : (Group 1) Base Damage - Required.
+		 * (?:                 : Start Optional non-capturing group for the "+" section.
+		 * \s*\+\s* : Match "+" with flexible spacing.
+		 * (                 : (Group 2) The Characteristic Block.
+		 * [charList]      : Start with one valid letter.
+		 * (?:[\s,]+(?:${orTrans}\s+)?[${charList}])* : Match additional letters with commas/or.
+		 * )
+		 * )?                  : End Optional group (the "?" makes "3 damage" work).
+		 */
+		const damageRegex = new RegExp(`^(\\d+)(?:\\s*\\+\\s*([${charList}](?:[\\s,]+(?:${orTrans}\\s+)?[${charList}])*))?`, "");
+		
+		const match = rawDamage.trim().match(damageRegex);
+		if (!match) return tierEffect;
+		
+		// baseDamage contains the damage number, characteristicsRaw contains any matched characteristics
+		const baseDamage = match[1];
+		const characteristicsRaw = match[2]; 
 				
-				itterator++;
-
-				if (damageSection[itterator] === "or" 
-				  	&& damageSection[itterator + 1] in charMap) {
-					//prep for another characteristics
-					damageCalc.push(",");
-					itterator++;
-				} else {
-					break;
-				}
-			}
-			damageCalc.push ("}kh1"); // roll20 -> kh1 == keep highest
-			damageType = damageSection.slice(itterator);	
-		} else {
-			damageType = damageSection.slice(1);
-		}
-
-		console.log('damageType and Calc',damageType, damageCalc);
-		if (kit) {
-			//Add Kit Damage
-			kitTrans = getTranslationByKey('kit');
-			damageCalc.push('+');
-			damageCalc.push(kit + '[' + kitTrans + ']');
-		}
+		let damageCalc = [baseDamage];
+		let processedChars = [];
 		
-		if (other) {
-			damageCalc.push(other);
+		// Parse Characteristics if they exist
+		if (characteristicsRaw) {
+			// Extract localized letters found in the string
+			const charLetters = characteristicsRaw.match(new RegExp(`[${charList}]`, "g"));
+			charLetters.forEach(letter => {
+				const entry = charMap[letter.toUpperCase()];
+				if (entry) {
+					processedChars.push(`${entry.macro}[${entry.label}]`);
+				}
+			});
+
+			if (processedChars.length > 1) {
+				damageCalc.push(`+ {${processedChars.join(', ')}}kh1`);
+			} else if (processedChars.length === 1) {
+				damageCalc.push(`+ ${processedChars[0]}`);
+			}
 		}
 
-		//add potencies into effect section
-		const potencyArray = [
-		//	  The word that will be replaced												What atribute will be used	 Translated text to be put into the "roll" 
-			{ trigger:'[' + getTranslationByKey('potency-weak').toLowerCase() 		+ ']',	macro: '@{potency_weak}',    translation: getTranslationByKey('potency-weak')		}, 
-			{ trigger:'[' + getTranslationByKey('potency-average').toLowerCase() 	+ ']',	macro: '@{potency_average}', translation: getTranslationByKey('potency-average')	},
-			{ trigger:'[' + getTranslationByKey('potency-strong').toLowerCase() 	+ ']',	macro: '@{potency_strong}',  translation: getTranslationByKey('potency-strong')	},
-		];
+		// Add External Modifiers
+		if (kit) damageCalc.push(`+ ${kit}[${getTranslationByKey('kit')}]`);
+		if (other) damageCalc.push(other);
 
-		//handle potencies
-		potencyArray.forEach((potency) => {
-			// transform potency into a roll
-			// [weak] -> [[@{potency_weak}[Weak]]]
-			effectSection = effectSection.replaceAll( 
-				potency.trigger, 
-				"[[" + potency.macro + "[" + potency.translation + "]"+ "]]");
-		})
-
-		// rebuild the tier effect String
-		const newTierEffect = '[[' +
-			damageCalc.join(' ') 
-			+ ']]' 
-			+ damageType.join(' ')
-			+ effectSection;
-			
-		return newTierEffect;
+		// Extract Damage Type & Potency replacements
+		const matchedText = match[0];
+		const damageType = rawDamage.trim().substring(matchedText.length).trim();
+		
+		['weak', 'average', 'strong'].forEach(p => {
+			const trans = getTranslationByKey(`potency-${p}`);
+			const trigger = `[${trans.toLowerCase()}]`;
+			const replacement = `[[@{potency_${p}}[${trans}]]]`;
+			effectSection = effectSection.split(trigger).join(replacement);
+		});
+		
+		return `[[${damageCalc.join(' ')}]] ${damageType}${effectSection}`.trim();
 	}
 	 
 /**
@@ -5460,7 +5425,7 @@
 		'melee': 'melee_free_strike',
 		'ranged': 'ranged_free_strike'
 	};
-
+	
 	for (const [trigger, ability] of Object.entries(freeStrikeHandlers)) {
 		// Share button
 		on(`clicked:${trigger}_share`, async (event) => {
@@ -5473,41 +5438,71 @@
 		});
 	}
     
-	// Characteristic Power Rolls
+	// NPC Characteristic Power Rolls
 	$20('.npc-characteristic-input-group > label').on('click', (e) => {
 		const characteristic = e.htmlAttributes['data-characteristic'];
 		rollPower(characteristic);
 	});
 		
+	// Player Characteristic Power Rolls
 	$20('.characteristic-input-group > label').on('click', (e) => {
 		const characteristic = e.htmlAttributes['data-characteristic'];
 		rollPower(characteristic);
 	});
 	
 	// Recovery Simple Roll
-
 	$20('.recovery-input-group > label').on('click', (e) => {
 		rollRecovery();
-		calculateRecoverySpent();
 	});
 
 	// Heroic Resource Simple Roll
-
 	$20('.resource-input-group > label').on('click', (e) => {
-		console.log("click");
 		rollResource();
 	});
 
 	// Damage Surges Simple Roll
-
 	$20('.surges-input-group > label[data-characteristic="surges-damage"]').on('click', (e) => {
-		rollDamageSurges();
+		rollSurge('damage');
 	});
 
 	// Potency Surges Simple Roll
-
 	$20('.surges-input-group > label[data-characteristic="surges-potency"]').on('click', (e) => {
-		rollPotencySurges();
+		rollSurge('potency');
+	});
+	
+	// Show or Hide Villain Action tab
+	on("change:npc_role", function() {
+		showVillainAction();
+	});
+	
+	// Growing Resource Table
+	on("change:stats-minimize-checkbox change:resource change:level", function(eventInfo) {
+		showGrowingResource();
+	});
+
+	// Winded Calculation
+	on("change:stamina_max", function() {  
+		calculateWinded();
+	});
+
+	// Surge and Potency Calculation
+	on("change:might change:agility change:reason change:intuition change:presence", function() {
+		calculateSurgePotency();
+	});
+		
+	// Start Combat Calculation
+	on("clicked:startcombat", function() {
+		calculateStartCombat();
+	});
+
+	// End Combat Calculation
+	on("clicked:endcombat", function() {
+		calculateEndCombat();
+	});
+	
+	// Respite Calculation
+	on("clicked:respite", function() {
+		calculateRespite();
 	});
 
 	// Configuration map for feature sharing
@@ -5535,7 +5530,7 @@
 		}
 	};
 
-	// Loop through the map and create a generic listener for each
+	// Creates event listeners for sending feature information to chat
 	for (const [trigger, config] of Object.entries(featureShareHandlers)) {
 		
 		on(`clicked:${trigger}`, async (event) => {
@@ -5546,30 +5541,14 @@
 			const attrs = await getAttrsAsync([nameAttr, descAttr]);
 			const subtitle = getTranslationByKey(config.transKey);
 
-			// Use bracket notation to access the attribute values dynamically
 			featureDisplay(attrs[nameAttr], subtitle, attrs[descAttr]);
 		});
 	}
-	
-/*// Looking for Power Roll for Ability Card
-	on("change:repeating_abilities:has_power_roll", function(event) {
-		const repeatingId = event.sourceAttribute.match(/repeating_abilities_[^_]+/)[0];
-		const sourceAttr = `${repeatingId}_has_power_roll`;
-		const targetAttr = `${repeatingId}_show_power_roll`;
-		getAttrs([sourceAttr], function(values) {
-			const show = values[sourceAttr] === "on" ? "1" : "0";
-			setAttrs({
-				[targetAttr]: show
-			});
-		});
-	});
-*/
 
-// Show or Hide Villain Action tab
-	on("change:npc_role", function() {
-		showVillainAction();
-	});
-	
+/** 
+ * SHEET FUNCTIONS
+ */
+	// Toggle for villain actions
 	function showVillainAction() {
 		console.log('~~~ showVillainAction ~~~');
 		getAttrs(["npc_role"], function(values) {
@@ -5584,94 +5563,55 @@
 		});
 	}
 
-
-
-// Show full Growing Resource Table whenever Characteristics is opened
-	on("change:stats-minimize-checkbox", function(eventInfo) {
-		showGrowingResource();
-	});
-	
+	/**
+	 * Updates the visibility of the heroic resource table based on 
+	 * current resource count and character level.
+	 */
 	function showGrowingResource() {
 		console.log('~~~ showGrowingResource ~~~');
-		getAttrs(["stats-minimize-checkbox","resource","level"], function(values) {
-			let isChecked = values["stats-minimize-checkbox"] === "on";
-			let resource = parseInt(values.resource)||0;
-			let level = parseInt(values.level)||0;
-			if (!isChecked) {
-				setAttrs({
-					"growingresource_show_2": "1",
-					"growingresource_show_4": "1",
-					"growingresource_show_6": "1",
-					"growingresource_show_8": "1",
-					"growingresource_show_10": "1",
-					"growingresource_show_12": "1",
-				});
-			}
-			else {
-				let show2 = resource >= 2 ? "1" : "0";
-				let show4 = resource >= 4 ? "1" : "0";
-				let show6 = resource >= 6 ? "1" : "0";
-				let show8 = (resource >= 8 && level >= 4) ? "1" : "0";
-				let show10 = (resource >= 10 && level >= 7) ? "1" : "0";
-				let show12 = (resource >= 12 && level >= 10) ? "1" : "0";
-				setAttrs({
-					"growingresource_show_2": show2,
-					"growingresource_show_4": show4,
-					"growingresource_show_6": show6,
-					"growingresource_show_8": show8,
-					"growingresource_show_10": show10,
-					"growingresource_show_12": show12,
-				});		
-			}
-		});
-	}
 
-
-
-// Growing Resource
-	on("change:resource change:level", function() {
-		calculateGrowingResource();
-	});
-	
-	function calculateGrowingResource() {
-		console.log('~~~ calculateGrowingResource ~~~');
-		getAttrs(["is_npc","stats-minimize-checkbox","resource", "level"], function(values) {
+		const attributes = ["is_npc","stats-minimize-checkbox", "resource", "level"];
+		
+		
+		getAttrs(attributes, (values) => {
 			if (values["is_npc"] === "on") {
 				return;
-			}
-			let isChecked = values["stats-minimize-checkbox"] === "on";
+			}	
 			
-			if (isChecked) {
-				let resource = parseInt(values.resource)||0;
-				let level = parseInt(values.level)||0;
-				let show2 = resource >= 2 ? "1" : "0";
-				let show4 = resource >= 4 ? "1" : "0";
-				let show6 = resource >= 6 ? "1" : "0";
-				let show8 = (resource >= 8 && level >= 4) ? "1" : "0";
-				let show10 = (resource >= 10 && level >= 7) ? "1" : "0";
-				let show12 = (resource >= 12 && level >= 10) ? "1" : "0";
-				setAttrs({
-					"growingresource_show_2": show2,
-					"growingresource_show_4": show4,
-					"growingresource_show_6": show6,
-					"growingresource_show_8": show8,
-					"growingresource_show_10": show10,
-					"growingresource_show_12": show12,
-				});
-                       }
+			const isMinimized = values["stats-minimize-checkbox"] === "on";
+			const resource = parseInt(values.resource) || 0;
+			const level = parseInt(values.level) || 0;
+
+			// Define thresholds and their level requirements
+			const thresholds = [
+				{ val: 2,  lvl: 1 },
+				{ val: 4,  lvl: 1 },
+				{ val: 6,  lvl: 1 },
+				{ val: 8,  lvl: 4 },
+				{ val: 10, lvl: 7 },
+				{ val: 12, lvl: 10 }
+			];
+
+			const updateObj = {};
+
+			thresholds.forEach(t => {
+				const attrName = `growingresource_show_${t.val}`;
+				
+				if (!isMinimized) {
+					// If not minimized, show everything
+					updateObj[attrName] = "1";
+				} else {
+					// Otherwise, check both resource count and level requirement
+					const meetsRequirement = resource >= t.val && level >= t.lvl;
+					updateObj[attrName] = meetsRequirement ? "1" : "0";
+				}
+			});
+
+			setAttrs(updateObj);
 		});
 	}
-
-// Winded Calculation
-	on("change:stamina_max", function() {  
-		calculateWinded();
-	});
-
-// Surge and Potency Calculation
-	on("change:might change:agility change:reason change:intuition change:presence", function() {
-		calculateSurgePotency();
-	});
 	
+	// Calculates winded and dead values from stamina max
 	function calculateWinded() {
 		console.log('~~~ calculateWinded ~~~');
 		getAttrs(["stamina_max"], function(values) {
@@ -5685,6 +5625,7 @@
 		});
 	}
 	
+	// Picks highest characteristic and calculates potencies and surge damage from it.
 	function calculateSurgePotency() {
 		console.log('~~~ calculateSurgeDamage ~~~');
 		getAttrs(["might", "agility", "reason", "intuition", "presence"], function(attrs) {
@@ -5702,11 +5643,7 @@
 		});
 	}
 
-// Start Combat Calculation
-	on("clicked:startcombat", function() {
-		calculateStartCombat();
-	});
-
+	// Adds victories to heroic resources at start of combat
 	function calculateStartCombat() {
 		console.log('~~~ calculateStartCombat ~~~');
 		getAttrs(["victories"], function(values) {
@@ -5717,11 +5654,7 @@
 		});
 	}
 
-// End Combat Calculation
-	on("clicked:endcombat", function() {
-		calculateEndCombat();
-	});
-
+	// Resets heroic resources, surges, and temp stamina after combat
 	function calculateEndCombat() {
 		console.log('~~~ calculateEndCombat ~~~');
 		getAttrs(["resource", "surges", "stamina_temporary"], function(values) {
@@ -5731,16 +5664,12 @@
 			setAttrs({                            
 				"resource": 0,
 				"surges": 0,
-                                "stamina_temporary": 0			
+                "stamina_temporary": 0			
 			});
 		});
 	}
-
-// Respite Calculation
-	on("clicked:respite", function() {
-		calculateRespite();
-	});
-
+	
+	// Converts Victories to XP and resets character sheet for Respite
 	function calculateRespite() {
 		console.log('~~~ calculateRespite ~~~');
 		getAttrs(["stamina_max", "recoveries_max", "victories", "experience"], function(values) {
@@ -5846,24 +5775,6 @@
 		return flattenedFeatures;
 	}
 	
-	/**
-	 * Removes all rows from a given repeating section.
-	 * @param {string} sectionName The name of the section (e.g., 'abilities', 'modifiers').
-	 */
-	async function clearRepeatingSection(sectionName) {
-		try {
-			const rowIDs = await getSectionIDsAsync(sectionName);
-			// Create an array of promises for each row removal.
-			const removalPromises = rowIDs.map(id => 
-				removeRepeatingRow(`repeating_${sectionName}_${id}`)
-			);
-			// Execute all removals concurrently.
-			await Promise.all(removalPromises);
-		} catch (error) {
-			console.error(`Failed to clear repeating section "${sectionName}":`, error);
-		}
-	}
-	
 	// Configuration mapping ability usage types to sheet section details.
 	const ABILITY_TYPE_MAP = {
 		'Main Action':      { section: 'abilities',    prefix: 'ability',   type: 'main-action' },
@@ -5873,91 +5784,10 @@
 		'Villain Action':   { section: 'npcabilities', prefix: 'ability',   type: 'no-action' },
 		'default':          { section: 'noaction',     prefix: 'noaction',  type: 'no-action' }
 	};
-
-	/**
-	 * Processes ability data into a flat object for setting repeating section attributes.
-	 * @param {object} abilityData The JSON object for a single ability.
-	 * @returns {object} An object of attribute keys and values for setAttrs.
-	 */
-	function processAbility(abilityData) {
-		// 1. Determine ability type and get configuration.
-
-		const usage = abilityData.type.usage;
-		const config = ABILITY_TYPE_MAP[usage] || ABILITY_TYPE_MAP.default;
-		const id = generateRowID();
-		const cost = abilityData.cost === 'signature' ? abilityData.cost : parseInt(abilityData.cost) || 0;
-		
-		let subtype = 'normal-ability';
-		if (cost === 'signature') {
-			subtype = 'signature-ability';
-		} else if (cost > 0) {
-			subtype = 'heroic-ability';
-		}
-		
-		// 2. Extract and format primary data fields.
-		const distanceInfo = abilityData.distance?.[0];
-		let distance = '';
-		if (distanceInfo) {
-			const valueTwo = (parseInt(distanceInfo.value2) > 0) ? ` x ${distanceInfo.value2}` : '';
-			const within = (parseInt(distanceInfo.within) > 0) ? ` within ${distanceInfo.within}` : '';
-			const type = distanceInfo.type;
-			const valueOne = distanceInfo.value ? distanceInfo.value : '';
-			distance = (type === 'Melee' || type === 'Ranged' || type === 'Self') ? `${type} ${valueOne}`.trim() : `${valueOne}${valueTwo} ${type}${within}`;
-		}
-		
-		const effect = abilityData.sections
-			.filter(s => s.type === 'text' || s.type === 'field')
-			.map(s => s.name ? `${s.name} ${s.value}: ${s.effect}` : s.text)
-			.join('\n');
-
-		// 3. Handle the conditional power roll section.
-		const powerRollSection = abilityData.sections.find(s => s.type === 'roll');
-		
-		// 4. Assemble the final attribute object.
-		const attributes = {
-			[`repeating_${config.section}_${id}_${config.prefix}_name`]: abilityData.name,
-			[`repeating_${config.section}_${id}_${config.prefix}_description`]: abilityData.description,
-			[`repeating_${config.section}_${id}_${config.prefix}_type`]: config.type,
-			[`repeating_${config.section}_${id}_${config.prefix}_subtype`]: subtype,
-			[`repeating_${config.section}_${id}_${config.prefix}_keywords`]: abilityData.keywords.join(', '),
-			[`repeating_${config.section}_${id}_${config.prefix}_trigger`]: abilityData.type.trigger ?? '',
-			[`repeating_${config.section}_${id}_${config.prefix}_distance`]: distance,
-			[`repeating_${config.section}_${id}_${config.prefix}_target`]: abilityData.target,
-			[`repeating_${config.section}_${id}_${config.prefix}_cost`]: parseInt(abilityData.cost) || 0,
-			[`repeating_${config.section}_${id}_${config.prefix}_effect`]: effect,
-			[`repeating_${config.section}_${id}_has_effect`]: effect ? 'on' : 0,
-			[`repeating_${config.section}_${id}_has_power_roll`]: powerRollSection ? 'on' : 0,
-		};
-		
-		if (powerRollSection) {
-			Object.assign(attributes, {
-				[`repeating_${config.section}_${id}_${config.prefix}_characteristic`]: powerRollSection.roll.characteristic[0].toLowerCase(),
-				[`repeating_${config.section}_${id}_${config.prefix}_tier_1`]: powerRollSection.roll.tier1,
-				[`repeating_${config.section}_${id}_${config.prefix}_tier_2`]: powerRollSection.roll.tier2,
-				[`repeating_${config.section}_${id}_${config.prefix}_tier_3`]: powerRollSection.roll.tier3,
-			});
-		}
-
-		return attributes;
-	}
 		
 	/**
-	* Extracts Class abilities from the import data.
-	* Constructs a list of ability ids and the pulls them from the full list in the import data.
-	*
-	* @param {Array<Object>} forgesteelData - The import data object.
-	* @param <String>  abilityIds - The ability id to look for. 
-	* @returns {Array<Object>} The ability data for the found ability.
-	*/
-	function extractClassAbility(forgesteelData, abilityId) {
-		const ability = forgesteelData.class.abilities.find(x => x.id === abilityId);
-		console.log(`Found Ability ${abilityId}`, ability);
-		return ability;
-	}	
-	
-	/**
-	 * A collection of constant values used for filtering and identifying feature types.
-	 * This prevents typos and centralizes key strings for easy updates.
+	 * A collection of feature types used in Forge Steel files.
+	 * Used for importing features and abilities from Forge Steel.
 	 */
 	const FEATURE_TYPES = {
 		BONUS: 'Bonus',
@@ -5974,10 +5804,13 @@
 		ABILITY: 'Ability',
 		CLASS_ABILITY: 'Class Ability',
 		CHARACTERISTIC_BONUS: 'Characteristic Bonus',
+		MALICE_ABILITY: 'Malice Ability',
+		CONDITION_IMMUNITY: 'Condition Immunity',
 	};
 
 	/**
 	 * A list of all possible damage types in the system.
+	 * Used for processing Damage Modifiers (Immunity, Weakness)
 	 */
 	const DAMAGE_TYPES = [
 		'Acid', 'Cold', 'Corruption', 'Fire', 'Holy', 'Lightning',
@@ -5985,7 +5818,8 @@
 	];
 
 	/**
-	 * An object grouping skill names by their respective categories.
+	 * Skill and their respective skill groups.
+	 * Used to sort imported skills into their respective categories.
 	 */
 	const SKILL_GROUPS = {
 		crafting: ['Alchemy', 'Architecture', 'Blacksmithing', 'Carpentry', 'Cooking', 'Fletching', 'Forgery', 'Jewelry', 'Mechanics', 'Tailoring'],
@@ -6037,7 +5871,7 @@
 			.filter(f => f.type === FEATURE_TYPES.BONUS && f.data.field === statName)
 			.reduce((acc, feature) => {
 				const d = feature.data;
-		
+				
 				// Static base value
 				let featureSum = d.value;
 			
@@ -6050,7 +5884,7 @@
 				// Characteristic-based scaling (e.g., Null Speed, Inescapable Wrath)
 				if (d.valueCharacteristics && d.valueCharacteristics.length > 0) {
 					d.valueCharacteristics.forEach(charName => {
-						const charValue = characteristics[charName] || 0;
+						const charValue = characteristics[charName.toLowerCase()] || 0;
 						featureSum += (charValue * d.valueCharacteristicMultiplier);
 					});
 				}	
@@ -6120,9 +5954,26 @@
 			.filter(f => f.type === FEATURE_TYPES.SKILL_CHOICE)
 			.flatMap(f => f.data.selected)
 			.filter(skill => skillGroup.includes(skill))
+			.sort()
 			.join(', ');
 	};
-
+	
+	/**
+	* Extracts Class abilities from the import data.
+	* Constructs a list of ability ids and the pulls them from the full list in the import data.
+	* @param {Array<Object>} forgesteelData - The import data object.
+	* @param <String>  abilityIds - The ability id to look for. 
+	* @returns {Array<Object>} The ability data for the found ability.
+	*/
+	function extractClassAbility(forgesteelData, abilityId) {
+		const ability = forgesteelData.class.abilities.find(x => x.id === abilityId);
+		console.log(`Found Ability ${abilityId}`, ability);
+		return ability;
+	}	
+	
+	/* 
+	 * Extracts ancestry features from the import data
+	 */
 	const extractAncestryFeatures = (data) => {
 		const features = data.features;
 		let result = [];
@@ -6140,10 +5991,8 @@
 						});
 					}
 				});
-			}
-	
-			// Handle the selected traits
-			if (feature.type === "Choice" && feature.data.selected) {
+			} else if (feature.type === "Choice" && feature.data.selected) {
+				// Handle selected features
 				feature.data.selected.forEach(selection => {
 					result.push({
 						id: selection.id,
@@ -6151,501 +6000,646 @@
 						description: selection.description
 					});
 				});
+			} else {
+				//Everything else
+				result.push({
+					id: feature.id,
+					name: feature.name,
+					description: feature.description
+				});
 			}
+			
 		});
 		console.log(result);
 		return result;
 	};
 
-	// --- Main Event Listener ---
+	/*
+	 * Parses kit information from features.
+	 */
+	const parseKits = (allFeatures) => {
+		return allFeatures
+			.filter(f => f.type === FEATURE_TYPES.KIT_STATS)
+			.reduce((acc, kit) => ({
+				modifier_name: acc.modifier_name ? `${acc.modifier_name} | ${kit.name}` : kit.name,
+				kit_weapon: acc.kit_weapon ? `${acc.kit_weapon}, ${kit.weapon.join(', ')}` : kit.weapon.join(', '),
+				kit_armor: acc.kit_armor ? `${acc.kit_armor}, ${kit.armor.join(', ')}` : kit.armor.join(', '),
+				kit_speed: Math.max(acc.kit_speed || 0, parseInt(kit.speed || 0)),
+				kit_disengage: Math.max(acc.kit_disengage || 0, parseInt(kit.disengage || 0)),
+				kit_stamina: Math.max(acc.kit_stamina || 0, parseInt(kit.stamina || 0)),
+				kit_stability: Math.max(acc.kit_stability || 0, parseInt(kit.stability || 0)),
+				kit_melee_distance: Math.max(acc.kit_melee_distance || 0, parseInt(kit.meleeDistance || 0)),
+				kit_ranged_distance: Math.max(acc.kit_ranged_distance || 0, parseInt(kit.rangedDistance || 0)),
+				// Note: These overwrite if multiple kits exist; consider if sheet supports multiple kit dmg
+				kit_melee_damage_1: kit.meleeDamage?.tier1,
+				kit_melee_damage_2: kit.meleeDamage?.tier2,
+				kit_melee_damage_3: kit.meleeDamage?.tier3,
+				modifier_description: acc.modifier_description ? `${acc.modifier_description}\n\n${kit.description}` : kit.description
+			}), {});
+	};
+	
+	/* 
+	 * Parses repeating sections.
+	 */
+	const parseRepeatingSection = (features, prefix, nameAttr, descAttr) => {
+		return features.reduce((acc, f) => {
+			const id = generateRowID();
+			acc[`repeating_${prefix}_${id}_${nameAttr}`] = f.name;
+			acc[`repeating_${prefix}_${id}_${descAttr}`] = f.description || f.data?.description || '';
+			return acc;
+		}, {});
+	};
+	
+	/**
+	 * Processes an array of features and returns a unique, 
+	 * comma-separated string of condition immunities.
+	 * @param {Array} allFeatures - The array of feature objects from the import.
+	 * @returns {string} - A comma-separated list (e.g., "Slowed, Blinded").
+	 */
+	function getConditionImmunities(allFeatures) {
+		console.log('~~~ getConditionImmunities ~~~');
+		// Filter for "Condition Immunity" types
+		// Map to the conditions array inside 'data'
+		// Flatten the arrays into a single list of strings
+		const immunityList = allFeatures
+			.filter(feature => feature.type === FEATURE_TYPES.CONDITION_IMMUNITY)
+			.flatMap(feature => feature.data?.conditions || []);
 
-	on('clicked:import', async () => {
+		// Use a Set to remove any potential duplicates from multiple features
+		const uniqueImmunities = [...new Set(immunityList)];
+
+		// Return as a formatted string
+		return uniqueImmunities.join(', ');
+	}
+	
+	/* 
+	 * Loads Forge Steel data from attr_forgesteel_json and returns the parsed JSON.
+	 */
+	async function loadForgeSteelData() {
 		try {
-			// 1. DATA RETRIEVAL & PARSING
-			// ---------------------------
-			// Get the raw JSON string from the character sheet attributes.
 			const { forgesteel_json } = await getAttrsAsync(['forgesteel_json']);
 			if (!forgesteel_json) {
 				console.warn('Import data is empty. Aborting.');
 				return;
 			}
 
-			const data = JSON.parse(forgesteel_json);
-			const {
-				name: character_name,
-				ancestry,
-				class: characterClass, 
-				career,
-				state,
-				culture,
-				complication,
-			} = data;
-			
-			// Collate all features from different sources into one array for easier processing.
-			const allFeatures = getFeatures(data);
-			const level = characterClass.level;
+			console.log('Loading Data');
+			return JSON.parse(forgesteel_json);
+		} catch (error) {
+			console.error("Failed to import Forge Steel data. Please ensure the JSON is valid.", error);
+			return;
+		}
+	}
 
-
-			// 2. CORE CHARACTER INFORMATION
-			// -----------------------------
-			const subclass = [
-				...characterClass.subclasses.filter(sc => sc.selected).map(sc => sc.name),
-				...allFeatures.filter(f => f.type === FEATURE_TYPES.DOMAIN_CHOICE).map(f => f.name),
-			].join(', ');
-			
-			// Primary characteristics (attributes).
-			const baseCharacteristics = characterClass.characteristics.reduce((acc,item) => { acc[item.characteristic] = item.value; return acc;}, {});
-			const might = calculateCharacteristic(allFeatures, 'Might', baseCharacteristics.Might);
-			const agility = calculateCharacteristic(allFeatures, 'Agility', baseCharacteristics.Agility);
-			const reason = calculateCharacteristic(allFeatures, 'Reason', baseCharacteristics.Reason);
-			const intuition = calculateCharacteristic(allFeatures, 'Intuition', baseCharacteristics.Intuition);
-			const presence = calculateCharacteristic(allFeatures, 'Presence', baseCharacteristics.Presence);
-			const characteristics = {
-				Might: might,
-				Agility: agility,
-				Reason: reason,
-				Intuition: intuition,
-				Presence: presence,
+	/**
+	* Helper to parse Solo/Ajax monster traits into specific sheet fields
+	*/
+	const parseSoloTrait = (description) => {
+		const parts = description.trim().split('\n');
+		const parsePart = (part) => {
+			// Removes markdown bolding and splits key from value
+			const clean = (part || '').replace(/\* \*\*/g, '').replace(/\*\*/g, '');
+			const splitIndex = clean.indexOf(' ');
+			return {
+				name: clean.substring(0, splitIndex).trim(),
+				text: clean.substring(splitIndex).trim()
 			};
-
-			// 3. DERIVED & COMBAT STATISTICS
-			// ------------------------------
-			//Potency can be calculated by the helper function later
-			//const potency_strong = Math.max(might, agility, reason, intuition, presence);
+		};
+	
+		const first = parsePart(parts[0]);
+		const second = parsePart(parts[1]);
+	
+		return {
+			ability_subtype: 'solo-monster',
+			ability_solo_1_name: first.name,
+			ability_solo_1_text: first.text,
+			ability_solo_2_name: second.name,
+			ability_solo_2_text: second.text
+		};
+	};
+	
 			
-			const sizeObject = allFeatures.find(f => f.type === FEATURE_TYPES.SIZE)?.data.size ?? { value: 1, mod: 'M' };
-			const size = `${sizeObject.value}${sizeObject.mod ?? ''}`;
+	// --- Import Player Event Listener ---
+	on('clicked:import', async () => {
+		try {
+			// Get the raw JSON string from the character sheet attributes.
+			const data = await loadForgeSteelData();
+			if (!data) { return };
 			
-			const baseSpeed = allFeatures.find(f => f.type === FEATURE_TYPES.SPEED)?.data.speed ?? 5;
-			const speed = calculateModifiedStat('Speed', baseSpeed, level, characteristics ,allFeatures);
-			const disengage = calculateModifiedStat('Disengage', 1, level, characteristics ,allFeatures);
-			const stability = calculateCombatStat(allFeatures, 'Stability', 0);
-			const wealth = calculateCombatStat(allFeatures, 'Wealth', state.wealth);
-			const renown = calculateCombatStat(allFeatures, 'Renown', state.renown);
+			// Check that the data is for a player
+			if (data.hasOwnProperty('class')) {
+				importPlayer(data);
+			} 
 			
-			// Stamina 
-			const stamina_max = calculateModifiedStat('Stamina', 0, level, characteristics ,allFeatures);
-			const stamina = parseInt(stamina_max) - parseInt(state.staminaDamage);
-			
-			// Recoveries
-			const recoveries_max = allFeatures
-				.filter(f => f.type === FEATURE_TYPES.BONUS && f.data.field === 'Recoveries')
-				.reduce((sum, f) => sum + f.data.value, 0);
-				
-			const recoveries = parseInt(recoveries_max) - parseInt(state.recoveriesUsed)	
-			
-			const immunity = getDamageModifiers(allFeatures, level, 'Immunity');
-			const weakness = getDamageModifiers(allFeatures, level, 'Weakness');
-			
-			const resource_name = allFeatures.find(f => f.type === FEATURE_TYPES.HEROIC_RESOURCE)?.name ?? '';
-			const resource = allFeatures.find(f => f.type === FEATURE_TYPES.HEROIC_RESOURCE)?.value ?? '';
-			const resource_amount = allFeatures
-				.find(f => f.type === FEATURE_TYPES.HEROIC_RESOURCE).data.gains
-				.find(f => f.tag === "start").value ?? '1d3'; 
-			const resource_description = allFeatures
-				.find(f => f.type === FEATURE_TYPES.HEROIC_RESOURCE).data.gains
-				.map(i => `+${i.value}: ${i.trigger}`)
-				.join('\n');
-
-			// 4. BIOGRAPHICAL INFORMATION
-			// ---------------------------
-			let careertext = '';
-			for (feature of career.features) {
-				if (feature.type.includes("Choice")) {
-					careertext = careertext + `${feature.name}: ${feature.data.selected.join(', ')}\n`;
-				} else if (feature.type === "Perk") {
-					careertext = careertext + `${feature.name}: ${feature.data.selected[0].name}\n`;
-				} else {
-					careertext = careertext + `${feature.name}: +${feature.data.value}\n`;
-				}	
-			}
-			const career_benefit = careertext;
-					
-			const career_incident = career.incitingIncidents.selected ? `${career.incitingIncidents.selected.name}\n${career.incitingIncidents.selected.description}` : '';
-
-			// 5. SKILLS & LANGUAGES
-			// ---------------------
-			const skills_crafting = getSkillsByGroup(allFeatures, SKILL_GROUPS.crafting);
-			const skills_exploration = getSkillsByGroup(allFeatures, SKILL_GROUPS.exploration);
-			const skills_interpersonal = getSkillsByGroup(allFeatures, SKILL_GROUPS.interpersonal);
-			const skills_intrigue = getSkillsByGroup(allFeatures, SKILL_GROUPS.intrigue);
-			const skills_lore = getSkillsByGroup(allFeatures, SKILL_GROUPS.lore);
-
-			const languages = [
-				...culture.languages,
-				...allFeatures.filter(f => f.type === FEATURE_TYPES.LANGUAGE_CHOICE).flatMap(f => f.data.selected),
-			].join(', ');
-
-			// 6. REPEATING SECTIONS (Kits, Perks, Abilities, etc.)
-			// ----------------------------------------------------
-			// Process kits into a format suitable for setAttrs.
-			const kits = allFeatures
-				.filter(f => f.type === FEATURE_TYPES.KIT_STATS)
-				.reduce((acc, kit) => {
-					acc['modifier_name'] = !acc['modifier_name'] ? kit.name : acc['modifier_name'] + ' | ' + kit.name;
-					acc['kit_weapon'] = !acc['kit_weapon'] ? kit.weapon.join(', ') : acc['kit_weapon'] + ', ' + kit.weapon.join(', ');
-					acc['kit_armor'] = !acc['kit_armor'] ? kit.armor.join(', ') : acc['kit_armor'] + ', ' + kit.armor.join(', ');
-					acc['kit_speed'] = Math.max(acc['kit_speed'] ?? 0, parseInt(kit.speed));
-					acc['kit_disengage'] = Math.max(acc['kit_disengage'] ?? 0, parseInt(kit.disengage));
-					acc['kit_stamina'] = Math.max(acc['kit_stamina'] ?? 0, parseInt(kit.stamina));
-					acc['kit_stability'] = Math.max(acc['kit_stability'] ?? 0, parseInt(kit.stability));
-					acc['kit_melee_distance'] = Math.max(acc['kit_melee_distance'] ?? 0, parseInt(kit.meleeDistance));
-					acc['kit_ranged_distance'] = Math.max(acc['kit_ranged_distance'] ?? 0, parseInt(kit.rangedDistance));
-					if (kit.meleeDamage) {
-						acc['kit_melee_damage_1'] = kit.meleeDamage.tier1;
-						acc['kit_melee_damage_2'] = kit.meleeDamage.tier2;
-						acc['kit_melee_damage_3'] = kit.meleeDamage.tier3;
-					}
-					if (kit.rangedDamage) {
-						acc['kit_ranged_damage_1'] = kit.rangedDamage.tier1;
-						acc['kit_ranged_damage_2'] = kit.rangedDamage.tier2;
-						acc['kit_ranged_damage_3'] = kit.rangedDamage.tier3;
-					}
-					acc['modifier_description'] = !acc['modifier_description'] ? kit.description : acc['modifier_description'] + '\n\n' + kit.description;
-					return acc;
-				}, {});
-
-			// Process perks, ancestry traits, features, and abilities.
-			const perks = allFeatures
-				.filter(f => f.id.startsWith('perk-') && f.type === FEATURE_TYPES.TEXT)
-				.reduce((acc, f) => { 
-					const id = generateRowID();
-					acc[`repeating_perks_${id}_perk_name`] = f.name;
-					acc[`repeating_perks_${id}_perk_description`] = f.description;
-					return acc; }, {});
-			
-			const ancestryFeatures = extractAncestryFeatures(data.ancestry)
-				.filter(f => f.description)
-				.reduce((acc, f) => {
-					const id = generateRowID();
-					acc[`repeating_ancestrytraits_${id}_ancestrytrait_name`] = f.name;
-					acc[`repeating_ancestrytraits_${id}_ancestrytrait_description`] = f.description;
-					return acc;
-				}, {});
-				
-			const classFeatures = allFeatures
-				.filter(f => f.type === FEATURE_TYPES.TEXT && (!f.id.startsWith('perk-') && !f.id.startsWith(ancestry.name.toLowerCase())))
-				.reduce((acc, f) => {
-					const id = generateRowID();
-					acc[`repeating_classfeatures_${id}_classfeature_name`] = f.name;
-					acc[`repeating_classfeatures_${id}_classfeature_description`] = f.description;
-					return acc;
-				}, {});
-				
-			const abilityFeatures = allFeatures
-				.filter(f => f.type === FEATURE_TYPES.ABILITY)
-				.reduce((acc, f) => ({ ...acc, ...processAbility(f.data.ability) }), {});
-				
-			const classAbilities = allFeatures
-				.filter(f => f.type === FEATURE_TYPES.CLASS_ABILITY)
-				.flatMap(f => f.data.selectedIDs)
-				.reduce((acc, id) => {
-					const abilityData = extractClassAbility(data, id);
-					return { ...acc, ...processAbility(abilityData) };
-				}, {});
-
-
-			// 7. FINAL ASSEMBLY & ATTRIBUTE SETTING
-			// -------------------------------------
-			// Consolidate all processed data into a single object for setAttrs.
-			const newAttrs = {
-				forgesteel_json: '', // Clear the import field.
-				// Core Info
-				character_name,
-				ancestry: ancestry.name,
-				class: characterClass.name,
-				career: career.name,
-				subclass,
-				victories: state.victories,
-				level,
-				wealth,
-				renown,
-				experience: state.xp,
-				// Characteristics
-				might,
-				agility,
-				reason,
-				intuition,
-				presence,
-				// Derived Stats
-				//potency_strong,
-				//potency_average: potency_strong - 1,
-				//potency_weak: potency_strong - 2,
-				size,
-				speed,
-				disengage,
-				stability,
-				stamina,
-				stamina_max,
-				stamina_winded: Math.floor(stamina_max / 2),
-				stamina_dead: -Math.floor(stamina_max / 2),
-				recoveries,
-				recoveries_max,
-				recovery_amount: Math.floor(stamina_max / 3),
-				surges: state.surges,
-				immunity,
-				weakness,
-				resource,
-				resource_name,
-				resource_amount,
-				resource_description,
-				//surge_damage: potency_strong,
-				// Biography
-				career_benefit,
-				career_incident,
-				complication: complication?.name ?? '',
-				complication_benefit: complication?.features[0]?.description ?? '',
-				complication_drawback: complication?.features[1]?.description ?? '',
-				culture_environment: culture.environment.name,
-				culture_environment_description: culture.environment.description,
-				culture_organization: culture.organization.name,
-				culture_organization_description: culture.organization.description,
-				culture_upbringing: culture.upbringing.name,
-				culture_upbringing_description: culture.upbringing.description,
-				// Skills & Languages
-				skills_crafting,
-				skills_exploration,
-				skills_interpersonal,
-				skills_intrigue,
-				skills_lore,
-				languages,
-				// Spread in kits and repeating section data
-				...kits,
-				...perks,
-				...ancestryFeatures,
-				...classFeatures,
-				...abilityFeatures,
-				...classAbilities,
-			};
-
-			// Clear existing repeating sections before adding new data.
-			await Promise.all([
-				clearRepeatingSection('modifiers'),
-				clearRepeatingSection('perks'),
-				clearRepeatingSection('ancestrytraits'),
-				clearRepeatingSection('classfeatures'),
-				clearRepeatingSection('abilities'),
-				clearRepeatingSection('noaction'),
-				clearRepeatingSection('maneuvers'),
-				clearRepeatingSection('triggered'),
-				clearRepeatingSection('moves'),
-			]);
-
-			// Set the new attributes on the character sheet.
-			await setAttrsAsync(newAttrs);
-			
-			//Last bit of character sheet setup
-			calculateWinded();
-			calculateSurgePotency();
-			
-			console.log('Character import successful!', newAttrs);
 
 		} catch (error) {
-			console.error("Failed to import character data. Please ensure the JSON is valid.", error);
+			console.error("Failed to import character data.", error);
 		}
 	});
 	
-	/* Monster Import */
+	// --- Import Monster Event Listener ---
 	on('clicked:importmonster', async () => {
 		try {
-			// 1. DATA RETRIEVAL & PARSING
-			// ---------------------------
 			// Get the raw JSON string from the character sheet attributes.
-			const { forgesteel_json } = await getAttrsAsync(['forgesteel_json']);
-			if (!forgesteel_json) {
-				console.warn('Import data is empty. Aborting.');
-				return;
+			const data = await loadForgeSteelData();
+			if (!data) { return };
+			
+			// Check if the data is for a single monster or a monster group
+			if (data.hasOwnProperty('role')) {
+				importMonster(data, []);
+			} else if (data.hasOwnProperty('monsters')) {
+				// iterate through the monsters and add them to a list.
+				
+				let queryString = `!{{template:default}}{{ask=![[?{${getTranslationByKey('import-monster')}|${getTranslationByKey('import-select-prompt')},-1`;
+				for (const [index, monster] of data.monsters.entries()) {
+					
+					queryString += '|' + monster.name + ', ' + index.toString();
+				}
+				queryString += '}]]}}';
+				
+				// Use a roll to provide the user with an choice of the monsters in the
+				const results = await startRoll(queryString);
+				finishRoll( results.rollId );
+				const choice = results.results.ask.result;
+				if (parseInt(choice) < 0) {
+					console.log('Invalid monster selection');
+					return;
+				}
+				await importMonster(data.monsters[choice], data.malice);
+				console.log(data.monsters[choice].name);
 			}
-
-			const data = JSON.parse(forgesteel_json);
-						
-			// 2. CORE MONSTER INFORMATION
-			// -----------------------------
 			
-			// Primary characteristics (attributes).
-			const findCharacteristic = (name) => data.characteristics.find(c => c.characteristic === name)?.value || 0;
-			const might = findCharacteristic('Might');
-			const agility = findCharacteristic('Agility');
-			const reason = findCharacteristic('Reason');
-			const intuition = findCharacteristic('Intuition');
-			const presence = findCharacteristic('Presence');
-			
-			// Keywords and Role
-			const keywords = data.keywords.join(', ');
-			const roletype = data.role.type === 'No Role' ? '' : ` ${data.role.type}`;
-			const role = `${data.role.organization}${roletype}`;
-
-			// Size, Speed and Movement Types
-			const sizeObject = data.size ?? { value: 1, mod: 'M' };
-			const size = `${sizeObject.value}${sizeObject.mod ?? ''}`;
-			const speed = data.speed.value ?? 5;
-			const movement = data.speed.modes.join(', ') ?? '';  
-			
-			// Stability and Stamina
-			const stability = data.stability ?? 0;
-			const stamina = data.stamina ?? 0;
-			
-			// Immunities and Weaknesses
-			const immunity = getDamageModifiers(data.features, 1, 'Immunity');
-			const weakness = getDamageModifiers(data.features, 1, 'Weakness');
-			
-			// EV, With Captain, and Free Strike Damage
-			const encountervalue = data.encounterValue;
-			const withcaptain = data.withCaptain;
-			const freestrike = data.freeStrikeDamage;
-		
-			// 3. REPEATING ABILITIES
-			// ----------------------------------------------------
-			
-			const traits = data.features
-				.filter(f => f.type === FEATURE_TYPES.TEXT)
-				.reduce((acc, f) => {
-					const id = generateRowID();
-					if (f.name === 'Solo Monster' || f.name === 'Ajax') {
-						const parts = f.description.trim().split('\n');
-						
-						const firstPart = parts[0].replace('* **', '').split('** ');
-						const soloOne = firstPart[0];
-						const soloOneText = firstPart[1];
-
-						const secondPart = parts[1].replace('* **', '').split('** ');
-						const soloTwo = secondPart[0];
-						const soloTwoText = secondPart[1];
-
-						acc[`repeating_npcabilities_${id}_ability_name`] = f.name;
-						acc[`repeating_npcabilities_${id}_ability_subtype`] = 'solo-monster';
-						acc[`repeating_npcabilities_${id}_ability_solo_1_name`] = soloOne;
-						acc[`repeating_npcabilities_${id}_ability_solo_1_text`] = soloOneText;
-						acc[`repeating_npcabilities_${id}_ability_solo_2_name`] = soloTwo;
-						acc[`repeating_npcabilities_${id}_ability_solo_2_text`] = soloTwoText;
-					} else {
-						acc[`repeating_npcabilities_${id}_ability_name`] = f.name;
-						acc[`repeating_npcabilities_${id}_ability_subtype`] = 'trait';
-						acc[`repeating_npcabilities_${id}_ability_trait`] = f.description;
-					}
-					return acc;
-				}, {});
-				
-			const abilityFeatures = data.features
-				.filter(f => f.type === FEATURE_TYPES.ABILITY)
-				.reduce((acc, f) => ({ ...acc, ...processMonsterAbility(f.data.ability) }), {});
-				
-
-
-			// 4. FINAL ASSEMBLY & ATTRIBUTE SETTING
-			// -------------------------------------
-			// Consolidate all processed data into a single object for setAttrs.
-			const newAttrs = {
-				forgesteel_json: '', // Clear the import field.
-				is_npc: 'on',
-				
-				// Core Info
-				character_name: data.name,
-				level: data.level,
-				npc_role: role,
-				npc_keywords: keywords,
-				npc_EV: encountervalue,
-				// Stats
-				size,
-				speed,
-				stamina,
-				stability: stability,
-				npc_freestrike: freestrike,
-				
-				immunity,
-				weakness,
-				npc_movement: movement,
-				npc_with_captain: withcaptain,
-				
-				might,
-				agility,
-				reason,
-				intuition,
-				presence,
-				// Spread in repeating section data
-				...traits,
-				...abilityFeatures,
-			};
-
-			// Clear existing repeating sections before adding new data.
-			await clearRepeatingSection('npcabilities');
-			await clearRepeatingSection('malice');
-			await clearRepeatingSection('villainaction');
-			
-			// Set the new attributes on the character sheet.
-			await setAttrsAsync(newAttrs);
-			
-			console.log('Monster import successful!', newAttrs);
-
 		} catch (error) {
-			console.error("Failed to import monster data. Please ensure the JSON is valid.", error);
+			console.error("Failed to import monster data.", error);
 		}
 	});
 
+	
 	/**
+	 * Imports player data from a loaded JSON file
+	 * @param {object} data the loaded and validated JSON file
+	 **/
+	async function importPlayer(data) {
+		console.log('~~~ importPlayer ~~~');
+		
+		if (!data) {
+			console.log('No Player Data Found');
+			return;
+		}
+		const {
+			name: character_name,
+			ancestry,
+			career,
+			state,
+			culture,
+			complication,
+		} = data;
+		const characterClass = data.class
+		
+		// Collate all features from different sources into one array for easier processing.
+		const allFeatures = getFeatures(data);
+		const level = characterClass.level;
+
+
+		// CORE CHARACTER INFORMATION
+		const subclass = [
+			...characterClass.subclasses.filter(sc => sc.selected).map(sc => sc.name),
+			...allFeatures.filter(f => f.type === FEATURE_TYPES.DOMAIN_CHOICE).map(f => f.name),
+		].join(', ');
+			
+		// Primary characteristics (attributes).
+		const baseStats = characterClass.characteristics.reduce((acc, i) => ({ ...acc, [i.characteristic]:i.value }), {});
+		const characteristics = ['Might', 'Agility', 'Reason', 'Intuition', 'Presence'].reduce((acc, s) => {
+			acc[s.toLowerCase()] = calculateCharacteristic(allFeatures, s, baseStats[s]);
+			return acc;
+		}, {});
+			
+		// DERIVED & COMBAT STATISTICS
+		const baseSpeed = allFeatures.find(f => f.type === FEATURE_TYPES.SPEED)?.data.speed ?? 5;
+			
+		// Stamina 
+		const stamina_max = calculateModifiedStat('Stamina', 0, level, characteristics ,allFeatures);
+			
+		// Recoveries
+		const recoveries_max = allFeatures
+			.filter(f => f.type === FEATURE_TYPES.BONUS && f.data.field === 'Recoveries')
+			.reduce((sum, f) => sum + f.data.value, 0);
+				
+		const recoveries = parseInt(recoveries_max) - parseInt(state.recoveriesUsed);
+			
+		// HEROIC RESOURCES
+		const resFeature = allFeatures.find(f => f.type === FEATURE_TYPES.HEROIC_RESOURCE);
+		const resGains = resFeature?.data?.gains || [];
+	
+		// BIOGRAPHICAL INFORMATION
+		let careertext = '';
+		for (feature of career.features) {
+			if (feature.type.includes("Choice")) {
+				careertext = careertext + `${feature.name}: ${feature.data.selected.join(', ')}\n`;
+			} else if (feature.type === "Perk") {
+				careertext = careertext + `${feature.name}: ${feature.data.selected[0].name}\n`;
+			} else {
+				careertext = careertext + `${feature.name}: +${feature.data.value}\n`;
+			}	
+		}
+		const career_benefit = careertext;
+		
+		const career_incident = career.incitingIncidents.selected ? `${career.incitingIncidents.selected.name}\n${career.incitingIncidents.selected.description}` : '';
+		
+		// SKILLS & LANGUAGES
+		const skills_crafting = getSkillsByGroup(allFeatures, SKILL_GROUPS.crafting);
+		const skills_exploration = getSkillsByGroup(allFeatures, SKILL_GROUPS.exploration);
+		const skills_interpersonal = getSkillsByGroup(allFeatures, SKILL_GROUPS.interpersonal);
+		const skills_intrigue = getSkillsByGroup(allFeatures, SKILL_GROUPS.intrigue);
+		const skills_lore = getSkillsByGroup(allFeatures, SKILL_GROUPS.lore);
+
+		const languages = [
+			...culture.language.data.selected,
+			...allFeatures.filter(f => f.type === FEATURE_TYPES.LANGUAGE_CHOICE).flatMap(f => f.data.selected),
+		].sort().join(', ');
+
+		// REPEATING SECTIONS (Kits, Perks, Abilities, etc.)
+		const kits = parseKits(allFeatures);
+
+		// Process perks, ancestry traits, features, and abilities.
+		const perks = parseRepeatingSection(
+			allFeatures.filter(f => f.id.startsWith('perk-') && f.type === FEATURE_TYPES.TEXT),
+			'perks', 'perk_name', 'perk_description'
+		);
+			
+		const ancestryFeatures = parseRepeatingSection(
+			extractAncestryFeatures(data.ancestry).filter(f => f.description),
+			'ancestrytraits', 'ancestrytrait_name', 'ancestrytrait_description'
+		);
+				
+		const classFeatures = allFeatures
+			.filter(f => f.type === FEATURE_TYPES.TEXT && (!f.id.startsWith('perk-') && !f.id.startsWith(ancestry.name.toLowerCase())))
+			.reduce((acc, f) => {
+				const id = generateRowID();
+				acc[`repeating_classfeatures_${id}_classfeature_name`] = f.name;
+				acc[`repeating_classfeatures_${id}_classfeature_description`] = f.description;
+				return acc;
+			}, {});
+				
+		const abilityFeatures = allFeatures
+			.filter(f => f.type === FEATURE_TYPES.ABILITY)
+			.reduce((acc, f) => ({ ...acc, ...processAbility(f.data.ability) }), {});
+			
+		const classAbilities = allFeatures
+			.filter(f => f.type === FEATURE_TYPES.CLASS_ABILITY)
+			.flatMap(f => f.data.selectedIDs)
+			.reduce((acc, id) => {
+				const abilityData = extractClassAbility(data, id);
+				return { ...acc, ...processAbility(abilityData) };
+			}, {});
+		
+		const immunity = [
+			getDamageModifiers(allFeatures, level, 'Immunity'),
+			getConditionImmunities(allFeatures),
+			].filter(Boolean).join(', ');
+		
+		console.log(immunity);
+		// ATTRIBUTE MAPPING
+		const newAttrs = {
+			forgesteel_json: '', // Clear the import field.
+			// Core Info
+			character_name: data.name,
+			ancestry: ancestry.name,
+			class: characterClass.name,
+			career: career.name,
+			subclass,
+			victories: state.victories,
+			level,
+			wealth: calculateCombatStat(allFeatures, 'Wealth', state.wealth),
+			renown: calculateCombatStat(allFeatures, 'Renown', state.renown),
+			experience: state.xp,
+			...characteristics,
+			
+			// Derived Stats
+			size: `${allFeatures.find(f => f.type === FEATURE_TYPES.SIZE)?.data.size.value ?? 1}${allFeatures.find(f => f.type === FEATURE_TYPES.SIZE)?.data.size.mod ?? 'M'}`,
+			speed: calculateModifiedStat('Speed', baseSpeed, level, characteristics ,allFeatures),
+			disengage: calculateModifiedStat('Disengage', 1, level, characteristics ,allFeatures),
+			stability: calculateCombatStat(allFeatures, 'Stability', 0),
+			stamina_max,
+			stamina: parseInt(stamina_max) - parseInt(state.staminaDamage || 0),
+			recoveries,
+			recoveries_max,
+			recovery_amount: Math.floor(stamina_max / 3),
+			surges: state.surges,
+			immunity,
+			weakness: getDamageModifiers(allFeatures, level, 'Weakness'),
+			resource: resFeature?.value || '',
+			resource_name: resFeature?.name || '',
+			resource_amount: resGains.find(g => g.tag === "start")?.value || '1d3',
+			resource_description: resGains.map(g => `+${g.value}: ${g.trigger}`).join('\n'),
+	
+			// Biography
+			career_benefit,
+			career_incident,
+			complication: complication?.name ?? '',
+			complication_benefit: complication?.features[0]?.description ?? '',
+			complication_drawback: complication?.features[1]?.description ?? '',
+			culture_environment: culture.environment.name,
+			culture_environment_description: culture.environment.description,
+			culture_organization: culture.organization.name,
+			culture_organization_description: culture.organization.description,
+			culture_upbringing: culture.upbringing.name,
+			culture_upbringing_description: culture.upbringing.description,
+
+			// Skills & Languages
+			skills_crafting,
+			skills_exploration,
+			skills_interpersonal,
+			skills_intrigue,
+			skills_lore,
+			languages,
+
+			// Spread in kits and repeating section data
+			...kits,
+			...perks,
+			...ancestryFeatures,
+			...classFeatures,
+			...abilityFeatures,
+			...classAbilities,
+		};
+
+		// Clear existing repeating sections before adding new data.
+		const sectionsToClear = ['modifiers', 'perks', 'ancestrytraits', 'classfeatures', 'abilities', 'noaction', 'maneuvers', 'triggered', 'moves', 'conditions'];
+		await Promise.all(sectionsToClear.map(s => clearRepeatingSection(s)));
+		
+		// Set the new attributes on the character sheet.
+		await setAttrsAsync(newAttrs);
+			
+		//Last bit of character sheet setup
+		calculateWinded();
+		calculateSurgePotency();
+			
+		console.log('Character import successful!', newAttrs);
+	
+	}
+	
+	/**
+	 * Imports monster data from a loaded JSON file
+	 * @param {object} data the loaded and validated JSON file
+	 **/
+	
+	async function importMonster(data, malice) {
+		console.log('~~~ importMonster ~~~');
+		
+		if (!data) {
+			console.log('No Monster Data Found');
+			return;
+		}
+		const {
+			name, level, characteristics, keywords, role: dataRole, 
+			size: dataSize, speed: dataSpeed, stability, stamina, 
+			features, encounterValue, withCaptain, freeStrikeDamage
+		} = data;
+		
+		
+		// STATS & CORE INFO
+		const findCharacteristic = (name) => characteristics.find(c => c.characteristic === name)?.value || 0;
+		
+		const roleString = `${dataRole.organization}${dataRole.type === 'No Role' ? '' : ` ${dataRole.type}`}`;
+		const sizeString = `${dataSize?.value ?? 1}${dataSize?.mod ?? 'M'}`;
+
+		// REPEATING ABILITIES
+		const traits = features
+			.filter(f => f.type === FEATURE_TYPES.TEXT)
+			.reduce((acc, f) => {
+				const id = generateRowID();
+				const prefix = `repeating_npcabilities_${id}`;
+				
+				acc[`${prefix}_ability_name`] = f.name;
+				
+				if (f.name === 'Solo Monster' || f.name === 'Ajax') {
+					const soloFields = parseSoloTrait(f.description);
+					Object.keys(soloFields).forEach(key => acc[`${prefix}_${key}`] = soloFields[key]);
+				} else {
+					acc[`${prefix}_ability_subtype`] = 'trait';
+                    acc[`${prefix}_ability_trait`] = f.description;
+				}
+				return acc;
+			}, {});
+		
+		const abilityFeatures = data.features
+			.filter(f => f.type === FEATURE_TYPES.ABILITY)
+			.reduce((acc, f) => ({ ...acc, ...processMonsterAbility(f.data.ability) }), {});
+		
+		const maliceFeatures = malice ? importMalice(malice) : [];
+		
+		// ATTRIBUTE MAPPING
+		const newAttrs = {
+			forgesteel_json: '', // Clear the import field.
+			is_npc: 'on',
+				
+			// Core Info
+			character_name: name,
+			level: level,
+			npc_role: roleString,
+			npc_keywords: keywords.join(', '),
+			npc_EV: encounterValue,
+			// Stats
+			size: sizeString,
+			speed: dataSpeed.value ?? 5,
+			stamina,
+			stability,
+			npc_freestrike: freeStrikeDamage,
+			immunity: getDamageModifiers(data.features, 1, 'Immunity'),
+			weakness: getDamageModifiers(data.features, 1, 'Weakness'),
+			npc_movement: dataSpeed.modes?.join(', ') ?? '',
+			npc_with_captain: withCaptain,
+			
+			// Characteristics
+			might: findCharacteristic('Might'),
+			agility: findCharacteristic('Agility'),
+			reason: findCharacteristic('Reason'),
+			intuition: findCharacteristic('Intuition'),
+			presence: findCharacteristic('Presence'),
+			// Spread in repeating section data
+			...traits,
+			...abilityFeatures,
+			...maliceFeatures,
+		};
+
+		// Clear existing repeating sections before adding new data.
+		await Promise.all([
+			clearRepeatingSection('npcabilities'),
+			clearRepeatingSection('malice'),
+			clearRepeatingSection('villainaction')
+		]);
+		
+		// Set the new attributes on the character sheet.
+		await setAttrsAsync(newAttrs);
+			
+		console.log('Monster import successful!', newAttrs);
+	}
+
+	/**
+	 * ABILITY CORE PROCESSOR
+	 * Handles the shared logic for processing both PC and NPC abilities.
+	 *
 	 * Processes ability data into a flat object for setting repeating section attributes.
 	 * @param {object} abilityData The JSON object for a single ability.
 	 * @returns {object} An object of attribute keys and values for setAttrs.
 	 */
 
-	function processMonsterAbility(abilityData) {
-		// 1. Determine ability type and get configuration.
-		const usage = ABILITY_TYPE_MAP[abilityData.type.usage].type || ABILITY_TYPE_MAP.default.type;
-		const cost = abilityData.cost === 'signature' ? abilityData.cost : parseInt(abilityData.cost) || 0;
-		
-		let prefix = 'npcabilities';
-		let subtype = 'normal-ability';
-		if (abilityData.type.usage === 'Villain Action') {
-			prefix = 'villainaction';
-			subtype = 'villain-ability'; 
-		} else if (cost === 'signature') {
-			subtype = 'signature-ability';
-		} else if (cost > 0) {
-			prefix = 'malice';
-			subtype = 'malice-ability';
-		}
-		
+	function _processAbilityCore(abilityData, isNPC = false) {
 		const id = generateRowID();
+		const { type: usageData, sections, cost: rawCost, name, description, keywords, target } = abilityData;
+    
+		// Configuration & Naming
+		const usage = usageData.usage;
+		const config = ABILITY_TYPE_MAP[usage] || ABILITY_TYPE_MAP.default;
+    
+		// Determine Section & Prefix
+		let section = config.section;
+		let attrPrefix = config.prefix; // usually 'ability' or 'classfeature'
+		let subtype = 'normal-ability';
 
-		// 2. Extract and format primary data fields.
-		const distanceInfo = abilityData.distance?.[0];
-		const distance = distanceInfo ? `${distanceInfo.type} ${distanceInfo.value || ''}`.trim() : '';
-						
-		const malice = abilityData.sections.find(s => s.type === 'field' && (s.name === 'Spend' || s.name === 'Malice'));	
-			
-		const effect = abilityData.sections
-			.filter(s => s.type === 'text' && !s.text.startsWith('**Special:**'))
+		// NPC-specific routing
+		if (isNPC) {
+			attrPrefix = 'ability'; // NPCs almost always use 'ability' suffix
+			if (usage === 'Villain Action') {
+				section = 'villainaction';
+				subtype = 'villain-ability';
+			} else if (parseInt(rawCost) > 0) {
+				section = 'malice';
+				subtype = 'malice-ability';
+			} else {
+				section = 'npcabilities';
+			}
+		}
+ 
+		const cost = rawCost === 'signature' ? 'signature' : (parseInt(rawCost) || 0);
+		if (cost === 'signature') subtype = 'signature-ability';
+		else if (!isNPC && cost > 0) subtype = 'heroic-ability';
+
+		// Distance Formatting (Universal Logic)
+		const dist = abilityData.distance?.[0];
+		let distanceStr = '';
+		if (dist) {
+			if (['Melee', 'Ranged', 'Self'].includes(dist.type)) {
+				distanceStr = `${dist.type} ${dist.value || ''}`.trim();
+			} else {
+				const v2 = parseInt(dist.value2) > 0 ? ` x ${dist.value2}` : '';
+				const w = parseInt(dist.within) > 0 ? ` within ${dist.within}` : '';
+				distanceStr = `${dist.value || ''}${v2} ${dist.type}${w}`.trim();
+			}
+		}
+
+		// Effect and Power Roll extraction
+		const powerRoll = sections.find(s => s.type === 'roll');
+		const special = sections.find(s => s.type === 'text' && s.text.startsWith('**Special:**'));
+		const malice = sections.find(s => s.type === 'field' && ['Spend', 'Malice'].includes(s.name));
+		const custom = sections.find(s => s.type === 'field' && ['Persist', 'Mark Benefit', 'Strained'].includes(s.name))
+	
+		let effectText = sections
+			.filter(s => s.type === 'text')
+			// Filter out the special text to avoid double-entry for NPCs
+			.filter(s => !(isNPC && s.text?.startsWith('**Special:**')))
 			.map(s => s.name ? `${s.name} ${s.value}: ${s.effect}` : s.text)
 			.join('\n');
 		
-		const special = abilityData.sections.find(s => s.type === 'text' && s.text.startsWith('**Special:**'));
+		if (usageData.freeStrike) {
+			effectText += `${getTranslationByKey('free-strike-ability-text')}`;
+		}
 		
-		// 3. Handle the conditional power roll section.
-		const powerRollSection = abilityData.sections.find(s => s.type === 'roll');
+		// Build Attributes
+		const prefix = `repeating_${section}_${id}_${attrPrefix}`;
+		const attrs = {
+			[`${prefix}_name`]: name,
+			[`${prefix}_description`]: description,
+			[`${prefix}_type`]: isNPC ? (config.type || usage) : config.type,
+			[`${prefix}_subtype`]: subtype,
+			[`${prefix}_keywords`]: keywords.join(', '),
+			[`${prefix}_trigger`]: usageData.trigger ?? '',
+			[`${prefix}_distance`]: distanceStr,
+			[`${prefix}_target`]: target,
+			[`${prefix}_effect`]: effectText,
+			[`repeating_${section}_${id}_has_effect`]: effectText ? 'on' : 0,
+			[`repeating_${section}_${id}_has_power_roll`]: powerRoll ? 'on' : 0,
+		};
+		
+		
+		
+		if (custom) {
+			attrs[`repeating_${section}_${id}_has_custom`] = 'on';
+			attrs[`${prefix}_custom_label`] = `${custom.name}${parseInt(custom.value) > 0 ? ' ' + custom.value : ''}`;
+			attrs[`${prefix}_custom`] = custom.effect;
+		}
+		
+		if (isNPC) {
+			attrs[`${prefix}_malice_cost`] = cost || 0;
+		} else {
+			attrs[`${prefix}_cost`] = parseInt(rawCost) || 0;
+		}
+			
+	
+		if (powerRoll) {
+			const char = isNPC ? powerRoll.roll.bonus : powerRoll.roll.characteristic[0].toLowerCase();
+			attrs[`${prefix}_characteristic`] = char;
+			attrs[`${prefix}_tier_1`] = powerRoll.roll.tier1;
+			attrs[`${prefix}_tier_2`] = powerRoll.roll.tier2;
+			attrs[`${prefix}_tier_3`] = powerRoll.roll.tier3;
+		}
+	
+		if (isNPC && special) {
+			attrs[`repeating_${section}_${id}_has_special`] = 'on';
+			attrs[`${prefix}_special`] = special.text.replace('**Special:** ', '');
+		}
+	
+		if (isNPC && malice) {
+			attrs[`repeating_${section}_${id}_has_malice`] = 'on';
+			attrs[`${prefix}_cost`] = malice.value; // Map Spend value
+			attrs[`${prefix}_malice`] = malice.effect;
+		}
+	
+		return attrs;
+	}
+	
+	/**
+	* PUBLIC EXPORTS
+	*/
+	const processAbility = (data) => _processAbilityCore(data, false);
+	const processMonsterAbility = (data) => _processAbilityCore(data, true);
+
+
+	function processMaliceAbility(abilityData) {
+		console.log('~~~ processMaliceAbility ~~~');
+		// Determine ability type and get configuration.
+		const usage = 'no-action';
+		const subtype = 'malice-trait';
+		const cost = abilityData.data.cost ? abilityData.data.cost : parseInt(abilityData.data.cost) || 0;
+		
+		const prefix = 'malice';
+		const id = generateRowID();
+
+		// Extract and format primary data fields.
+		const effect = abilityData.data.sections.map(item => {
+				// Check if the item is a dictionary (object) and not null
+				if (typeof item === 'object' && item !== null) {
+					// Format the object into a readable string
+					return `\nTier 1: ${item.tier1}\n` +
+							`Tier 2: ${item.tier2}\n` +
+							`Tier 3: ${item.tier3}\n`;
+				}
+				// If it's already a string, just return it
+				return item;
+			}).join('\n');
+		
+		const special = abilityData.data.sections.find(s => s.type === 'text' && s.text.startsWith('**Special:**'));
+		
 		// 4. Assemble the final attribute object.
 		const attributes = {
 			[`repeating_${prefix}_${id}_ability_name`]: abilityData.name,
 			[`repeating_${prefix}_${id}_ability_description`]: abilityData.description,
 			[`repeating_${prefix}_${id}_ability_type`]: usage,
 			[`repeating_${prefix}_${id}_ability_subtype`]: subtype,
-			[`repeating_${prefix}_${id}_ability_keywords`]: abilityData.keywords.join(', '),
-			[`repeating_${prefix}_${id}_ability_trigger`]: abilityData.type.trigger ?? '',
-			[`repeating_${prefix}_${id}_ability_distance`]: distance,
-			[`repeating_${prefix}_${id}_ability_target`]: abilityData.target,
 			[`repeating_${prefix}_${id}_ability_malice_cost`]: cost,
 			[`repeating_${prefix}_${id}_has_effect`]: effect ? 'on' : 0,
 			[`repeating_${prefix}_${id}_ability_effect`]: effect,
-			[`repeating_${prefix}_${id}_has_power_roll`]: powerRollSection ? 'on' : 0,
 		};
-		
-		if (powerRollSection) {
-			Object.assign(attributes, {
-				[`repeating_${prefix}_${id}_ability_characteristic`]: powerRollSection.roll.bonus,
-				[`repeating_${prefix}_${id}_ability_tier_1`]: powerRollSection.roll.tier1,
-				[`repeating_${prefix}_${id}_ability_tier_2`]: powerRollSection.roll.tier2,
-				[`repeating_${prefix}_${id}_ability_tier_3`]: powerRollSection.roll.tier3,
-			});
-		}
 		
 		if (special) {
 			Object.assign(attributes, {
@@ -6654,31 +6648,36 @@
 			});
 		}
 		
-		if (malice) {
-			Object.assign(attributes, {
-				[`repeating_${prefix}_${id}_has_malice`]: 'on',
-				[`repeating_${prefix}_${id}_ability_cost`]: malice.value,
-				[`repeating_${prefix}_${id}_ability_malice`]: malice.effect,
-			});
-		}
-		
 		return attributes;
 	}
 	
-	/**
-	** import end
-	**/
+	function importMalice(maliceData) {
+		if (maliceData === undefined ) {
+			return [];
+		}
+		const maliceFeatures = maliceData.reduce((acc, f) => {
+			if (f.type === FEATURE_TYPES.MALICE_ABILITY) {
+				return {...acc, ...processAbility(f)};
+			} else
+			{
+				return {...acc, ...processMaliceAbility(f)};
+			}
+		});
+		console.log(maliceFeatures);
+		return maliceFeatures;
+	}
+/**
+ ** Import End
+ **/
 	
 /**
  ** Versioning
  **/
-
 	
 	/**
 	 **  Upgrades the sheet to changes present in version 1
 	 **  - Ensures 'has_power_roll' and new 'has_effect' checkboxes are appropriately changed
 	 **/
-	 
 	const upgradeToV1 = () => {
 		console.log('~~~ upgradeToV1 ~~~');
 		const abilitySections = {
@@ -6731,7 +6730,6 @@
 	 **  Converts the old repeating kits to the new single static one.
 	 **  Updated in v1.2
 	 **/
-	 
 	const convertRepeatingKits = () => {
 		console.log('~~~ convertRepeatingKits ~~~');
 		getSectionIDs('repeating_modifiers', function(ids) {
@@ -6844,5 +6842,5 @@
 		calculateWinded();
 		calculateSurgePotency();
 	});
-		
+
 </script>
