@@ -484,6 +484,12 @@
     <span class="centertext"><i>You've equipped <span name="attr_armsEquipped"></span>/3 armaments.</i></span>
       <fieldset class="repeating_arm filtered_arm filtered">
        <input class="hidden equipped" type="checkbox" name="attr_equipped">
+        <div class="armament-checkboxes">
+          <span class="checkbox-group">
+            <input type="checkbox" name="attr_blown">
+            <label class="inline">Blown?</label>
+          </span>
+        </div>
         <div class="weapon">
           <span class="entire">
             <span class="left">
@@ -501,7 +507,11 @@
           </span>
           <span class="hidden rangetext" name="attr_rangetext" value=""></span>
           <textarea class="maxwidth" spellcheck="false" name="attr_weapontext">Description and upgrades</textarea>
+          <div class="upgrade-info" style="font-size: 0.8em; color: #666; margin-top: 2px;">
+            <span name="attr_upgrades"></span> upgrades, blows a fuse if second-highest die is <span name="attr_upgrades_plus_one"></span> or less.
+          </div>
         </div>
+        <hr class="armament-divider">
       </fieldset>
   
   </div>
@@ -569,12 +579,12 @@
                         <input class="munname" spellcheck="false" type="text" name="attr_munname" value="Name">
                       </div>
                       <span class="right">
-                        <label class="inline">Diesel Cost</label>
-                        <input class="cost" type="text" name="attr_muncost" value="">
-                      </span>
-                      <span class="right">
                         <label class="inline">Harm</label>
                         <input class="cost" type="number" name="attr_munHarm" value="">
+                      </span>
+                      <span class="right">
+                        <label class="inline">Diesel Cost</label>
+                        <input class="cost" type="text" name="attr_muncost" value="">
                       </span>
                       <textarea class="maxwidth" spellcheck="false" name="attr_muntext"></textarea>
                     </fieldset>
@@ -583,8 +593,16 @@
               <input type="hidden" name="attr_armsEquipped" value="0">
               <span>You've equipped <span name="attr_armsEquipped"></span>/3 armaments.</span>
               <fieldset class="repeating_arm">
-                  <label class="inline">Equipped?</label>
-                  <input class="equippedArm" type="checkbox" name="attr_equipped">
+                  <div class="armament-checkboxes">
+                    <span class="checkbox-group">
+                      <input class="equippedArm" type="checkbox" name="attr_equipped">
+                      <label class="inline">Equipped?</label>
+                    </span>
+                    <span class="checkbox-group">
+                      <input type="checkbox" name="attr_blown">
+                      <label class="inline">Blown?</label>
+                    </span>
+                  </div>
                   <div class="weapon">
                     <button type="action" class="btn d6" name="act_rollarm" value=""></button>
                     <input class="weapon" spellcheck="false" type="text" name="attr_armname" value="Name">
@@ -605,7 +623,11 @@
                       <input type="checkbox" value="true" name="attr_farrange"></input>
                     </span>
                     <textarea class="maxwidth" spellcheck="false" name="attr_weapontext">Description and upgrades</textarea>
+                    <div class="upgrade-info" style="font-size: 0.8em; color: #666; margin-top: 2px;">
+                      <span name="attr_upgrades"></span> upgrades, blows a fuse if second-highest die is <span name="attr_upgrades_plus_one"></span> or less.
+                    </div>
                   </div>
+                  <hr class="armament-divider">
                 </fieldset>
               <!-- Subsystems -->
             <!-- </div> -->
@@ -661,10 +683,10 @@
     </section>
     
   <input class="hidden sheet-space" name="attr_space" type="checkbox">
-  <section class="scars">
-    <h3>Scars</h3>
-    <fieldset class="repeating_scar">
-        <label class="inline">Scar</label>
+  <section class="perks">
+    <h3>Pilot Perks</h3>
+    <fieldset class="repeating_perk">
+        <label class="inline">Perk</label>
         <input class="equippedArm" type="text" name="attr_scarname">
         <div class="weapon">
           <textarea class="maxwidth" spellcheck="false" name="attr_scartext">Description</textarea>
@@ -1477,7 +1499,7 @@
     
     <section class="drops">
       <div class="sectiontop">
-        <h2 class="enemyheader">Generate Drops</h2>
+        <h2 class="enemyheader">Generate Drops (Cyberrats base game)</h2>
         <span class="adj">
           <label class="narrow" for="attr_bonusDrops">Adjustment to rolls</label>
           <input type="number" name="attr_bonusDrops" value="0">
@@ -1864,7 +1886,7 @@
     
     <section class="drops">
       <div class="sectiontop">
-        <h2 class="enemyheader">Generate Drops</h2>
+        <h2 class="enemyheader">Generate Drops (Cyberrats in Space)</h2>
         <span class="adj">
           <label class="narrow" for="attr_bonusDrops">Adjustment to rolls</label>
           <input type="number" name="attr_bonusDrops" value="0">
@@ -2970,7 +2992,7 @@ function getRawRoomDetails(room) {
       return `Injured Operatives can go on the primary mission. If an Operative who starts a Primary mission Injured would become Injured on the mission, they instead die.`;
   
   case Rooms.Body_Shop:
-      return `Unlocks some personal abilities. Additionally, Operatives with careers may learn a power that costs 1 or less from another career at this time.`;
+      return `Unlocks some personal abilities. Additionally, Operatives with careers may learn a power from their mutator as a downtime action.`;
   
   case Rooms.Clockmakers_Hall:
       return `Unlocks the Overclock Engine and Min's Cursed Stopwatch.`;
@@ -3415,7 +3437,16 @@ on("clicked:repeating_arm:rollarm", function(eventInfo) {
       "repeating_arm_weapontext",
       "repeating_arm_upgrades",
       "repeating_arm_harm",
+      "repeating_arm_blown",
     ], function(values) {
+          if(values.repeating_arm_blown === "on") {
+            const armamentName = values.repeating_arm_armname;
+            startRoll(`&{template:default} {{name=Cannot Use Armament}} {{${armamentName}=Cannot use armament with blown fuse}}`,(results) => {
+              finishRoll(results.rollId, {});
+            });
+            return;
+          }
+          
           if(!values.repeating_arm_rangetext) {
             values.repeating_arm_rangetext = "";
           }
@@ -3569,6 +3600,15 @@ on("change:repeating_arm:equipped", function(eventInfo) {
         armsEquipped: parseInt(values.armsEquipped) + changeval
       }
     );
+  });
+});
+
+on("change:repeating_arm:upgrades", function(eventInfo) {
+  const upgrades = parseInt(eventInfo.newValue) || 0;
+  const upgradesPlusOne = upgrades + 1;
+  
+  setAttrs({
+    [`${eventInfo.sourceAttribute.replace("upgrades", "upgrades_plus_one")}`]: upgradesPlusOne
   });
 });
 
