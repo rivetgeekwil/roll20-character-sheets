@@ -53,6 +53,54 @@ input[readonly]:focus
     {
     outline: none;
     }
+    
+.sheet-rolltemplate-damage .inlinerollresult
+    {
+    background-color: transparent !important;
+    border: none !important;
+    }
+    
+.sheet-rolltemplate-ballistic-damage
+    {
+    color: #2d2007;
+    background-color: #dec28c;
+    }
+    
+.sheet-rolltemplate-impact-damage
+    {
+    color: #383838;
+    background-color: #dedede;
+    }
+    
+.sheet-rolltemplate-biohazard-damage
+    {
+    color: #326b00;
+    background-color: #c9c490;
+    }
+    
+.sheet-rolltemplate-thermal-damage
+    {
+    color: #7c0002;
+    background-color: #cae0f1;
+    }
+    
+.sheet-rolltemplate-electric-damage
+    {
+    color: #0808d4;
+    background-color: #ceecf0;
+    }
+    
+.sheet-rolltemplate-absolute-damage
+    {
+    color: #ff0004;
+    background-color: #000000;
+    }
+    
+.sheet-rolltemplate-emp-damage
+    {
+    color: #1474a1;
+    background-color: #ffffff;
+    }
 	
 .repeating-section-weapons
     {
@@ -81,7 +129,7 @@ input[readonly]:focus
     {
     width: max-content;
     display: grid;
-    grid-template-columns: 30px 150px 150px 300px 50px 30px auto;
+    grid-template-columns: 30px 150px 150px 50px 300px 50px 30px auto;
     gap: 2px;
     .repcontainer,
     .repitem,
@@ -104,7 +152,7 @@ input[readonly]:focus
     {
     width: max-content;
     display: grid;
-    grid-template-columns: 30px 50px 150px 150px 60px auto 30px;
+    grid-template-columns: 18px 30px 35px 150px 150px 60px auto 30px;
     gap: 2px;
     .repcontainer,
     .repitem,
@@ -690,6 +738,25 @@ textarea
 .rerollButton:hover
 	{
 	background-image: url("https://www.sync-chess.com/csheetImg/RerollDown.png");
+	}
+	
+.highIntensityButton
+	{
+	width: 25px;
+	height: 25px;
+	color: transparent;
+	background-repeat: no-repeat;
+	border-style: none;
+	background-color: transparent;
+	background-image: url("https://www.sync-chess.com/csheetImg/HighIntensityUp.png");
+	vertical-align: middle;
+	box-sizing: border-box;
+	padding: 0;
+	}
+
+.highIntensityButton:hover
+	{
+	background-image: url("https://www.sync-chess.com/csheetImg/HighIntensityDown.png");
 	}
 
 input[type=checkbox]:checked
@@ -1703,9 +1770,78 @@ input[type="hidden"][value="0"].hide-equipped-weapon3 ~ .equipped-weapon3-hide
 	width: fit-content;
 	background-color: transparent !important;
 	}
+	
+.grid26
+	{
+	display:grid;
+	grid-template-columns: max-content max-content max-content max-content max-content;
+	width: fit-content;
+	background-color: transparent !important;
+	}
 
 .cell
 	{
 	padding: 2px;
 	text-align: left;
 	}
+	
+.weapon-short
+	{
+	color: #80AAFF;
+	background-color: #0A0A0A;
+	font-family: Michroma;
+	font-size: 12px;
+	width: 50px;
+	height: 15px;
+	border-style: solid;
+	border-color: #80AAFF;
+	box-sizing: border-box;
+	padding: 0;
+	text-align: center;
+	}
+
+.weapon-medium
+	{
+	color: #80AAFF;
+	background-color: #0A0A0A;
+	font-family: Michroma;
+	font-size: 12px;
+	width: 152px;
+	height: 25px;
+	border-style: solid;
+	border-color: #80AAFF;
+	box-sizing: border-box;
+	padding: 0;
+	
+	text-align: center;
+	}
+
+.weapon-long
+	{
+	color: #80AAFF;
+	background-color: #0A0A0A;
+	font-family: Michroma;
+	font-size: 10px;
+	width: 202px;
+	height: 25px;
+	border-style: solid;
+	border-color: #80AAFF;
+	box-sizing: border-box;
+	padding: 0;
+	text-align: center;
+	}
+	
+.quick-roll-select
+    {
+    color: #80AAFF;
+	background-color: #0A0A0A;
+	font-family: Michroma;
+	font-size: 8px;
+	width: 100px;
+	height: 18px;
+	border-style: solid;
+	border-color: #80AAFF;
+	box-sizing: border-box;
+	padding: 0;
+	text-align: center;
+    }

@@ -1,3 +1,17 @@
+# 2026-03-19
+
+- Fix some typos in skills
+- Tracker
+    - Add a d1000 tiebreaker to tracker initiative
+    - Add new initiative sorting function (w/tests)
+    - Add End of Phase marker
+    - Little explosion when it's your turn.
+    - Send a message on your turn
+- PC Tracker:
+    - Only show the rest of the phase
+- Make the main page viewable in dark mode.
+    - Happy to take improvements to the colours
+
 # 2026-02-05
 
 Lots of tracker updates
