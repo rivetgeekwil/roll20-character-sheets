@@ -32,6 +32,7 @@
   border: 1px solid #555;
   background: #fff;
   padding: 3px 4px;
+  text-align: center;
 }
 
 .sheet-gvn textarea {
@@ -82,7 +83,9 @@
   cursor: pointer;
 }
 
-.sheet-tab { display: none; }
+.sheet-tab {
+  display: none;
+}
 
 .sheet-gvn input[name="attr_sheetTab"][value="core"] ~ .sheet-core { display: block; }
 .sheet-gvn input[name="attr_sheetTab"][value="equipment"] ~ .sheet-equipment { display: block; }
@@ -99,7 +102,7 @@
   margin-bottom: 10px;
 }
 
-/* GRID */
+/* GENERIC GRID */
 
 .sheet-grid {
   display: grid;
@@ -118,7 +121,7 @@
 /* SPECIAL GRIDS */
 
 .sheet-grid-gov-weapons {
-  grid-template-columns: 2fr .6fr .6fr .7fr .7fr 1fr .7fr .6fr;
+  grid-template-columns: 2fr 0.6fr 0.6fr 0.7fr 0.7fr 1fr 0.7fr 0.6fr;
 }
 
 .sheet-grid-armor {
@@ -126,74 +129,22 @@
 }
 
 .sheet-grid-equipment-gov {
-  grid-template-columns: 3fr .8fr;
+  grid-template-columns: 3fr 0.8fr;
 }
 
 .sheet-grid-command-log {
-  grid-template-columns: 1fr 2fr .6fr;
+  grid-template-columns: 1fr 2fr 0.6fr;
 }
 
-/* THAC0 GRID */
-
-.sheet-attack-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+.sheet-grid-nwp {
+  grid-template-columns: 2fr 0.8fr 0.8fr 0.8fr 0.8fr;
 }
 
-.sheet-attack-col {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
+.sheet-grid-wp {
+  grid-template-columns: 2fr 0.8fr;
 }
 
-/* WIDTH CONTROL (keeps right column compact) */
-
-.sheet-attack-col input,
-.sheet-sidecol .sheet-grid-3 input,
-.sheet-sidecol .sheet-grid-2 input {
-  width: 60px;
-  max-width: 60px;
-  margin: 0 auto;
-  text-align: center;
-  padding: 2px 3px;
-}
-
-/* ABILITY SCORES */
-
-.sheet-ability-block {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.sheet-ability-row {
-  display: grid;
-  grid-template-columns: 110px repeat(7, 1fr);
-  gap: 2px;
-  align-items: center;
-}
-
-.sheet-ability-name {
-  font-weight: bold;
-  text-align: left;
-  padding-left: 4px;
-}
-
-/* HEADERS */
-
-.sheet-mount-header {
-  font-weight: bold;
-  text-align: center;
-  border-bottom: 1px solid #555;
-  padding-bottom: 2px;
-}
-
-.sheet-mount-header div {
-  font-size: 10px;
-}
-
-/* 🔥 FIX: TRUE TWO-COLUMN BEHAVIOR */
+/* TWO COLUMN LAYOUT */
 
 .sheet-two-col {
   display: flex;
@@ -215,6 +166,19 @@
   gap: 8px;
 }
 
+/* GENERIC HEADERS */
+
+.sheet-mount-header {
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid #555;
+  padding-bottom: 2px;
+}
+
+.sheet-mount-header div {
+  font-size: 10px;
+}
+
 /* HP */
 
 .sheet-hp-box {
@@ -224,15 +188,149 @@
 }
 
 .sheet-hp-box input {
-  text-align: center;
   font-size: 13px;
 }
 
-/* TEXT */
+/* ATTACK TABLE (TIGHT + CENTERED) */
+
+.sheet-attack-table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.sheet-attack-header,
+.sheet-attack-top,
+.sheet-attack-row {
+  display: grid;
+  grid-template-columns: 90px 60px 90px;
+  justify-content: center;
+  gap: 8px;
+  align-items: start;
+}
+
+.sheet-attack-header {
+  font-weight: bold;
+  text-align: center;
+}
+
+.sheet-attack-top input {
+  width: 60px;
+  max-width: 60px;
+  margin: 0 auto;
+}
+
+.sheet-attack-row > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sheet-attack-row input {
+  width: 60px;
+  max-width: 60px;
+  margin: 0 auto;
+}
+
+.sheet-attack-spacer {
+  width: 60px;
+  height: 20px;
+  margin: 0 auto;
+}
+
+/* HELP TEXT */
+
+.sheet-help {
+  text-align: center;
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+/* ARMOR CLASS */
+
+.sheet-ac-table {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sheet-ac-header,
+.sheet-ac-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.sheet-ac-header {
+  font-weight: bold;
+  text-align: center;
+}
+
+.sheet-ac-row input {
+  width: 60px;
+  max-width: 60px;
+  margin: 0 auto;
+}
+
+/* ABILITY SCORES */
+
+.sheet-ability-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sheet-ability-header,
+.sheet-ability-row {
+  display: grid;
+  grid-template-columns: 110px repeat(7, 1fr);
+  gap: 2px;
+  align-items: center;
+}
+
+.sheet-ability-header {
+  font-weight: bold;
+  text-align: center;
+  background: #dcdcdc;
+  border: 1px solid #444;
+  border-bottom: 2px solid #444;
+  font-size: 10px;
+  padding: 2px 0;
+}
+
+.sheet-ability-row {
+  background: transparent;
+}
+
+.sheet-ability-header div {
+  border-right: 1px solid #aaa;
+}
+
+.sheet-ability-header div:last-child {
+  border-right: none;
+}
+
+.sheet-ability-name {
+  font-weight: bold;
+  text-align: left;
+  padding: 3px 4px;
+  background: #fff;
+  border: 1px solid #555;
+}
+
+/* TEXT AREAS */
 
 .sheet-gvn textarea[name="attr_other_defenses"] {
   min-height: 80px;
   max-height: 80px;
+  text-align: left;
+}
+
+.sheet-gvn textarea[name="attr_physical_description"],
+.sheet-notes-area {
+  text-align: left;
 }
 
 .sheet-notes-area {
@@ -279,17 +377,22 @@
   .sheet-grid-armor,
   .sheet-grid-equipment-gov,
   .sheet-grid-command-log,
-  .sheet-ability-row {
+  .sheet-grid-nwp,
+  .sheet-grid-wp,
+  .sheet-ability-row,
+  .sheet-ability-header,
+  .sheet-attack-header,
+  .sheet-attack-top,
+  .sheet-attack-row,
+  .sheet-ac-header,
+  .sheet-ac-row {
     grid-template-columns: 1fr;
   }
 
-  .sheet-attack-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .sheet-attack-col input,
-  .sheet-sidecol .sheet-grid-3 input,
-  .sheet-sidecol .sheet-grid-2 input {
+  .sheet-attack-top input,
+  .sheet-attack-row input,
+  .sheet-ac-row input {
     max-width: 100%;
+    width: 100%;
   }
 }

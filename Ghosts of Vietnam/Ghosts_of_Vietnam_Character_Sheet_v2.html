@@ -118,14 +118,26 @@
     <div class="sheet-two-col">
 
       <!-- LEFT -->
-      <div class="sheet-maincol">
+     <div class="sheet-maincol">
 
-        <div class="sheet-section">
+ <!-- ABILITY SCORES -->
+<div class="sheet-section">
   <div class="sheet-subtitle">Ability Scores</div>
 
   <div class="sheet-ability-block">
 
     <!-- STRENGTH -->
+    <div class="sheet-ability-header">
+      <div></div>
+      <div>Score</div>
+      <div>To Hit Bonus</div>
+      <div>Damage Bonus</div>
+      <div>Weight Allow</div>
+      <div>Max Press</div>
+      <div>Brute Force Entry</div>
+      <div>Defeat Obstacles</div>
+    </div>
+
     <div class="sheet-ability-row">
       <div class="sheet-ability-name">Strength</div>
       <input type="text" name="attr_strength">
@@ -138,6 +150,15 @@
     </div>
 
     <!-- DEXTERITY -->
+    <div class="sheet-ability-header">
+      <div></div>
+      <div>Score</div>
+      <div>Reaction Adj.</div>
+      <div>Ranged Attack</div>
+      <div>Defense Adj.</div>
+      <div></div><div></div><div></div>
+    </div>
+
     <div class="sheet-ability-row">
       <div class="sheet-ability-name">Dexterity</div>
       <input type="text" name="attr_dexterity">
@@ -148,6 +169,16 @@
     </div>
 
     <!-- CONSTITUTION -->
+    <div class="sheet-ability-header">
+      <div></div>
+      <div>Score</div>
+      <div>Hit Point Adj.</div>
+      <div>System Shock</div>
+      <div>Resurrection Survival</div>
+      <div>Poison Save Bonus</div>
+      <div></div><div></div>
+    </div>
+
     <div class="sheet-ability-row">
       <div class="sheet-ability-name">Constitution</div>
       <input type="text" name="attr_constitution">
@@ -159,6 +190,15 @@
     </div>
 
     <!-- INTELLIGENCE -->
+    <div class="sheet-ability-header">
+      <div></div>
+      <div>Score</div>
+      <div># Languages</div>
+      <div>Technical Knowledge</div>
+      <div>Shock Adj.</div>
+      <div></div><div></div><div></div>
+    </div>
+
     <div class="sheet-ability-row">
       <div class="sheet-ability-name">Intelligence</div>
       <input type="text" name="attr_intelligence">
@@ -169,6 +209,13 @@
     </div>
 
     <!-- WISDOM -->
+    <div class="sheet-ability-header">
+      <div></div>
+      <div>Score</div>
+      <div>Resolve Adj.</div>
+      <div></div><div></div><div></div><div></div><div></div>
+    </div>
+
     <div class="sheet-ability-row">
       <div class="sheet-ability-name">Wisdom</div>
       <input type="text" name="attr_wisdom">
@@ -177,6 +224,15 @@
     </div>
 
     <!-- CHARISMA -->
+    <div class="sheet-ability-header">
+      <div></div>
+      <div>Score</div>
+      <div>Max Henchmen</div>
+      <div>Loyalty Adj.</div>
+      <div>Reaction Adj.</div>
+      <div></div><div></div><div></div>
+    </div>
+
     <div class="sheet-ability-row">
       <div class="sheet-ability-name">Charisma</div>
       <input type="text" name="attr_charisma">
@@ -187,6 +243,13 @@
     </div>
 
     <!-- APPEARANCE -->
+    <div class="sheet-ability-header">
+      <div></div>
+      <div>Score</div>
+      <div>Reaction Adj.</div>
+      <div></div><div></div><div></div><div></div><div></div>
+    </div>
+
     <div class="sheet-ability-row">
       <div class="sheet-ability-name">Appearance</div>
       <input type="text" name="attr_appearance">
@@ -197,195 +260,231 @@
   </div>
 </div>
 
-        <div class="sheet-section">
-          <div class="sheet-subtitle">Armor</div>
+  <!-- ARMOR -->
+  <div class="sheet-section">
+    <div class="sheet-subtitle">Armor</div>
 
-          <div class="sheet-grid sheet-grid-armor sheet-mount-header">
-            <div>Armor</div>
-            <div>AC</div>
-          </div>
+    <div class="sheet-grid sheet-grid-armor sheet-mount-header">
+      <div>Armor</div>
+      <div>AC</div>
+    </div>
 
-          <fieldset class="repeating_armor">
-            <div class="sheet-grid sheet-grid-armor">
-              <input type="text" name="attr_armor_name">
-              <input type="text" name="attr_armor_ac">
-            </div>
-          </fieldset>
-        </div>
-
+    <fieldset class="repeating_armor">
+      <div class="sheet-grid sheet-grid-armor">
+        <input type="text" name="attr_armor_name">
+        <input type="text" name="attr_armor_ac">
       </div>
+    </fieldset>
+  </div>
+
+  <!-- WEAPONS -->
+  <div class="sheet-section">
+    <div class="sheet-subtitle">Weapons</div>
+
+    <div class="sheet-grid sheet-grid-gov-weapons sheet-mount-header">
+      <div>Weapon</div>
+      <div>#</div>
+      <div>ROF</div>
+      <div>Att</div>
+      <div>Dmg</div>
+      <div>Range</div>
+      <div>Damage</div>
+      <div>Mag</div>
+    </div>
+
+    <fieldset class="repeating_weapons">
+      <div class="sheet-grid sheet-grid-gov-weapons">
+        <input type="text" name="attr_weapon">
+        <input type="text" name="attr_attacks_num">
+        <input type="text" name="attr_rof">
+        <input type="text" name="attr_attack_adjustment">
+        <input type="text" name="attr_damage_adjustment">
+        <input type="text" name="attr_ranges">
+        <input type="text" name="attr_damage">
+        <input type="text" name="attr_magazine">
+      </div>
+    </fieldset>
+  </div>
+
+  <!-- ROGUE -->
+  <div class="sheet-section">
+    <div class="sheet-subtitle">Rogue Abilities</div>
+
+    <div class="sheet-grid sheet-grid-10 sheet-mount-header">
+      <div>Pick Pockets</div>
+      <div>Open Locks</div>
+      <div>Find/Remove Traps</div>
+      <div>Move Silently</div>
+      <div>Hide in Shadows</div>
+      <div>Detect Noise</div>
+      <div>Climb Walls</div>
+      <div>Read Languages</div>
+      <div>Dual Wield</div>
+      <div>Kill Shot</div>
+    </div>
+
+    <div class="sheet-grid sheet-grid-10">
+      <input type="text" name="attr_rogue_pick_pockets">
+      <input type="text" name="attr_rogue_open_locks">
+      <input type="text" name="attr_rogue_find_remove_traps">
+      <input type="text" name="attr_rogue_move_silently">
+      <input type="text" name="attr_rogue_hide_in_shadows">
+      <input type="text" name="attr_rogue_detect_noise">
+      <input type="text" name="attr_rogue_climb_walls">
+      <input type="text" name="attr_rogue_read_languages">
+      <input type="checkbox" name="attr_dual_wield">
+      <select name="attr_kill_shot">
+        <option value=""></option>
+        <option value="x2">x2</option>
+        <option value="x3">x3</option>
+        <option value="x4">x4</option>
+        <option value="x5">x5</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- SAVING THROWS -->
+  <div class="sheet-section">
+    <div class="sheet-subtitle">Saving Throws</div>
+
+    <div class="sheet-grid sheet-grid-7 sheet-mount-header">
+      <div>Paralyzation</div>
+      <div>Poison</div>
+      <div>Death</div>
+      <div>Shock</div>
+      <div>Transformation</div>
+      <div>Evasion</div>
+      <div>Resolve</div>
+    </div>
+
+    <div class="sheet-grid sheet-grid-7">
+      <input type="text" name="attr_save_paralyzation">
+      <input type="text" name="attr_save_poison">
+      <input type="text" name="attr_save_death">
+      <input type="text" name="attr_save_shock">
+      <input type="text" name="attr_save_transformation">
+      <input type="text" name="attr_save_evasion">
+      <input type="text" name="attr_save_resolve">
+    </div>
+  </div>
+
+</div>
 
       <!-- RIGHT SIDE -->
       <div class="sheet-sidecol">
 
-        <div class="sheet-section">
-          <div class="sheet-subtitle">Attack Table</div>
+        <div class="sheet-attack-table">
 
-          <div class="sheet-grid sheet-grid-3">
-            <div class="sheet-field">
-              <label>Melee</label>
-              <input type="text" name="attr_attack_table_melee">
-            </div>
-            <div class="sheet-field">
-              <label>THAC0</label>
-              <input type="text" name="attr_attack_table_thaco">
-            </div>
-            <div class="sheet-field">
-              <label>Ranged</label>
-              <input type="text" name="attr_attack_table_ranged">
-            </div>
-          </div>
+  <!-- HEADERS -->
+  <div class="sheet-attack-header">
+    <div>Melee</div>
+    <div>THAC0</div>
+    <div>Ranged</div>
+  </div>
 
-          <div class="sheet-attack-grid">
-            <div class="sheet-attack-col">
-              <div class="sheet-field"><label>AC 1</label><input type="text" name="attr_to_hit_ac_1"></div>
-              <div class="sheet-field"><label>AC 2</label><input type="text" name="attr_to_hit_ac_2"></div>
-              <div class="sheet-field"><label>AC 3</label><input type="text" name="attr_to_hit_ac_3"></div>
-              <div class="sheet-field"><label>AC 4</label><input type="text" name="attr_to_hit_ac_4"></div>
-              <div class="sheet-field"><label>AC 5</label><input type="text" name="attr_to_hit_ac_5"></div>
-              <div class="sheet-field"><label>AC 6</label><input type="text" name="attr_to_hit_ac_6"></div>
-              <div class="sheet-field"><label>AC 7</label><input type="text" name="attr_to_hit_ac_7"></div>
-              <div class="sheet-field"><label>AC 8</label><input type="text" name="attr_to_hit_ac_8"></div>
-              <div class="sheet-field"><label>AC 9</label><input type="text" name="attr_to_hit_ac_9"></div>
-              <div class="sheet-field"><label>AC 10</label><input type="text" name="attr_to_hit_ac_10"></div>
-            </div>
+  <!-- INPUT ROW -->
+  <div class="sheet-attack-top">
+    <input type="text" name="attr_attack_table_melee">
+    <input type="text" name="attr_attack_table_thaco">
+    <input type="text" name="attr_attack_table_ranged">
+  </div>
 
-            <div class="sheet-attack-col">
-              <div class="sheet-field"><label>AC -1</label><input type="text" name="attr_to_hit_ac_neg1"></div>
-              <div class="sheet-field"><label>AC -2</label><input type="text" name="attr_to_hit_ac_neg2"></div>
-              <div class="sheet-field"><label>AC -3</label><input type="text" name="attr_to_hit_ac_neg3"></div>
-              <div class="sheet-field"><label>AC -4</label><input type="text" name="attr_to_hit_ac_neg4"></div>
-              <div class="sheet-field"><label>AC -5</label><input type="text" name="attr_to_hit_ac_neg5"></div>
-              <div class="sheet-field"><label>AC -6</label><input type="text" name="attr_to_hit_ac_neg6"></div>
-              <div class="sheet-field"><label>AC -7</label><input type="text" name="attr_to_hit_ac_neg7"></div>
-              <div class="sheet-field"><label>AC -8</label><input type="text" name="attr_to_hit_ac_neg8"></div>
-              <div class="sheet-field"><label>AC -9</label><input type="text" name="attr_to_hit_ac_neg9"></div>
-              <div class="sheet-field"><label>AC -10</label><input type="text" name="attr_to_hit_ac_neg10"></div>
-            </div>
-          </div>
+  <!-- AC ROWS -->
+  <div class="sheet-attack-rows">
+
+    <div class="sheet-attack-row">
+      <div><label>AC 1</label><input type="text" name="attr_to_hit_ac_1"></div>
+     <div class="sheet-attack-spacer"></div>
+      <div><label>AC -1</label><input type="text" name="attr_to_hit_ac_neg1"></div>
+    </div>
+
+    <div class="sheet-attack-row">
+      <div><label>AC 2</label><input type="text" name="attr_to_hit_ac_2"></div>
+     <div class="sheet-attack-spacer"></div>
+      <div><label>AC -2</label><input type="text" name="attr_to_hit_ac_neg2"></div>
+    </div>
+
+    <div class="sheet-attack-row">
+      <div><label>AC 3</label><input type="text" name="attr_to_hit_ac_3"></div>
+     <div class="sheet-attack-spacer"></div>
+      <div><label>AC -3</label><input type="text" name="attr_to_hit_ac_neg3"></div>
+    </div>
+
+    <div class="sheet-attack-row">
+      <div><label>AC 4</label><input type="text" name="attr_to_hit_ac_4"></div>
+     <div class="sheet-attack-spacer"></div>
+      <div><label>AC -4</label><input type="text" name="attr_to_hit_ac_neg4"></div>
+    </div>
+
+    <div class="sheet-attack-row">
+      <div><label>AC 5</label><input type="text" name="attr_to_hit_ac_5"></div>
+     <div class="sheet-attack-spacer"></div>
+      <div><label>AC -5</label><input type="text" name="attr_to_hit_ac_neg5"></div>
+    </div>
+
+    <div class="sheet-attack-row">
+      <div><label>AC 6</label><input type="text" name="attr_to_hit_ac_6"></div>
+     <div class="sheet-attack-spacer"></div>
+      <div><label>AC -6</label><input type="text" name="attr_to_hit_ac_neg6"></div>
+    </div>
+
+    <div class="sheet-attack-row">
+      <div><label>AC 7</label><input type="text" name="attr_to_hit_ac_7"></div>
+     <div class="sheet-attack-spacer"></div>
+      <div><label>AC -7</label><input type="text" name="attr_to_hit_ac_neg7"></div>
+    </div>
+
+    <div class="sheet-attack-row">
+      <div><label>AC 8</label><input type="text" name="attr_to_hit_ac_8"></div>
+     <div class="sheet-attack-spacer"></div>
+      <div><label>AC -8</label><input type="text" name="attr_to_hit_ac_neg8"></div>
+    </div>
+
+    <div class="sheet-attack-row">
+      <div><label>AC 9</label><input type="text" name="attr_to_hit_ac_9"></div>
+     <div class="sheet-attack-spacer"></div>
+      <div><label>AC -9</label><input type="text" name="attr_to_hit_ac_neg9"></div>
+    </div>
+
+    <div class="sheet-attack-row">
+      <div><label>AC 10</label><input type="text" name="attr_to_hit_ac_10"></div>
+     <div class="sheet-attack-spacer"></div>
+      <div><label>AC -10</label><input type="text" name="attr_to_hit_ac_neg10"></div>
+    </div>
+
+  </div>
 
           <div class="sheet-help">Attack success requires an equal to or above roll to hit.</div>
         </div>
 
         <div class="sheet-section">
-          <div class="sheet-subtitle">Armor Class</div>
+  <div class="sheet-subtitle">Armor Class</div>
 
-          <div class="sheet-grid sheet-grid-2">
-            <div class="sheet-field">
-              <label>Natural</label>
-              <input type="text" name="attr_ac_natural">
-            </div>
-            <div class="sheet-field">
-              <label>Armored</label>
-              <input type="text" name="attr_ac_armored">
-            </div>
-            <div class="sheet-field">
-              <label>Surprised</label>
-              <input type="text" name="attr_ac_surprised">
-            </div>
-            <div class="sheet-field">
-              <label>Rear</label>
-              <input type="text" name="attr_ac_rear">
-            </div>
-          </div>
-
-          <div class="sheet-field">
-            <label>Other Defenses</label>
-            <textarea name="attr_other_defenses"></textarea>
-          </div>
-        </div>
-
-      </div>
+  <div class="sheet-grid sheet-grid-2">
+    <div class="sheet-field">
+      <label>Natural</label>
+      <input type="text" name="attr_ac_natural">
     </div>
-
-    <!-- WEAPONS -->
-    <div class="sheet-section sheet-fullwidth">
-      <div class="sheet-subtitle">Weapons</div>
-
-      <div class="sheet-grid sheet-grid-gov-weapons sheet-mount-header">
-        <div>Weapon</div>
-        <div>#</div>
-        <div>ROF</div>
-        <div>Att</div>
-        <div>Dmg</div>
-        <div>Range</div>
-        <div>Damage</div>
-        <div>Mag</div>
-      </div>
-
-      <fieldset class="repeating_weapons">
-        <div class="sheet-grid sheet-grid-gov-weapons">
-          <input type="text" name="attr_weapon">
-          <input type="text" name="attr_attacks_num">
-          <input type="text" name="attr_rof">
-          <input type="text" name="attr_attack_adjustment">
-          <input type="text" name="attr_damage_adjustment">
-          <input type="text" name="attr_ranges">
-          <input type="text" name="attr_damage">
-          <input type="text" name="attr_magazine">
-        </div>
-      </fieldset>
+    <div class="sheet-field">
+      <label>Armored</label>
+      <input type="text" name="attr_ac_armored">
     </div>
-
-    <!-- ROGUE -->
-    <div class="sheet-section sheet-fullwidth">
-      <div class="sheet-subtitle">Rogue Abilities</div>
-
-      <div class="sheet-grid sheet-grid-10 sheet-mount-header">
-        <div>Pick Pockets</div>
-        <div>Open Locks</div>
-        <div>Find/Remove Traps</div>
-        <div>Move Silently</div>
-        <div>Hide in Shadows</div>
-        <div>Detect Noise</div>
-        <div>Climb Walls</div>
-        <div>Read Languages</div>
-        <div>Dual Wield</div>
-        <div>Kill Shot</div>
-      </div>
-
-      <div class="sheet-grid sheet-grid-10">
-        <input type="text" name="attr_rogue_pick_pockets">
-        <input type="text" name="attr_rogue_open_locks">
-        <input type="text" name="attr_rogue_find_remove_traps">
-        <input type="text" name="attr_rogue_move_silently">
-        <input type="text" name="attr_rogue_hide_in_shadows">
-        <input type="text" name="attr_rogue_detect_noise">
-        <input type="text" name="attr_rogue_climb_walls">
-        <input type="text" name="attr_rogue_read_languages">
-        <input type="checkbox" name="attr_dual_wield">
-        <select name="attr_kill_shot">
-          <option value=""></option>
-          <option value="x2">x2</option>
-          <option value="x3">x3</option>
-          <option value="x4">x4</option>
-          <option value="x5">x5</option>
-        </select>
-      </div>
+    <div class="sheet-field">
+      <label>Surprised</label>
+      <input type="text" name="attr_ac_surprised">
     </div>
+    <div class="sheet-field">
+      <label>Rear</label>
+      <input type="text" name="attr_ac_rear">
+    </div>
+  </div>
 
-    <!-- SAVING THROWS -->
-    <div class="sheet-section sheet-fullwidth">
-      <div class="sheet-subtitle">Saving Throws</div>
+  <div class="sheet-field">
+    <label>Other Defenses</label>
+    <textarea name="attr_other_defenses"></textarea>
+  </div>
+</div>
 
-      <div class="sheet-grid sheet-grid-7 sheet-mount-header">
-        <div>Paralyzation</div>
-        <div>Poison</div>
-        <div>Death</div>
-        <div>Shock</div>
-        <div>Transformation</div>
-        <div>Evasion</div>
-        <div>Resolve</div>
-      </div>
-
-      <div class="sheet-grid sheet-grid-7">
-        <input type="text" name="attr_save_paralyzation">
-        <input type="text" name="attr_save_poison">
-        <input type="text" name="attr_save_death">
-        <input type="text" name="attr_save_shock">
-        <input type="text" name="attr_save_transformation">
-        <input type="text" name="attr_save_evasion">
-        <input type="text" name="attr_save_resolve">
       </div>
     </div>
 
