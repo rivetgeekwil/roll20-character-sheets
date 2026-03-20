@@ -150,7 +150,7 @@
 	"power-resistance-u": "Power<br>Resist",
 	"power-resistance-i": "PR",
 	"arcane-spell-failure": "Arcane Spell Failure",
-	"reset-temp-bonus": "Reset Temp Bonus",
+	"reset-temp-bonus": "",
 	"reset-skills-temp-bonus": "Reset Skills Temp Bonus",
 	"disable-modifiers": "Disable Modifiers",
 	"collapse-all-modifiers": "Collapse All Modifiers",
