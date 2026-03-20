@@ -665,11 +665,15 @@ const updateTotalWeight = function() {
       let total = 0;
 
       ids.forEach(function(id) {
-        total += parseFloat(values["repeating_equipment_" + id + "_item_weight"]) || 0;
+        const weight = parseFloat(values["repeating_equipment_" + id + "_item_weight"]) || 0;
+        total += weight;
       });
 
+      // Round to 2 decimal places and convert to string
+      const roundedTotal = total.toFixed(2);
+
       setAttrs({
-        total_weight: total
+        total_weight: roundedTotal
       });
     });
   });
@@ -678,31 +682,40 @@ const updateTotalWeight = function() {
 const updateAttackTable = function() {
   getAttrs(["attack_table_thaco"], function(values) {
     const thaco = parseInt(values.attack_table_thaco, 10);
-
     if (isNaN(thaco)) return;
 
-    const updates = {
-      to_hit_ac_1: thaco - 1,
-      to_hit_ac_2: thaco - 2,
-      to_hit_ac_3: thaco - 3,
-      to_hit_ac_4: thaco - 4,
-      to_hit_ac_5: thaco - 5,
-      to_hit_ac_6: thaco - 6,
-      to_hit_ac_7: thaco - 7,
-      to_hit_ac_8: thaco - 8,
-      to_hit_ac_9: thaco - 9,
-      to_hit_ac_10: thaco - 10,
-      to_hit_ac_neg1: thaco + 1,
-      to_hit_ac_neg2: thaco + 2,
-      to_hit_ac_neg3: thaco + 3,
-      to_hit_ac_neg4: thaco + 4,
-      to_hit_ac_neg5: thaco + 5,
-      to_hit_ac_neg6: thaco + 6,
-      to_hit_ac_neg7: thaco + 7,
-      to_hit_ac_neg8: thaco + 8,
-      to_hit_ac_neg9: thaco + 9,
-      to_hit_ac_neg10: thaco + 10
+    const updates = {};
+
+    // Calculate needed roll for each AC (descending: lower AC needs higher roll)
+    const needed = (ac) => thaco - ac;
+
+    // Clamp helper: show actual if ≤20, else 20* (meaning nat 20 required)
+    const display = (val) => {
+      if (val <= 20) return Math.max(val, 1);  // nothing below 1 (auto except possible fumble)
+      return 20;                               // or you can return "20*" as string if you make fields text
     };
+
+    updates.to_hit_ac_1     = display(needed(1));
+    updates.to_hit_ac_2     = display(needed(2));
+    updates.to_hit_ac_3     = display(needed(3));
+    updates.to_hit_ac_4     = display(needed(4));
+    updates.to_hit_ac_5     = display(needed(5));
+    updates.to_hit_ac_6     = display(needed(6));
+    updates.to_hit_ac_7     = display(needed(7));
+    updates.to_hit_ac_8     = display(needed(8));
+    updates.to_hit_ac_9     = display(needed(9));
+    updates.to_hit_ac_10    = display(needed(10));
+
+    updates.to_hit_ac_neg1  = display(needed(-1));
+    updates.to_hit_ac_neg2  = display(needed(-2));
+    updates.to_hit_ac_neg3  = display(needed(-3));
+    updates.to_hit_ac_neg4  = display(needed(-4));
+    updates.to_hit_ac_neg5  = display(needed(-5));
+    updates.to_hit_ac_neg6  = display(needed(-6));
+    updates.to_hit_ac_neg7  = display(needed(-7));
+    updates.to_hit_ac_neg8  = display(needed(-8));
+    updates.to_hit_ac_neg9  = display(needed(-9));
+    updates.to_hit_ac_neg10 = display(needed(-10));
 
     setAttrs(updates);
   });
