@@ -1,0 +1,590 @@
+<h1 style="margin-bottom: 0px; text-align: center; color: #FFF; background-color: #D2691E;">Embers of Humanity</h1>
+<!--<img src="https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/Basic_Roleplaying/Logo.jpg" />-->
+<div class='sheet-2colrow'>
+	<div style="width:45%">
+
+		</div>
+		<div class='sheet-col'>
+			<h3 style="margin-bottom: 0px; text-align: center; color: #FFF; background-color: #647A3E;">Basic Info</h3>
+			<table style="width: 100%;">
+				<tr>
+					<td>Name</td>
+					<td><input type="text" name="attr_Name" style="width: 300px" /></td>
+				</tr>
+				<tr>
+					<td>Pronouns</td>
+					<td>
+						<input type="text" name="attr_Pronous" style="width: 300px" /> 
+					</tr>
+					<tr>
+					    
+					<td>
+						Background</td> <td>
+						<input type="text" name="attr_Background" style="width: 300px" />
+					</td>				
+				</tr>
+				
+				<tr>
+					<td>Notes</td>
+					<td><textarea rows="3" name="attr_Description" style="margin-bottom: 0px;height: 4em; width: 289px;" ></textarea></td>
+				</tr>
+							
+						
+			</table>
+		</div>
+
+		<div class='sheet-col' >
+			<h3 style="margin-bottom: 0px; text-align: center; color: #FFF; background-color: #647A3E;">Characteristics & Rolls</h3>
+			<table class="sheet-characteristics" style=" width: 100%" >
+		
+				    
+					<tr>
+						<td class=".sheet-chkfiller"><input type="checkbox" name="attr_st-check" /><td>
+						<div class="sheet-cdiv">
+						<td style="vertical-align: middle;">Strength</td>
+						<td><input type="number" value="10" name="attr_STR" /></td>	
+						<td><button class="sheet-characteristic-roll sheet-plain" style="width: 75px"  type="roll" value="&{template:characteristicRoll} {{name=@{Name}}} {{skillvalue=@{STR}}} {{special=[[ceil((@{STR})/2)+1]]}} {{success=[[@{STR}]]}} {{roll=[[1d100]]}} {{skillname=Strength}}">Push</button></td>
+						<td></td>
+						<td></td>	
+						
+					</tr>
+					
+					<tr>
+						<td class=".sheet-chkfiller"><input type="checkbox" name="attr_con-check" /><td>
+						<td style="vertical-align: middle;">Constitution</td>
+						<td><input type="number" value="10" name="attr_CON" /></td>
+						<td><button class="sheet-characteristic-roll sheet-plain" style="width: 75px"  type="roll" value="&{template:characteristicRoll} {{name=@{Name}}} {{skillvalue=@{CON}}} {{special=[[ceil((@{CON})/2)+1]]}} {{success=[[@{CON}]]}} {{roll=[[1d100]]}} {{skillname=Constitution}}">Survive</button></td>						
+					
+						<td style="vertical-align: middle;">Extertion</td><td><input type="number" name="attr_exertion" /></td>		
+						<td></td>
+						<td></td>						
+					</tr>
+				
+					
+					<tr>
+						<td><input type="checkbox" name="attr_int-check" /><td>
+						<td style="vertical-align: middle;">Intelligence</td>
+						<td><input type="number" value="10" name="attr_INT" /></td>
+						<td><button class="sheet-characteristic-roll sheet-plain" style="width: 75px"  type="roll" value="&{template:characteristicRoll} {{name=@{Name}}} {{skillvalue=@{INT}}} {{special=[[ceil((@{INT})/2)+1]]}} {{success=[[@{INT}]]}} {{roll=[[1d100]]}} {{skillname=Intelligence}}">Think</button></td>
+						<td  style="vertical-align: middle;"> Luck</td><td><input type="number" name="attr_luck" /></td>		
+						<td></td>
+						<td></td>						
+					</tr>
+					
+					<tr>
+						<td><input type="checkbox" name="attr_power-check" /><td>
+						<td style="vertical-align: middle;">Power</td>
+						<td><input class="sheet-plain" value="10" type="number" name="attr_POW" /></td>
+						<td><button class="sheet-characteristic-roll sheet-plain" style="width: 75px"  type="roll" value="&{template:characteristicRoll} {{name=@{Name}}} {{skillvalue=@{POW}}} {{special=[[ceil((@{POW})/2)+1]]}} {{success=[[@{POW}]]}} {{roll=[[1d100]]}} {{skillname=Power}}">Resolve</button></td>
+						<td style="vertical-align: middle;">Hit Pts.</td>
+						<td><input type="number" name="attr_cur_hp" />
+						<td>/</td>
+						<td><input type="number" name="attr_max_hp" /></td>									
+					</tr>
+					
+					<tr>
+						<td class=".sheet-chkfiller"><input type="checkbox" name="attr_dex-check" /><td>
+						<td style="vertical-align: middle;">Dexterity</td>
+						<td><input type="number" value="10" name="attr_DEX" /></td>	
+						<td><button class="sheet-characteristic-roll sheet-plain" style="width: 75px"  type="roll" value="&{template:characteristicRoll} {{name=@{Name}}} {{skillvalue=@{DEX}}} {{success=[[@{DEX}]]}} {{roll=[[1d100]]}} {{skillname=Dexterity}}">Move</button></td>
+						<td></td>
+						<td>
+						<td></td>
+						<td></td>
+					</tr>
+				
+					
+					<tr>
+						<td class=".sheet-chkfiller"><input type="checkbox" name="attr_chr-check" /><td>
+						<td style="vertical-align: middle;">
+						Charisma
+						</td>
+						<td>
+							<input type="number" value="10" name="attr_chrarisma" />
+						</td>
+						<td>
+						    <button class="sheet-characteristic-roll sheet-plain" style="width: 75px"  type="roll" value="&{template:characteristicRoll} {{name=@{Name}}} {{skillvalue=@{EDU}}} {{success=[[@{EDU}]]}} {{roll=[[1d100]]}} {{skillname=Education}}">Charm</button>
+						</td>
+						
+						<td>
+							<button  class="sheet-characteristic-roll sheet-plain" style="width: 75px" type="roll" value="&{template:empathyRoll} {{name=@{Name}}} {{skillvalue=@{cur_empathy}}} {{success=[[@{cur_empathy}]]}} {{roll=[[1d100]]}} {{skillname=Empathy}}">Empathy</button>
+						</td>
+						<td><input type="number" name="attr_cur_empathy" /></td>
+						<td></td>
+						<td></td>           
+					</tr>
+				
+			
+			</table>
+		</div>
+	</div>
+</div>
+
+<hr/>
+<div>
+<p>
+    <h3 class="sheet-skills-header">Skills</h3> 
+			
+    <div class='sheet-2colrow'>
+        <div class='sheet-col'>
+				<table style="width: 100%">
+					<tr>
+						<td class=><input type="checkbox" name="attr_Success-Athletics"  /></td>
+						<td class="sheet-skillname">Athletics</td>
+						<td><input type="number" style="width:105%" value="15" name="attr_Athletics"  /></td>
+						<td><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Athletics}}} {{fumble=[[ceil(95+(@{Athletics})/20))]]}} {{crit=[[ceil((@{Athletics})/20)+1]]}} {{special=[[ceil((@{Athletics})/5)+1]]}}  {{success=[[ceil(@{Athletics})]]}} {{roll=[[1d100]]}} {{skillname=Athletics}}"/></td>																																								
+					</tr>
+				
+			
+					</tr>
+					<tr>
+						<td><input type="checkbox" name="attr_Success-Convince"  /></td>
+						<td class="sheet-skillname">Convince</td>
+						<td><input type="number" style="width:105%" value="5" name="attr_Convince"  /></td>
+						<td><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{success=[[ceil(@{Convince})]]}} {{fumble=[[ceil(95+(@{Convince})/20))]]}} {{crit=[[ceil((@{Convince})/20)+1]]}}  {{special=[[ceil((@{Convince})/5)+1]]}}  {{skillvalue=@{Convince}}}  {{roll=[[1d100]]}} {{skillname=Convince}}"/></td> 
+					</tr>
+					<tr>
+						<td><input type="checkbox" name="attr_Success-FirstAid"  /></td>
+						<td class="sheet-skillname">First Aid</td>
+						<td><input type="number" style="width:105%" value="40" name="attr_FirstAid"  /></td>
+						<td><button type="roll" value="&{template:skillRoll}    {{name=@{Name}}} {{skillvalue=@{FirstAid}}} {{fumble=[[ceil(95+(@{Climb})/20))]]}} {{crit=[[ceil((@{FirstAid})/20)+1]]}} {{special=[[ceil((@{FirstAid})/5)+1]]}}  {{success=[[ceil(@{FirstAid})]]}} {{roll=[[1d100]]}} {{skillname=FirstAid}}"/></td>
+					</tr>
+					<tr>
+						<td><input type="checkbox" name="attr_Success-Navigate"  /></td>
+						<td class="sheet-skillname">Navigate</td>
+						<td><input type="number" style="width:105%" value="5" name="attr_Navigate"  /></td>
+						<td><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Navigate}}} {{fumble=[[ceil(95+(@{Navigate})/20))]]}} {{crit=[[ceil((@{Navigate})/20)+1]]}} {{special=[[ceil((@{Navigate})/5)+1]]}}  {{success=[[ceil(@{Navigate})]]}} {{roll=[[1d100]]}} {{skillname=Navigate}}"/></td>											
+					</tr>
+						<tr>
+						<td><input type="checkbox" name="attr_Success-Listen"  /></td>
+						<td class="sheet-skillname">Listen</td>
+						<td><input type="number" style="width:105%" value="5" name="attr_Listen"  /></td>
+						<td><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Listen}}} {{fumble=[[ceil(95+(@{Listen})/20))]]}} {{crit=[[ceil((@{Listen})/20)+1]]}} {{special=[[ceil((@{Listen})/5)+1]]}}  {{success=[[ceil(@{Listen})]]}} {{roll=[[1d100]]}} {{skillname=Listen}}"/></td>											
+					</tr>
+						<tr>
+						<td><input type="checkbox" name="attr_Success-ReadPerson"  /></td>
+						<td class="sheet-skillname">Read Person</td>
+						<td><input type="number" style="width:105%" value="5" name="attr_ReadPerson"  /></td>
+						<td><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{ReadPerson}}} {{fumble=[[ceil(95+(@{ReadPerson})/20))]]}} {{crit=[[ceil((@{ReadPerson})/20)+1]]}} {{special=[[ceil((@{ReadPerson})/5)+1]]}}  {{success=[[ceil(@{ReadPerson})]]}} {{roll=[[1d100]]}} {{skillname=ReadPerson}}"/></td>											
+					</tr>
+						<tr>
+						<td><input type="checkbox" name="attr_Success-Repair"  /></td>
+						<td class="sheet-skillname">Repair</td>
+						<td><input type="number" style="width:105%" value="5" name="attr_Navigate"  /></td>
+						<td><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Repair}}} {{fumble=[[ceil(95+(@{Repair})/20))]]}} {{crit=[[ceil((@{Repair})/20)+1]]}} {{special=[[ceil((@{Repair})/5)+1]]}}  {{success=[[ceil(@{Repair})]]}} {{roll=[[1d100]]}} {{skillname=Repair}}"/></td>											
+					</tr>
+						<tr>
+						<td><input type="checkbox" name="attr_Success-SpotHidden"  /></td>
+						<td class="sheet-skillname">Spot Hidden</td>
+						<td><input type="number" style="width:105%" value="5" name="attr_SpotHidden"  /></td>
+						<td><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{SpotHidden}}} {{fumble=[[ceil(95+(@{SpotHidden})/20))]]}} {{crit=[[ceil((@{SpotHidden})/20)+1]]}} {{special=[[ceil((@{SpotHidden})/5)+1]]}}  {{success=[[ceil(@{SpotHidden})]]}} {{roll=[[1d100]]}} {{skillname=SpotHidden}}"/></td>											
+					</tr>
+						<tr>
+						<td><input type="checkbox" name="attr_Success-Stealth"  /></td>
+						<td class="sheet-skillname">Stealth</td>
+						<td><input type="number" style="width:105%" value="5" name="attr_Stealth"  /></td>
+						<td><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Stealth}}} {{fumble=[[ceil(95+(@{Stealth})/20))]]}} {{crit=[[ceil((@{Stealth})/20)+1]]}} {{special=[[ceil((@{Stealth})/5)+1]]}}  {{success=[[ceil(@{Stealth})]]}} {{roll=[[1d100]]}} {{skillname=Stealth}}"/></td>											
+					</tr>
+						<tr>
+						<td><input type="checkbox" name="attr_Success-Threaten"  /></td>
+						<td class="sheet-skillname">Threaten</td>
+						<td><input type="number" style="width:105%" value="5" name="attr_Threaten"  /></td>
+						<td><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Threaten}}} {{fumble=[[ceil(95+(@{Threaten})/20))]]}} {{crit=[[ceil((@{Threaten})/20)+1]]}} {{special=[[ceil((@{Threaten})/5)+1]]}}  {{success=[[ceil(@{Threaten})]]}} {{roll=[[1d100]]}} {{skillname=Threaten}}"/></td>											
+					</tr>
+				
+				</table>
+			
+					</div>
+		
+				<div class='sheet-col'>
+			<table style="width: 100%;">					
+					<tr>
+						<td class="sheet-chkfiller"></td>
+						<td><strong>Expert Skills</strong></td>
+					</tr>					
+			</table>
+			<fieldset class='repeating_OtherSkills'>
+					<table style="width: 100%">	
+					 <td><input type="checkbox" name="attr_OtherSucess"  /></td>
+					 <td><input type="text" name="attr_OtherSkill" class="sheet-skillname"/></td>
+					 <td><input type="number" style="width:105%" value="1" name="attr_OtherScore" /></td>
+					 <td><button type="roll" value="&{template:skillRoll}  {{name=@{Name}}} {{skillvalue=@{OtherScore}}} {{fumble=[[ceil(95+(@{OtherScore})/20))]]}} {{crit=[[ceil((@{OtherScore})/20)+1]]}} {{special=[[ceil((@{OtherScore})/5)+1]]}}    {{success=[[ceil(@{OtherScore})]]}} {{roll=[[1d100]]}} {{skillname=@{OtherSkill}}}"/></td>
+			</fieldset>
+			<br />
+        </div>
+    </div>
+</p>
+
+</div>
+<hr />
+<h3 style="text-align: center; color: #FFF; background-color: #647A3E;">Combat Skills</h3>
+<div class='sheet-2colrow'>
+	<div class='sheet-col sheet-big-col'>
+		
+		
+		<table style="width: 100%;">
+			<thead class="sheet-header-text">
+				<th></th>
+				<th style="text-align: left;">Weapon</th>
+				<th>Skill %</th>
+				<th></th>
+			</thead>
+			<tbody>
+				<tr>
+					<td><input type="checkbox" name="attr_Success-Fist-Punch" /></td>
+					<td style="width: 122px;"><p style="width: 111px; margin-bottom: 0px">Brawl</p></td>
+					<td><input style="width:50px" value="25" type="number" name="attr_Brawl" /></td>
+					<td><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Brawl}}} {{fumble=[[ceil(95+(@{Brawl})/20))]]}} {{crit=[[ceil((@{Brawl})/20)+1]]}} {{special=[[ceil((@{Brawl})/5)+1]]}} {{success=[[ceil(@{Brawl})]]}} {{roll=[[1d100]]}} {{skillname=Brawl}}" /></td>
+				</tr>
+				
+				<tr>
+					<td><input type="checkbox" name="attr_Success-Grapple"  /></td>
+					<td style="width: 122px"><p style="width: 111px; margin-bottom: 0px">Grapple</p></td>
+					<td><input style="width:50px" value="25" type="number" name="attr_Grapple" /></td>
+					<td><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Grapple}}} {{fumble=[[ceil(95+(@{Grapple})/20))]]}} {{crit=[[ceil((@{Grapple})/20)+1]]}} {{special=[[ceil((@{Grapple})/5)+1]]}} {{success=[[ceil(@{Grapple})]]}} {{roll=[[1d100]]}} {{skillname=Grapple}}" /></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" name="attr_Success-Dodge"  /></td>
+					<td style="width: 122px"><p style="width: 111px; margin-bottom: 0px">Dodge</p></td>
+					<td><input style="width:50px" value="25" type="number" name="attr_Dodge" /></td>
+					<td><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Dodge}}} {{fumble=[[ceil(95+(@{Dodge})/20))]]}} {{crit=[[ceil((@{Dodge})/20)+1]]}} {{special=[[ceil((@{Dodge})/5)+1]]}} {{success=[[ceil(@{Dodge})]]}} {{roll=[[1d100]]}} {{skillname=Dodge}}" /></td>
+				</tr>
+				
+			</tbody>
+		</table>
+		
+
+
+			
+		</div >
+		<hr />
+	</div>
+</div>
+<br>
+<hr/>
+
+<h3 style="text-align: center; color: #FFF; background-color: #647A3E;">Personal Property</h3>
+
+<p>
+
+	<textarea name="attr_Personal-Property"></textarea><br>
+
+</p>
+	<h3 style="margin-bottom: 0px; text-align: center; color: #FFF; background-color: #D2691E;">Rollable Tables</h3>
+		<table>
+			<tr>
+				<td>
+					<button type="roll" value="&{template:location-before} {{roll=[[1d100]]}}" class="sheet-plain-major-wound">Location Before</button>
+
+				</td>
+				<td>
+					<button type="roll" value="&{template:people} {{roll=[[1d100]]}}" class="sheet-plain-major-wound">People</button>
+					
+				</td>
+			</tr><tr>
+				<td>
+					<button type="roll" value="&{template:location-after} {{roll=[[1d100]]}}" class="sheet-plain-major-wound">Location After</button>
+
+				</td>
+				<td>
+					<button type="roll" value="&{template:people-attributes} {{roll=[[1d100]]}}" class="sheet-plain-major-wound">People Wants/Needs</button>
+					
+				</td>
+			</tr>
+		</table>	
+	
+	<rolltemplate class="sheet-rolltemplate-melee-roll">
+		<table class="skillRoll" style="border:1px black;">
+			<tr><th colspan="2">{{name}}</th></tr>
+			
+			<tr><th colspan="2">Weapon Roll</th></tr>
+			<tr>
+				<td class="template_label"><b>Rolling:</b> {{skillname}} {{skillvalue}}% </td>
+				<td class="template_value"> ({{success}}%)</td>
+			</tr>
+			<tr>
+				<td class="template_label"><b>Rolled:</b></td>
+				<td class="template_value">&nbsp;{{roll}}</td>
+			</tr>
+			<tr>
+				<td class="template_label"><b>Result:</b></td>
+ 		 
+ 		{{#rollBetween() roll fumble 100}} 
+ 				<td class="template_value">Fumble</td>
+ 		{{/rollBetween() roll fumble 100}} 
+ 		
+ 		{{#^rollBetween() roll fumble 100}}
+ 		
+ 			{{#rollGreater() success 99}}
+ 				{{#rollLess() roll crit}}<td class="template_value">Critical!!!!!!</td>{{/rollLess() roll crit}}
+ 				{{#^rollLess() roll crit}}
+ 					{{#rollLess() roll special}}<td class="template_value">Special!!!</td>{{/rollLess() roll special}}
+ 					{{#^rollLess() roll special}}<td class="template_value">Success</td>{{/^rollLess() roll special}}
+ 				{{/^rollLess() roll crit}}
+ 
+ 			{{/rollGreater() success 99}}
+ 			
+ 			{{#^rollGreater() success 99}}
+ 				{{#rollLess() roll crit}}<td class="template_value">Critical!!!!!!</td>{{/rollLess() roll crit}}
+ 				{{#^rollLess() roll crit}}
+ 					{{#rollLess() roll special}}<td class="template_value">Special!!!</td>{{/rollLess() roll special}}
+ 					{{#^rollLess() roll special}}
+ 						{{#rollBetween() roll special success}}<td class="template_value">Success</td>{{/rollBetween() roll special success}}
+ 						{{#^rollBetween() roll special success}}
+ 							{{#rollLess() roll fumble}}
+ 								<td class="template_value">Failure</td>
+ 							{{/rollLess() roll fumble}}
+ 							{{#^rollLess() roll fumble}}
+ 								<td class="template_value">fumble</td>
+ 							{{/^rollLess() roll fumble}}							
+ 						{{/^rollBetween() roll special success}}											
+ 					{{/^rollLess() roll special}}
+ 				{{/^rollLess() roll crit}}
+ 			{{/^rollGreater() success 99}}
+ 		{{/^rollBetween() roll fumble 100}}
+ 		
+ 		
+ 		{{#^rollGreater() roll success}}
+				<tr>
+					<td class="template_label"><b>Damage:</b></td>
+					<td style="text-align: right"; class="template_value">{{tot}}<td>
+				</tr>
+			{{/^rollGreater() roll success}}
+		</table>
+	</rolltemplate>
+		<rolltemplate class="sheet-rolltemplate-skillRoll">
+		<table class="skillRoll" style="width: 100%; border: 1px solid black;">
+			<tr><th colspan="2">{{name}}</th></tr>
+			<tr><th colspan="2">Skill Roll {{skillname}}</th></tr>
+			<tr>
+				<td class="template_label"><b>Rolling:</b> {{skillname}} {{skillvalue}}% </td>
+				<td class="template_value"> ({{success}}%)</td>
+			</tr>
+			<tr>
+				<td class="template_label"><b>Rolled:</b></td>
+				<td class="template_value">&nbsp;{{roll}}</td>
+			</tr>
+			<tr>
+			 <td class="template_label"><b>Result:</b></td>
+ 
+ 		{{#rollBetween() roll fumble 100}} 
+ 				<td class="template_value">Fumble</td>
+ 		{{/rollBetween() roll fumble 100}} 
+ 		
+ 		{{#^rollBetween() roll fumble 100}}
+ 		
+ 			{{#rollGreater() success 99}}
+ 				{{#rollLess() roll crit}}<td class="template_value">Critical!!!!!!</td>{{/rollLess() roll crit}}
+ 				{{#^rollLess() roll crit}}
+ 					{{#rollLess() roll special}}<td class="template_value">Special!!!</td>{{/rollLess() roll special}}
+ 					{{#^rollLess() roll special}}<td class="template_value">Success</td>{{/^rollLess() roll special}}
+ 				{{/^rollLess() roll crit}}
+ 
+ 			{{/rollGreater() success 99}}
+ 			
+ 			{{#^rollGreater() success 99}}
+ 				{{#rollLess() roll crit}}<td class="template_value">Critical!!!!!!</td>{{/rollLess() roll crit}}
+ 				{{#^rollLess() roll crit}}
+ 					{{#rollLess() roll special}}<td class="template_value">Special!!!</td>{{/rollLess() roll special}}
+ 					{{#^rollLess() roll special}}
+ 						{{#rollBetween() roll special success}}<td class="template_value">Success</td>{{/rollBetween() roll special success}}
+ 						{{#^rollBetween() roll special success}}
+ 							{{#rollLess() roll fumble}}
+ 								<td class="template_value">Failure</td>
+ 							{{/rollLess() roll fumble}}
+ 							{{#^rollLess() roll fumble}}
+ 								<td class="template_value">fumble</td>
+ 							{{/^rollLess() roll fumble}}							
+ 						{{/^rollBetween() roll special success}}						
+ 					
+ 					{{/^rollLess() roll special}}
+ 				
+ 				
+ 				
+ 				{{/^rollLess() roll crit}}
+ 			
+ 			
+ 			
+ 			{{/^rollGreater() success 99}}
+ 
+ 			
+ 		{{/^rollBetween() roll fumble 100}}
+			</tr>
+		</table>
+	</rolltemplate>
+
+		<rolltemplate class="sheet-rolltemplate-characteristicRoll">
+		<table class="characteristicRoll" style="width: 100%; border: 1px solid black;">
+			<tr><th colspan="2">{{name}}</th></tr>
+			<tr><th colspan="2">Characteristic Roll</th></tr>
+			<tr>
+				<td class="template_label"><b>Rolling:</b> {{skillname}} {{skillvalue}} </td>
+				<td class="template_value"> ({{success}}%)</td>
+			</tr>
+			<tr>
+				<td class="template_label"><b>Rolled:</b></td>
+				<td class="template_value">&nbsp;{{roll}}</td>
+			</tr>
+			<tr>
+			 <td class="template_label"><b>Result:</b></td>
+
+ 					{{#^rollGreater() roll success}}
+						{{#rollLess() roll special}}
+							<td class="template_value">Hard </td>
+						{{/rollLess() roll special}}
+						{{#^rollLess() roll special}}
+ 				    		<td class="template_value">Success</td>
+						{{/^rollLess() roll special}}
+ 					{{/^rollGreater() roll success}}
+
+ 							{{#rollGreater() roll success}}
+ 								<td class="template_value">Failure</td>
+ 							{{/rollGreater() roll success}}
+
+			</tr>
+		</table>
+	</rolltemplate>
+
+		<rolltemplate class="sheet-rolltemplate-ResistanceRoll">
+		<table class="ResistanceRoll" style="width: 100%; border: 1px solid black;">
+			<tr><th colspan="2">{{name}}</th></tr>
+			<tr><th colspan="2">Resistance Roll</th></tr>
+			<tr>
+				<td class="template_label"><b>Rolling:</b> {{skillvalue1}} vs {{skillvalue2}} </td>
+				<td class="template_value"> ({{success}}%)</td>
+			</tr>
+			<tr>
+				<td class="template_label"><b>Rolled:</b></td>
+				<td class="template_value">&nbsp;{{roll}}</td>
+			</tr>
+			<tr>
+			 <td class="template_label"><b>Result:</b></td>
+
+ 					{{#^rollGreater() roll success}}
+						{{#rollLess() roll special}}
+							<td class="template_value">Hard Success</td>
+						{{/rollLess() roll special}}
+						{{#^rollLess() roll special}}
+ 				    		<td class="template_value">Success</td>
+						{{/^rollLess() roll special}}
+ 					{{/^rollGreater() roll success}}
+
+ 							{{#rollGreater() roll success}}
+ 								<td class="template_value">Failure</td>
+ 							{{/rollGreater() roll success}}
+
+			</tr>
+		</table>
+	</rolltemplate>
+
+	</rolltemplate>
+
+		<rolltemplate class="sheet-rolltemplate-empathyRoll">
+		<table class="characteristicRoll" style="width: 100%; border: 1px solid black;">
+			<tr><th colspan="2">{{name}}</th></tr>
+			<tr><th colspan="2">Empathy Roll</th></tr>
+			<tr>
+				<td class="template_label"><b>Rolling:</b> {{skillname}} {{skillvalue}} </td>
+				<td class="template_value"> ({{success}}%)</td>
+			</tr>
+			<tr>
+				<td class="template_label"><b>Rolled:</b></td>
+				<td class="template_value">&nbsp;{{roll}}</td>
+			</tr>
+			<tr>
+			 <td class="template_label"><b>Result:</b></td>
+
+ 					{{#^rollGreater() roll success}}
+ 				    	<td class="template_value">Success</td>
+ 					{{/^rollGreater() roll success}}
+
+ 							{{#rollGreater() roll success}}
+ 								<td class="template_value">Failure</td>
+ 							{{/rollGreater() roll success}}
+
+			</tr>
+		</table>
+	</rolltemplate>
+
+	
+	
+	
+	<rolltemplate class="sheet-rolltemplate-location-before">
+		<table style="background-color: #ffffff;" class="sheet-rolltemplate-tableRoll">
+			<tr>
+			<th>Location Before</th>
+			</tr>
+			<tr>
+				{{#rollBetween() roll 1 13}} <td class="template_value"> Mountain. {{/rollBetween() roll 1 13}} </td>
+				{{#rollBetween() roll 14 18}} <td class="template_value"> Lake or Loch. {{/rollBetween() roll 14 18}} </td>
+				{{#rollBetween() roll 19 35}} <td class="template_value"> Hills. {{/rollBetween() roll 19 35}} </td>
+				{{#rollBetween() roll 36 38}} <td class="template_value"> Marsh {{/rollBetween() roll 36 38}} </td>
+				{{#rollBetween() roll 39 53}} <td class="template_value"> Forest. {{/rollBetween() roll 39 53}} </td>
+				{{#rollBetween() roll 54 61}} <td class="template_value"> River valley.  {{/rollBetween() roll 54 61}} </td>
+				{{#rollBetween() roll 62 66}} <td class="template_value"> Industrial. {{/rollBetween() roll 62 66}} </td>
+				{{#rollBetween() roll 67 70}} <td class="template_value"> Village by River. {{/rollBetween() roll 67 70}} </td>
+				{{#rollBetween() roll 71 75}} <td class="template_value"> Town. {{/rollBetween() roll 71 75}} </td>
+				{{#rollBetween() roll 76 79}} <td class="template_value"> City. {{/rollBetween() roll 76 79}} </td>
+				{{#rollBetween() roll 80 86}} <td class="template_value"> Farm. {{/rollBetween() roll 80 86}} </td>
+				{{#rollBetween() roll 87 90}} <td class="template_value"> Village on coast. {{/rollBetween() roll 87 90}} </td>
+				{{#rollBetween() roll 91 100}} <td class="template_value"> Coast. {{/rollBetween() roll 91 100}} </td>
+				</tr>
+		</table>
+	</rolltemplate>
+	<rolltemplate class="sheet-rolltemplate-location-after">
+		<table style="background-color: #ffffff;" class="sheet-rolltemplate-tableRoll">
+			<tr>
+			<th>Location After</th>
+			</tr>
+			<tr>
+				{{#rollBetween() roll 1 3}} <td class="template_value"> Small Community. {{/rollBetween() roll 1 3}} </td>
+				{{#rollBetween() roll 4 5}} <td class="template_value"> Trading Hub. {{/rollBetween() roll 4 5}} </td>
+				{{#rollBetween() roll 6 9}} <td class="template_value"> Farmland. {{/rollBetween() roll 6 9}} </td>
+				{{#rollBetween() roll 10 19}} <td class="template_value"> Scrubland. {{/rollBetween() roll 10 19}} </td>
+				{{#rollBetween() roll 20 34}} <td class="template_value"> Lush young forest. {{/rollBetween() roll 20 34}} </td>
+				{{#rollTotal() roll 35}} <td class="template_value"> Isolationist Community.  {{/rollTotal() roll 35}} </td>
+				{{#rollBetween() roll 36 45}} <td class="template_value"> Thirving old forest. {{/rollBetween() roll 36 45}} </td>
+				{{#rollBetween() roll 46 65}} <td class="template_value"> Lifeless desolation. {{/rollBetween() roll 46 65}} </td>
+				{{#rollBetween() roll 66 70}} <td class="template_value"> Old growth forest. {{/rollBetween() roll 66 70}} </td>
+				{{#rollBetween() roll 71 80}} <td class="template_value"> Flooded. {{/rollBetween() roll 71 80}} </td>
+				{{#rollBetween() roll 81 85}} <td class="template_value"> Sinkhole or chasm. {{/rollBetween() roll 81 85}} </td>
+				{{#rollBetween() roll 86 90}} <td class="template_value"> Weird. {{/rollBetween() roll 86 90}} </td>
+				{{#rollBetween() roll 91 100}} <td class="template_value"> Totally Unchanged. {{/rollBetween() roll 91 100}} </td>
+				</tr>
+		</table>
+	</rolltemplate>
+	<rolltemplate class="sheet-rolltemplate-people-attributes">
+		<table style="background-color: #ffffff;" class="sheet-rolltemplate-tableRoll">
+			<tr>
+			<th>People Want/Needs</th>
+			</tr>
+			<tr>
+				{{#rollBetween() roll 1 30}} <td class="template_value"> Knowledge. {{/rollBetween() roll 1 30}} </td>
+				{{#rollBetween() roll 31 40}} <td class="template_value"> Shelter. {{/rollBetween() roll 31 40}} </td>
+				{{#rollBetween() roll 41 60}} <td class="template_value"> Food. {{/rollBetween() roll 41 60}} </td>
+				{{#rollBetween() roll 61 65}} <td class="template_value"> Medicine. {{/rollBetween() roll 61 65}} </td>
+				{{#rollBetween() roll 66 70}} <td class="template_value"> News. {{/rollBetween() roll 66 70}} </td>
+				{{#rollBetween() roll 71 75}} <td class="template_value"> Company. {{/rollBetween() roll 71 75}} </td>
+				{{#rollBetween() roll 76 80}} <td class="template_value"> Weapons. {{/rollBetween() roll 76 80}} </td>
+				{{#rollBetween() roll 81 85}} <td class="template_value"> Scavenged tech. {{/rollBetween() roll 81 85}} </td>
+				{{#rollBetween() roll 86 90}} <td class="template_value"> Scavenged books. {{/rollBetween() roll 86 90}} </td>
+				{{#rollBetween() roll 91 100}} <td class="template_value"> Livestock (poultry/sheep/etc). {{/rollBetween() roll 91 100}} </td>
+				</tr>
+		</table>
+	</rolltemplate>
+	<rolltemplate class="sheet-rolltemplate-people">
+		<table style="background-color: #ffffff;" class="sheet-rolltemplate-tableRoll">
+			<tr>
+			<th>People</th>
+			</tr>
+			<tr>
+				{{#rollBetween() roll 1 15}} <td class="template_value"> Travellers, Traders {{/rollBetween() roll 1 15}} </td>
+				{{#rollBetween() roll 16 35}} <td class="template_value"> Travellers, Families {{/rollBetween() roll 16 35}} </td>
+				{{#rollBetween() roll 36 45}} <td class="template_value"> Travellers, Explorers {{/rollBetween() roll 36 45}} </td>
+				{{#rollBetween() roll 46 70}} <td class="template_value"> Scavengers. {{/rollBetween() roll 46 70}} </td>
+				{{#rollBetween() roll 71 90}} <td class="template_value"> Hunters. {{/rollBetween() roll 71 90}} </td>
+				{{#rollBetween() roll 91 95}} <td class="template_value"> Ambush. {{/rollBetween() roll 91 95}} </td>
+				{{#rollBetween() roll 96 100}} <td class="template_value"> Hermit. {{/rollBetween() roll 96 100}} </td>
+				</tr>
+		</table>
+	</rolltemplate>
