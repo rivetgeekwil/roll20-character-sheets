@@ -561,10 +561,10 @@
 	"npc-options-title": "Opciones de Monstruo",
 	"has-villain-actions": "Tiene Acciones Villanas",
 	"free-strike-ability-text": "Esta Habilidad puede ser usada como un Ataque Básico.",
-	"roll-surge-damage": "Using Surges for Damage",
-	"roll-surge-potency": "Using Surges for Potency",
-	"roll-surge-potency-desc": "Surges used to increase potency by 1",
+	"roll-surge-damage": "Gastando Aumentos en daño",
+	"roll-surge-potency": "Gastando Aumentos en Potencia",
+	"roll-surge-potency-desc": "Aumentos usados para aumentar la Potencia en 1",
 	"roll-resource-gain": "Gana",
 	"damage-calc-or": "o",
-	"import-select-prompt": "Select One"
+	"import-select-prompt": "Elige uno"
 }
