@@ -6476,6 +6476,8 @@
 		
 		const maliceFeatures = malice ? importMalice(malice) : [];
 		
+		const minionTag = roleString.includes('Minion') ? getTranslationByKey('minion-text') : '';
+		
 		// ATTRIBUTE MAPPING
 		const newAttrs = {
 			forgesteel_json: '', // Clear the import field.
@@ -6486,7 +6488,7 @@
 			level: level,
 			npc_role: roleString,
 			npc_keywords: keywords.join(', '),
-			npc_EV: encounterValue,
+			npc_EV: `${encounterValue} ${minionTag}`.trim(),
 			// Stats
 			size: sizeString,
 			speed: dataSpeed.value ?? 5,
