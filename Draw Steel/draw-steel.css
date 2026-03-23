@@ -276,16 +276,26 @@
 	color: var(--color-button-bg);
 	cursor: pointer;
 	right: 30px;
-	top: 100px;
 	font-weight: normal;
+}
+
+.charsheet label.sheet-options-checkbox-label::before {
+	content: 'y';
+}
+
+.charsheet .sheet-header:has(#sheet-options-checkbox:checked) > .sheet-options-checkbox-label::before { /*~ label.sheet-options-checkbox-label::before {*/
+  color: var(--color-accent-steel);
+  content: '*';
+}
+
+.charsheet .sheet-header:has(#sheet-options-checkbox:checked) > .sheet-options-checkbox-label {
+  top: 108px;
 }
 
 .charsheet label.sheet-options-checkbox-label:hover {
 	color: var(--color-accent-steel);
 }
-.charsheet.has(.sheet-options-checkbox:checked) ~ label.sheet-options-checkbox-label {
-  color: var(--color-accent-steel);
-}
+
 
 input.sheet-options-checkbox {
 	display: none;
