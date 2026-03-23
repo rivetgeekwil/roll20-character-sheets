@@ -281,6 +281,15 @@
 					<button type="roll" value="&{template:people} {{roll=[[1d100]]}}" class="sheet-plain-major-wound">People</button>
 					
 				</td>
+				<td>
+					<button type="roll" value="&{template:wasteland-locations} {{roll=[[1d100]]}}" class="sheet-plain-major-wound">Wasteland Locations</button>
+				</td>
+				<td>
+					<button type="roll" value="&{template:weird-encounters} {{roll=[[1d100]]}}" class="sheet-plain-major-wound">Weird Encounters</button>
+				</td>
+				<td rowspan="2" style="text-align: center;">
+					<button type="roll" value="&{template:weather} {{roll=[[1d100]]}}" class="sheet-plain-major-wound">Weather</button>
+				</td>
 			</tr><tr>
 				<td>
 					<button type="roll" value="&{template:location-after} {{roll=[[1d100]]}}" class="sheet-plain-major-wound">Location After</button>
@@ -288,10 +297,16 @@
 				</td>
 				<td>
 					<button type="roll" value="&{template:people-attributes} {{roll=[[1d100]]}}" class="sheet-plain-major-wound">People Wants/Needs</button>
-					
+
+				</td>
+					<td>
+					<button type="roll" value="&{template:wasteland-encounters} {{roll=[[1d100]]}}" class="sheet-plain-major-wound">Wasteland Encounters</button>
+				</td>
+				<td>
+					<button type="roll" value="&{template:weird-locations} {{roll=[[1d100]]}}" class="sheet-plain-major-wound">Weird Locations</button>
 				</td>
 			</tr>
-		</table>	
+		</table>
 	
 	<rolltemplate class="sheet-rolltemplate-melee-roll">
 		<table class="skillRoll" style="border:1px black;">
@@ -560,6 +575,227 @@
 				{{#rollBetween() roll 71 90}} <td class="template_value"> Hunters. {{/rollBetween() roll 71 90}} </td>
 				{{#rollBetween() roll 91 95}} <td class="template_value"> Ambush. {{/rollBetween() roll 91 95}} </td>
 				{{#rollBetween() roll 96 100}} <td class="template_value"> Hermit. {{/rollBetween() roll 96 100}} </td>
+				</tr>
+		</table>
+	</rolltemplate>
+	<rolltemplate class="sheet-rolltemplate-wasteland-encounters">
+		<table style="background-color: #ffffff;" class="sheet-rolltemplate-tableRoll">
+			<tr>
+			<th>Wasteland Encounters</th>
+			</tr>
+			<tr>
+				{{#rollBetween() roll 1 10}} <td class="template_value"> A fast flowing river with only one bridge, patrolled by a group of raiders. {{/rollBetween() roll 1 10}} </td>
+				{{#rollBetween() roll 11 20}} <td class="template_value"> A forest road, overrun by trees and not immediately passable with vehicles. {{/rollBetween() roll 11 20}} </td>
+				{{#rollBetween() roll 21 25}} <td class="template_value"> A suspiciously well-maintained road. At night, locals use it for drag races. {{/rollBetween() roll 21 25}} </td>
+				{{#rollBetween() roll 26 30}} <td class="template_value"> A small group of 'collectors' pass. They hold knowledge of the pre-collapse world. This includes a vast arsenal of weapons they are happy to turn on others. {{/rollBetween() roll 26 30}} </td>
+				{{#rollBetween() roll 31 35}} <td class="template_value"> A caravan of actors moving slowly down the road practising Gilbert & Sullivan operas. {{/rollBetween() roll 31 35}} </td>
+				{{#rollBetween() roll 36 40}} <td class="template_value"> A dead mailman on horseback. The horse stops in front of the survivors. {{/rollBetween() roll 36 40}} </td>
+				{{#rollBetween() roll 41 45}} <td class="template_value"> A travelling salesman selling hand drawn paper maps that look kind of ridiculous, but work surprisingly well. {{/rollBetween() roll 41 45}} </td>
+				{{#rollBetween() roll 46 50}} <td class="template_value"> An abandoned firetruck, slowly rusting. The ladder looks unusually shiny and intact. {{/rollBetween() roll 46 50}} </td>
+				{{#rollBetween() roll 51 55}} <td class="template_value"> A fallen tree in the road. Anyone stopping is ambushed by raiders. {{/rollBetween() roll 51 55}} </td>
+				{{#rollBetween() roll 56 60}} <td class="template_value"> The entire road is blocked by a huge flock of sheep, llamas and alpacas being driven by a boy and his father. {{/rollBetween() roll 56 60}} </td>
+				{{#rollBetween() roll 61 65}} <td class="template_value"> A huge pile up of cars stretches as far as the eye can see. {{/rollBetween() roll 61 65}} </td>
+				{{#rollBetween() roll 66 70}} <td class="template_value"> A loud bang startles the group. It looks like a firework has gone off the next valley over. Celebration? Or a cry for help? {{/rollBetween() roll 66 70}} </td>
+				{{#rollBetween() roll 71 75}} <td class="template_value"> A small kiosk comes into sight with a sign saying 'World's smallest store'. Inside an eccentric man barters for scrap. {{/rollBetween() roll 71 75}} </td>
+				{{#rollBetween() roll 76 80}} <td class="template_value"> In a nearby field, fold-able tables surround a maypole. Everything is spotlessly clean and fresh lemonade sits waiting to be poured. {{/rollBetween() roll 76 80}} </td>
+				{{#rollBetween() roll 81 85}} <td class="template_value"> A swarm of insects carpet the ground. Fat birds follow, gorging on the feast. {{/rollBetween() roll 81 85}} </td>
+				{{#rollBetween() roll 86 90}} <td class="template_value"> Massive nets are strung up between pylons and trees. Full of an odd mix of trash. {{/rollBetween() roll 86 90}} </td>
+				{{#rollBetween() roll 91 95}} <td class="template_value"> Three corpses lie equidistant from one another. All three have been shot in the head, seemingly by each other. {{/rollBetween() roll 91 95}} </td>
+				{{#rollBetween() roll 96 99}} <td class="template_value"> A man lies, half buried in a grave he dug himself. A rock pins a piece of paper to the grave saying 'Finish the job.' {{/rollBetween() roll 96 99}} </td>
+				{{#rollTotal() roll 100}} <td class="template_value"> A playground full of kit in varying degrees of maintenance and a sign that reads "End times boring, fix a ride instead." {{/rollTotal() roll 100}} </td>
+				</tr>
+		</table>
+	</rolltemplate>
+	<rolltemplate class="sheet-rolltemplate-weird-encounters">
+		<table style="background-color: #ffffff;" class="sheet-rolltemplate-tableRoll">
+			<tr>
+			<th>Weird Encounters</th>
+			</tr>
+			<tr>
+				{{#rollBetween() roll 1 10}} <td class="template_value"> Visions/echos/ghosts of the past. {{/rollBetween() roll 1 10}} </td>
+				{{#rollBetween() roll 11 20}} <td class="template_value"> Visions/echos/ghosts of the future. {{/rollBetween() roll 11 20}} </td>
+				{{#rollBetween() roll 21 25}} <td class="template_value"> Two groups of soldiers fight the most gruesome hour of a battle, with time repeating itself again and again. {{/rollBetween() roll 21 25}} </td>
+				{{#rollBetween() roll 26 30}} <td class="template_value"> A small pond of slime, it reaches for anything living. {{/rollBetween() roll 26 30}} </td>
+				{{#rollBetween() roll 31 35}} <td class="template_value"> A wreck of a vehicle tries to start its own engine, churns some mud and dies. {{/rollBetween() roll 31 35}} </td>
+				{{#rollBetween() roll 36 40}} <td class="template_value"> A long, empty stretch of road. Driving it causes severe motion sickness, walking backwards or reversing your vehicle feels fine. {{/rollBetween() roll 36 40}} </td>
+				{{#rollBetween() roll 41 45}} <td class="template_value"> Some animals on a mission (rodents/cats/dogs/birds/all of the above?). {{/rollBetween() roll 41 45}} </td>
+				{{#rollBetween() roll 46 50}} <td class="template_value"> The weather goes haywire, roll a random weather every ten minutes. {{/rollBetween() roll 46 50}} </td>
+				{{#rollBetween() roll 51 55}} <td class="template_value"> The sun stops moving for a few hours. {{/rollBetween() roll 51 55}} </td>
+				{{#rollBetween() roll 56 60}} <td class="template_value"> The sun stops moving for a few days. {{/rollBetween() roll 56 60}} </td>
+				{{#rollBetween() roll 66 70}} <td class="template_value"> Crackling music coming from a wall mounted speaker in a ruined wall. {{/rollBetween() roll 66 70}} </td>
+				{{#rollBetween() roll 71 75}} <td class="template_value"> A cairn of bones, animal and human. It moves when you aren't watching. {{/rollBetween() roll 71 75}} </td>
+				{{#rollBetween() roll 76 80}} <td class="template_value"> Smells of wondrous foods drift past, leading to plants with enormous fleshy flowers that eat human flesh. {{/rollBetween() roll 76 80}} </td>
+				{{#rollBetween() roll 81 83}} <td class="template_value"> Reflections of the survivors from earlier in the day. Someone is following them. {{/rollBetween() roll 81 83}} </td>
+				{{#rollBetween() roll 86 88}} <td class="template_value"> Reflections of the survivors as if in a mirror. The reflections stop and stare, then freak out. {{/rollBetween() roll 86 88}} </td>
+				{{#rollBetween() roll 89 91}} <td class="template_value"> Reflections of the survivors that look tired and broken. Someone is missing. {{/rollBetween() roll 89 91}} </td>
+				{{#rollBetween() roll 92 95}} <td class="template_value"> The light shifts red and for a while everything is slow and difficult. {{/rollBetween() roll 92 95}} </td>
+				{{#rollBetween() roll 96 99}} <td class="template_value"> The light shifts blue and for a while everything is easy and fast. {{/rollBetween() roll 96 99}} </td>
+				{{#rollTotal() roll 100}} <td class="template_value"> A group of people sit huddled around some complex electronics, their brains apparently hardwired into technology that you’ve never seen before. {{/rollTotal() roll 100}} </td>
+				</tr>
+		</table>
+	</rolltemplate>
+	<rolltemplate class="sheet-rolltemplate-wasteland-locations">
+		<table style="background-color: #ffffff;" class="sheet-rolltemplate-tableRoll">
+			<tr>
+			<th>Wasteland Locations</th>
+			</tr>
+			<tr>
+				{{#rollBetween() roll 1 5}} <td class="template_value"> An enormous sinkhole, signs that people come and go regularly. {{/rollBetween() roll 1 5}} </td>
+				{{#rollBetween() roll 6 10}} <td class="template_value"> A derelict village with no sign of collapse or decay. {{/rollBetween() roll 6 10}} </td>
+				{{#rollBetween() roll 11 15}} <td class="template_value"> An overgrown forest, with impossibly tall trees containing a treetop village. {{/rollBetween() roll 11 15}} </td>
+				{{#rollBetween() roll 16 20}} <td class="template_value"> A giant locked door in the side of a mountain. Appears entirely rusted shut. {{/rollBetween() roll 16 20}} </td>
+				{{#rollBetween() roll 21 25}} <td class="template_value"> A peaceful community of farmers. {{/rollBetween() roll 21 25}} </td>
+				{{#rollBetween() roll 26 30}} <td class="template_value"> A wide and shallow lake that is only knee high. A small fishing community lives in the middle on stilted houses. {{/rollBetween() roll 26 30}} </td>
+				{{#rollBetween() roll 31 35}} <td class="template_value"> A train junction station that has been transformed into a busy market town. {{/rollBetween() roll 31 35}} </td>
+				{{#rollBetween() roll 36 40}} <td class="template_value"> An airy cave network containing a group of teenagers who escaped from a nearby ‘Orphanage’. {{/rollBetween() roll 36 40}} </td>
+				{{#rollBetween() roll 41 45}} <td class="template_value"> A quiet community with no conflict on the surface. They settle their differences with deadly gladiatorial combat. {{/rollBetween() roll 41 45}} </td>
+				{{#rollBetween() roll 46 50}} <td class="template_value"> A large suburban neighbourhood, protected by a group of thugs on well-maintained bicycles. {{/rollBetween() roll 46 50}} </td>
+				{{#rollBetween() roll 51 55}} <td class="template_value"> An eerie and abandoned university campus. An Astronomy professor still lives there, desperately studying the Weird. {{/rollBetween() roll 51 55}} </td>
+				{{#rollBetween() roll 56 60}} <td class="template_value"> An abandoned industrial area that has been given over to some particularly aggressive wildlife. {{/rollBetween() roll 56 60}} </td>
+				{{#rollBetween() roll 61 65}} <td class="template_value"> A large junk yard, home to an unfriendly group of fairly sadistic cannibals. {{/rollBetween() roll 61 65}} </td>
+				{{#rollBetween() roll 66 70}} <td class="template_value"> A rotting casino filled with elderly residents that are surprisingly well-armed. {{/rollBetween() roll 66 70}} </td>
+				{{#rollBetween() roll 71 75}} <td class="template_value"> An abandoned zoo. First noticed by a herd of Zebra nearby. {{/rollBetween() roll 71 75}} </td>
+				{{#rollBetween() roll 76 80}} <td class="template_value"> An adventure park, contains climbing walls, a parkour zone, and trampolines. In a fairly deadly state of disrepair. {{/rollBetween() roll 76 80}} </td>
+				{{#rollBetween() roll 81 85}} <td class="template_value"> A long-term storage facility. The interior is full of narrow passages. A few doors are still padlocked. {{/rollBetween() roll 81 85}} </td>
+				{{#rollBetween() roll 86 90}} <td class="template_value"> A half-collapsed skyscraper in a downtown neighbourhood. The fading gold leaf over the entrance indicates it was once a home to the wealthy. {{/rollBetween() roll 86 90}} </td>
+				{{#rollBetween() roll 91 95}} <td class="template_value"> Three high-rise buildings with rope bridges strung between their roofs. The stairs up have been destroyed. A thriving farm exists on the rooftops. {{/rollBetween() roll 91 95}} </td>
+				{{#rollBetween() roll 96 100}} <td class="template_value"> A small community that mostly plays role-playing games in their spare time and hasn’t really noticed the collapse. {{/rollBetween() roll 96 100}} </td>
+				</tr>
+		</table>
+	</rolltemplate>
+	<rolltemplate class="sheet-rolltemplate-weird-locations">
+		<table style="background-color: #ffffff;" class="sheet-rolltemplate-tableRoll">
+			<tr>
+			<th>Weird Locations</th>
+			</tr>
+			<tr>
+				{{#rollBetween() roll 1 10}} <td class="template_value"> A lighthouse miles from the sea. Resting inside feels safe. {{/rollBetween() roll 1 10}} </td>
+				{{#rollBetween() roll 11 20}} <td class="template_value"> A tenement engulfed in flame, no smoke, no smell but the roar of flames and plenty of heat. {{/rollBetween() roll 11 20}} </td>
+				{{#rollBetween() roll 21 26}} <td class="template_value"> A massive shopping mall on the edge of town seemingly untouched by the collapse. Living creatures cannot enter. {{/rollBetween() roll 21 26}} </td>
+				{{#rollBetween() roll 27 32}} <td class="template_value"> An old building sits frozen, half collapsed. Gravity doesn’t work inside. {{/rollBetween() roll 27 32}} </td>
+				{{#rollBetween() roll 33 39}} <td class="template_value"> A canyon, like a scar across the land with crushing gravity. A set of stairs leads down to a bloodstained temple complex. {{/rollBetween() roll 33 39}} </td>
+				{{#rollBetween() roll 40 45}} <td class="template_value"> A tree house with snacks and drinks, sleeping bags, and toys. Resting there ages survivors by 20 years for 24 hours. {{/rollBetween() roll 40 45}} </td>
+				{{#rollBetween() roll 46 50}} <td class="template_value"> A perfectly preserved hardware store with its lights on. Stepping in seems to take you back to pre-collapse times. But it’s all an illusion. {{/rollBetween() roll 46 50}} </td>
+				{{#rollBetween() roll 51 55}} <td class="template_value"> A forest road. As you travel along it, you grow smaller until you are the size of an ant. {{/rollBetween() roll 51 55}} </td>
+				{{#rollBetween() roll 56 60}} <td class="template_value"> A fast flowing canal, after an hour following the current it has looped back to the start. {{/rollBetween() roll 56 60}} </td>
+				{{#rollBetween() roll 61 65}} <td class="template_value"> An orchard of perfectly ripe fruit. Anyone eating the fruit falls into a dreamless sleep. {{/rollBetween() roll 61 65}} </td>
+				{{#rollBetween() roll 66 70}} <td class="template_value"> An orchard of perfectly ripe fruit. Anyone eating the fruit has terrible nightmares. {{/rollBetween() roll 66 70}} </td>
+				{{#rollBetween() roll 71 75}} <td class="template_value"> An airport with a thriving market in the departure lounge. Ghostly security guards still enforce the rules. {{/rollBetween() roll 71 75}} </td>
+				{{#rollBetween() roll 76 80}} <td class="template_value"> A church, sitting in a direct ray of sunlight, even during the night. The sunlight is hot to the touch and burns as you near the centre. {{/rollBetween() roll 76 80}} </td>
+				{{#rollBetween() roll 81 85}} <td class="template_value"> A dilapidated mall. The few wares left must be paid for with exact change, or they return to their shelves upon leaving. {{/rollBetween() roll 81 85}} </td>
+				{{#rollBetween() roll 86 90}} <td class="template_value"> An abandoned military base inside a mountain. The rooms rearrange as you move deeper into the complex. {{/rollBetween() roll 86 90}} </td>
+				{{#rollBetween() roll 91 95}} <td class="template_value"> A road-side inn set up inside a garbage heap. It’s completely empty, but the food is good and the beds are soft. {{/rollBetween() roll 91 95}} </td>
+				{{#rollBetween() roll 96 99}} <td class="template_value"> A crazy inventor has built a home in a bubble with almost no gravity. {{/rollBetween() roll 96 99}} </td>
+				{{#rollTotal() roll 100}} <td class="template_value"> A canyon far from home. It leads the survivors to a short tunnel that exits not far from their Settlement. {{/rollTotal() roll 100}} </td>
+				</tr>
+		</table>
+	</rolltemplate>
+	<rolltemplate class="sheet-rolltemplate-weather">
+		<table style="background-color: #ffffff;" class="sheet-rolltemplate-tableRoll">
+			<tr>
+			<th>Weather</th>
+			</tr>
+			<tr>
+				{{#rollTotal() roll 1}} <td class="template_value"> Hot, Clear, Strong Winds {{/rollTotal() roll 1}} </td>
+				{{#rollTotal() roll 2}} <td class="template_value"> Hot, Strong Winds, Showers {{/rollTotal() roll 2}} </td>
+				{{#rollTotal() roll 3}} <td class="template_value"> Hot, Strong Winds, Rain {{/rollTotal() roll 3}} </td>
+				{{#rollTotal() roll 4}} <td class="template_value"> Storm {{/rollTotal() roll 4}} </td>
+				{{#rollTotal() roll 5}} <td class="template_value"> Hot, Clear, Wind {{/rollTotal() roll 5}} </td>
+				{{#rollTotal() roll 6}} <td class="template_value"> Hot, Wind, Showers {{/rollTotal() roll 6}} </td>
+				{{#rollTotal() roll 7}} <td class="template_value"> Hot, Wind, Rain {{/rollTotal() roll 7}} </td>
+				{{#rollTotal() roll 8}} <td class="template_value"> Hot, Still {{/rollTotal() roll 8}} </td>
+				{{#rollTotal() roll 9}} <td class="template_value"> Hot, Still, Showers {{/rollTotal() roll 9}} </td>
+				{{#rollTotal() roll 10}} <td class="template_value"> Clear, Wind {{/rollTotal() roll 10}} </td>
+				{{#rollTotal() roll 11}} <td class="template_value"> Wind, Showers {{/rollTotal() roll 11}} </td>
+				{{#rollTotal() roll 12}} <td class="template_value"> Wind, Rain {{/rollTotal() roll 12}} </td>
+				{{#rollTotal() roll 13}} <td class="template_value"> Wind, Torrential {{/rollTotal() roll 13}} </td>
+				{{#rollTotal() roll 14}} <td class="template_value"> Calm, Clear {{/rollTotal() roll 14}} </td>
+				{{#rollTotal() roll 15}} <td class="template_value"> Calm, Showers {{/rollTotal() roll 15}} </td>
+				{{#rollTotal() roll 16}} <td class="template_value"> Rain {{/rollTotal() roll 16}} </td>
+				{{#rollTotal() roll 17}} <td class="template_value"> Hot, Oppressive, Showers {{/rollTotal() roll 17}} </td>
+				{{#rollTotal() roll 18}} <td class="template_value"> Hot, Oppressive, Rain {{/rollTotal() roll 18}} </td>
+				{{#rollTotal() roll 19}} <td class="template_value"> Storm, Hot {{/rollTotal() roll 19}} </td>
+				{{#rollTotal() roll 20}} <td class="template_value"> Cloudy, Hot, Wind {{/rollTotal() roll 20}} </td>
+				{{#rollTotal() roll 21}} <td class="template_value"> Cloudy, Hot, Showers {{/rollTotal() roll 21}} </td>
+				{{#rollTotal() roll 22}} <td class="template_value"> Hot, Rain {{/rollTotal() roll 22}} </td>
+				{{#rollTotal() roll 23}} <td class="template_value"> Hot, Heavy Rain {{/rollTotal() roll 23}} </td>
+				{{#rollTotal() roll 24}} <td class="template_value"> Cloudy, Hot {{/rollTotal() roll 24}} </td>
+				{{#rollTotal() roll 25}} <td class="template_value"> Hot, Still, Showers {{/rollTotal() roll 25}} </td>
+				{{#rollTotal() roll 26}} <td class="template_value"> Oppressive, Showers {{/rollTotal() roll 26}} </td>
+				{{#rollTotal() roll 27}} <td class="template_value"> Oppressive, Rain {{/rollTotal() roll 27}} </td>
+				{{#rollTotal() roll 28}} <td class="template_value"> Storm {{/rollTotal() roll 28}} </td>
+				{{#rollTotal() roll 29}} <td class="template_value"> Cloudy, Wind {{/rollTotal() roll 29}} </td>
+				{{#rollTotal() roll 30}} <td class="template_value"> Wind, Showers {{/rollTotal() roll 30}} </td>
+				{{#rollTotal() roll 31}} <td class="template_value"> Wind, Rain {{/rollTotal() roll 31}} </td>
+				{{#rollTotal() roll 32}} <td class="template_value"> Wind, Torrential Rain {{/rollTotal() roll 32}} </td>
+				{{#rollTotal() roll 33}} <td class="template_value"> Overcast, Hot, Strong Winds {{/rollTotal() roll 33}} </td>
+				{{#rollTotal() roll 34}} <td class="template_value"> Overcast, Hot, Showers {{/rollTotal() roll 34}} </td>
+				{{#rollTotal() roll 35}} <td class="template_value"> Overcast, Hot, Wind, Rain {{/rollTotal() roll 35}} </td>
+				{{#rollTotal() roll 36}} <td class="template_value"> Storm {{/rollTotal() roll 36}} </td>
+				{{#rollTotal() roll 37}} <td class="template_value"> Rain of Oil {{/rollTotal() roll 37}} </td>
+				{{#rollTotal() roll 38}} <td class="template_value"> Overcast, Hot, Storm {{/rollTotal() roll 38}} </td>
+				{{#rollTotal() roll 39}} <td class="template_value"> Overcast, Hot, Wind, Rain {{/rollTotal() roll 39}} </td>
+				{{#rollTotal() roll 40}} <td class="template_value"> Overcast, Hot {{/rollTotal() roll 40}} </td>
+				{{#rollTotal() roll 41}} <td class="template_value"> Overcast, Hot, Showers {{/rollTotal() roll 41}} </td>
+				{{#rollTotal() roll 42}} <td class="template_value"> Overcast, Hot, Rain {{/rollTotal() roll 42}} </td>
+				{{#rollTotal() roll 43}} <td class="template_value"> Overcast, Strong Winds {{/rollTotal() roll 43}} </td>
+				{{#rollTotal() roll 44}} <td class="template_value"> Overcast, Storm {{/rollTotal() roll 44}} </td>
+				{{#rollTotal() roll 45}} <td class="template_value"> Overcast, Strong Wind, Rain {{/rollTotal() roll 45}} </td>
+				{{#rollTotal() roll 46}} <td class="template_value"> Storm {{/rollTotal() roll 46}} </td>
+				{{#rollTotal() roll 47}} <td class="template_value"> Overcast, Wind {{/rollTotal() roll 47}} </td>
+				{{#rollTotal() roll 48}} <td class="template_value"> Overcast, Wind, Showers {{/rollTotal() roll 48}} </td>
+				{{#rollTotal() roll 49}} <td class="template_value"> D6 Tornadoes {{/rollTotal() roll 49}} </td>
+				{{#rollTotal() roll 50}} <td class="template_value"> Overcast, Still {{/rollTotal() roll 50}} </td>
+				{{#rollTotal() roll 51}} <td class="template_value"> Overcast, Still, Showers {{/rollTotal() roll 51}} </td>
+				{{#rollTotal() roll 52}} <td class="template_value"> Overcast, Rain {{/rollTotal() roll 52}} </td>
+				{{#rollTotal() roll 53}} <td class="template_value"> Overcast, Torrential Rain {{/rollTotal() roll 53}} </td>
+				{{#rollTotal() roll 54}} <td class="template_value"> Cloudy, Mild {{/rollTotal() roll 54}} </td>
+				{{#rollTotal() roll 55}} <td class="template_value"> Showers {{/rollTotal() roll 55}} </td>
+				{{#rollTotal() roll 56}} <td class="template_value"> Rain {{/rollTotal() roll 56}} </td>
+				{{#rollTotal() roll 57}} <td class="template_value"> Sunny, Cold, Strong Winds {{/rollTotal() roll 57}} </td>
+				{{#rollTotal() roll 58}} <td class="template_value"> Cold, Strong Winds, Wet {{/rollTotal() roll 58}} </td>
+				{{#rollTotal() roll 59}} <td class="template_value"> Sunny, Cold, Wind {{/rollTotal() roll 59}} </td>
+				{{#rollTotal() roll 60}} <td class="template_value"> Cold, Wind, Showers {{/rollTotal() roll 60}} </td>
+				{{#rollTotal() roll 61}} <td class="template_value"> Clear, Cold {{/rollTotal() roll 61}} </td>
+				{{#rollTotal() roll 62}} <td class="template_value"> Cold, Showers {{/rollTotal() roll 62}} </td>
+				{{#rollTotal() roll 63}} <td class="template_value"> Cold, Storm {{/rollTotal() roll 63}} </td>
+				{{#rollTotal() roll 64}} <td class="template_value"> Cloudy, Cold, Wind {{/rollTotal() roll 64}} </td>
+				{{#rollTotal() roll 65}} <td class="template_value"> Ash Drifts {{/rollTotal() roll 65}} </td>
+				{{#rollTotal() roll 66}} <td class="template_value"> Cold, Wind, Rain {{/rollTotal() roll 66}} </td>
+				{{#rollTotal() roll 67}} <td class="template_value"> Cold, Wind, Heavy Rain {{/rollTotal() roll 67}} </td>
+				{{#rollTotal() roll 68}} <td class="template_value"> Cloudy, Cold {{/rollTotal() roll 68}} </td>
+				{{#rollTotal() roll 69}} <td class="template_value"> Cold, Showers {{/rollTotal() roll 69}} </td>
+				{{#rollTotal() roll 70}} <td class="template_value"> Cold, Rain {{/rollTotal() roll 70}} </td>
+				{{#rollTotal() roll 71}} <td class="template_value"> Overcast, Cold, Strong Winds {{/rollTotal() roll 71}} </td>
+				{{#rollTotal() roll 72}} <td class="template_value"> Cold, Strong Winds, Rain {{/rollTotal() roll 72}} </td>
+				{{#rollTotal() roll 73}} <td class="template_value"> Storm {{/rollTotal() roll 73}} </td>
+				{{#rollTotal() roll 74}} <td class="template_value"> Overcast, Cold, Wind {{/rollTotal() roll 74}} </td>
+				{{#rollTotal() roll 75}} <td class="template_value"> Overcast, Cold, Wind, Rain {{/rollTotal() roll 75}} </td>
+				{{#rollTotal() roll 76}} <td class="template_value"> Cloudy, Freezing, Wind {{/rollTotal() roll 76}} </td>
+				{{#rollTotal() roll 77}} <td class="template_value"> Freezing, Wind, Light Snow {{/rollTotal() roll 77}} </td>
+				{{#rollTotal() roll 78}} <td class="template_value"> Freezing, Wind, Snow {{/rollTotal() roll 78}} </td>
+				{{#rollTotal() roll 79}} <td class="template_value"> Blizzard {{/rollTotal() roll 79}} </td>
+				{{#rollTotal() roll 80}} <td class="template_value"> Cloudy, Freezing {{/rollTotal() roll 80}} </td>
+				{{#rollTotal() roll 81}} <td class="template_value"> Freezing, Light Snow {{/rollTotal() roll 81}} </td>
+				{{#rollTotal() roll 82}} <td class="template_value"> Freezing, Snow {{/rollTotal() roll 82}} </td>
+				{{#rollTotal() roll 83}} <td class="template_value"> Freezing, Clear, Wind {{/rollTotal() roll 83}} </td>
+				{{#rollTotal() roll 84}} <td class="template_value"> Freezing, Wind, Showers {{/rollTotal() roll 84}} </td>
+				{{#rollTotal() roll 85}} <td class="template_value"> Freezing, Wind, Rain {{/rollTotal() roll 85}} </td>
+				{{#rollTotal() roll 86}} <td class="template_value"> Freezing, Storm {{/rollTotal() roll 86}} </td>
+				{{#rollTotal() roll 87}} <td class="template_value"> Freezing, Calm {{/rollTotal() roll 87}} </td>
+				{{#rollTotal() roll 88}} <td class="template_value"> Cold, Wind, Torrential Rain {{/rollTotal() roll 88}} </td>
+				{{#rollTotal() roll 89}} <td class="template_value"> Overcast, Cold {{/rollTotal() roll 89}} </td>
+				{{#rollTotal() roll 90}} <td class="template_value"> Overcast, Cold, Showers {{/rollTotal() roll 90}} </td>
+				{{#rollTotal() roll 91}} <td class="template_value"> Overcast, Cold, Rain {{/rollTotal() roll 91}} </td>
+				{{#rollTotal() roll 92}} <td class="template_value"> Overcast, Cold, Storm {{/rollTotal() roll 92}} </td>
+				{{#rollTotal() roll 93}} <td class="template_value"> Overcast, Freezing, Storm {{/rollTotal() roll 93}} </td>
+				{{#rollTotal() roll 94}} <td class="template_value"> Freezing, Snowstorm {{/rollTotal() roll 94}} </td>
+				{{#rollTotal() roll 95}} <td class="template_value"> Blizzard {{/rollTotal() roll 95}} </td>
+				{{#rollTotal() roll 96}} <td class="template_value"> Overcast, Freezing, Wind {{/rollTotal() roll 96}} </td>
+				{{#rollTotal() roll 97}} <td class="template_value"> Overcast, Freezing, Snow {{/rollTotal() roll 97}} </td>
+				{{#rollTotal() roll 98}} <td class="template_value"> Overcast, Freezing {{/rollTotal() roll 98}} </td>
+				{{#rollTotal() roll 99}} <td class="template_value"> Overcast, Heavy Snow {{/rollTotal() roll 99}} </td>
+				{{#rollTotal() roll 100}} <td class="template_value"> Roll Twice & Combine {{/rollTotal() roll 100}} </td>
 				</tr>
 		</table>
 	</rolltemplate>
