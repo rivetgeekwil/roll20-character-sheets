@@ -100,10 +100,10 @@
 						Charisma
 						</td>
 						<td>
-							<input type="number" value="10" name="attr_chrarisma" />
+							<input type="number" value="10" name="attr_CHR" />
 						</td>
 						<td>
-						    <button class="sheet-characteristic-roll sheet-plain" style="width: 75px"  type="roll" value="&{template:characteristicRoll} {{name=@{Name}}} {{skillvalue=@{EDU}}} {{crit=[[2]]}} {{success=[[@{EDU}]]}} {{roll=[[1d100]]}} {{skillname=Education}}">Charm</button>
+						    <button class="sheet-characteristic-roll sheet-plain" style="width: 75px"  type="roll" value="&{template:characteristicRoll} {{name=@{Name}}} {{skillvalue=@{CHR}}} {{crit=[[2]]}} {{success=[[@{CHR}]]}} {{roll=[[1d100]]}} {{skillname=Charisma}}">Charm</button>
 						</td>
 						
 						<td>
@@ -170,7 +170,7 @@
 						<tr>
 						<td><input type="checkbox" name="attr_Success-Repair"  /></td>
 						<td class="sheet-skillname">Repair</td>
-						<td><input type="number" style="width:105%" value="5" name="attr_Navigate"  /></td>
+						<td><input type="number" style="width:105%" value="5" name="attr_Repair"  /></td>
 						<td><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Repair}}} {{fumble=[[96 + ((@{Repair} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{Repair})/5)+1]]}}  {{success=[[ceil(@{Repair})]]}} {{roll=[[1d100]]}} {{skillname=Repair}}"/></td>											
 					</tr>
 						<tr>
