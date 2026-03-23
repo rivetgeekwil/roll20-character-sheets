@@ -109,7 +109,7 @@
 .sheet-rolltemplate-darkmode.sheet-rolltemplate-powerrollability .sheet-roll-container,
 .sheet-rolltemplate-darkmode.sheet-rolltemplate-ability .sheet-roll-container,
 .sheet-rolltemplate-darkmode.sheet-rolltemplate-powerroll .sheet-roll-container,
-.sheet-rolltemplate-simpleroll.sheet-rolltemplate-darkmode .sheet-roll-container {
+.sheet-rolltemplate-darkmode.sheet-rolltemplate-simpleroll .sheet-roll-container {
  	--color-bg-main: #1f1f1f; 
     --color-bg-section: rgb(59, 64, 69); 
 
@@ -235,16 +235,6 @@
 	border-right: var(--border-main);
 }
 
-/*.charsheet input[type=number].no-spin::-webkit-inner-spin-button,
-.charsheet input[type=number].no-spin::-webkit-outer-spin-button {
-	-webkit-appearance: none;
-	margin: 0;
-}
-
-.charsheet input[type=number].no-spin {
-	-moz-appearance: textfield ;
-}*/
-
 .charsheet input.input-md {
 	height: 20px;
 	font-size: 0.9em;
@@ -339,6 +329,7 @@ input.sheet-options-checkbox {
 	display:none; 
 }
 
+/*
 #stats-minimize-checkbox:checked + label::before,
 #biography-minimize-checkbox:checked + label::before,
 #skills-languages-minimize-checkbox:checked + label::before,
@@ -349,6 +340,11 @@ input.sheet-options-checkbox {
 #notes-minimize-checkbox:checked + label::before,
 #director-screen-minimize-checkbox:checked + label::before {
 	content:'&';
+}
+*/
+
+[id*='minimize-checkbox']:checked + label::before {
+	content: '&';
 }
 
 label[for*='minimize']::before {
@@ -458,16 +454,6 @@ label[for*='minimize']::before {
 	gap: 5px;
 }
 
-/*.charsheet .sheet-body .stats-panel input[type=number]::-webkit-inner-spin-button, 
-.charsheet .sheet-body .stats-panel input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none;
-    margin: 0; 
-}
-
-.charsheet .sheet-body .stats-panel input[type=number] {
-	-moz-appearance: textfield;
-}
-*/
 .stats-panel > .minimize-control {
 	grid-column: 1 / -1;
 }
@@ -480,17 +466,6 @@ label[for*='minimize']::before {
   justify-items: center;
   align-items: end;
 
-}
-
-.hexagon {
---b: 2px;
-  height: 75px;
-  aspect-ratio: cos(30deg);
-  clip-path: polygon(50% 0,-50% 50%,50% 100%,150% 50%,50% 0, 50% var(--b), calc(100% - var(--b)*sin(60deg)) calc(25% + var(--b)*cos(60deg)), calc(100% - var(--b)*sin(60deg)) calc(75% - var(--b)*cos(60deg)), 50% calc(100% - var(--b)), calc(var(--b)*sin(60deg)) calc(75% - var(--b)*cos(60deg)), calc(var(--b)*sin(60deg)) calc(25% + var(--b)*cos(60deg)), 50% var(--b));
-  background: var(--color-bg-main);
-  position: absolute;
-  z-index: -10;
-  top: 0px;
 }
 
 .dashboard-characteristics {
@@ -522,12 +497,6 @@ label[for*='minimize']::before {
   text-align: center;
   color: var(--color-text-header);
 }
-
-/*.charsheet .sheet-body .dashboard-stat-group input[type=number]::-webkit-inner-spin-button, 
-.charsheet .sheet-body .dashboard-stat-group input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none;
-    margin: 0; 
-}*/
 
 .dashboard-stamina {
   grid-column: 6/ span 2;
@@ -615,19 +584,23 @@ label[for*='minimize']::before {
 }
 
 /* Growing Resource Table */
-.has-resource-toggle[value="0"] ~ .resource-container {
+.has-resource-toggle[value="0"] ~ .growing-resource {
     display: none;
+}
+
+.growing-resource {
+	display: block;
 }
 
 .growing-resource-grid {
     display: grid;
-    grid-template-columns: 80px 1fr; /* Adjust label width as needed */
+    grid-template-columns: 80px 1fr; 
     gap: 4px;
     align-items: center;
 }
 
 .grid-header {
-    display: contents; /* Allows children to participate in parent grid */
+    display: contents; 
     font-weight: bold;
     border-bottom: 1px solid #000;
 }
@@ -656,7 +629,7 @@ label[for*='minimize']::before {
     display: contents;
 }
 
-.row-toggle-2[value="0"] ~ .resource-container .grid-header { display: none; }
+.row-toggle-2[value="0"] ~ .resource-container { display: none; }
 .row-toggle-2[value="0"] ~ .resource-container .tier-2 .display-mode { display: none; }
 .row-toggle-4[value="0"] ~ .resource-container .tier-4 .display-mode { display: none; }
 .row-toggle-6[value="0"] ~ .resource-container .tier-6 .display-mode { display: none; }
@@ -683,18 +656,16 @@ label[for*='minimize']::before {
 .stormwight-only {
     display: none;
     margin-top: 5px;
-    padding-left: 15px; /* Indent to show hierarchy */
+    padding-left: 15px; 
     border-left: 2px solid #ccc;
 }
 
-/* 2. Show it only when the hidden input's value is 'furystormwight' */
 .main-resource-state[value="furystormwight"] ~ .stormwight-only {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-/* Optional: Styling for the labels within the selectors */
 .selector-row label {
     margin-right: 10px;
     min-width: 100px;
@@ -1056,15 +1027,6 @@ label[for*='minimize']::before {
 	grid-column-end: span 2;
 }
 
-] {
-	display: grid;
-	grid-gap: 0.2em;
-	box-shadow:
-		inset 1px 1px 2px #555,
-		inset -1px -1px 2px #111,
-		0 2px 6px rgba(0, 0, 0, 0.5);
-}
-
 .modifiers-panel {
 	grid-column-start: 1;
 	grid-column-end: -1;
@@ -1158,7 +1120,7 @@ label[for*='minimize']::before {
 
 .kit-damage-label,
 .other-modifiers-label {
-  font-size: 0.75em !important;
+  font-size: 0.75em;
 }
 
 .kit-melee-damage-group,

@@ -668,9 +668,9 @@
 			<span data-i18n="potency-one"></span>
 		</div>
 		<!-- Growing Resource Fury/Null -->
-		<input type="hidden" name="attr_has_growing_resource" />
+		<input type="hidden" class="has-resource-toggle" name="attr_has_growing_resource" value="0" />
 		<div class="growing-resource minimize-ignore">
-			<input type="hidden" class="has-resource-toggle" name="attr_has_growing_resource" value="0" />
+			<h5 class="panel-title" data-i18n="growing-resource"></h5>
 			<input type="hidden" class="row-toggle-2" name="attr_growingresource_show_2" value="1" />
 			<input type="hidden" class="row-toggle-4" name="attr_growingresource_show_4" value="1" />
 			<input type="hidden" class="row-toggle-6" name="attr_growingresource_show_6" value="1" />
@@ -679,16 +679,12 @@
 			<input type="hidden" class="row-toggle-12" name="attr_growingresource_show_12" value="1" />
 
 			<div class="resource-container sheet-panel-box minimize-ignore">
-				<h5 class="panel-title" data-i18n="growing-resource"></h5>
 				<input type="checkbox" class="ability-edit" id="ability-edit" name="attr_growing_resource_edit" />
-				
-
 				<div class="growing-resource-grid">
 					<div class="grid-header">
 						<span class="header-label" name="attr_resource_name"></span>
 						<span class="header-benefit" data-i18n="benefit"></span>
 					</div>
-
 					<div class="resource-row tier-2">
 						<div class="display-mode">
 							<span class="row-label" name="attr_growingresource_2_label"></span>
