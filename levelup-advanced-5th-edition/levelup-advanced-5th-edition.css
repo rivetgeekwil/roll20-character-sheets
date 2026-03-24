@@ -2420,6 +2420,7 @@ display:none;
 input[name="attr_maneuvers-name"]::placeholder,
 input[name="attr_bulkyitems_name"]::placeholder,
 input[name="attr_inventaire_name"]::placeholder,
+input[name="attr_attunement_name"]::placeholder,
 input[name="attr_treasure_name"]::placeholder,
 input[name="attr_exploration-knacks_name"]::placeholder,
 .sheet-maingrid-area-talents input::placeholder,
@@ -3382,6 +3383,12 @@ button:hover ~ input.sheet-vanilla.sheet-inputchar {
 
 .sheet-inventaire {
     grid-template-columns: 15px 1fr repeat(2, 25px) 15px;
+    justify-content: space-between;
+    align-items: flex-start !important;
+}
+
+.sheet-attunement {
+    grid-template-columns: 15px 1fr 15px;
     justify-content: space-between;
     align-items: flex-start !important;
 }
