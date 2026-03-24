@@ -2603,94 +2603,135 @@ const checkOpenDoors = async (current_version, final_version) => {
 // versioning routine to handle attribute changes
 versionator = async (current_version, final_version) => {
   if (current_version < 0.1) {
-    dmgSwap(0.1, final_version);
-  } else if (current_version < 1.2) {
-    maxSwap(1.2, final_version);
-  } else if (current_version < 1.5) {
-    nwpMacroUpdate(1.5, final_version);
-  } else if (current_version < 1.52) {
-    weaponNameFix(1.52, final_version);
-  } else if (current_version < 1.53) {
-    spellNameFix(1.53, final_version);
-  } else if (current_version < 1.54) {
-    equipmentNameFix(1.54, final_version);
-  } else if (current_version < 1.55) {
-    abilityNameFix(1.55, final_version);
-  } else if (current_version < 1.56) {
-    nwpNameFix(1.56, final_version);
-  } else if (current_version < 1.57) {
+    return dmgSwap(0.1, final_version);
+  }
+  if (current_version < 1.2) {
+    return maxSwap(1.2, final_version);
+  }
+  if (current_version < 1.5) {
+    return nwpMacroUpdate(1.5, final_version);
+  }
+  if (current_version < 1.52) {
+    return weaponNameFix(1.52, final_version);
+  }
+  if (current_version < 1.53) {
+    return spellNameFix(1.53, final_version);
+  }
+  if (current_version < 1.54) {
+    return equipmentNameFix(1.54, final_version);
+  }
+  if (current_version < 1.55) {
+    return abilityNameFix(1.55, final_version);
+  }
+  if (current_version < 1.56) {
+    return nwpNameFix(1.56, final_version);
+  }
+  if (current_version < 1.57) {
     macroColorUpdate(1.57, final_version);
     //-------------------------------------------
     //
     // 1E REVISED SHEET IS ANY UPDATE > v1.58
     //
     //-------------------------------------------
-  } else if (current_version < 1.591) {
-    autoCalcAbilityRows(1.591, final_version);
-  } else if (current_version < 1.592) {
-    autoCalcSaveRows(1.592, final_version);
-  } else if (current_version < 1.593) {
-    autoCalcThiefRows(1.593, final_version);
-  } else if (current_version < 1.594) {
-    removeWhisper(1.594, final_version);
-  } else if (current_version < 1.595) {
-    weaponMacroUpdate(1.595, final_version);
-  } else if (current_version < 1.596) {
-    abilityMacroUpdate(1.596, final_version);
-  } else if (current_version < 1.597) {
-    nwpMacroUpdate2(1.597, final_version);
-  } else if (current_version < 1.598) {
-    spellsMacroUpdate(1.598, final_version);
-  } else if (current_version < 1.61) {
-    updateRange(1.61, final_version);
-  } else if (current_version < 1.62) {
-    updateAttackTypeMacro(1.62, final_version);
-  } else if (current_version < 1.634) {
-    weaponMacroUpdate(1.634, final_version);
-  } else if (current_version < 1.635) {
-    migrateHP(1.635, final_version);
-  } else if (current_version < 1.636) {
-    migrateAC(1.636, final_version);
-  } else if (current_version < 1.637) {
-    weaponMacroUpdate(1.637, final_version);
-  } else if (current_version < 1.638) {
-    monsterHD(1.638, final_version);
-  } else if (current_version < 1.639) {
-    clearArmorOther(1.639, final_version);
-  } else if (current_version < 1.64) {
-    migrateArmorDetails(1.641, final_version);
-  } else if (current_version < 1.642) {
-    equipmentMacroUpdate(1.643, final_version);
-  } else if (current_version < 1.644) {
-    setEquipmentUpdate(1.644, final_version);
-  } else if (current_version < 1.645) {
-    setWeaponsUpdate(1.645, final_version);
-  } else if (current_version < 1.646) {
-    migrateWeaponWtCost(1.646, final_version);
-  } else if (current_version < 1.648) {
-    setEquipmentType(1.648, final_version);
-  } else if (current_version < 1.65) {
-    migrateSetSpellsCasterClass(1.65, final_version);
-  } else if (current_version < 1.652) {
-    abilityMacroUpdate(1.652, final_version);
-  } else if (current_version < 1.654) {
-    recalcAC(1.654, final_version);
-  } else if (current_version < 1.656) {
-    initMacroUpdate(1.656, final_version);
-  } else if (current_version < 1.658) {
-    updateCriticalDamageMacro(1.658, final_version);
-  } else if (current_version < 1.659) {
-    setNWPUpdate(1.66, final_version);
-  } else if (current_version < 1.681) {
-    await updateSyncArmorFlag(1.69, final_version);
-  } else if (current_version < 1.691) {
-    await recalcToHitWhisper(1.691, final_version);
-  } else if (current_version < 1.692) {
-    await recalcToHitACadj(1.692, final_version);
-  } else if (current_version < 1.693) {
-    await checkOpenDoors(1.693, final_version);
+  }
+  if (current_version < 1.591) {
+    return autoCalcAbilityRows(1.591, final_version);
+  }
+  if (current_version < 1.592) {
+    return autoCalcSaveRows(1.592, final_version);
+  }
+  if (current_version < 1.593) {
+    return autoCalcThiefRows(1.593, final_version);
+  }
+  if (current_version < 1.594) {
+    return removeWhisper(1.594, final_version);
+  }
+  if (current_version < 1.595) {
+    return weaponMacroUpdate(1.595, final_version);
+  }
+  if (current_version < 1.596) {
+    return abilityMacroUpdate(1.596, final_version);
+  }
+  if (current_version < 1.597) {
+    return nwpMacroUpdate2(1.597, final_version);
+  }
+  if (current_version < 1.598) {
+    return spellsMacroUpdate(1.598, final_version);
+  }
+  if (current_version < 1.61) {
+    return updateRange(1.61, final_version);
+  }
+  if (current_version < 1.62) {
+    return updateAttackTypeMacro(1.62, final_version);
+  }
+  if (current_version < 1.634) {
+    return weaponMacroUpdate(1.634, final_version);
+  }
+  if (current_version < 1.635) {
+    return migrateHP(1.635, final_version);
+  }
+  if (current_version < 1.636) {
+    return migrateAC(1.636, final_version);
+  }
+  if (current_version < 1.637) {
+    return weaponMacroUpdate(1.637, final_version);
+  }
+  if (current_version < 1.638) {
+    return monsterHD(1.638, final_version);
+  }
+  if (current_version < 1.639) {
+    return clearArmorOther(1.639, final_version);
+  }
+  if (current_version < 1.64) {
+    return migrateArmorDetails(1.641, final_version);
+  }
+  if (current_version < 1.642) {
+    return equipmentMacroUpdate(1.643, final_version);
+  }
+  if (current_version < 1.644) {
+    return setEquipmentUpdate(1.644, final_version);
+  }
+  if (current_version < 1.645) {
+    return setWeaponsUpdate(1.645, final_version);
+  }
+  if (current_version < 1.646) {
+    return migrateWeaponWtCost(1.646, final_version);
+  }
+  if (current_version < 1.648) {
+    return setEquipmentType(1.648, final_version);
+  }
+  if (current_version < 1.65) {
+    return migrateSetSpellsCasterClass(1.65, final_version);
+  }
+  if (current_version < 1.652) {
+    return abilityMacroUpdate(1.652, final_version);
+  }
+  if (current_version < 1.654) {
+    return recalcAC(1.654, final_version);
+  }
+  if (current_version < 1.656) {
+    return initMacroUpdate(1.656, final_version);
+  }
+  if (current_version < 1.658) {
+    return updateCriticalDamageMacro(1.658, final_version);
+  }
+  if (current_version < 1.659) {
+    return setNWPUpdate(1.66, final_version);
+  }
+  if (current_version < 1.681) {
+    return await updateSyncArmorFlag(1.69, final_version);
+  }
+  if (current_version < 1.691) {
+    return await recalcToHitWhisper(1.691, final_version);
+  }
+  if (current_version < 1.692) {
+    return await recalcToHitACadj(1.692, final_version);
+  }
+  if (current_version < 1.693) {
+    return await checkOpenDoors(1.693, final_version);
     // all updates completed
-  } else if (current_version < final_version) {
+  }
+  if (current_version < final_version) {
     output.sheet_version = final_version;
     await setAttrsAsync(output, {silent: true});
   } else if (current_version === final_version) {
@@ -2701,20 +2742,20 @@ versionator = async (current_version, final_version) => {
 
 // Versioning
 on('sheet:opened', async () => {
-  // SET LATEST VERSION HERE. needs to be => the last update made in versionator
   const final_version = 1.693;
   const v = await getAttrsAsync(['sheet_version', 'old_character']);
   const output = {};
-  let current_version = float(v.sheet_version);
+  let current_version = parseFloat(v.sheet_version) || 0;
   // prevent new sheets from stepping through versionator
   if ((+v.old_character || 0) === 0 && current_version === 0) {
-    // clog(`New Sheet:${v.old_character}`);
     current_version = final_version;
     output.sheet_version = final_version;
   }
-  await setAttrsAsync(output, {silent: true});
-  clog(`Current sheet data version:${current_version}, Sheet code version:${final_version}`);
-  versionator(current_version, final_version);
+  if (Object.keys(output).length > 0) {
+    await setAttrsAsync(output, {silent: true});
+  }
+  clog(`Current sheet data version: ${current_version}, Sheet code version: ${final_version}`);
+  await versionator(current_version, final_version);
 });
 
 // Exceptional
