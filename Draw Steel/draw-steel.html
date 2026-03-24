@@ -7,10 +7,10 @@
 			style="height: 60px"
 		/>
 	</h1>
-	<label class="sheet-options-checkbox-label" for="sheet-options-checkbox">y</label>
+	<label class="sheet-options-checkbox-label" for="sheet-options-checkbox"></label>
 	<input id="sheet-options-checkbox" class="sheet-options-checkbox" type="checkbox" />
 	<div class="sheet-panel sheet-options-toggle">
-	<!-- Options Panel for choosing Player/NPC sheet and imports -->
+	<!-- Options Panel -->
 		<div class="sheet-panel-box import-panel">
 			<div>
 				<span data-i18n="whisper-gm"></span>
@@ -19,13 +19,50 @@
 					<option value="?{Whisper?|Public Roll,|Whisper Roll,/w gm }" data-i18n="query-whisper-roll"></option>
 					<option value="/w gm " data-i18n="always-whisper-roll"></option>
 				</select>	
-				<div class="sheet-panel-box">
-					<h5><span data-i18n="damage-autocalc">Damage Calculator</span></h5>
-					<label for="options-calculate-damage" data-i18n="options-calculate-damage">Automatically Calculate Damage:</label>
+				<hr>
+				<div>
 					<input id="options-calculate-damage" name="attr_options_calculate_damage" type="checkbox" value="1" />
+					<label for="options-calculate-damage" data-i18n="options-calculate-damage"></label>
+				</div>
+				<hr>
+				<div>
+					<input id="options-show-director-screen" name="attr_show_director_screen" type="checkbox" value="1" />
+					<label for="options-show-director-screen" data-i18n="options-show-director-screen"></label>
 				</div>
 			</div>
 			<div>
+				<h5 data-i18n="player-options-title"></h5>
+				<div>
+					<input id="growing-resource-checkbox" name="attr_has_growing_resource" class="npc-checkbox" type="checkbox" />
+					<label for="growing-resource-checkbox" data-i18n="growing-resource-checkbox"></label>
+				</div>
+				<div class="resource-selector-container">
+					<input type="hidden" class="main-resource-state" name="attr_growing_resource_type" value="custom" />
+
+					<div class="selector-row">
+						<select name="attr_growing_resource_type">
+							<option value="custom" data-i18n="growing-resource-custom"></option>
+							<option value="furyberserker" data-i18n="fury-berserker"></option>
+							<option value="furyreaver" data-i18n="fury-reaver"></option>
+							<option value="furystormwight" data-i18n="fury-stormwight"></option>
+							<option value="nullchronokinetic" data-i18n="null-chronokinetic"></option>
+							<option value="nullcryokinetic" data-i18n="null-cryokinetic"></option>
+							<option value="nullmetakinetic" data-i18n="null-metakinetic"></option>
+						</select>
+					</div>
+
+					<div class="selector-row stormwight-only">
+						<label data-i18n="kit"></label>
+						<select name="attr_stormwight_growing_resource_type">
+							<option value="" selected></option>
+							<option value="boren" data-i18n="boren"></option>
+							<option value="corven" data-i18n="corven"></option>
+							<option value="raden" data-i18n="raden"></option>
+							<option value="vuken" data-i18n="vuken"></option>
+						</select>
+					</div>
+				</div>
+				<hr>
 				<div class="grid-span-full">
 					<h5 data-i18n="npc-options-title"></h5>
 				</div>
@@ -57,10 +94,364 @@
 			</div>
 		</div>
 	</div>
-	
-	<!-- Header End -->
 </div>
+
+<!-- Header End -->
+
 <input type="hidden" class="npc-checkbox" name="attr_is_npc" />
+<input type="hidden" id="director-screen-toggle" name="attr_show_director_screen" />
+<!-- Director Screen-->
+<div class="sheet-panel director-screen-panel minimizable">
+	<div class="minimize-control">
+		<input id="director-screen-minimize-checkbox" class="minimize" type="checkbox" checked />
+		<label for="director-screen-minimize-checkbox" data-i18n="director-screen"></label>
+	</div>
+	<!-- Conditions -->
+	<details>
+		<summary><span data-i18n="conditions"></span></summary>
+		
+		<p class="director-section-text" data-i18n="conditions-desc"></p>
+		<div class="director-rules-container">
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="bleeding"></span>
+				<span class="director-rule-desc" data-i18n="bleeding-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="dazed"></span>
+				<span class="director-rule-desc" data-i18n="dazed-desc"></span>
+			</div>
+			
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="frightened"></span>
+				<span class="director-rule-desc" data-i18n="frightened-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="grabbed"></span>
+				<span class="director-rule-desc" data-i18n="grabbed-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="prone"></span>
+				<span class="director-rule-desc" data-i18n="prone-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="restrained"></span>
+				<span class="director-rule-desc" data-i18n="restrained-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="slowed"></span>
+				<span class="director-rule-desc" data-i18n="slowed-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="taunted"></span>
+				<span class="director-rule-desc" data-i18n="taunted-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="weakened"></span>
+				<span class="director-rule-desc" data-i18n="weakened-desc"></span>
+			</div>
+		</div>
+	</details>
+    <!-- Basics -->
+	<details>
+		<summary><span data-i18n="basics"></span></summary>
+		<div class="director-rules-container">
+            <div class="director-rule-item">
+                <span class="director-rule-name" data-i18n="characteristics-scores"></span>
+                <span class="director-rule-desc" data-i18n="characteristics-scores-desc"></span>
+            </div>
+            <div class="director-rule-item">
+                <span class="director-rule-name" data-i18n="natural-19-20"></span>
+                <span class="director-rule-desc" data-i18n="natural-19-20-desc"></span>
+            </div>
+			<div class="director-rule-item">
+                <span class="director-rule-name" data-i18n="power-roll-director"></span>
+                <span class="director-rule-desc" data-i18n="power-roll-desc"></span>
+            </div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="recovery"></span>
+				<span class="director-rule-desc" data-i18n="recovery-desc"></span>
+			</div>
+            <div class="director-rule-item">
+                <span class="director-rule-name" data-i18n="respites"></span>
+                <span class="director-rule-desc" data-i18n="respites-desc"></span>
+            </div>
+            <div class="director-rule-item">
+                <span class="director-rule-name" data-i18n="skill"></span>
+                <span class="director-rule-desc" data-i18n="skill-desc"></span>
+            </div>
+            <div class="director-rule-item">
+                <span class="director-rule-name" data-i18n="victories-director"></span>
+                <span class="director-rule-desc" data-i18n="victories-desc"></span>
+            </div>
+			
+			<h5 data-i18n="edges-and-banes"></h5>
+			
+			<div class="director-rule-item">
+                <span class="director-rule-name" data-i18n="edge-director"></span>
+                <span class="director-rule-desc" data-i18n="edge-desc"></span>
+            </div>
+			<div class="director-rule-item">
+                <span class="director-rule-name" data-i18n="double-edge-director"></span>
+                <span class="director-rule-desc" data-i18n="double-edge-desc"></span>
+            </div>
+			<div class="director-rule-item">
+                <span class="director-rule-name" data-i18n="bane-director"></span>
+                <span class="director-rule-desc" data-i18n="bane-desc"></span>
+            </div>
+			<div class="director-rule-item">
+                <span class="director-rule-name" data-i18n="double-bane-director"></span>
+                <span class="director-rule-desc" data-i18n="double-bane-desc"></span>
+            </div>
+			<p class="director-section-text" data-i18n="edges-and-banes-desc"></p>
+			
+			<h5 data-i18n="hero-tokens"></h5>
+			<p class="director-section-text" data-i18n="hero-tokens-desc"></p>
+        </div>
+	</details>
+	<!-- Combat -->
+	<details>
+		<summary><span data-i18n="combat"></span></summary>
+		<div class="director-rules-container">
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="combat-turn"></span>
+				<span class="director-rule-desc" data-i18n="combat-turn-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="triggered-action-director"></span>
+				<span class="director-rule-desc" data-i18n="triggered-action-desc"></span>
+			</div>
+			<h5 data-i18n="main-actions"></h5>
+			<p class="director-section-text" data-i18n="main-actions-desc"></p>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="charge-director"></span>
+				<span class="director-rule-desc" data-i18n="charge-desc"></span>
+			</div>		
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="defend-director"></span>
+				<span class="director-rule-desc" data-i18n="defend-desc"></span>
+			</div>		
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="free-strike-director"></span>
+				<span class="director-rule-desc" data-i18n="free-strike-desc"></span>
+			</div>		
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="heal-director"></span>
+				<span class="director-rule-desc" data-i18n="heal-desc"></span>
+			</div>		
+			<h5 data-i18n="move-actions"></h5>
+			<p class="director-section-text" data-i18n="move-actions-desc"></p>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="advance-director"></span>
+				<span class="director-rule-desc" data-i18n="advance-desc"></span>
+			</div>		
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="disengage-director"></span>
+				<span class="director-rule-desc" data-i18n="disengage-desc"></span>
+			</div>		
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="ride-director"></span>
+				<span class="director-rule-desc" data-i18n="ride-desc"></span>
+			</div>		
+			<h5 data-i18n="maneuvers"></h5>
+			<p class="director-section-text" data-i18n="maneuvers-desc"></p>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="aid-attack-director"></span>
+				<span class="director-rule-desc" data-i18n="aid-attack-desc"></span>
+			</div>		
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="catch-breath-director"></span>
+				<span class="director-rule-desc" data-i18n="catch-breath-desc"></span>
+			</div>		
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="escape-grab-director"></span>
+				<span class="director-rule-desc" data-i18n="escape-grab-desc"></span>
+			</div>		
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="grab-director"></span>
+				<span class="director-rule-desc" data-i18n="grab-desc"></span>
+			</div>		
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="hide-director"></span>
+				<span class="director-rule-desc" data-i18n="hide-desc"></span>
+			</div>		
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="knockback-director"></span>
+				<span class="director-rule-desc" data-i18n="knockback-desc"></span>
+			</div>		
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="stand-up-director"></span>
+				<span class="director-rule-desc" data-i18n="stand-up-desc"></span>
+			</div>		
+			<h5 data-i18n="combat-glossary"></h5>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="critical-hit-director"></span>
+				<span class="director-rule-desc" data-i18n="critical-hit-desc"></span>
+			</div>		
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="stand-up-director"></span>
+				<span class="director-rule-desc" data-i18n="stand-up-desc"></span>
+			</div>		
+			<div class="director-rule-item">
+				<span class="director-rule-name"  data-i18n="critical-hit-director"></span>
+				<span class="director-rule-desc" data-i18n="critical-hit-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name"  data-i18n="concealment"></span>
+				<span class="director-rule-desc" data-i18n="concealment-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name"  data-i18n="cover"></span>
+				<span class="director-rule-desc" data-i18n="cover-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name"  data-i18n="damage-immunity"></span>
+				<span class="director-rule-desc" data-i18n="damage-immunity-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name"  data-i18n="damage-weakness"></span>
+				<span class="director-rule-desc" data-i18n="damage-weakness-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name"  data-i18n="dying-director"></span>
+				<span class="director-rule-desc" data-i18n="dying-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name"  data-i18n="eot-director"></span>
+				<span class="director-rule-desc" data-i18n="eot-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name"  data-i18n="flanking"></span>
+				<span class="director-rule-desc" data-i18n="flanking-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name"  data-i18n="high-ground"></span>
+				<span class="director-rule-desc" data-i18n="high-ground-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name"  data-i18n="line-of-effect"></span>
+				<span class="director-rule-desc" data-i18n="line-of-effect-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name"  data-i18n="opportunity-attack-director"></span>
+				<span class="director-rule-desc" data-i18n="opportunity-attack-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name"  data-i18n="saving-throws"></span>
+				<span class="director-rule-desc" data-i18n="saving-throws-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name"  data-i18n="stamina-director"></span>
+				<span class="director-rule-desc" data-i18n="stamina-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name"  data-i18n="surges-director"></span>
+				<span class="director-rule-desc" data-i18n="surges-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name"  data-i18n="winded-director"></span>
+				<span class="director-rule-desc" data-i18n="winded-desc"></span>
+			</div>
+			<h5 data-i18n="size-and-space"></h5>
+			<p data-i18n="size-and-space-desc"></p>
+		</div>
+	</details>
+	<!-- Movement -->
+	<details>
+		<summary><span data-i18n="movement"></span></summary>
+		<div class="director-rules-container">
+			<p class="director-section-text" data-i18n="movement-desc"></p>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="climb"></span>
+				<span class="director-rule-desc" data-i18n="climb-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="crawl"></span>
+				<span class="director-rule-desc" data-i18n="crawl-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="difficult-terrain"></span>
+				<span class="director-rule-desc" data-i18n="difficult-terrain-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="jump-director"></span>
+				<span class="director-rule-desc" data-i18n="jump-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="teleport"></span>
+				<span class="director-rule-desc" data-i18n="teleport-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="shifting"></span>
+				<span class="director-rule-desc" data-i18n="shifting-desc"></span>
+			</div>
+			<h5 data-i18n="forced-movement"></h5>
+			<p class="director-section-text" data-i18n="forced-movement-desc"></p>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="push-x"></span>
+				<span class="director-rule-desc" data-i18n="push-x-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="pull-x"></span>
+				<span class="director-rule-desc" data-i18n="pull-x-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="slide-x"></span>
+				<span class="director-rule-desc" data-i18n="slide-x-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="vertical"></span>
+				<span class="director-rule-desc" data-i18n="vertical-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="big-vs-little"></span>
+				<span class="director-rule-desc" data-i18n="big-vs-little-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="breaking-objects"></span>
+				<span class="director-rule-desc" data-i18n="breaking-objects-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="slamming-into-creatures"></span>
+				<span class="director-rule-desc" data-i18n="slamming-into-creatures-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="slamming-into-objects"></span>
+				<span class="director-rule-desc" data-i18n="slamming-into-objects-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="stability-director"></span>
+				<span class="director-rule-desc" data-i18n="stability-desc"></span>
+			</div>
+		</div>
+	</details>
+	<!-- Area of Effect -->
+	<details>
+		<summary><span data-i18n="areas-of-effect"></span></summary>
+		<div class="director-rules-container">
+			<p class="director-section-text" data-i18n="areas-of-effect-desc"></p>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="aura"></span>
+				<span class="director-rule-desc" data-i18n="aura-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="burst"></span>
+				<span class="director-rule-desc" data-i18n="burst-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="cube"></span>
+				<span class="director-rule-desc" data-i18n="cube-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="line"></span>
+				<span class="director-rule-desc" data-i18n="line-desc"></span>
+			</div>
+			<div class="director-rule-item">
+				<span class="director-rule-name" data-i18n="wall-director"></span>
+				<span class="director-rule-desc" data-i18n="wall-desc"></span>
+			</div>
+		</div>
+	</details>
+</div>
 <!-- Character Sheet Start -->
 <div class="sheet-body">
 	<!-- Header Panel --> 
@@ -277,134 +668,86 @@
 			<span data-i18n="potency-one"></span>
 		</div>
 		<!-- Growing Resource Fury/Null -->
+		<input type="hidden" class="has-resource-toggle" name="attr_has_growing_resource" value="0" />
 		<div class="growing-resource minimize-ignore">
- 			<input type="checkbox" name="attr_has_growing_resource" /><label data-i18n="growing-resource-checkbox"></label>
-			<input type="hidden" name="attr_growingresource_show_2" />
-			<input type="hidden" name="attr_growingresource_show_4" />
-			<input type="hidden" name="attr_growingresource_show_6" />
-			<input type="hidden" name="attr_growingresource_show_8" />
-			<input type="hidden" name="attr_growingresource_show_10" />
-			<input type="hidden" name="attr_growingresource_show_12" />
-			<div class="growing-resource-selector-display">
-				<select class="growing-resource-selector" name="attr_growing_resource_type">
-					<option value="furyberserker" data-i18n="fury-berserker"></option>
-					<option value="furyreaver" data-i18n="fury-reaver"></option>
-					<option value="furystormwight" data-i18n="fury-stormwight"></option>
-					<option value="nullchronokinetic" data-i18n="null-chronokinetic"></option>
-					<option value="nullcryokinetic" data-i18n="null-cryokinetic"></option>
-					<option value="nullmetakinetic" data-i18n="null-metakinetic"></option>
-				</select>
-				<select class="stormwight-growing-resource-selector" name="attr_stormwight_growing_resource_type">
-					<option value="" selected></option>
-					<option value="boren" data-i18n="boren"></option>
-					<option value="corven" data-i18n="corven"></option>
-					<option value="raden" data-i18n="raden"></option>
-					<option value="vuken" data-i18n="vuken"></option>
-				</select>
-			</div>
-			<div class="growing-resource-display sheet-panel-box minimize-ignore">
-				<h5 class="panel-title" data-i18n="growing-resource"></h5>
-				<div class="berserker-growing-resource-display">
-					<div class="growing-resource-display-label">
-						<label><span data-i18n="ferocity"></span></label><label><span data-i18n="benefit"></span></label>
-						<label><span>2</span></label><label><span data-i18n="berserker-two-ben"></span></label>
-						<label><span>4</span></label><label><span data-i18n="berserker-four-ben"></span></label>
-						<label><span>6</span></label><label><span data-i18n="berserker-six-ben"></span></label>
-						<label><span data-i18n="eight-label"></span></label><label><span data-i18n="berserker-eight-ben"></span></label>
-						<label><span data-i18n="ten-label"></span></label><label><span data-i18n="berserker-ten-ben"></span></label>
-						<label><span data-i18n="twelve-label"></span></label><label><span data-i18n="berserker-twelve-ben"></span></label>
+			<h5 class="panel-title" data-i18n="growing-resource"></h5>
+			<input type="hidden" class="row-toggle-2" name="attr_growingresource_show_2" value="1" />
+			<input type="hidden" class="row-toggle-4" name="attr_growingresource_show_4" value="1" />
+			<input type="hidden" class="row-toggle-6" name="attr_growingresource_show_6" value="1" />
+			<input type="hidden" class="row-toggle-8" name="attr_growingresource_show_8" value="1" />
+			<input type="hidden" class="row-toggle-10" name="attr_growingresource_show_10" value="1" />
+			<input type="hidden" class="row-toggle-12" name="attr_growingresource_show_12" value="1" />
+
+			<div class="resource-container sheet-panel-box minimize-ignore">
+				<input type="checkbox" class="ability-edit" id="ability-edit" name="attr_growing_resource_edit" />
+				<div class="growing-resource-grid">
+					<div class="grid-header">
+						<span class="header-label" name="attr_resource_name"></span>
+						<span class="header-benefit" data-i18n="benefit"></span>
 					</div>
-				</div>
-				<div class="reaver-growing-resource-display">
-					<div class="growing-resource-display-label">
-						<label><span data-i18n="ferocity"></span></label><label><span data-i18n="benefit"></span></label>
-						<label><span>2</span></label><label><span data-i18n="reaver-two-ben"></span></label>
-						<label><span>4</span></label><label><span data-i18n="reaver-four-ben"></span></label>
-						<label><span>6</span></label><label><span data-i18n="reaver-six-ben"></span></label>
-						<label><span data-i18n="eight-label"></span></label><label><span data-i18n="reaver-eight-ben"></span></label>
-						<label><span data-i18n="ten-label"></span></label><label><span data-i18n="reaver-ten-ben"></span></label>
-						<label><span data-i18n="twelve-label"></span></label><label><span data-i18n="reaver-twelve-ben"></span></label>
+					<div class="resource-row tier-2">
+						<div class="display-mode">
+							<span class="row-label" name="attr_growingresource_2_label"></span>
+							<span class="row-text" name="attr_growingresource_2_text"></span>
+						</div>
+						<div class="edit-mode">
+							<input type="text" name="attr_growingresource_2_label" />
+							<textarea name="attr_growingresource_2_text"></textarea>
+						</div>
 					</div>
-				</div>
-				<div class="boren-growing-resource-display">
-					<div class="growing-resource-display-label">
-						<label><span data-i18n="ferocity"></span></label><label><span data-i18n="benefit"></span></label>
-						<label><span>2</span></label><label><span data-i18n="boren-two-ben"></span></label>
-						<label><span>4</span></label><label><span data-i18n="boren-four-ben"></span></label>
-						<label><span>6</span></label><label><span data-i18n="boren-six-ben"></span></label>
-						<label><span data-i18n="eight-label"></span></label><label><span data-i18n="boren-eight-ben"></span></label>
-						<label><span data-i18n="ten-label"></span></label><label><span data-i18n="boren-ten-ben"></span></label>
-						<label><span data-i18n="twelve-label"></span></label><label><span data-i18n="boren-twelve-ben"></span></label>
+					<div class="resource-row tier-4">
+						<div class="display-mode">
+							<span class="row-label" name="attr_growingresource_4_label"></span>
+							<span class="row-text" name="attr_growingresource_4_text"></span>
+						</div>
+						<div class="edit-mode">
+							<input type="text" name="attr_growingresource_4_label" />
+							<textarea name="attr_growingresource_4_text"></textarea>
+						</div>
 					</div>
-				</div>
-				<div class="corven-growing-resource-display">
-					<div class="growing-resource-display-label">
-						<label><span data-i18n="ferocity"></span></label><label><span data-i18n="benefit"></span></label>
-						<label><span>2</span></label><label><span data-i18n="corven-two-ben"></span></label>
-						<label><span>4</span></label><label><span data-i18n="corven-four-ben"></span></label>
-						<label><span>6</span></label><label><span data-i18n="corven-six-ben"></span></label>
-						<label><span data-i18n="eight-label"></span></label><label><span data-i18n="corven-eight-ben"></span></label>
-						<label><span data-i18n="ten-label"></span></label><label><span data-i18n="corven-ten-ben"></span></label>
-						<label><span data-i18n="twelve-label"></span></label><label><span data-i18n="corven-twelve-ben"></span></label>
+					<div class="resource-row tier-6">
+						<div class="display-mode">
+							<span class="row-label" name="attr_growingresource_6_label"></span>
+							<span class="row-text" name="attr_growingresource_6_text"></span>
+						</div>
+						<div class="edit-mode">
+							<input type="text" name="attr_growingresource_6_label" />
+							<textarea name="attr_growingresource_6_text"></textarea>
+						</div>
 					</div>
-				</div>
-				<div class="raden-growing-resource-display">
-					<div class="growing-resource-display-label">
-						<label><span data-i18n="ferocity"></span></label><label><span data-i18n="benefit"></span></label>
-						<label><span>2</span></label><label><span data-i18n="raden-two-ben"></span></label>
-						<label><span>4</span></label><label><span data-i18n="raden-four-ben"></span></label>
-						<label><span>6</span></label><label><span data-i18n="raden-six-ben"></span></label>
-						<label><span data-i18n="eight-label"></span></label><label><span data-i18n="raden-eight-ben"></span></label>
-						<label><span data-i18n="ten-label"></span></label><label><span data-i18n="raden-ten-ben"></span></label>
-						<label><span data-i18n="twelve-label"></span></label><label><span data-i18n="raden-twelve-ben"></span></label>
+					<div class="resource-row tier-8">
+						<div class="display-mode">
+							<span class="row-label" name="attr_growingresource_8_label"></span>
+							<span class="row-text" name="attr_growingresource_8_text"></span>
+						</div>
+						<div class="edit-mode">
+							<input type="text" name="attr_growingresource_8_label" />
+							<textarea name="attr_growingresource_8_text"></textarea>
+						</div>
 					</div>
-				</div>
-				<div class="vuken-growing-resource-display">
-					<div class="growing-resource-display-label">
-						<label><span data-i18n="ferocity"></span></label><label><span data-i18n="benefit"></span></label>
-						<label><span>2</span></label><label><span data-i18n="vuken-two-ben"></span></label>
-						<label><span>4</span></label><label><span data-i18n="vuken-four-ben"></span></label>
-						<label><span>6</span></label><label><span data-i18n="vuken-six-ben"></span></label>
-						<label><span data-i18n="eight-label"></span></label><label><span data-i18n="vuken-eight-ben"></span></label>
-						<label><span data-i18n="ten-label"></span></label><label><span data-i18n="vuken-ten-ben"></span></label>
-						<label><span data-i18n="twelve-label"></span></label><label><span data-i18n="vuken-twelve-ben"></span></label>
+					<div class="resource-row tier-10">
+						<div class="display-mode">
+							<span class="row-label" name="attr_growingresource_10_label"></span>
+							<span class="row-text" name="attr_growingresource_10_text"></span>
+						</div>
+						<div class="edit-mode">
+							<input type="text" name="attr_growingresource_10_label" />
+							<textarea name="attr_growingresource_10_text"></textarea>
+						</div>
 					</div>
-				</div>
-				<div class="chronokinetic-growing-resource-display">
-					<div class="growing-resource-display-label">
-						<label><span data-i18n="discipline"></span></label><label><span data-i18n="benefit"></span></label>
-						<label><span>2</span></label><label><span data-i18n="chronokinetic-two-ben"></span></label>
-						<label><span>4</span></label><label><span data-i18n="chronokinetic-four-ben"></span></label>
-						<label><span>6</span></label><label><span data-i18n="chronokinetic-six-ben"></span></label>
-						<label><span data-i18n="eight-label"></span></label><label><span data-i18n="chronokinetic-eight-ben"></span></label>
-						<label><span data-i18n="ten-label"></span></label><label><span data-i18n="chronokinetic-ten-ben"></span></label>
-						<label><span data-i18n="twelve-label"></span></label><label><span data-i18n="chronokinetic-twelve-ben"></span></label>
-					</div>
-				</div>
-				<div class="cryokinetic-growing-resource-display">
-					<div class="growing-resource-display-label">
-						<label><span data-i18n="discipline"></span></label><label><span data-i18n="benefit"></span></label>
-						<label><span>2</span></label><label><span data-i18n="cryokinetic-two-ben"></span></label>
-						<label><span>4</span></label><label><span data-i18n="cryokinetic-four-ben"></span></label>
-						<label><span>6</span></label><label><span data-i18n="cryokinetic-six-ben"></span></label>
-						<label><span data-i18n="eight-label"></span></label><label><span data-i18n="cryokinetic-eight-ben"></span></label>
-						<label><span data-i18n="ten-label"></span></label><label><span data-i18n="cryokinetic-ten-ben"></span></label>
-						<label><span data-i18n="twelve-label"></span></label><label><span data-i18n="cryokinetic-twelve-ben"></span></label>
-					</div>
-				</div>
-				<div class="metakinetic-growing-resource-display">
-					<div class="growing-resource-display-label">
-						<label><span data-i18n="discipline"></span></label><label><span data-i18n="benefit"></span></label>
-						<label><span>2</span></label><label><span data-i18n="metakinetic-two-ben"></span></label>
-						<label><span>4</span></label><label><span data-i18n="metakinetic-four-ben"></span></label>
-						<label><span>6</span></label><label><span data-i18n="metakinetic-six-ben"></span></label>
-						<label><span data-i18n="eight-label"></span></label><label><span data-i18n="metakinetic-eight-ben"></span></label>
-						<label><span data-i18n="ten-label"></span></label><label><span data-i18n="metakinetic-ten-ben"></span></label>
-						<label><span data-i18n="twelve-label"></span></label><label><span data-i18n="metakinetic-twelve-ben"></span></label>
+					<div class="resource-row tier-12">
+						<div class="display-mode">
+							<span class="row-label" name="attr_growingresource_12_label"></span>
+							<span class="row-text" name="attr_growingresource_12_text"></span>
+						</div>
+						<div class="edit-mode">
+							<input type="text" name="attr_growingresource_12_label" />
+							<textarea name="attr_growingresource_12_text"></textarea>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</div>	
 		<!-- Potencies -->
 		<div class="potencies sheet-panel-box">
 				<h5 class="panel-title" data-i18n="potencies"></h5>
@@ -2337,7 +2680,7 @@
 					<div class="ability-card card-edit">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="advance" name="attr_advance_name" data-i18n="advance" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="advance-keywords" name="attr_advance_keywords" value="" />
-						<input type="hidden" name="attr_advance_type" value="maneuver" />
+						<input type="hidden" name="attr_advance_type" value="move-action" />
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="distance" name="attr_advance_distance" data-i18n="self" spellcheck="false"></textarea>
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="target" name="attr_advance_target" data-i18n="self" spellcheck="false"></textarea>
 						<textarea class="ability-effect grid-span-full" data-i18n="advance-effect" name="attr_advance_effect" spellcheck="false"></textarea>
@@ -2395,7 +2738,7 @@
 					<div class="ability-card card-edit">
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="ride" name="attr_ride_name" data-i18n="ride" spellcheck="false"></textarea>
 						<input type="hidden" class="ability-keywords" data-i18n-placeholder="ride-keywords" name="attr_ride_keywords" value="" />
-						<input type="hidden" name="attr_ride_type" value="maneuver" />
+						<input type="hidden" name="attr_ride_type" value="move-action" />
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="distance" name="attr_ride_distance" data-i18n="self" spellcheck="false"></textarea>
 						<textarea class="ability-effect grid-span-full" data-i18n-placeholder="target" name="attr_ride_target" data-i18n="self" spellcheck="false"></textarea>
 						<textarea class="ability-effect grid-span-full" data-i18n="ride-effect" name="attr_ride_effect" spellcheck="false"></textarea>
@@ -2513,365 +2856,6 @@
 </div>
 <!-- NPC Sheet View -->
 <div class="npc-sheet-body">
-	<!-- Director Screen-->
-	<div class="sheet-panel director-screen-panel minimizable">
-		<div class="minimize-control">
-			<input id="director-screen-minimize-checkbox" class="minimize" type="checkbox" checked />
-			<label for="director-screen-minimize-checkbox" data-i18n="director-screen"></label>
-		</div>
-		<div class="sheet-panel-box director-screen-sub-panel minimizable-conditions">
-			<div class="minimize-control-conditions">
-				<input id="director-screen-conditions-minimize-checkbox" class="minimize" type="checkbox" checked />
-				<label for="director-screen-conditions-minimize-checkbox" data-i18n="conditions"></label>
-			</div>
-			<h5 class="panel-title">
-				<span class="director-screen-sub-desc" data-i18n="conditions-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="bleeding"></span>
-				<span class="director-screen-sub-desc" data-i18n="bleeding-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="dazed"></span>
-				<span class="director-screen-sub-desc" data-i18n="dazed-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="frightened"></span>
-				<span class="director-screen-sub-desc" data-i18n="frightened-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="grabbed"></span>
-				<span class="director-screen-sub-desc" data-i18n="grabbed-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="prone"></span>
-				<span class="director-screen-sub-desc" data-i18n="prone-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="restrained"></span>
-				<span class="director-screen-sub-desc" data-i18n="restrained-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="slowed"></span>
-				<span class="director-screen-sub-desc" data-i18n="slowed-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="taunted"></span>
-				<span class="director-screen-sub-desc" data-i18n="taunted-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="weakened"></span>
-				<span class="director-screen-sub-desc" data-i18n="weakened-desc"></span>
-			</h5>
-		</div>
-		<div class="sheet-panel-box director-screen-sub-panel minimizable-basics">
-			<div class="minimize-control-basics">
-				<input id="director-screen-basics-minimize-checkbox" class="minimize" type="checkbox" checked />
-				<label for="director-screen-basics-minimize-checkbox" data-i18n="basics"></label>
-			</div>
-			<h5 class="panel-title">
-				<span data-i18n="characteristics-scores"></span>
-				<span class="director-screen-sub-desc" data-i18n="characteristics-scores-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="natural-19-20"></span>
-				<span class="director-screen-sub-desc" data-i18n="natural-19-20-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="power-roll-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="power-roll-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="recovery"></span>
-				<span class="director-screen-sub-desc" data-i18n="recovery-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="respites"></span>
-				<span class="director-screen-sub-desc" data-i18n="respites-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="skill"></span>
-				<span class="director-screen-sub-desc" data-i18n="skill-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="victories-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="victories-desc"></span>
-			</h5>
-			<h3 class="panel-title" data-i18n="edges-and-banes"></h3>
-			<h5 class="panel-title">
-				<span data-i18n="edge-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="edge-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="double-edge-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="double-edge-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="bane-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="bane-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="double-bane-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="double-bane-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span class="director-screen-sub-desc" data-i18n="edges-and-banes-desc"></span>
-			</h5>
-			<h3 class="panel-title" data-i18n="hero-tokens"></h3>
-			<h5 class="panel-title">
-				<span class="director-screen-sub-desc" data-i18n="hero-tokens-desc"></span>
-			</h5>
-		</div>
-		<div class="sheet-panel-box director-screen-sub-panel minimizable-combat">
-			<div class="minimize-control-combat">
-				<input id="director-screen-combat-minimize-checkbox" class="minimize" type="checkbox" checked />
-				<label for="director-screen-combat-minimize-checkbox" data-i18n="combat"></label>
-			</div>
-			<h5 class="panel-title">
-				<span data-i18n="combat-turn"></span>
-				<span class="director-screen-sub-desc" data-i18n="combat-turn-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="triggered-action-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="triggered-action-desc"></span>
-			</h5>
-			<h3 class="panel-title" data-i18n="main-actions"></h3>
-			<h5 class="panel-title">
-				<span class="director-screen-sub-desc" data-i18n="main-actions-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="charge-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="charge-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="defend-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="defend-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="free-strike-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="free-strike-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="heal-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="heal-desc"></span>
-			</h5>
-			<h3 class="panel-title" data-i18n="move-actions"></h3>
-			<h5 class="panel-title">
-				<span class="director-screen-sub-desc" data-i18n="move-actions-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="advance-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="advance-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="disengage-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="disengage-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="ride-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="ride-desc"></span>
-			</h5>
-			<h3 class="panel-title" data-i18n="maneuvers"></h3>
-			<h5 class="panel-title">
-				<span class="director-screen-sub-desc" data-i18n="maneuvers-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="aid-attack-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="aid-attack-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="catch-breath-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="catch-breath-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="escape-grab-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="escape-grab-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="grab-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="grab-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="hide-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="hide-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="knockback-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="knockback-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="stand-up-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="stand-up-desc"></span>
-			</h5>
-			<h3 class="panel-title" data-i18n="combat-glossary"></h3>
-			<h5 class="panel-title">
-				<span data-i18n="critical-hit-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="critical-hit-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="concealment"></span>
-				<span class="director-screen-sub-desc" data-i18n="concealment-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="cover"></span>
-				<span class="director-screen-sub-desc" data-i18n="cover-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="damage-immunity"></span>
-				<span class="director-screen-sub-desc" data-i18n="damage-immunity-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="damage-weakness"></span>
-				<span class="director-screen-sub-desc" data-i18n="damage-weakness-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="dying-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="dying-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="eot-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="eot-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="flanking"></span>
-				<span class="director-screen-sub-desc" data-i18n="flanking-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="high-ground"></span>
-				<span class="director-screen-sub-desc" data-i18n="high-ground-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="line-of-effect"></span>
-				<span class="director-screen-sub-desc" data-i18n="line-of-effect-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="opportunity-attack-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="opportunity-attack-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="saving-throws"></span>
-				<span class="director-screen-sub-desc" data-i18n="saving-throws-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="stamina-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="stamina-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="surges-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="surges-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="winded-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="winded-desc"></span>
-			</h5>
-			<h3 class="panel-title" data-i18n="size-and-space"></h3>
-			<h5 class="panel-title">
-				<span class="director-screen-sub-desc" data-i18n="size-and-space-desc"></span>
-			</h5>
-		</div>
-		<div class="sheet-panel-box director-screen-sub-panel minimizable-movement">
-			<div class="minimize-control-movement">
-				<input id="director-screen-movement-minimize-checkbox" class="minimize" type="checkbox" checked />
-				<label for="director-screen-movement-minimize-checkbox" data-i18n="movement"></label>
-			</div>
-			<h5 class="panel-title">
-				<span class="director-screen-sub-desc" data-i18n="movement-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="climb"></span>
-				<span class="director-screen-sub-desc" data-i18n="climb-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="crawl"></span>
-				<span class="director-screen-sub-desc" data-i18n="crawl-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="difficult-terrain"></span>
-				<span class="director-screen-sub-desc" data-i18n="difficult-terrain-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="jump-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="jump-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="teleport"></span>
-				<span class="director-screen-sub-desc" data-i18n="teleport-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="shifting"></span>
-				<span class="director-screen-sub-desc" data-i18n="shifting-desc"></span>
-			</h5>
-			<h3 class="panel-title" data-i18n="forced-movement"></h3>
-			<h5 class="panel-title">
-				<span class="director-screen-sub-desc" data-i18n="forced-movement-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="push-x"></span>
-				<span class="director-screen-sub-desc" data-i18n="push-x-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="pull-x"></span>
-				<span class="director-screen-sub-desc" data-i18n="pull-x-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="slide-x"></span>
-				<span class="director-screen-sub-desc" data-i18n="slide-x-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="vertical"></span>
-				<span class="director-screen-sub-desc" data-i18n="vertical-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="big-vs-little"></span>
-				<span class="director-screen-sub-desc" data-i18n="big-vs-little-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="breaking-objects"></span>
-				<span class="director-screen-sub-desc" data-i18n="breaking-objects-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="slamming-into-creatures"></span>
-				<span class="director-screen-sub-desc" data-i18n="slamming-into-creatures-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="slamming-into-objects"></span>
-				<span class="director-screen-sub-desc" data-i18n="slamming-into-objects-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="stability-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="stability-desc"></span>
-			</h5>
-		</div>
-		<div class="sheet-panel-box director-screen-sub-panel minimizable-areas-of-effect">
-			<div class="minimize-control-areas-of-effect">
-				<input id="director-screen-areas-of-effect-minimize-checkbox" class="minimize" type="checkbox" checked />
-				<label for="director-screen-areas-of-effect-minimize-checkbox" data-i18n="areas-of-effect"></label>
-			</div>
-			<h5 class="panel-title">
-				<span class="director-screen-sub-desc" data-i18n="areas-of-effect-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="aura"></span>
-				<span class="director-screen-sub-desc" data-i18n="aura-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="burst"></span>
-				<span class="director-screen-sub-desc" data-i18n="burst-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="cube"></span>
-				<span class="director-screen-sub-desc" data-i18n="cube-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="line"></span>
-				<span class="director-screen-sub-desc" data-i18n="line-desc"></span>
-			</h5>
-			<h5 class="panel-title">
-				<span data-i18n="wall-director"></span>
-				<span class="director-screen-sub-desc" data-i18n="wall-desc"></span>
-			</h5>
-		</div>
-	</div>
 	<label class="npc-edit-icon" for="npc-edit-toggle">p</label><input class="npc-edit-toggle" type="checkbox" id="npc-edit-toggle" />
 	<!-- NPC Edit Form -->
 	<div class="npc-edit">
@@ -5505,6 +5489,10 @@
 		calculateRespite();
 	});
 
+	on("change:growing_resource_type change:stormwight_growing_resource_type", () => {
+		updateGrowingResource();
+	});
+	
 	// Configuration map for feature sharing
 	// Maps the trigger event to its specific attribute names and translation key
 	const featureShareHandlers = {
@@ -5685,7 +5673,64 @@
 			});
 		});
 	}
+	
+	// Updates the Growing Resources Table when the options are changed
+	async function updateGrowingResource() {
+		console.log('~~~ updateGrowingResource ~~~');
 
+		// Get current selector values
+		const attrs = await getAttrsAsync(['growing_resource_type', 'stormwight_growing_resource_type']);
+		const mainType = attrs.growing_resource_type;
+		const stormType = attrs.stormwight_growing_resource_type;
+
+		// Identify the subclass prefix for translation keys
+		// If it's Stormwight, use the sub-selector; otherwise, strip prefixes like "fury" or "null"
+		let subClassKey = '';
+		if (mainType === 'furystormwight') {
+			subClassKey = stormType; // e.g., "raden"
+		} else if (mainType !== 'custom') {
+			// Strips "fury" or "null" from "furyberserker" -> "berserker"
+			subClassKey = mainType.replace(/^(fury|null)/, '');
+		}
+
+		// Define the levels/tiers we are filling
+		const tiers = [
+			{ num: 2,  word: 'two' },
+			{ num: 4,  word: 'four' },
+			{ num: 6,  word: 'six' },
+			{ num: 8,  word: 'eight' },
+			{ num: 10, word: 'ten' },
+			{ num: 12, word: 'twelve' }
+		];
+
+		const updateObj = {};
+
+		// Populate the Table
+		tiers.forEach(tier => {
+			const labelAttr = `growingresource_${tier.num}_label`;
+			const textAttr = `growingresource_${tier.num}_text`;
+
+			if (!subClassKey) {
+				// Reset fields if 'custom' or no Stormwight type selected
+				updateObj[labelAttr] = tier.num.toString();
+				updateObj[textAttr] = "";
+				return;
+			}
+
+			// Handle Labels (Tiers 8-12 have extra level requirements)
+			if (tier.num >= 8) {
+				updateObj[labelAttr] = getTranslationByKey(`${tier.word}-label`) || tier.num.toString();
+			} else {
+				updateObj[labelAttr] = tier.num.toString();
+			}
+
+			// Handle Benefits (Lookup translation key: subclass-word-ben)
+			const benefitKey = `${subClassKey}-${tier.word}-ben`;
+			updateObj[textAttr] = getTranslationByKey(benefitKey) || "";
+		});
+
+		setAttrs(updateObj);
+	}
 
 /**
 ** Import from Forge Steel Start
@@ -6298,7 +6343,6 @@
 			getConditionImmunities(allFeatures),
 			].filter(Boolean).join(', ');
 		
-		console.log(immunity);
 		// ATTRIBUTE MAPPING
 		const newAttrs = {
 			forgesteel_json: '', // Clear the import field.
@@ -6428,6 +6472,8 @@
 		
 		const maliceFeatures = malice ? importMalice(malice) : [];
 		
+		const minionTag = roleString.includes('Minion') ? getTranslationByKey('minion-text') : '';
+		
 		// ATTRIBUTE MAPPING
 		const newAttrs = {
 			forgesteel_json: '', // Clear the import field.
@@ -6438,7 +6484,7 @@
 			level: level,
 			npc_role: roleString,
 			npc_keywords: keywords.join(', '),
-			npc_EV: encounterValue,
+			npc_EV: `${encounterValue} ${minionTag}`.trim(),
 			// Stats
 			size: sizeString,
 			speed: dataSpeed.value ?? 5,
@@ -6485,7 +6531,9 @@
 	 */
 
 	function _processAbilityCore(abilityData, isNPC = false) {
+		console.log('~~~ processAbilityCore ```');
 		const id = generateRowID();
+		//console.log(abilityData);
 		const { type: usageData, sections, cost: rawCost, name, description, keywords, target } = abilityData;
     
 		// Configuration & Naming
@@ -6652,17 +6700,18 @@
 	}
 	
 	function importMalice(maliceData) {
-		if (maliceData === undefined ) {
+		console.log('~~~ importMalice ~~~');
+		if (maliceData === undefined ||  maliceData.length === 0) {
 			return [];
 		}
 		const maliceFeatures = maliceData.reduce((acc, f) => {
 			if (f.type === FEATURE_TYPES.MALICE_ABILITY) {
-				return {...acc, ...processAbility(f)};
+				return {...acc, ...processMonsterAbility(f.data.ability)};
 			} else
 			{
 				return {...acc, ...processMaliceAbility(f)};
 			}
-		});
+		},[]);
 		console.log(maliceFeatures);
 		return maliceFeatures;
 	}
