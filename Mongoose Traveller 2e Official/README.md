@@ -136,5 +136,9 @@ This is the Official Mongoose Traveller 2nd Edition Character Sheet
 - Added Salvage tab to Trade to allow for free stuff Travellers get
 - Fixed Consolidate button in Manifest for Trade to only consolidate where price paid and commodity match (and ensure salvage does not get consolidated)
 
+### Version 1.1.13
+- Added max hits for robot so works on token
+- Added characteristics panel to Robot
+
 ![Image](Official%20Mongoose%20Publishing%20Traveller%202nd%20Edition.png)
 
