@@ -6,116 +6,102 @@
 		</div>
 		<div class='sheet-col'>
 			<h3 style="margin-bottom: 0px; text-align: center; color: #FFF; background-color: #647A3E;">Basic Info</h3>
-			<table style="width: 100%;">
-				<tr>
-					<td>Name</td>
-					<td><input type="text" name="attr_Name" style="width: 300px" /></td>
-				</tr>
-				<tr>
-					<td>Pronouns</td>
-					<td>
-						<input type="text" name="attr_Pronous" style="width: 300px" /> 
-					</tr>
-					<tr>
-					    
-					<td>
-						Background</td> <td>
+			<div class="sheet-flex-table">
+				<div class="sheet-flex-row">
+					<div class="sheet-flex-cell sheet-flex-cell-label">Name</div>
+					<div class="sheet-flex-cell sheet-flex-cell-input"><input type="text" name="attr_Name" style="width: 300px" /></div>
+				</div>
+				<div class="sheet-flex-row">
+					<div class="sheet-flex-cell sheet-flex-cell-label">Pronouns</div>
+					<div class="sheet-flex-cell sheet-flex-cell-input">
+						<input type="text" name="attr_Pronous" style="width: 300px" />
+					</div>
+				</div>
+				<div class="sheet-flex-row">
+					<div class="sheet-flex-cell sheet-flex-cell-label">Background</div>
+					<div class="sheet-flex-cell sheet-flex-cell-input">
 						<input type="text" name="attr_Background" style="width: 300px" />
-					</td>				
-				</tr>
-				
-				<tr>
-					<td>Notes</td>
-					<td><textarea rows="3" name="attr_Description" style="margin-bottom: 0px;height: 4em; width: 289px;" ></textarea></td>
-				</tr>
-							
-						
-			</table>
+					</div>
+				</div>
+				<div class="sheet-flex-row">
+					<div class="sheet-flex-cell sheet-flex-cell-label">Extertion</div>
+					<div class="sheet-flex-cell sheet-flex-cell-input"><input type="number" name="attr_exertion" /></div>
+				</div>
+				<div class="sheet-flex-row">
+					<div class="sheet-flex-cell sheet-flex-cell-label">Luck</div>
+					<div class="sheet-flex-cell sheet-flex-cell-input"><input type="number" name="attr_luck" /></div>
+				</div>
+				<div class="sheet-flex-row">
+					<div class="sheet-flex-cell sheet-flex-cell-label">Hit Pts.</div>
+					<div class="sheet-flex-cell sheet-flex-cell-input">
+						<input type="number" name="attr_cur_hp" style="width: 60px" /> / <input type="number" name="attr_max_hp" style="width: 60px" />
+					</div>
+				</div>
+				<div class="sheet-flex-row">
+					<div class="sheet-flex-cell sheet-flex-cell-label">Notes</div>
+					<div class="sheet-flex-cell sheet-flex-cell-input"><textarea rows="3" name="attr_Description" style="margin-bottom: 0px;height: 4em; width: 289px;" ></textarea></div>
+				</div>
+			</div>
 		</div>
 
 		<div class='sheet-col' >
 			<h3 style="margin-bottom: 0px; text-align: center; color: #FFF; background-color: #647A3E;">Characteristics & Rolls</h3>
-			<table class="sheet-characteristics" style=" width: 100%" >
-		
-				    
-					<tr>
-						<td class=".sheet-chkfiller"><input type="checkbox" name="attr_st-check" /><td>
-						<div class="sheet-cdiv">
-						<td style="vertical-align: middle;">Strength</td>
-						<td><input type="number" value="10" name="attr_STR" /></td>	
-						<td><button class="sheet-characteristic-roll sheet-plain" style="width: 75px"  type="roll" value="&{template:characteristicRoll} {{name=@{Name}}} {{skillvalue=@{STR}}} {{crit=[[2]]}} {{special=[[ceil((@{STR})/2)+1]]}} {{success=[[@{STR}]]}} {{roll=[[1d100]]}} {{skillname=Strength}}">Push</button></td>
-						<td></td>
-						<td></td>	
-						
-					</tr>
-					
-					<tr>
-						<td class=".sheet-chkfiller"><input type="checkbox" name="attr_con-check" /><td>
-						<td style="vertical-align: middle;">Constitution</td>
-						<td><input type="number" value="10" name="attr_CON" /></td>
-						<td><button class="sheet-characteristic-roll sheet-plain" style="width: 75px"  type="roll" value="&{template:characteristicRoll} {{name=@{Name}}} {{skillvalue=@{CON}}} {{crit=[[2]]}} {{special=[[ceil((@{CON})/2)+1]]}} {{success=[[@{CON}]]}} {{roll=[[1d100]]}} {{skillname=Constitution}}">Survive</button></td>						
-					
-						<td style="vertical-align: middle;">Extertion</td><td><input type="number" name="attr_exertion" /></td>		
-						<td></td>
-						<td></td>						
-					</tr>
-				
-					
-					<tr>
-						<td><input type="checkbox" name="attr_int-check" /><td>
-						<td style="vertical-align: middle;">Intelligence</td>
-						<td><input type="number" value="10" name="attr_INT" /></td>
-						<td><button class="sheet-characteristic-roll sheet-plain" style="width: 75px"  type="roll" value="&{template:characteristicRoll} {{name=@{Name}}} {{skillvalue=@{INT}}} {{crit=[[2]]}} {{special=[[ceil((@{INT})/2)+1]]}} {{success=[[@{INT}]]}} {{roll=[[1d100]]}} {{skillname=Intelligence}}">Think</button></td>
-						<td  style="vertical-align: middle;"> Luck</td><td><input type="number" name="attr_luck" /></td>		
-						<td></td>
-						<td></td>						
-					</tr>
-					
-					<tr>
-						<td><input type="checkbox" name="attr_power-check" /><td>
-						<td style="vertical-align: middle;">Power</td>
-						<td><input class="sheet-plain" value="10" type="number" name="attr_POW" /></td>
-						<td><button class="sheet-characteristic-roll sheet-plain" style="width: 75px"  type="roll" value="&{template:characteristicRoll} {{name=@{Name}}} {{skillvalue=@{POW}}} {{crit=[[2]]}} {{special=[[ceil((@{POW})/2)+1]]}} {{success=[[@{POW}]]}} {{roll=[[1d100]]}} {{skillname=Power}}">Resolve</button></td>
-						<td style="vertical-align: middle;">Hit Pts.</td>
-						<td><input type="number" name="attr_cur_hp" />
-						<td>/</td>
-						<td><input type="number" name="attr_max_hp" /></td>									
-					</tr>
-					
-					<tr>
-						<td class=".sheet-chkfiller"><input type="checkbox" name="attr_dex-check" /><td>
-						<td style="vertical-align: middle;">Dexterity</td>
-						<td><input type="number" value="10" name="attr_DEX" /></td>	
-						<td><button class="sheet-characteristic-roll sheet-plain" style="width: 75px"  type="roll" value="&{template:characteristicRoll} {{name=@{Name}}} {{skillvalue=@{DEX}}} {{crit=[[2]]}} {{success=[[@{DEX}]]}} {{roll=[[1d100]]}} {{skillname=Dexterity}}">Move</button></td>
-						<td></td>
-						<td>
-						<td></td>
-						<td></td>
-					</tr>
-				
-					
-					<tr>
-						<td class=".sheet-chkfiller"><input type="checkbox" name="attr_chr-check" /><td>
-						<td style="vertical-align: middle;">
-						Charisma
-						</td>
-						<td>
-							<input type="number" value="10" name="attr_CHR" />
-						</td>
-						<td>
-						    <button class="sheet-characteristic-roll sheet-plain" style="width: 75px"  type="roll" value="&{template:characteristicRoll} {{name=@{Name}}} {{skillvalue=@{CHR}}} {{crit=[[2]]}} {{success=[[@{CHR}]]}} {{roll=[[1d100]]}} {{skillname=Charisma}}">Charm</button>
-						</td>
-						
-						<td>
-							<button  class="sheet-characteristic-roll sheet-plain" style="width: 75px" type="roll" value="&{template:empathyRoll} {{name=@{Name}}} {{skillvalue=@{cur_empathy}}} {{success=[[@{cur_empathy}]]}} {{roll=[[1d100]]}} {{skillname=Empathy}}">Empathy</button>
-						</td>
-						<td><input type="number" name="attr_cur_empathy" /></td>
-						<td></td>
-						<td></td>           
-					</tr>
-				
-			
-			</table>
+			<div class="sheet-flex-table sheet-characteristics">
+				<div class="sheet-flex-row">
+					<div class="sheet-flex-cell sheet-chkfiller"><input type="checkbox" name="attr_st-check" /></div>
+					<div class="sheet-flex-cell">Strength</div>
+					<div class="sheet-flex-cell"><input type="number" value="10" name="attr_STR" /></div>
+					<div class="sheet-flex-cell"><button class="sheet-characteristic-roll sheet-plain" style="width: 75px"  type="roll" value="&{template:characteristicRoll} {{name=@{Name}}} {{skillvalue=@{STR}}} {{crit=[[2]]}} {{special=[[ceil((@{STR})/2)+1]]}} {{success=[[@{STR}]]}} {{roll=[[1d100]]}} {{skillname=Strength}}">Push</button></div>
+				</div>
+
+				<div class="sheet-flex-row">
+					<div class="sheet-flex-cell sheet-chkfiller"><input type="checkbox" name="attr_con-check" /></div>
+					<div class="sheet-flex-cell">Constitution</div>
+					<div class="sheet-flex-cell"><input type="number" value="10" name="attr_CON" /></div>
+					<div class="sheet-flex-cell"><button class="sheet-characteristic-roll sheet-plain" style="width: 75px"  type="roll" value="&{template:characteristicRoll} {{name=@{Name}}} {{skillvalue=@{CON}}} {{crit=[[2]]}} {{special=[[ceil((@{CON})/2)+1]]}} {{success=[[@{CON}]]}} {{roll=[[1d100]]}} {{skillname=Constitution}}">Survive</button></div>
+				</div>
+
+				<div class="sheet-flex-row">
+					<div class="sheet-flex-cell"><input type="checkbox" name="attr_int-check" /></div>
+					<div class="sheet-flex-cell">Intelligence</div>
+					<div class="sheet-flex-cell"><input type="number" value="10" name="attr_INT" /></div>
+					<div class="sheet-flex-cell"><button class="sheet-characteristic-roll sheet-plain" style="width: 75px"  type="roll" value="&{template:characteristicRoll} {{name=@{Name}}} {{skillvalue=@{INT}}} {{crit=[[2]]}} {{special=[[ceil((@{INT})/2)+1]]}} {{success=[[@{INT}]]}} {{roll=[[1d100]]}} {{skillname=Intelligence}}">Think</button></div>
+				</div>
+
+				<div class="sheet-flex-row">
+					<div class="sheet-flex-cell"><input type="checkbox" name="attr_power-check" /></div>
+					<div class="sheet-flex-cell">Power</div>
+					<div class="sheet-flex-cell"><input class="sheet-plain" value="10" type="number" name="attr_POW" /></div>
+					<div class="sheet-flex-cell"><button class="sheet-characteristic-roll sheet-plain" style="width: 75px"  type="roll" value="&{template:characteristicRoll} {{name=@{Name}}} {{skillvalue=@{POW}}} {{crit=[[2]]}} {{special=[[ceil((@{POW})/2)+1]]}} {{success=[[@{POW}]]}} {{roll=[[1d100]]}} {{skillname=Power}}">Resolve</button></div>
+				</div>
+
+				<div class="sheet-flex-row">
+					<div class="sheet-flex-cell sheet-chkfiller"><input type="checkbox" name="attr_dex-check" /></div>
+					<div class="sheet-flex-cell">Dexterity</div>
+					<div class="sheet-flex-cell"><input type="number" value="10" name="attr_DEX" /></div>
+					<div class="sheet-flex-cell"><button class="sheet-characteristic-roll sheet-plain" style="width: 75px"  type="roll" value="&{template:characteristicRoll} {{name=@{Name}}} {{skillvalue=@{DEX}}} {{crit=[[2]]}} {{success=[[@{DEX}]]}} {{roll=[[1d100]]}} {{skillname=Dexterity}}">Move</button></div>
+				</div>
+
+				<div class="sheet-flex-row">
+					<div class="sheet-flex-cell sheet-chkfiller"><input type="checkbox" name="attr_chr-check" /></div>
+					<div class="sheet-flex-cell">Charisma</div>
+					<div class="sheet-flex-cell">
+						<input type="number" value="10" name="attr_CHR" />
+					</div>
+					<div class="sheet-flex-cell">
+					    <button class="sheet-characteristic-roll sheet-plain" style="width: 75px"  type="roll" value="&{template:characteristicRoll} {{name=@{Name}}} {{skillvalue=@{CHR}}} {{crit=[[2]]}} {{success=[[@{CHR}]]}} {{roll=[[1d100]]}} {{skillname=Charisma}}">Charm</button>
+					</div>
+				</div>
+
+				<div class="sheet-flex-row">
+					<div class="sheet-flex-cell sheet-chkfiller"><input type="checkbox" name="attr_empathy-check" /></div>
+					<div class="sheet-flex-cell">Empathy</div>
+					<div class="sheet-flex-cell"><input type="number" name="attr_cur_empathy" /></div>
+					<div class="sheet-flex-cell">
+						<button class="sheet-characteristic-roll sheet-plain" style="width: 75px" type="roll" value="&{template:empathyRoll} {{name=@{Name}}} {{skillvalue=@{cur_empathy}}} {{success=[[@{cur_empathy}]]}} {{roll=[[1d100]]}} {{skillname=Empathy}}">Empathy</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -127,88 +113,87 @@
 			
     <div class='sheet-2colrow'>
         <div class='sheet-col'>
-				<table style="width: 100%">
-					<tr>
-						<td class=><input type="checkbox" name="attr_Success-Athletics"  /></td>
-						<td class="sheet-skillname">Athletics</td>
-						<td><input type="number" style="width:105%" value="15" name="attr_Athletics"  /></td>
-						<td><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Athletics}}} {{fumble=[[96 + ((@{Athletics} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{Athletics})/5)+1]]}}  {{success=[[ceil(@{Athletics})]]}} {{roll=[[1d100]]}} {{skillname=Athletics}}"/></td>																																								
-					</tr>
-				
-			
-					</tr>
-					<tr>
-						<td><input type="checkbox" name="attr_Success-Convince"  /></td>
-						<td class="sheet-skillname">Convince</td>
-						<td><input type="number" style="width:105%" value="5" name="attr_Convince"  /></td>
-						<td><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{success=[[ceil(@{Convince})]]}} {{fumble=[[96 + ((@{Convince} >= 50) * 4)]]}} {{crit=[[2]]}}  {{special=[[ceil((@{Convince})/5)+1]]}}  {{skillvalue=@{Convince}}}  {{roll=[[1d100]]}} {{skillname=Convince}}"/></td> 
-					</tr>
-					<tr>
-						<td><input type="checkbox" name="attr_Success-FirstAid"  /></td>
-						<td class="sheet-skillname">First Aid</td>
-						<td><input type="number" style="width:105%" value="40" name="attr_FirstAid"  /></td>
-						<td><button type="roll" value="&{template:skillRoll}    {{name=@{Name}}} {{skillvalue=@{FirstAid}}} {{fumble=[[96 + ((@{FirstAid} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{FirstAid})/5)+1]]}}  {{success=[[ceil(@{FirstAid})]]}} {{roll=[[1d100]]}} {{skillname=FirstAid}}"/></td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" name="attr_Success-Navigate"  /></td>
-						<td class="sheet-skillname">Navigate</td>
-						<td><input type="number" style="width:105%" value="5" name="attr_Navigate"  /></td>
-						<td><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Navigate}}} {{fumble=[[96 + ((@{Navigate} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{Navigate})/5)+1]]}}  {{success=[[ceil(@{Navigate})]]}} {{roll=[[1d100]]}} {{skillname=Navigate}}"/></td>											
-					</tr>
-						<tr>
-						<td><input type="checkbox" name="attr_Success-Listen"  /></td>
-						<td class="sheet-skillname">Listen</td>
-						<td><input type="number" style="width:105%" value="5" name="attr_Listen"  /></td>
-						<td><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Listen}}} {{fumble=[[96 + ((@{Listen} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{Listen})/5)+1]]}}  {{success=[[ceil(@{Listen})]]}} {{roll=[[1d100]]}} {{skillname=Listen}}"/></td>											
-					</tr>
-						<tr>
-						<td><input type="checkbox" name="attr_Success-ReadPerson"  /></td>
-						<td class="sheet-skillname">Read Person</td>
-						<td><input type="number" style="width:105%" value="5" name="attr_ReadPerson"  /></td>
-						<td><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{ReadPerson}}} {{fumble=[[96 + ((@{ReadPerson} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{ReadPerson})/5)+1]]}}  {{success=[[ceil(@{ReadPerson})]]}} {{roll=[[1d100]]}} {{skillname=ReadPerson}}"/></td>											
-					</tr>
-						<tr>
-						<td><input type="checkbox" name="attr_Success-Repair"  /></td>
-						<td class="sheet-skillname">Repair</td>
-						<td><input type="number" style="width:105%" value="5" name="attr_Repair"  /></td>
-						<td><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Repair}}} {{fumble=[[96 + ((@{Repair} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{Repair})/5)+1]]}}  {{success=[[ceil(@{Repair})]]}} {{roll=[[1d100]]}} {{skillname=Repair}}"/></td>											
-					</tr>
-						<tr>
-						<td><input type="checkbox" name="attr_Success-SpotHidden"  /></td>
-						<td class="sheet-skillname">Spot Hidden</td>
-						<td><input type="number" style="width:105%" value="5" name="attr_SpotHidden"  /></td>
-						<td><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{SpotHidden}}} {{fumble=[[96 + ((@{SpotHidden} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{SpotHidden})/5)+1]]}}  {{success=[[ceil(@{SpotHidden})]]}} {{roll=[[1d100]]}} {{skillname=SpotHidden}}"/></td>											
-					</tr>
-						<tr>
-						<td><input type="checkbox" name="attr_Success-Stealth"  /></td>
-						<td class="sheet-skillname">Stealth</td>
-						<td><input type="number" style="width:105%" value="5" name="attr_Stealth"  /></td>
-						<td><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Stealth}}} {{fumble=[[96 + ((@{Stealth} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{Stealth})/5)+1]]}}  {{success=[[ceil(@{Stealth})]]}} {{roll=[[1d100]]}} {{skillname=Stealth}}"/></td>											
-					</tr>
-						<tr>
-						<td><input type="checkbox" name="attr_Success-Threaten"  /></td>
-						<td class="sheet-skillname">Threaten</td>
-						<td><input type="number" style="width:105%" value="5" name="attr_Threaten"  /></td>
-						<td><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Threaten}}} {{fumble=[[96 + ((@{Threaten} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{Threaten})/5)+1]]}}  {{success=[[ceil(@{Threaten})]]}} {{roll=[[1d100]]}} {{skillname=Threaten}}"/></td>											
-					</tr>
-				
-				</table>
-			
+				<div class="sheet-flex-table">
+					<div class="sheet-flex-row">
+						<div class="sheet-flex-cell"><input type="checkbox" name="attr_Success-Athletics"  /></div>
+						<div class="sheet-flex-cell sheet-skillname">Athletics</div>
+						<div class="sheet-flex-cell"><input type="number" style="width:105%" value="15" name="attr_Athletics"  /></div>
+						<div class="sheet-flex-cell"><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Athletics}}} {{fumble=[[96 + ((@{Athletics} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{Athletics})/5)+1]]}}  {{success=[[ceil(@{Athletics})]]}} {{roll=[[1d100]]}} {{skillname=Athletics}}"/></div>
+					</div>
+					<div class="sheet-flex-row">
+						<div class="sheet-flex-cell"><input type="checkbox" name="attr_Success-Convince"  /></div>
+						<div class="sheet-flex-cell sheet-skillname">Convince</div>
+						<div class="sheet-flex-cell"><input type="number" style="width:105%" value="5" name="attr_Convince"  /></div>
+						<div class="sheet-flex-cell"><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{success=[[ceil(@{Convince})]]}} {{fumble=[[96 + ((@{Convince} >= 50) * 4)]]}} {{crit=[[2]]}}  {{special=[[ceil((@{Convince})/5)+1]]}}  {{skillvalue=@{Convince}}}  {{roll=[[1d100]]}} {{skillname=Convince}}"/></div>
+					</div>
+					<div class="sheet-flex-row">
+						<div class="sheet-flex-cell"><input type="checkbox" name="attr_Success-FirstAid"  /></div>
+						<div class="sheet-flex-cell sheet-skillname">First Aid</div>
+						<div class="sheet-flex-cell"><input type="number" style="width:105%" value="40" name="attr_FirstAid"  /></div>
+						<div class="sheet-flex-cell"><button type="roll" value="&{template:skillRoll}    {{name=@{Name}}} {{skillvalue=@{FirstAid}}} {{fumble=[[96 + ((@{FirstAid} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{FirstAid})/5)+1]]}}  {{success=[[ceil(@{FirstAid})]]}} {{roll=[[1d100]]}} {{skillname=FirstAid}}"/></div>
+					</div>
+					<div class="sheet-flex-row">
+						<div class="sheet-flex-cell"><input type="checkbox" name="attr_Success-Navigate"  /></div>
+						<div class="sheet-flex-cell sheet-skillname">Navigate</div>
+						<div class="sheet-flex-cell"><input type="number" style="width:105%" value="5" name="attr_Navigate"  /></div>
+						<div class="sheet-flex-cell"><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Navigate}}} {{fumble=[[96 + ((@{Navigate} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{Navigate})/5)+1]]}}  {{success=[[ceil(@{Navigate})]]}} {{roll=[[1d100]]}} {{skillname=Navigate}}"/></div>
+					</div>
+					<div class="sheet-flex-row">
+						<div class="sheet-flex-cell"><input type="checkbox" name="attr_Success-Listen"  /></div>
+						<div class="sheet-flex-cell sheet-skillname">Listen</div>
+						<div class="sheet-flex-cell"><input type="number" style="width:105%" value="5" name="attr_Listen"  /></div>
+						<div class="sheet-flex-cell"><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Listen}}} {{fumble=[[96 + ((@{Listen} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{Listen})/5)+1]]}}  {{success=[[ceil(@{Listen})]]}} {{roll=[[1d100]]}} {{skillname=Listen}}"/></div>
+					</div>
+					<div class="sheet-flex-row">
+						<div class="sheet-flex-cell"><input type="checkbox" name="attr_Success-ReadPerson"  /></div>
+						<div class="sheet-flex-cell sheet-skillname">Read Person</div>
+						<div class="sheet-flex-cell"><input type="number" style="width:105%" value="5" name="attr_ReadPerson"  /></div>
+						<div class="sheet-flex-cell"><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{ReadPerson}}} {{fumble=[[96 + ((@{ReadPerson} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{ReadPerson})/5)+1]]}}  {{success=[[ceil(@{ReadPerson})]]}} {{roll=[[1d100]]}} {{skillname=ReadPerson}}"/></div>
+					</div>
+					<div class="sheet-flex-row">
+						<div class="sheet-flex-cell"><input type="checkbox" name="attr_Success-Repair"  /></div>
+						<div class="sheet-flex-cell sheet-skillname">Repair</div>
+						<div class="sheet-flex-cell"><input type="number" style="width:105%" value="5" name="attr_Repair"  /></div>
+						<div class="sheet-flex-cell"><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Repair}}} {{fumble=[[96 + ((@{Repair} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{Repair})/5)+1]]}}  {{success=[[ceil(@{Repair})]]}} {{roll=[[1d100]]}} {{skillname=Repair}}"/></div>
+					</div>
+					<div class="sheet-flex-row">
+						<div class="sheet-flex-cell"><input type="checkbox" name="attr_Success-SpotHidden"  /></div>
+						<div class="sheet-flex-cell sheet-skillname">Spot Hidden</div>
+						<div class="sheet-flex-cell"><input type="number" style="width:105%" value="5" name="attr_SpotHidden"  /></div>
+						<div class="sheet-flex-cell"><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{SpotHidden}}} {{fumble=[[96 + ((@{SpotHidden} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{SpotHidden})/5)+1]]}}  {{success=[[ceil(@{SpotHidden})]]}} {{roll=[[1d100]]}} {{skillname=SpotHidden}}"/></div>
+					</div>
+					<div class="sheet-flex-row">
+						<div class="sheet-flex-cell"><input type="checkbox" name="attr_Success-Stealth"  /></div>
+						<div class="sheet-flex-cell sheet-skillname">Stealth</div>
+						<div class="sheet-flex-cell"><input type="number" style="width:105%" value="5" name="attr_Stealth"  /></div>
+						<div class="sheet-flex-cell"><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Stealth}}} {{fumble=[[96 + ((@{Stealth} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{Stealth})/5)+1]]}}  {{success=[[ceil(@{Stealth})]]}} {{roll=[[1d100]]}} {{skillname=Stealth}}"/></div>
+					</div>
+					<div class="sheet-flex-row">
+						<div class="sheet-flex-cell"><input type="checkbox" name="attr_Success-Threaten"  /></div>
+						<div class="sheet-flex-cell sheet-skillname">Threaten</div>
+						<div class="sheet-flex-cell"><input type="number" style="width:105%" value="5" name="attr_Threaten"  /></div>
+						<div class="sheet-flex-cell"><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Threaten}}} {{fumble=[[96 + ((@{Threaten} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{Threaten})/5)+1]]}}  {{success=[[ceil(@{Threaten})]]}} {{roll=[[1d100]]}} {{skillname=Threaten}}"/></div>
+					</div>
+				</div>
+
 					</div>
 		
 				<div class='sheet-col'>
-			<table style="width: 100%;">					
-					<tr>
-						<td class="sheet-chkfiller"></td>
-						<td><strong>Expert Skills</strong></td>
-					</tr>					
-			</table>
+			<div class="sheet-flex-table">
+				<div class="sheet-flex-row">
+					<div class="sheet-flex-cell sheet-chkfiller"></div>
+					<div class="sheet-flex-cell"><strong>Expert Skills</strong></div>
+				</div>
+			</div>
 			<fieldset class='repeating_OtherSkills'>
-					<table style="width: 100%">	
-					 <td><input type="checkbox" name="attr_OtherSucess"  /></td>
-					 <td><input type="text" name="attr_OtherSkill" class="sheet-skillname"/></td>
-					 <td><input type="number" style="width:105%" value="1" name="attr_OtherScore" /></td>
-					 <td><button type="roll" value="&{template:skillRoll}  {{name=@{Name}}} {{skillvalue=@{OtherScore}}} {{fumble=[[96 + ((@{OtherScore} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{OtherScore})/5)+1]]}}    {{success=[[ceil(@{OtherScore})]]}} {{roll=[[1d100]]}} {{skillname=@{OtherSkill}}}"/></td>
+				<div class="sheet-flex-table">
+					<div class="sheet-flex-row">
+						<div class="sheet-flex-cell"><input type="checkbox" name="attr_OtherSucess"  /></div>
+						<div class="sheet-flex-cell"><input type="text" name="attr_OtherSkill" class="sheet-skillname"/></div>
+						<div class="sheet-flex-cell"><input type="number" style="width:105%" value="1" name="attr_OtherScore" /></div>
+						<div class="sheet-flex-cell"><button type="roll" value="&{template:skillRoll}  {{name=@{Name}}} {{skillvalue=@{OtherScore}}} {{fumble=[[96 + ((@{OtherScore} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{OtherScore})/5)+1]]}}    {{success=[[ceil(@{OtherScore})]]}} {{roll=[[1d100]]}} {{skillname=@{OtherSkill}}}"/></div>
+					</div>
+				</div>
 			</fieldset>
 			<br />
         </div>
@@ -220,38 +205,35 @@
 <h3 style="text-align: center; color: #FFF; background-color: #647A3E;">Combat Skills</h3>
 <div class='sheet-2colrow'>
 	<div class='sheet-col sheet-big-col'>
-		
-		
-		<table style="width: 100%;">
-			<thead class="sheet-header-text">
-				<th></th>
-				<th style="text-align: left;">Weapon</th>
-				<th>Skill %</th>
-				<th></th>
-			</thead>
-			<tbody>
-				<tr>
-					<td><input type="checkbox" name="attr_Success-Fist-Punch" /></td>
-					<td style="width: 122px;"><p style="width: 111px; margin-bottom: 0px">Brawl</p></td>
-					<td><input style="width:50px" value="25" type="number" name="attr_Brawl" /></td>
-					<td><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Brawl}}} {{fumble=[[96 + ((@{Brawl} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{Brawl})/5)+1]]}} {{success=[[ceil(@{Brawl})]]}} {{roll=[[1d100]]}} {{skillname=Brawl}}" /></td>
-				</tr>
-				
-				<tr>
-					<td><input type="checkbox" name="attr_Success-Grapple"  /></td>
-					<td style="width: 122px"><p style="width: 111px; margin-bottom: 0px">Grapple</p></td>
-					<td><input style="width:50px" value="25" type="number" name="attr_Grapple" /></td>
-					<td><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Grapple}}} {{fumble=[[96 + ((@{Grapple} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{Grapple})/5)+1]]}} {{success=[[ceil(@{Grapple})]]}} {{roll=[[1d100]]}} {{skillname=Grapple}}" /></td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" name="attr_Success-Dodge"  /></td>
-					<td style="width: 122px"><p style="width: 111px; margin-bottom: 0px">Dodge</p></td>
-					<td><input style="width:50px" value="25" type="number" name="attr_Dodge" /></td>
-					<td><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Dodge}}} {{fumble=[[96 + ((@{Dodge} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{Dodge})/5)+1]]}} {{success=[[ceil(@{Dodge})]]}} {{roll=[[1d100]]}} {{skillname=Dodge}}" /></td>
-				</tr>
-				
-			</tbody>
-		</table>
+
+
+		<div class="sheet-flex-table">
+			<div class="sheet-flex-row sheet-header-text">
+				<div class="sheet-flex-cell"></div>
+				<div class="sheet-flex-cell" style="text-align: left;">Weapon</div>
+				<div class="sheet-flex-cell">Skill %</div>
+				<div class="sheet-flex-cell"></div>
+			</div>
+			<div class="sheet-flex-row">
+				<div class="sheet-flex-cell"><input type="checkbox" name="attr_Success-Fist-Punch" /></div>
+				<div class="sheet-flex-cell" style="width: 122px;"><p style="width: 111px; margin-bottom: 0px">Brawl</p></div>
+				<div class="sheet-flex-cell"><input style="width:50px" value="25" type="number" name="attr_Brawl" /></div>
+				<div class="sheet-flex-cell"><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Brawl}}} {{fumble=[[96 + ((@{Brawl} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{Brawl})/5)+1]]}} {{success=[[ceil(@{Brawl})]]}} {{roll=[[1d100]]}} {{skillname=Brawl}}" /></div>
+			</div>
+
+			<div class="sheet-flex-row">
+				<div class="sheet-flex-cell"><input type="checkbox" name="attr_Success-Grapple"  /></div>
+				<div class="sheet-flex-cell" style="width: 122px"><p style="width: 111px; margin-bottom: 0px">Grapple</p></div>
+				<div class="sheet-flex-cell"><input style="width:50px" value="25" type="number" name="attr_Grapple" /></div>
+				<div class="sheet-flex-cell"><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Grapple}}} {{fumble=[[96 + ((@{Grapple} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{Grapple})/5)+1]]}} {{success=[[ceil(@{Grapple})]]}} {{roll=[[1d100]]}} {{skillname=Grapple}}" /></div>
+			</div>
+			<div class="sheet-flex-row">
+				<div class="sheet-flex-cell"><input type="checkbox" name="attr_Success-Dodge"  /></div>
+				<div class="sheet-flex-cell" style="width: 122px"><p style="width: 111px; margin-bottom: 0px">Dodge</p></div>
+				<div class="sheet-flex-cell"><input style="width:50px" value="25" type="number" name="attr_Dodge" /></div>
+				<div class="sheet-flex-cell"><button type="roll" value="&{template:skillRoll} {{name=@{Name}}} {{skillvalue=@{Dodge}}} {{fumble=[[96 + ((@{Dodge} >= 50) * 4)]]}} {{crit=[[2]]}} {{special=[[ceil((@{Dodge})/5)+1]]}} {{success=[[ceil(@{Dodge})]]}} {{roll=[[1d100]]}} {{skillname=Dodge}}" /></div>
+			</div>
+		</div>
 		
 
 
@@ -271,42 +253,39 @@
 
 </p>
 	<h3 style="margin-bottom: 0px; text-align: center; color: #FFF; background-color: #D2691E;">Rollable Tables</h3>
-		<table>
-			<tr>
-				<td>
+		<div class="sheet-flex-table-buttons">
+			<div class="sheet-flex-row">
+				<div class="sheet-flex-cell">
 					<button type="roll" value="/w gm &{template:location-before} {{roll=[[1d100]]}}" class="sheet-plain-major-wound">Location Before</button>
-
-				</td>
-				<td>
+				</div>
+				<div class="sheet-flex-cell">
 					<button type="roll" value="/w gm &{template:people} {{roll=[[1d100]]}}" class="sheet-plain-major-wound">People</button>
-
-				</td>
-				<td>
+				</div>
+				<div class="sheet-flex-cell">
 					<button type="roll" value="/w gm &{template:wasteland-locations} {{roll=[[1d100]]}}" class="sheet-plain-major-wound">Wasteland Locations</button>
-				</td>
-				<td>
+				</div>
+				<div class="sheet-flex-cell">
 					<button type="roll" value="/w gm &{template:weird-encounters} {{roll=[[1d100]]}}" class="sheet-plain-major-wound">Weird Encounters</button>
-				</td>
-				<td rowspan="2" style="text-align: center;">
+				</div>
+				<div class="sheet-flex-cell" style="text-align: center;">
 					<button type="roll" value="/w gm &{template:weather} {{roll=[[1d100]]}}" class="sheet-plain-major-wound">Weather</button>
-				</td>
-			</tr><tr>
-				<td>
+				</div>
+			</div>
+			<div class="sheet-flex-row">
+				<div class="sheet-flex-cell">
 					<button type="roll" value="/w gm &{template:location-after} {{roll=[[1d100]]}}" class="sheet-plain-major-wound">Location After</button>
-
-				</td>
-				<td>
+				</div>
+				<div class="sheet-flex-cell">
 					<button type="roll" value="/w gm &{template:people-attributes} {{roll=[[1d100]]}}" class="sheet-plain-major-wound">People Wants/Needs</button>
-
-				</td>
-					<td>
+				</div>
+				<div class="sheet-flex-cell">
 					<button type="roll" value="/w gm &{template:wasteland-encounters} {{roll=[[1d100]]}}" class="sheet-plain-major-wound">Wasteland Encounters</button>
-				</td>
-				<td>
+				</div>
+				<div class="sheet-flex-cell">
 					<button type="roll" value="/w gm &{template:weird-locations} {{roll=[[1d100]]}}" class="sheet-plain-major-wound">Weird Locations</button>
-				</td>
-			</tr>
-		</table>
+				</div>
+			</div>
+		</div>
 	
 	<rolltemplate class="sheet-rolltemplate-melee-roll">
 		<table class="skillRoll" style="border:1px black;">

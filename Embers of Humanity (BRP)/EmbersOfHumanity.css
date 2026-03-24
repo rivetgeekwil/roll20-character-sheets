@@ -327,3 +327,44 @@ button[type="roll"].plain-major-wound::before
 	border-bottom: dotted 1px black;
     color: black;
 }
+
+/* Flexbox table replacements */
+.sheet-flex-table {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.sheet-flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.sheet-flex-cell {
+    display: flex;
+    align-items: center;
+    padding: 2px 5px;
+}
+
+.sheet-flex-cell-label {
+    min-width: fit-content;
+    margin-right: 10px;
+}
+
+.sheet-flex-cell-input {
+    flex: 1;
+}
+
+.sheet-flex-table-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 5px;
+}
+
+.sheet-flex-table-buttons .sheet-flex-row {
+    flex: 1 1 auto;
+    min-width: 200px;
+}
