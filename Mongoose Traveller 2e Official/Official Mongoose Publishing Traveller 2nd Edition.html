@@ -8051,7 +8051,9 @@
         <h5>
             Robot</h5>
         <h5>
-            Hits</h5>
+            Curr. Hits</h5>
+        <h5>
+            Max Hits</h5>
         <h5>
             Locomotion</h5>
         <h5>
@@ -8062,10 +8064,42 @@
             Cost</h5>
         <input type="text" class="sheet-input" name="attr_robot_name"/>
         <input type="number" class="sheet-input" name="attr_robot_hits" value="0"/>
+        <input type="number" class="sheet-input" name="attr_robot_hits_max" value="0"/>
         <input type="text" class="sheet-input" name="attr_robot_locomotion"/>
         <span><input type="number" class="sheet-input" name="attr_robot_speed" value=""/>m</span>
         <input type="number" class="sheet-input" name="attr_robot_tl" value=""/>
         <input type="text" class="sheet-input" name="attr_robot_cost" value="0"/>
+    </div>
+    <br>
+    <div class="sheet-redborder">
+        <h3 data-i18n="characteristics-u">Characteristics</h3>
+        <fieldset class="repeating_characteristic">
+            <div class="sheet-laf-centredgrid sheet-laf-custom-characteristics">
+                <span class="sheet-header" data-i18n="name-u">Name</span>
+                <span class="sheet-header" data-i18n="rating-u">Rating</span>
+                <span class="sheet-header sheet-offsetdamage" data-i18n="temp-u">Temp</span>
+                <span class="sheet-header sheet-currentdamage" data-i18n="current-u">Current</span>
+                <span class="sheet-header" data-i18n="mod-u">Mod</span>
+                <span data-i18n="skilltableroll-u">Roll</span>
+            </div>
+            <div class="sheet-laf-centredgrid sheet-laf-custom-characteristics">
+                <input class="sheet-redbold sheet-white" type="text" name="attr_name">
+                <input type="number" class="sheet-input sheet-bold" name="attr_base" value="0">
+                <input type="number" class="sheet-input sheet-norm sheet-offsetdamage" name="attr_injury"
+                       value="0"/>
+                <input type="number" class="sheet-input sheet-norm sheet-currentdamage" name="attr_current"
+                       value="0"/>
+                <input type="number" class="sheet-input" name="attr_modifier" value="0">
+                <!--                    <button style="font-size:0.8em !important;" class="sheet-button sheet-dicerollbutton btn"-->
+                <!--                            name="act_characteristic" type="action">b-->
+                <!--                    </button>-->
+                <button name="roll_Characteristic" type="roll"
+                        value="@{whispertoggle}&amp;{template:skill-general-alt} {{skill=@{name}}} {{character= @{character_name} }} @{ro_default_rolltype} + [[@{modifier}]] @{ro_default_mod}]] }}"
+                        class="sheet-button sheet-dicerollbutton btn">b
+                </button>
+                <input type="hidden" name="attr_calc" value="0"/>
+            </div>
+        </fieldset>
     </div>
     <br>
     <div class="sheet-redborder sheet-laf-centredgrid sheet-laf-animal-sub">
@@ -12974,7 +13008,7 @@
     </div>
 </div>
 <div class="sheet-tab-content sheet-help">
-    <h3>Character Sheet Version 1.1.12</h3>
+    <h3>Character Sheet Version 1.1.13</h3>
     <br>
     <h4>Assigning Attributes To Tokens</h4>
     <p style="margin-left: 10px; margin-top: 5px;">To represent the core character attributes on a token so they can be
@@ -12989,6 +13023,9 @@
         shiparmour<br>
         shipthrust<br>
         currwithmax-Morale
+    </p>
+    <p style="margin-left: 10px; margin-top: 5px;">
+        For Robots you can use robot_hits for current/max
     </p>
     <br>
     <h4>Diagnostics Attribute Lookup</h4>
@@ -19605,6 +19642,7 @@
             attrs.robot_name = compendiumData["data-Name"];
             attrs.character_name = compendiumData["data-Name"];
             attrs.robot_hits = compendiumData["Hits"];
+            attrs.robot_hits_max = compendiumData["Hits"];
             attrs.robot_speed = compendiumData["Speed"].replace("m", "");
             attrs.robot_manipulators = compendiumData["Manipulators"];
             attrs.robot_endurance = compendiumData["Endurance"];

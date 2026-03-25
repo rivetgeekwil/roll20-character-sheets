@@ -2365,7 +2365,7 @@ span.sheet-vehiclecomponent {
 }
 
 .sheet-laf-robot {
-    grid-template-columns: 1fr 0.2fr 1fr 0.3fr 0.2fr 0.5fr;
+    grid-template-columns: 1fr 0.3fr 0.3fr 1fr 0.3fr 0.2fr 0.5fr;
     align-items: center;
 }
 
