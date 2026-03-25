@@ -2976,32 +2976,22 @@ on(
   },
 );
 
-// type/carry should jump to follow selector unless set to Show All or matches the type/carry tab
-// carried_select/carried sync are used for weight calcs
-on(
-  'change:repeating_equipment:equipment_carried_select change:repeating_equipment:equipment_type change:repeating_equipment:equipment_carried_select change:repeating_equipment:equipment_magical',
-  async (eventInfo) => {
-    const id = eventInfo.sourceAttribute.split('_')[2];
-    const source = `${eventInfo.sourceAttribute}`;
-    const pattern = /equipment_type/; // parses the event text
-    const isType = pattern.test(source); // boolean for equipment_type change
-    const fields = [`repeating_equipment_${id}_equipment_type`, `repeating_equipment_${id}_equipment_carried_select`];
-    const v = await getAttrsAsync(['equipment_tabs_type', 'equipment_tabs_carry', ...fields]);
-    await setAttrsAsync(output, {silent: true});
-    const output = {};
-    const carriedTab = +v.equipment_tabs_carry || 0; // 1, 0, 2, -1
-    const typeTab = +v.equipment_tabs_type || 0; // 0, 1, 2, 3, 4, -1
-    const thisType = +v[`repeating_equipment_${id}_equipment_type`] || 0; // 0, 1, 2, 3, 4
-    const thisCarriedSelect = +v[`repeating_equipment_${id}_equipment_carried_select`] || 0; // 0, 1, 2
-    // Weight calcs use equipment_carried so keep them synced
-    output[`repeating_equipment_${id}_equipment_carried`] = thisCarriedSelect === 1 ? 1 : 0;
-    // jumps to equip type tab unless Show All or same equip type tab
-    output.equipment_tabs_type = typeTab !== -1 && isType ? thisType : typeTab;
-    // jumps to carry type tab unless Show All or same carry type tab
-    output.equipment_tabs_carry = carriedTab === -1 || carriedTab === thisCarriedSelect ? -1 : thisCarriedSelect;
-    await setAttrsAsync(output);
-  },
-);
+on('change:repeating_equipment:equipment_carried_select change:repeating_equipment:equipment_type change:repeating_equipment:equipment_magical', async (eventInfo) => {
+  const id = eventInfo.sourceAttribute.split('_')[2];
+  const source = eventInfo.sourceAttribute;
+  const isType = /equipment_type/.test(source);
+  const fields = [`repeating_equipment_${id}_equipment_type`, `repeating_equipment_${id}_equipment_carried_select`];
+  const v = await getAttrsAsync(['equipment_tabs_type', 'equipment_tabs_carry', ...fields]);
+  const output = {};
+  const carriedTab = +v.equipment_tabs_carry || 0;
+  const typeTab = +v.equipment_tabs_type || 0;
+  const thisType = +v[`repeating_equipment_${id}_equipment_type`] || 0;
+  const thisCarriedSelect = +v[`repeating_equipment_${id}_equipment_carried_select`] || 0;
+  output[`repeating_equipment_${id}_equipment_carried`] = thisCarriedSelect === 1 ? 1 : 0;
+  output.equipment_tabs_type = typeTab !== -1 && isType ? thisType : typeTab;
+  output.equipment_tabs_carry = carriedTab === -1 || carriedTab === thisCarriedSelect ? -1 : thisCarriedSelect;
+  await setAttrsAsync(output);
+});
 
 // Equipment Tabs hide/show Rows
 on('change:equipment_tabs_type change:equipment_tabs_carry', async (eventInfo) => {
