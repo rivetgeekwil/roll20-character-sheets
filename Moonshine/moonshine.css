@@ -548,7 +548,7 @@ color: var(--blackandwhite2);
     margin: 5px 0;
     border-radius: 3px;
     color: var(--blackandwhite2);
-    border-image: url('https://imgsrv.roll20.net/?src=https%3A//www.spirito.fr/DL/RP/moonshine/BlocFrame33.png');
+    border-image: url('PNG/BlocFrame33.png');
     border-image-slice: 40;
     border-image-width: 25px;
     border-image-outset: 0;
@@ -563,7 +563,7 @@ color: var(--blackandwhite2);
   margin: 5px 0;
   border-radius: 3px;
   color: var(--blackandwhite2);
-  border-image: url("https://www.spirito.fr/DL/RP/moonshine/BlocFrame33white.png");
+  border-image: url("PNG/BlocFrame33white.png");
   border-image-slice: 40;
   border-image-width: 25px;
   border-image-outset: 0;
@@ -579,7 +579,7 @@ color: var(--blackandwhite2);
   background-color: var(--main-color);
   border-radius: 3px;
   text-align: center;
-  border-image: url("https://www.spirito.fr/DL/RP/moonshine/BlocFrame33.png");
+  border-image: url("PNG/BlocFrame33.png");
   border-image-slice: 75;
   border-image-width: 20px;
   border-image-outset: 0;
@@ -611,7 +611,7 @@ color: var(--blackandwhite2);
 }
 
 .sheet-rolltemplate-moonshine .sheet-bottomimage {
-  background-image: url("https://www.spirito.fr/DL/RP/moonshine/rolltemplate-image.png");
+  background-image: url("PNG/rolltemplate-image.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 25px 25px;
@@ -620,7 +620,7 @@ color: var(--blackandwhite2);
 }
 
 .sheet-rolltemplate-darkmode.sheet-rolltemplate-moonshine .sheet-bottomimage {
-  background-image: url("https://www.spirito.fr/DL/RP/moonshine/rolltemplate-imagew.png");
+  background-image: url("PNG/rolltemplate-imagew.png");
 }
 
 .sheet-rolltemplate-moonshine span.sheet-subtitle,
@@ -1939,29 +1939,29 @@ input[type="radio"]:checked + .radio-button {
   box-sizing: border-box;
   border-style: solid;
   border-width: 45px;
-  border-image: url("https://www.spirito.fr/DL/RP/moonshine/BlocFrame2.png") 77 fill stretch;
+  border-image: url("PNG/BlocFrame2.png") 77 fill stretch;
 }
 
 .sheet-darkmode .sheet-standardbox::before {
-  border-image: url("https://www.spirito.fr/DL/RP/moonshine/BlocFrame2w.png") 77 fill stretch;
+  border-image: url("PNG/BlocFrame2w.png") 77 fill stretch;
 }
 
 .sheet-standardbox.sheet-standardbox1::before {
-  border-image: url("https://www.spirito.fr/DL/RP/moonshine/BlocFrame1.png") 50 fill stretch;
+  border-image: url("PNG/BlocFrame1.png") 50 fill stretch;
   border-width: 27px;
 }
 
 .sheet-darkmode .sheet-standardbox.sheet-standardbox1::before {
-  border-image: url("https://www.spirito.fr/DL/RP/moonshine/BlocFrame1w.png") 50 fill stretch;
+  border-image: url("PNG/BlocFrame1w.png") 50 fill stretch;
 }
 
 .sheet-standardbox.sheet-standardbox3::before {
-  border-image: url("https://www.spirito.fr/DL/RP/moonshine/BlocFrame33.png") 38 fill stretch;
+  border-image: url("PNG/BlocFrame33.png") 38 fill stretch;
   border-width: 20px;
 }
 
 .sheet-darkmode .sheet-standardbox.sheet-standardbox3::before {
-  border-image: url("https://www.spirito.fr/DL/RP/moonshine/BlocFrame33w.png") 38 fill stretch;
+  border-image: url("PNG/BlocFrame33w.png") 38 fill stretch;
 }
 
 .sheet-oneline {
@@ -2134,7 +2134,7 @@ input[type="radio"]:checked + .radio-button {
   transform: translateX(-50%);
   width: 35%!important;
   background-color: var(--blackandwhite);
-  background-image: url("https://www.spirito.fr/DL/RP/moonshine/Logo.png");
+  background-image: url("PNG/Logo.png");
   background-size: cover;
   height: 40px!important;
 }
@@ -2161,12 +2161,12 @@ input[type="radio"]:checked + .radio-button {
 
 .sheet-backgroundbox {
   position: absolute;
-  background-image: url("https://www.spirito.fr/DL/RP/moonshine/BackgroundMainStat.png");
+  background-image: url("PNG/BackgroundMainStat.png");
   background-size: cover;
 }
 
 .sheet-darkmode .sheet-backgroundbox {
-  background-image: url("https://www.spirito.fr/DL/RP/moonshine/BackgroundMainStatw.png");
+  background-image: url("PNG/BackgroundMainStatw.png");
 }
 
 .sheet-main-skills-section,
@@ -2364,47 +2364,47 @@ input[type="radio"]:checked + .radio-button {
 
 .sheet-asset-item {
   position: absolute;
-  background-image: url("https://www.spirito.fr/DL/RP/moonshine/Decoration2.png");
+  background-image: url("PNG/Decoration2.png");
   background-size: contain;
   width: 12px !important;
   height: 13px;
 }
 
 .sheet-darkmode .sheet-asset-item {
-  background-image: url("https://www.spirito.fr/DL/RP/moonshine/Decoration2w.png");
+  background-image: url("PNG/Decoration2w.png");
 }
 
 .sheet-decoration1-item {
-  background-image: url("https://www.spirito.fr/DL/RP/moonshine/Decoration5.png");
+  background-image: url("PNG/Decoration5.png");
   background-size: contain;
   width: 16px !important;
   height: 16px;
 }
 
 .sheet-darkmode .sheet-decoration1-item {
-  background-image: url("https://www.spirito.fr/DL/RP/moonshine/Decoration5w.png");
+  background-image: url("PNG/Decoration5w.png");
 }
 
 .sheet-decoration2-item {
-  background-image: url("https://www.spirito.fr/DL/RP/moonshine/Decoration6.png");
+  background-image: url("PNG/Decoration6.png");
   background-size: cover;
   width: 22px !important;
   height: 14px;
 }
 
 .sheet-darkmode .sheet-decoration2-item {
-  background-image: url("https://www.spirito.fr/DL/RP/moonshine/Decoration6w.png");
+  background-image: url("PNG/Decoration6w.png");
 }
 
 .sheet-decoration3-item {
-  background-image: url("https://www.spirito.fr/DL/RP/moonshine/Decoration.png");
+  background-image: url("PNG/Decoration.png");
   background-size: cover;
   width: 14px !important;
   height: 14px;
 }
 
 .sheet-darkmode .sheet-decoration3-item {
-  background-image: url("https://www.spirito.fr/DL/RP/moonshine/Decorationw.png");
+  background-image: url("PNG/Decorationw.png");
 }
 
 .sheet-main-equipment-section input {
@@ -2498,6 +2498,10 @@ input[type="radio"]:checked + .radio-button {
     width: 500px;
 }
 
+.sheet-hidden {
+  display:none!important;
+}
+
 .sheet-visible {
   display:block!important;
 }
@@ -2542,11 +2546,15 @@ input.sheet-inputchar.sheet-core.sheet-invalid::placeholder  {
     padding: 0;
     margin: 0;
     font-size: 11px!important;
-    color: var(--blackandwhite);
+    color: var(--blackandwhite2);
     border-radius: 14px!important;
     background-color: transparent;
   }
 
 .sheet-totalpointcore::before {
   content: "Min: 2 / Max: 6 / Total: 12 / Current: ";
+}
+
+.sheet-cogs-hideshow:not(:checked) ~ .sheet-cogs-hideshow-div2 {
+  display: none;
 }

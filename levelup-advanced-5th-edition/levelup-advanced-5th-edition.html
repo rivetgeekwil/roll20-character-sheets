@@ -212,25 +212,25 @@
           <input type="text" value="0" name="attr_size" />
 
           <h4 class="sheet-left" data-i18n="heritage-label">Heritage</h4>
-          <input class="sheet-left" type="text" placeholder="Heritage" data-i18n-placeholder="heritage-placeholder" name="attr_heritage" />
+          <input class="sheet-left" type="text" placeholder="Heritage" data-i18n-placeholder="heritage-label" name="attr_heritage" />
 
           <h4 class="sheet-left" data-i18n="xp-points-label">XP points</h4>
           <input type="text" value="0" name="attr_xp" />
 
           <h4 class="sheet-left" data-i18n="culture-label">Culture</h4>
-          <input class="sheet-left" type="text" placeholder="Culture" data-i18n-placeholder="culture-placeholder" name="attr_culture" />
+          <input class="sheet-left" type="text" placeholder="Culture" data-i18n-placeholder="culture-label" name="attr_culture" />
 
           <h4 class="sheet-left" data-i18n="speed-label">Speed</h4>
           <input type="text" value="0" name="attr_speed" />
 
           <h4 class="sheet-left" data-i18n="background-label">Background</h4>
-          <input class="sheet-left" type="text" placeholder="Background" data-i18n-placeholder="background-placeholder" name="attr_background" />
+          <input class="sheet-left" type="text" placeholder="Background" data-i18n-placeholder="background-label" name="attr_background" />
 
           <h4 class="sheet-left" data-i18n="extraspeed-label">Extra Speed</h4>
           <input type="number" value="0" name="attr_extraspeed" />
 
           <h4 class="sheet-left" data-i18n="creature-label">Creature Type</h4>
-          <input class="sheet-left" type="text" placeholder="Creature Type" data-i18n-placeholder="creature-placeholder" name="attr_creature" />
+          <input class="sheet-left" type="text" placeholder="Creature Type" data-i18n-placeholder="creature-label" name="attr_creature" />
         </div>
 
         <!-- LEVEL -->
@@ -281,7 +281,7 @@
         <!-- FIELDSET CLASSES -->
         <fieldset class="repeating_classarchetype">
           <div class="sheet-header-bloc1">
-            <input type="text" placeholder="Class" data-i18n-placeholder="class-placeholder" name="attr_class" />
+            <input type="text" placeholder="Class" data-i18n-placeholder="class-label" name="attr_class" />
             <input type="text" placeholder="Archetype" data-i18n-placeholder="archetype-placeholder" name="attr_archetype" />
             <input type="text" value="0" name="attr_hitdice" />
             <input type="number" value="0" name="attr_level" />
@@ -1020,7 +1020,7 @@
 
                 <div class="sheet-features-traits sheet-cogs-hideshow-div1">
                   <h4 class="sheet-left">Label:</h4>
-                  <input class="sheet-left" type="text" placeholder="Name" data-i18n-placeholder="name-placeholder" name="attr_features-names" />
+                  <input class="sheet-left" type="text" placeholder="Name" data-i18n-placeholder="name-label" name="attr_features-names" />
                   <div class="sheet-cogs-container">
                     <input class="sheet-cogs-input sheet-cogs-hideshow" type="checkbox" name="attr_sheet-cogs-hideshow" />
                     <span class="sheet-cogs-icon">y</span>
@@ -1099,7 +1099,7 @@
                 <span class="sheet-cogs-icon">w</span>
               </div>
 
-              <input class="sheet-left" type="text" placeholder="Item Name" data-i18n-placeholder="item-name-placeholder" name="attr_inventaire_name" />
+              <input class="sheet-left" type="text" placeholder="Item Name" data-i18n-placeholder="item-name-label" name="attr_inventaire_name" />
 
               <input type="number" step="0.01" placeholder="0" value="1" name="attr_inventaire_quantity" />
               <input type="number" step="0.01" placeholder="0" value="0" name="attr_inventaire_weight" />
@@ -1233,6 +1233,39 @@
             </div>
 
             <textarea class="sheet-cogs-hideshow-div2" type="text" placeholder="Description" data-i18n-placeholder="description-placeholder" name="attr_inventaire-description"></textarea>
+          </fieldset>
+        </div>
+      </div>
+
+          <!-- ----- ATTUNEMENT -----  -->
+      <div class="sheet-main-inventaire sheet-standardbox sheet-standardbox2">
+        <h4 class="sheet-minititles2 sheet-main-titlestatistics" data-i18n="attunement-label">Attunement</h4>
+        <div class="sheet-oneline">
+          <div class="sheet-inventaire">
+            <h4>&nbsp;</h4>
+            <h4 class="sheet-left" data-i18n="attunement-name-label">Attunement Name</h4>
+          </div>
+          <!-- FIELDSET ATTUNEMENT -->
+          <fieldset class="repeating_item-attunement">
+            <input class="sheet-hidden sheet-cogs-hideshow" type="checkbox" name="attr_sheet-cogs-hideshow" />
+
+            <div class="sheet-attunement">
+              <input class="sheet-hidden sheet-description-hideshow" type="checkbox" name="attr_sheet-description-hideshow" checked />
+
+              <div class="sheet-cogs-container sheet-button-div-holder">
+                <button type="roll" class="sheet-button-description" name="roll_attunement" value="@{global-privacy-status} &{template:levelup-description} {{name=@{attunement_name}}} {{source=@{character_name}}} {{category=Attunement}} {{description=@{attunement-description}}}"></button>
+                <span class="sheet-cogs-icon">w</span>
+              </div>
+
+              <input class="sheet-left" type="text" placeholder="Item Name" data-i18n-placeholder="attunement-name-label" name="attr_attunement_name" />
+
+              <div class="sheet-cogs-container">
+                <input class="sheet-cogs-input sheet-cogs-hideshow" type="checkbox" name="attr_sheet-cogs-hideshow" />
+                <span class="sheet-cogs-icon">y</span>
+              </div>
+            </div>
+
+            <textarea class="sheet-cogs-hideshow-div2" type="text" placeholder="Description" data-i18n-placeholder="description-placeholder" name="attr_attunement-description"></textarea>
           </fieldset>
         </div>
       </div>
@@ -1634,7 +1667,7 @@
               <button type="roll" class="sheet-hidden" name="roll_show-attackorspell-damages" value="@{global-privacy-status} &{template:levelup} {{name=Damages}} {{charactername=@{attacksorspell-name}}} {{category=@{character_name}}} {{critical=[[0]]}} {{dmg1=[[@{attacksorspell-dmg1}]]}} {{dmg1type=@{attacksorspell-type1}}} {{dmg2=[[@{attacksorspell-dmg2}]]}} {{dmg2type=@{attacksorspell-type2}}}"></button>
               <button type="roll" class="sheet-hidden" name="roll_show-attackorspell-crit-damages" value="@{global-privacy-status} &{template:levelup} {{name=Critical Damages}} {{charactername=@{attacksorspell-name}}} {{category=@{character_name}}} {{critical=[[1]]}} {{dmg1=[[@{attacksorspell-dmg1}]]}} {{dmg1crit=[[@{attacksorspell-dmg1}]]}} {{dmg1type=@{attacksorspell-type1}}} {{dmg2=[[@{attacksorspell-dmg2}]]}} {{dmg2crit=[[@{attacksorspell-dmg2}]]}} {{dmg2type=@{attacksorspell-type2}}}"></button>
 
-              <input class="sheet-left" type="text" placeholder="Name" data-i18n-placeholder="name-placeholder" name="attr_attacksorspell-name" />
+              <input class="sheet-left" type="text" placeholder="Name" data-i18n-placeholder="name-label" name="attr_attacksorspell-name" />
               <input type="checkbox" name="attr_attacksorspell-isproficient" value="1" />
               <select name="attr_attacks_proficiencycharacteristics">
                 <option value="0" selected>-</option>
@@ -1683,7 +1716,7 @@
 
             <div class="sheet-attacksandspells4 sheet-cogs-hideshow-div2" style="margin-top: -10px">
               <h4>&nbsp;</h4>
-              <h4 class="sheet-left" data-i18n="action-type-label">Type</h4>
+              <h4 class="sheet-left" data-i18n="type-label">Type</h4>
               <h4 data-i18n="action-range-label">Range</h4>
               <h4 data-i18n="roll-type-label">R.Type</h4>
               <h4 data-i18n="exp-label">EXP</h4>
@@ -1715,7 +1748,7 @@
             <div class="sheet-actions">
               <button type="roll" class="sheet-button-description" name="roll_basicactiondisplay" value="@{global-privacy-status} &amp;{template:levelup} {{details=[[0]]}} {{name=@{attacksorspell-name}}} {{charactername=Actions}} {{category=@{attacksorspell-globaltype}}} {{description=@{attacksorspell-description}}}"></button>
               <input type="text" placeholder="-" name="attr_attacksorspell-globaltype" style="border: none" />
-              <input class="sheet-left" type="text" placeholder="Name" data-i18n-placeholder="name-placeholder" name="attr_attacksorspell-name" />
+              <input class="sheet-left" type="text" placeholder="Name" data-i18n-placeholder="name-label" name="attr_attacksorspell-name" />
 
               <div class="sheet-cogs-container">
                 <input class="sheet-cogs-input sheet-cogs-hideshow" type="checkbox" name="attr_sheet-cogs-hideshow" />
@@ -1809,7 +1842,7 @@
             <div class="sheet-actions">
               <button type="roll" class="sheet-button-description" name="roll_basicactiondisplay" value="@{global-privacy-status} &amp;{template:levelup} {{details=[[0]]}} {{name=@{attacksorspell-name}}} {{charactername=Basic Actions}} {{category=@{attacksorspell-globaltype}}} {{description=@{attacksorspell-description}}}"></button>
               <input type="text" placeholder="-" name="attr_attacksorspell-globaltype" style="border: none" />
-              <input class="sheet-left" type="text" placeholder="Name" data-i18n-placeholder="name-placeholder" name="attr_attacksorspell-name" />
+              <input class="sheet-left" type="text" placeholder="Name" data-i18n-placeholder="name-label" name="attr_attacksorspell-name" />
 
               <div class="sheet-cogs-container">
                 <input class="sheet-cogs-input sheet-cogs-hideshow" type="checkbox" name="attr_sheet-cogs-hideshow" />
@@ -2561,7 +2594,7 @@
                 <input class="sheet-hidden sheet-cogs-hideshow" type="checkbox" name="attr_sheet-cogs-hideshow" />
                 <div class="sheet-proficiencies1 sheet-cogs-hideshow-div1">
                   <input class="sheet-left" type="text" placeholder="Source" data-i18n-placeholder="source-placeholder" name="attr_proficiency-source" />
-                  <input class="sheet-left" type="text" placeholder="Name" data-i18n-placeholder="name-placeholder" name="attr_proficiency-name" />
+                  <input class="sheet-left" type="text" placeholder="Name" data-i18n-placeholder="name-label" name="attr_proficiency-name" />
                   <div class="sheet-cogs-container">
                     <input class="sheet-cogs-input sheet-cogs-hideshow" type="checkbox" name="attr_sheet-cogs-hideshow" />
                     <span class="sheet-cogs-icon">y</span>
@@ -2598,7 +2631,7 @@
                 <input class="sheet-hidden sheet-cogs-hideshow" type="checkbox" name="attr_sheet-cogs-hideshow" />
                 <div class="sheet-proficiencies4 sheet-cogs-hideshow-div1">
                   <input class="sheet-left" type="text" value="Tools" name="attr_proficiency-source" />
-                  <input class="sheet-left" type="text" placeholder="Name" data-i18n-placeholder="name-placeholder" name="attr_proficiency-name" />
+                  <input class="sheet-left" type="text" placeholder="Name" data-i18n-placeholder="name-label" name="attr_proficiency-name" />
                   <select name="attr_proficiency_expertisedice">
                     <option value="0" selected="">-</option>
                     <option value="1d4">d4</option>
@@ -3351,7 +3384,7 @@
                     <option value="Immunity">Immunity</option>
                     <option value="Resistance">Resistance</option>
                   </select>
-                  <input class="sheet-left" type="text" placeholder="Name" data-i18n-placeholder="name-placeholder" name="attr_proficiency-name" />
+                  <input class="sheet-left" type="text" placeholder="Name" data-i18n-placeholder="name-label" name="attr_proficiency-name" />
                   <div class="sheet-cogs-container">
                     <input class="sheet-cogs-input sheet-cogs-hideshow" type="checkbox" name="attr_sheet-cogs-hideshow" />
                     <span class="sheet-cogs-icon">y</span>
@@ -4146,7 +4179,7 @@
             <input class="sheet-hidden sheet-cogs-hideshow" type="checkbox" name="attr_sheet-cogs-hideshow" />
             <div class="sheet-proficiencies1 sheet-cogs-hideshow-div1">
               <input class="sheet-left" type="text" placeholder="Source" data-i18n-placeholder="source-placeholder" name="attr_proficiency-source" />
-              <input class="sheet-left" type="text" placeholder="Name" data-i18n-placeholder="name-placeholder" name="attr_proficiency-name" />
+              <input class="sheet-left" type="text" placeholder="Name" data-i18n-placeholder="name-label" name="attr_proficiency-name" />
               <div class="sheet-cogs-container">
                 <input class="sheet-cogs-input sheet-cogs-hideshow" type="checkbox" name="attr_sheet-cogs-hideshow" />
                 <span class="sheet-cogs-icon">y</span>
@@ -4187,7 +4220,7 @@
 
                 <div class="sheet-features-traits sheet-cogs-hideshow-div1">
                   <h4 class="sheet-left">Label:</h4>
-                  <input class="sheet-left" type="text" placeholder="Name" data-i18n-placeholder="name-placeholder" name="attr_features-names" />
+                  <input class="sheet-left" type="text" placeholder="Name" data-i18n-placeholder="name-label" name="attr_features-names" />
                   <div class="sheet-cogs-container">
                     <input class="sheet-cogs-input sheet-cogs-hideshow" type="checkbox" name="attr_sheet-cogs-hideshow" />
                     <span class="sheet-cogs-icon">y</span>
@@ -4256,7 +4289,7 @@
             <div class="sheet-actions">
               <button type="roll" class="sheet-button-description" name="roll_basicactiondisplay" value="@{global-privacy-status} &amp;{template:levelup} {{details=[[0]]}} {{name=@{attacksorspell-name}}} {{charactername=Actions}} {{category=@{attacksorspell-globaltype}}} {{description=@{attacksorspell-description}}}"></button>
               <input type="text" placeholder="-" name="attr_attacksorspell-globaltype" style="border: none" />
-              <input class="sheet-left" type="text" placeholder="Name" data-i18n-placeholder="name-placeholder" name="attr_attacksorspell-name" />
+              <input class="sheet-left" type="text" placeholder="Name" data-i18n-placeholder="name-label" name="attr_attacksorspell-name" />
 
               <div class="sheet-cogs-container">
                 <input class="sheet-cogs-input sheet-cogs-hideshow" type="checkbox" name="attr_sheet-cogs-hideshow" />
@@ -4295,7 +4328,7 @@
               <button type="roll" class="sheet-hidden" name="roll_show-attackorspell-damages" value="@{global-privacy-status} &{template:levelup} {{name=Damages}} {{charactername=@{attacksorspell-name}}} {{category=@{character_name}}} {{critical=[[0]]}} {{dmg1=[[@{attacksorspell-dmg1}]]}} {{dmg1type=@{attacksorspell-type1}}} {{dmg2=[[@{attacksorspell-dmg2}]]}} {{dmg2type=@{attacksorspell-type2}}}"></button>
               <button type="roll" class="sheet-hidden" name="roll_show-attackorspell-crit-damages" value="@{global-privacy-status} &{template:levelup} {{name=Critical Damages}} {{charactername=@{attacksorspell-name}}} {{category=@{character_name}}} {{critical=[[1]]}} {{dmg1=[[@{attacksorspell-dmg1}]]}} {{dmg1crit=[[@{attacksorspell-dmg1}]]}} {{dmg1type=@{attacksorspell-type1}}} {{dmg2=[[@{attacksorspell-dmg2}]]}} {{dmg2crit=[[@{attacksorspell-dmg2}]]}} {{dmg2type=@{attacksorspell-type2}}}"></button>
 
-              <input class="sheet-left" type="text" placeholder="Name" data-i18n-placeholder="name-placeholder" name="attr_attacksorspell-name" />
+              <input class="sheet-left" type="text" placeholder="Name" data-i18n-placeholder="name-label" name="attr_attacksorspell-name" />
               <input type="checkbox" name="attr_attacksorspell-isproficient" value="1" />
               <select name="attr_attacks_proficiencycharacteristics">
                 <option value="0" selected>-</option>
@@ -4344,7 +4377,7 @@
 
             <div class="sheet-attacksandspells4 sheet-cogs-hideshow-div2" style="margin-top: -10px">
               <h4>&nbsp;</h4>
-              <h4 class="sheet-left" data-i18n="action-type-label">Type</h4>
+              <h4 class="sheet-left" data-i18n="type-label">Type</h4>
               <h4 data-i18n="action-range-label">Range</h4>
               <h4 data-i18n="roll-type-label">R.Type</h4>
               <h4 data-i18n="exp-label">EXP</h4>
@@ -4376,7 +4409,7 @@
           <div class="sheet-actions">
             <button type="roll" class="sheet-button-description" name="roll_basicactiondisplay" value="@{global-privacy-status} &amp;{template:levelup} {{details=[[0]]}} {{name=@{attacksorspell-name}}} {{charactername=Basic Actions}} {{category=@{attacksorspell-globaltype}}} {{description=@{attacksorspell-description}}}"></button>
             <input type="text" placeholder="-" name="attr_attacksorspell-globaltype" style="border: none" />
-            <input class="sheet-left" type="text" placeholder="Name" data-i18n-placeholder="name-placeholder" name="attr_attacksorspell-name" />
+            <input class="sheet-left" type="text" placeholder="Name" data-i18n-placeholder="name-label" name="attr_attacksorspell-name" />
 
             <div class="sheet-cogs-container">
               <input class="sheet-cogs-input sheet-cogs-hideshow" type="checkbox" name="attr_sheet-cogs-hideshow" />
@@ -4742,7 +4775,7 @@ on(events, updateAll);
                 <div class="sheet-talent-card sheet-cogs-hideshow-div1">
                   <div class="sheet-talent-card-line5">
                     <h4 data-i18n="name-label-2">Name:</h4>
-                    <input type="text" placeholder="Name" data-i18n-placeholder="name-placeholder" name="attr_talent-name" />
+                    <input type="text" placeholder="Name" data-i18n-placeholder="name-label" name="attr_talent-name" />
                     <div class="sheet-cogs-container">
                       <input class="sheet-cogs-input sheet-cogs-hideshow" type="checkbox" name="attr_sheet-cogs-hideshow" />
                       <span class="sheet-cogs-icon">y</span>
@@ -4888,7 +4921,7 @@ on(events, updateAll);
                 <div class="sheet-talent-card sheet-cogs-hideshow-div1">
                   <div class="sheet-talent-card-line5">
                     <h4 data-i18n="name-label-2">Name:</h4>
-                    <input type="text" placeholder="Name" data-i18n-placeholder="name-placeholder" name="attr_talent-name" />
+                    <input type="text" placeholder="Name" data-i18n-placeholder="name-label" name="attr_talent-name" />
                     <div class="sheet-cogs-container">
                       <input class="sheet-cogs-input sheet-cogs-hideshow" type="checkbox" name="attr_sheet-cogs-hideshow" />
                       <span class="sheet-cogs-icon">y</span>
@@ -5033,7 +5066,7 @@ on(events, updateAll);
                 <div class="sheet-talent-card sheet-cogs-hideshow-div1">
                   <div class="sheet-talent-card-line5">
                     <h4 data-i18n="name-label-2">Name:</h4>
-                    <input type="text" placeholder="Name" data-i18n-placeholder="name-placeholder" name="attr_talent-name" />
+                    <input type="text" placeholder="Name" data-i18n-placeholder="name-label" name="attr_talent-name" />
                     <div class="sheet-cogs-container">
                       <input class="sheet-cogs-input sheet-cogs-hideshow" type="checkbox" name="attr_sheet-cogs-hideshow" />
                       <span class="sheet-cogs-icon">y</span>
@@ -5178,7 +5211,7 @@ on(events, updateAll);
                 <div class="sheet-talent-card sheet-cogs-hideshow-div1">
                   <div class="sheet-talent-card-line5">
                     <h4 data-i18n="name-label-2">Name:</h4>
-                    <input type="text" placeholder="Name" data-i18n-placeholder="name-placeholder" name="attr_talent-name" />
+                    <input type="text" placeholder="Name" data-i18n-placeholder="name-label" name="attr_talent-name" />
                     <div class="sheet-cogs-container">
                       <input class="sheet-cogs-input sheet-cogs-hideshow" type="checkbox" name="attr_sheet-cogs-hideshow" />
                       <span class="sheet-cogs-icon">y</span>
@@ -5323,7 +5356,7 @@ on(events, updateAll);
                 <div class="sheet-talent-card sheet-cogs-hideshow-div1">
                   <div class="sheet-talent-card-line5">
                     <h4 data-i18n="name-label-2">Name:</h4>
-                    <input type="text" placeholder="Name" data-i18n-placeholder="name-placeholder" name="attr_talent-name" />
+                    <input type="text" placeholder="Name" data-i18n-placeholder="name-label" name="attr_talent-name" />
                     <div class="sheet-cogs-container">
                       <input class="sheet-cogs-input sheet-cogs-hideshow" type="checkbox" name="attr_sheet-cogs-hideshow" />
                       <span class="sheet-cogs-icon">y</span>
@@ -5468,7 +5501,7 @@ on(events, updateAll);
                 <div class="sheet-talent-card sheet-cogs-hideshow-div1">
                   <div class="sheet-talent-card-line5">
                     <h4 data-i18n="name-label-2">Name:</h4>
-                    <input type="text" placeholder="Name" data-i18n-placeholder="name-placeholder" name="attr_talent-name" />
+                    <input type="text" placeholder="Name" data-i18n-placeholder="name-label" name="attr_talent-name" />
                     <div class="sheet-cogs-container">
                       <input class="sheet-cogs-input sheet-cogs-hideshow" type="checkbox" name="attr_sheet-cogs-hideshow" />
                       <span class="sheet-cogs-icon">y</span>
@@ -5608,7 +5641,7 @@ on(events, updateAll);
                 <div class="sheet-talent-card sheet-cogs-hideshow-div1">
                   <div class="sheet-talent-card-line5">
                     <h4 data-i18n="name-label-2">Name:</h4>
-                    <input type="text" placeholder="Name" data-i18n-placeholder="name-placeholder" name="attr_talent-name" />
+                    <input type="text" placeholder="Name" data-i18n-placeholder="name-label" name="attr_talent-name" />
                     <div class="sheet-cogs-container">
                       <input class="sheet-cogs-input sheet-cogs-hideshow" type="checkbox" name="attr_sheet-cogs-hideshow" />
                       <span class="sheet-cogs-icon">y</span>
@@ -5748,7 +5781,7 @@ on(events, updateAll);
                 <div class="sheet-talent-card sheet-cogs-hideshow-div1">
                   <div class="sheet-talent-card-line5">
                     <h4 data-i18n="name-label-2">Name:</h4>
-                    <input type="text" placeholder="Name" data-i18n-placeholder="name-placeholder" name="attr_talent-name" />
+                    <input type="text" placeholder="Name" data-i18n-placeholder="name-label" name="attr_talent-name" />
                     <div class="sheet-cogs-container">
                       <input class="sheet-cogs-input sheet-cogs-hideshow" type="checkbox" name="attr_sheet-cogs-hideshow" />
                       <span class="sheet-cogs-icon">y</span>
@@ -5888,7 +5921,7 @@ on(events, updateAll);
                 <div class="sheet-talent-card sheet-cogs-hideshow-div1">
                   <div class="sheet-talent-card-line5">
                     <h4 data-i18n="name-label-2">Name:</h4>
-                    <input type="text" placeholder="Name" data-i18n-placeholder="name-placeholder" name="attr_talent-name" />
+                    <input type="text" placeholder="Name" data-i18n-placeholder="name-label" name="attr_talent-name" />
                     <div class="sheet-cogs-container">
                       <input class="sheet-cogs-input sheet-cogs-hideshow" type="checkbox" name="attr_sheet-cogs-hideshow" />
                       <span class="sheet-cogs-icon">y</span>
@@ -6028,7 +6061,7 @@ on(events, updateAll);
                 <div class="sheet-talent-card sheet-cogs-hideshow-div1">
                   <div class="sheet-talent-card-line5">
                     <h4 data-i18n="name-label-2">Name:</h4>
-                    <input type="text" placeholder="Name" data-i18n-placeholder="name-placeholder" name="attr_talent-name" />
+                    <input type="text" placeholder="Name" data-i18n-placeholder="name-label" name="attr_talent-name" />
                     <div class="sheet-cogs-container">
                       <input class="sheet-cogs-input sheet-cogs-hideshow" type="checkbox" name="attr_sheet-cogs-hideshow" />
                       <span class="sheet-cogs-icon">y</span>
