@@ -375,7 +375,7 @@ const dmgSwap = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: dmgSwap completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // fixes attribute name conflict
@@ -392,7 +392,7 @@ const maxSwap = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: maxSwap completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // replace default macro-text of non-weapon proficiencies ONLY IF they haven't been edited
@@ -418,7 +418,7 @@ const nwpMacroUpdate = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: nwpMacroUpdate completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // fix duplicated repeating attribute names for weapons
@@ -488,7 +488,7 @@ const weaponNameFix = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: weaponNameFix completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // fix duplicated repeating attribute names for spells
@@ -549,7 +549,7 @@ const spellNameFix = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: spellNameFix completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // fix duplicated repeating attribute names for equipment
@@ -581,7 +581,7 @@ const equipmentNameFix = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: equipmentNameFix completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // fix duplicated repeating attribute names. Replaces old attribute names in macro_text
@@ -623,7 +623,7 @@ const abilityNameFix = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: abilityNameFix completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // fix duplicated repeating attribute names. Replaces old attribute names in macro_text
@@ -668,7 +668,7 @@ const nwpNameFix = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: nwpNameFix completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 const macroColorUpdate = async (current_version, final_version) => {
@@ -718,7 +718,7 @@ const macroColorUpdate = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: colorUpdate completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // One-time update: Auto Calc Ability rows
@@ -737,7 +737,7 @@ const autoCalcAbilityRows = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: autoCalcAbilityRows completed`);
   await setAttrsAsync(output);
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // One-time update: Auto Calc Save rows
@@ -752,7 +752,7 @@ const autoCalcSaveRows = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: autoCalcSaveRows(migrate) completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // One-time update: Auto Calc Thief rows
@@ -773,7 +773,7 @@ const autoCalcThiefRows = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: autoCalcThiefRows(migrate) completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // Remove @{weapon_whisper_to_hit}
@@ -795,7 +795,7 @@ const removeWhisper = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: removeWhisper completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // migrate HP
@@ -818,7 +818,7 @@ const migrateHP = async (current_version, final_version) => {
   if (typeof calcHP === 'function') {
     await calcHP();
   }
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // migrate AC
@@ -854,7 +854,7 @@ const migrateAC = async (current_version, final_version) => {
   if (typeof calcAC === 'function') {
     await calcAC(recalc);
   }
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // update Weapon macro-text ONLY IF they haven't been edited.
@@ -897,7 +897,7 @@ const weaponMacroUpdate = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: weaponMacroUpdate completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // update Special Ability macro-text ONLY IF they haven't been edited. Tests against v1.58 macro-text
@@ -934,7 +934,7 @@ const abilityMacroUpdate = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: abilityMacroUpdate completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // update NWP macro-text ONLY IF they haven't been edited. Tests against v1.58 macro-text
@@ -964,7 +964,7 @@ const nwpMacroUpdate2 = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: nwpMacroUpdate2 completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // update Spells macro-text ONLY IF they haven't been edited. Tests against v1.58 macro-text
@@ -996,7 +996,7 @@ const spellsMacroUpdate = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: spellsMacroUpdate completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // update Equipment macro-text ONLY IF they haven't been edited. Tests against v1.641 macro-text
@@ -1021,7 +1021,7 @@ const equipmentMacroUpdate = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: equipmentMacroUpdate completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // One-time update: formats and sets range fields
@@ -1084,7 +1084,7 @@ const updateRange = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: updateRange completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // One-time update: replace @{weapon_attack_type_pen} with @{weapon_dual_pen} in attack macro-text
@@ -1106,7 +1106,7 @@ const updateAttackTypeMacro = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: updateAttackTypeMacro completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // One-time update: set MonsterHD from hitdice
@@ -1121,7 +1121,7 @@ const monsterHD = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: monsterHD completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // One-time update: clear old armor details fields that have been removed
@@ -1153,7 +1153,7 @@ const clearArmorOther = async (current_version, final_version) => {
   output.armorother6_bulk = 0;
   clog(`VERSION UPDATE: clearArmorOther completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // combines all Armor Details attrs and their row id's
@@ -1978,7 +1978,7 @@ const migrateArmorDetails = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: migrateArmorDetails completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // One-time update: sets all equipment default values
@@ -2033,7 +2033,7 @@ const setEquipmentUpdate = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: setEquipmentUpdate completed for ${idArray.length} items.`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // One-time update: sets all weapons default values
@@ -2140,7 +2140,7 @@ const setWeaponsUpdate = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: setWeaponsUpdate completed for ${idArray.length} items.`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // One-time update: sets all NWP default values
@@ -2164,7 +2164,7 @@ const setNWPUpdate = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: setNWPUpdate completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // One-time update: clear old weapon weight and cost values
@@ -2252,7 +2252,7 @@ const migrateWeaponWtCostFunction = async (current_version, final_version) => {
   if (typeof clearWeaponsWeightCost === 'function') {
     await clearWeaponsWeightCost();
   }
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 const migrateWeaponWtCost = async (current_version, final_version) => {
@@ -2261,7 +2261,7 @@ const migrateWeaponWtCost = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: migrateWeaponWtCost completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // One-time update: checks and sets equipment-gear but the value was set out-of-range
@@ -2280,7 +2280,7 @@ const setEquipmentType = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: setEquipmentType completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 const migrateSetSpellsCasterClass = async (current_version, final_version) => {
@@ -2289,7 +2289,7 @@ const migrateSetSpellsCasterClass = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: migrateSetSpellsCasterClass completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // One-time update: ensures warning flag is correct
@@ -2300,7 +2300,7 @@ const recalcAC = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: recalcAC completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // One-time update: initiative macro subtitle fix
@@ -2310,7 +2310,7 @@ const initMacroUpdate = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: initMacroUpdate completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // One-time update: add parenthesis to critical damage macro-text
@@ -2330,7 +2330,7 @@ const updateCriticalDamageMacro = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: updateCriticalDamageMacro completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // Check and set Ability defaults to 8 on new sheets
@@ -2417,7 +2417,7 @@ const recalcToHitWhisper = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: recalcToHitWhisper completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // One-time update: sets flag for To Hit Armor Rating
@@ -2430,25 +2430,24 @@ const recalcToHitACadj = async (current_version, final_version) => {
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: recalcToHitACadj completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // On-time update: check Open Doors for non-d6 value
 const checkOpenDoors = async (current_version, final_version) => {
   const v = await getAttrsAsync(['minorstrengthfeat', 'strength', 'exceptionalstrength']);
   const openDoors = +v['minorstrengthfeat'] || 0;
-  // bail if range is within d6
-  if (openDoors <= 6) return;
-
   const output = {};
-  const stat_str = +v['strength'] || 0;
-  let stat_str_per = v['exceptionalstrength'] === '00' ? 100 : +v['exceptionalstrength'] || 0;
-
-  output.minorstrengthfeat = AT_STR.getStrengthValue('Minor', stat_str, stat_str_per);
+  if (openDoors > 6) {
+    const stat_str = +v['strength'] || 0;
+    let stat_str_per = v['exceptionalstrength'] === '00' ? 100 : +v['exceptionalstrength'] || 0;
+    output.minorstrengthfeat = AT_STR.getStrengthValue('Minor', stat_str, stat_str_per);
+    clog(`VERSION UPDATE: checkOpenDoors calculation performed`);
+  }
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: checkOpenDoors completed`);
   await setAttrsAsync(output, {silent: true});
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 };
 
 // versioning routine to handle attribute changes
@@ -2578,13 +2577,18 @@ versionator = async (current_version, final_version) => {
   }
   if (current_version < 1.693) {
     return await checkOpenDoors(1.693, final_version);
-    // all updates completed
   }
-  if (current_version < final_version) {
-    output.sheet_version = final_version;
-    await setAttrsAsync(output, {silent: true});
-  } else if (current_version === final_version) {
-    // check if new sheet and set abilities
+  // All updates completed
+  const finalCheck = await getAttrsAsync(['sheet_version']);
+  const actualAttrVersion = parseFloat(finalCheck.sheet_version) || 0;
+  if (actualAttrVersion < final_version) {
+    const finalOutput = {sheet_version: final_version};
+    clog(`VERSION UPDATE: Finalizing version attribute to ${final_version}`);
+    await setAttrsAsync(finalOutput, {silent: true});
+  } else {
+    clog(`Version already at ${final_version}. No further updates needed.`);
+  }
+  if (actualAttrVersion === 0) {
     await newSheet();
   }
 };
@@ -2596,7 +2600,7 @@ on('sheet:opened', async () => {
   const output = {};
   let current_version = parseFloat(v.sheet_version) || 0;
   // prevent new sheets from stepping through versionator
-  if ((+v.old_character || 0) === 1 && current_version === 0) {
+  if ((+v.old_character || 0) === 0 && current_version === 0) {
     clog(`New sheet detected.`);
     current_version = final_version;
     output.sheet_version = final_version;
@@ -2605,7 +2609,7 @@ on('sheet:opened', async () => {
     await setAttrsAsync(output, {silent: true});
   }
   clog(`Current sheet data version: ${current_version}, Sheet code version: ${final_version}`);
-  await versionator(current_version, final_version);
+  return await versionator(current_version, final_version);
 });
 
 // Exceptional
