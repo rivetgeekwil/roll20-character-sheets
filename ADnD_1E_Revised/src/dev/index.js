@@ -2203,14 +2203,14 @@ const migrateWeaponWtCostFunction = async (current_version, final_version) => {
   const v = await getAttrsAsync(fields);
   const output = {};
   const equipmentNamesArray = equipmentArray.map((id) => v[`repeating_equipment_${id}_equipment_item`]);
-  const equipmentWeightsArray = equipmentArray.map((id) => v[`repeating_equipment_${id}_equipment_weight`]);
-  const equipmentCostsArray = equipmentArray.map((id) => v[`repeating_equipment_${id}_equipment_cost`]);
+  const equipmentWeightsArray = equipmentArray.map((id) => +v[`repeating_equipment_${id}_equipment_weight`]) || 0;
+  const equipmentCostsArray = equipmentArray.map((id) => +v[`repeating_equipment_${id}_equipment_cost`]) || 0;
 
   _.each(weaponsArray, (id) => {
     const weaponName = v[`repeating_weapon_${id}_weapon_name`];
-    const weaponQuantity = v[`repeating_weapon_${id}_weapon_quantity`];
-    const weaponWeight = v[`repeating_weapon_${id}_weapon_weight`];
-    const weaponCost = v[`repeating_weapon_${id}_weapon_cost`];
+    const weaponQuantity = +v[`repeating_weapon_${id}_weapon_quantity`] || 0;
+    const weaponWeight = +v[`repeating_weapon_${id}_weapon_weight`] || 0;
+    const weaponCost = +v[`repeating_weapon_${id}_weapon_cost`] || 0;
 
     if (weaponWeight !== 0 || weaponCost !== 0) {
       const nameIndex = equipmentNamesArray.indexOf(weaponName);
@@ -2257,7 +2257,7 @@ const migrateWeaponWtCostFunction = async (current_version, final_version) => {
 
 const migrateWeaponWtCost = async (current_version, final_version) => {
   const output = {};
-  await migrateWeaponWtCostFunction();
+  await migrateWeaponWtCostFunction(current_version, final_version);
   output.sheet_version = current_version;
   clog(`VERSION UPDATE: migrateWeaponWtCost completed`);
   await setAttrsAsync(output, {silent: true});
@@ -2596,7 +2596,8 @@ on('sheet:opened', async () => {
   const output = {};
   let current_version = parseFloat(v.sheet_version) || 0;
   // prevent new sheets from stepping through versionator
-  if ((+v.old_character || 0) === 0 && current_version === 0) {
+  if ((+v.old_character || 0) === 1 && current_version === 0) {
+    clog(`New sheet detected.`);
     current_version = final_version;
     output.sheet_version = final_version;
   }
@@ -2754,7 +2755,7 @@ const setEncumbranceThresholds = async () => {
   output.max_load = max + 1;
   await setAttrsAsync(output, {silent: true});
   // clog('setEncumbranceThresholds - Encumbrance has been re-calculated. triggering setCurrentEncumbranceFlag');
-  setCurrentEncumbranceFlag();
+  await setCurrentEncumbranceFlag();
 };
 
 const setCurrentEncumbranceFlag = async (override) => {
@@ -2857,7 +2858,7 @@ const setCurrentMovement = async () => {
   const output = {};
   // clog('Movement Rates have been re-calculated');
   // only extract an integer from movement
-  const movement = +v.movement.toString().replace(/[^0-9]/g, '');
+  const movement = +v.movement.toString().replace(/[^0-9]/g, '') || 0;
   const current_encumbrance_move = +v.current_encumbrance_move || 0;
   let adjustedMove = 0;
   if (current_encumbrance_move === 0) {
