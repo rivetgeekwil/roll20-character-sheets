@@ -220,6 +220,9 @@ on(
   },
 );
 
+const attackMacroDefault =
+  '&{template:attacks} {{color=@{color_option}}} {{name=@{character_name}}} {{subtag=@{weapon_name}}} {{dual=@{weapon_dual}}} {{attack1=[[ 1d20 + ( @{weapon_backstab_bonus}[BACKSTAB] ) + ( @{weapon_tohitbonus}[HIT_BON] ) + ( @{weapon_prof_pen}[PROF_PEN] ) + ( @{weapon_dual_pen}[DUAL_PEN] ) + ( @{weapon_magicbonus}[MAG_BON] ) + ( ?{To Hit Modifier?|0}[MISC_MOD] ) ]]}} {{damagevsSMchatmenu=@{weapon_damagesmallmedium_chat_menu}}} {{damagevsLchatmenu=@{weapon_damagelarge_chat_menu}}} {{critdamagevsSMchatmenu=@{weapon_critdamagesmallmedium_chat_menu}}} {{critdamagevsLchatmenu=@{weapon_critdamagelarge_chat_menu}}} {{WeaponNotes=@{weapon_notes}}} {{backstab=[[ @{weapon_backstab_mult} ]]}} {{damagetype=@{weapon_attackdmgtype}}} {{rate=@{weapon_rateoffire}}} {{range=@{weapon_range}}} {{length=@{weapon_length}}} {{space=@{weapon_space}}} {{speed=@{weapon_speed}}} {{ammo=[[ @{weapon_ammo} ]]/[[ @{weapon_ammo|max} ]]}} {{crit=[[ @{toggle_critdamage} ]]}} @{weapon_tohitacadj}';
+
 const armorRowIDs = [
   'unarmored_row_id',
   'armortype1_row_id',
@@ -937,8 +940,7 @@ const weaponMacroUpdate = (current_version, final_version) => {
           '&{template:attacks} {{color=@{color_option}}} {{name=@{character_name}}} {{subtag=@{weapon_name}}} {{dual=@{weapon_dual}}} {{attack1=[[ 1d20 + @{weapon_backstab_bonus}[BACKSTAB] + @{weapon_tohitbonus}[HIT_BON] + @{weapon_prof_pen}[PROF_PEN] + @{weapon_dual_pen}[DUAL_PEN]+ @{weapon_magicbonus}[MAG_BON] + ?{To Hit Modifier?|0}[MISC_MOD] ]]}} {{damagevsSMchatmenu=@{weapon_damagesmallmedium_chat_menu}}} {{damagevsLchatmenu=@{weapon_damagelarge_chat_menu}}} {{critdamagevsSMchatmenu=@{weapon_critdamagesmallmedium_chat_menu}}} {{critdamagevsLchatmenu=@{weapon_critdamagelarge_chat_menu}}} {{WeaponNotes=@{weapon_notes}}} {{backstab=[[ @{weapon_backstab_mult} ]]}} {{damagetype=@{weapon_attackdmgtype}}} {{rate=@{weapon_rateoffire}}} {{range=@{weapon_range}}} {{length=@{weapon_length}}} {{space=@{weapon_space}}} {{speed=@{weapon_speed}}} {{ammo=[[ @{weapon_ammo} ]]/[[ @{weapon_ammo|max} ]]}} {{crit=@{toggle_critdamage}}} @{weapon_tohitacadj}',
         weapon_old_v6:
           '&{template:attacks} {{color=@{color_option}}} {{name=@{character_name}}} {{subtag=@{weapon_name}}} {{dual=@{weapon_dual}}} {{attack1=[[ 1d20 + @{weapon_backstab_bonus}[BACKSTAB] + @{weapon_tohitbonus}[HIT_BON] + @{weapon_prof_pen}[PROF_PEN] + @{weapon_dual_pen}[DUAL_PEN]+ @{weapon_magicbonus}[MAG_BON] + ?{To Hit Modifier?|0}[MISC_MOD] ]]}} {{damagevsSMchatmenu=@{weapon_damagesmallmedium_chat_menu}}} {{damagevsLchatmenu=@{weapon_damagelarge_chat_menu}}} {{critdamagevsSMchatmenu=@{weapon_critdamagesmallmedium_chat_menu}}} {{critdamagevsLchatmenu=@{weapon_critdamagelarge_chat_menu}}} {{WeaponNotes=@{weapon_notes}}} {{backstab=[[ @{weapon_backstab_mult} ]]}} {{damagetype=@{weapon_attackdmgtype}}} {{rate=@{weapon_rateoffire}}} {{range=@{weapon_range}}} {{length=@{weapon_length}}} {{space=@{weapon_space}}} {{speed=@{weapon_speed}}} {{ammo=[[ @{weapon_ammo} ]]/[[ @{weapon_ammo|max} ]]}} {{crit=[[ @{toggle_critdamage} ]]}} @{weapon_tohitacadj}',
-        weapon_current:
-          '&{template:attacks} {{color=@{color_option}}} {{name=@{character_name}}} {{subtag=@{weapon_name}}} {{dual=@{weapon_dual}}} {{attack1=[[ 1d20 + ( @{weapon_backstab_bonus}[BACKSTAB] ) + ( @{weapon_tohitbonus}[HIT_BON] ) + ( @{weapon_prof_pen}[PROF_PEN] ) + ( @{weapon_dual_pen}[DUAL_PEN] ) + ( @{weapon_magicbonus}[MAG_BON] ) + ( ?{To Hit Modifier?|0}[MISC_MOD] ) ]]}} {{damagevsSMchatmenu=@{weapon_damagesmallmedium_chat_menu}}} {{damagevsLchatmenu=@{weapon_damagelarge_chat_menu}}} {{critdamagevsSMchatmenu=@{weapon_critdamagesmallmedium_chat_menu}}} {{critdamagevsLchatmenu=@{weapon_critdamagelarge_chat_menu}}} {{WeaponNotes=@{weapon_notes}}} {{backstab=[[ @{weapon_backstab_mult} ]]}} {{damagetype=@{weapon_attackdmgtype}}} {{rate=@{weapon_rateoffire}}} {{range=@{weapon_range}}} {{length=@{weapon_length}}} {{space=@{weapon_space}}} {{speed=@{weapon_speed}}} {{ammo=[[ @{weapon_ammo} ]]/[[ @{weapon_ammo|max} ]]}} {{crit=[[ @{toggle_critdamage} ]]}} @{weapon_tohitacadj}',
+        weapon_current: attackMacroDefault,
       };
       _.each(idArray, (id) => {
         if (v[`repeating_weapon_${id}_weapon_macro_text`] === replacements.weapon_old_v6) {
@@ -3015,13 +3017,13 @@ on('sheet:opened change:movement change:current_encumbrance change:current_encum
 });
 
 on('change:current_encumbrance', async (eventInfo) => {
-  clog(`Δ detected: ${eventInfo.sourceAttribute}`);
+  // clog(`Δ detected: ${eventInfo.sourceAttribute}`);
   if (eventInfo.sourceType === 'player') {
     clog(`Encumbrance Set Manually: executing setCurrentEncumbranceFlag`);
     const override = 1;
     await setCurrentEncumbranceFlag(override);
   } else {
-    clog(`Encumbrance Set by sheetworker`);
+    // clog(`Encumbrance Set by sheetworker`);
   }
 });
 
@@ -4027,10 +4029,10 @@ const getToHitRowUpdate = (v, id) => {
   let thishitTableMacro = '';
   const noMacro = '&nbsp;';
   // IMPORTANT these strings MUST include a hard return to force a new line
-  const matrixMacro = `
-  %NEWLINE%/w gm &{template:attacks-table} {{color=@{color_option}}} {{ToHitAC-10=[[ @{thac-10} ]]}} {{ToHitAC-9=[[ @{thac-9} ]]}} {{ToHitAC-8=[[ @{thac-8} ]]}} {{ToHitAC-7=[[ @{thac-7} ]]}} {{ToHitAC-6=[[ @{thac-6} ]]}} {{ToHitAC-5=[[ @{thac-5} ]]}} {{ToHitAC-4=[[ @{thac-4} ]]}} {{ToHitAC-3=[[ @{thac-3} ]]}} {{ToHitAC-2=[[ @{thac-2} ]]}} {{ToHitAC-1=[[ @{thac-1} ]]}} {{ToHitAC0=[[ @{thac0} ]]}} {{ToHitAC1=[[ @{thac1} ]]}} {{ToHitAC2=[[ @{thac2} ]]}} {{ToHitAC3=[[ @{thac3} ]]}} {{ToHitAC4=[[ @{thac4} ]]}} {{ToHitAC5=[[ @{thac5} ]]}} {{ToHitAC6=[[ @{thac6} ]]}} {{ToHitAC7=[[ @{thac7} ]]}} {{ToHitAC8=[[ @{thac8} ]]}} {{ToHitAC9=[[ @{thac9} ]]}} {{ToHitAC10=[[ @{thac10} ]] }}`;
-  const thac0Macro = `
-  %NEWLINE%/w gm &{template:attacks-table} {{color=@{color_option}}} {{ToHitAC-10=[[ @{thac0-10} ]]}} {{ToHitAC-9=[[ @{thac0-9} ]]}} {{ToHitAC-8=[[ @{thac0-8} ]]}} {{ToHitAC-7=[[ @{thac0-7} ]]}} {{ToHitAC-6=[[ @{thac0-6} ]]}} {{ToHitAC-5=[[ @{thac0-5} ]]}} {{ToHitAC-4=[[ @{thac0-4} ]]}} {{ToHitAC-3=[[ @{thac0-3} ]]}} {{ToHitAC-2=[[ @{thac0-2} ]]}} {{ToHitAC-1=[[ @{thac0-1} ]]}} {{ToHitAC0=[[ @{thac00} ]]}} {{ToHitAC1=[[ @{thac01} ]]}} {{ToHitAC2=[[ @{thac02} ]]}} {{ToHitAC3=[[ @{thac03} ]]}} {{ToHitAC4=[[ @{thac04} ]]}} {{ToHitAC5=[[ @{thac05} ]]}} {{ToHitAC6=[[ @{thac06} ]]}} {{ToHitAC7=[[ @{thac07} ]]}} {{ToHitAC8=[[ @{thac08} ]]}} {{ToHitAC9=[[ @{thac09} ]]}} {{ToHitAC10=[[ @{thac010} ]] }}`;
+  const matrixMacro = `%NEWLINE%
+  /w gm &{template:attacks-table} {{color=@{color_option}}} {{ToHitAC-10=[[ @{thac-10} ]]}} {{ToHitAC-9=[[ @{thac-9} ]]}} {{ToHitAC-8=[[ @{thac-8} ]]}} {{ToHitAC-7=[[ @{thac-7} ]]}} {{ToHitAC-6=[[ @{thac-6} ]]}} {{ToHitAC-5=[[ @{thac-5} ]]}} {{ToHitAC-4=[[ @{thac-4} ]]}} {{ToHitAC-3=[[ @{thac-3} ]]}} {{ToHitAC-2=[[ @{thac-2} ]]}} {{ToHitAC-1=[[ @{thac-1} ]]}} {{ToHitAC0=[[ @{thac0} ]]}} {{ToHitAC1=[[ @{thac1} ]]}} {{ToHitAC2=[[ @{thac2} ]]}} {{ToHitAC3=[[ @{thac3} ]]}} {{ToHitAC4=[[ @{thac4} ]]}} {{ToHitAC5=[[ @{thac5} ]]}} {{ToHitAC6=[[ @{thac6} ]]}} {{ToHitAC7=[[ @{thac7} ]]}} {{ToHitAC8=[[ @{thac8} ]]}} {{ToHitAC9=[[ @{thac9} ]]}} {{ToHitAC10=[[ @{thac10} ]] }}`;
+  const thac0Macro = `%NEWLINE%
+  /w gm &{template:attacks-table} {{color=@{color_option}}} {{ToHitAC-10=[[ @{thac0-10} ]]}} {{ToHitAC-9=[[ @{thac0-9} ]]}} {{ToHitAC-8=[[ @{thac0-8} ]]}} {{ToHitAC-7=[[ @{thac0-7} ]]}} {{ToHitAC-6=[[ @{thac0-6} ]]}} {{ToHitAC-5=[[ @{thac0-5} ]]}} {{ToHitAC-4=[[ @{thac0-4} ]]}} {{ToHitAC-3=[[ @{thac0-3} ]]}} {{ToHitAC-2=[[ @{thac0-2} ]]}} {{ToHitAC-1=[[ @{thac0-1} ]]}} {{ToHitAC0=[[ @{thac00} ]]}} {{ToHitAC1=[[ @{thac01} ]]}} {{ToHitAC2=[[ @{thac02} ]]}} {{ToHitAC3=[[ @{thac03} ]]}} {{ToHitAC4=[[ @{thac04} ]]}} {{ToHitAC5=[[ @{thac05} ]]}} {{ToHitAC6=[[ @{thac06} ]]}} {{ToHitAC7=[[ @{thac07} ]]}} {{ToHitAC8=[[ @{thac08} ]]}} {{ToHitAC9=[[ @{thac09} ]]}} {{ToHitAC10=[[ @{thac010} ]] }}`;
   if (thishitTableSelect === 2) {
     thishitTableMacro = noMacro;
   } else {
@@ -4686,7 +4688,7 @@ const repeatingWeaponString = [
   'weapon_space',
   'weapon_speed',
   'weapon_misc',
-  'weapon_macro_text',
+  // 'weapon_macro_text', // handled independently
   'weapon_damagesmallmedium_chat_menu',
   'weapon_damagelarge_chat_menu',
   'weapon_damagesmallmedium_npc_chat_menu',
@@ -4738,6 +4740,15 @@ const repeatingEquipmentAll = [...repeatingEquipmentNumber, ...repeatingEquipmen
 const repeatingNWPNumber = ['nwp_slots', 'nwp_modifier'];
 const repeatingNWPString = ['nwp_attribute', 'nwp_attribute_value', 'nwp_macro_text'];
 const repeatingNWPAll = [...repeatingNWPNumber, ...repeatingNWPString];
+
+const setAttackMacro = async (id) => {
+  const v = await getAttrsAsync(['default_attack_macro']);
+  const output = {};
+  const defaultAttackMacro = v.default_attack_macro || attackMacroDefault;
+  // clog(`set repeating_weapon_${id}_weapon_macro_text macro-text`);
+  output[`repeating_weapon_${id}_weapon_macro_text`] = defaultAttackMacro;
+  await setAttrsAsync(output, {silent: true});
+};
 
 const setWeapons = async (id) => {
   const fields = repeatingWeaponAll.map((field) => concatRepAttrName('weapon', id, field));
@@ -4822,6 +4833,7 @@ on('change:repeating_weapon:weapon_name change:repeating_equipment:equipment_ite
   }
   if (eventInfo.sourceAttribute.includes('weapon_name')) {
     await setWeapons(id);
+    await setAttackMacro(id);
     // clog(`new ${eventInfo.sourceAttribute.match(/^[^_]+_[^_]+/)[0]} row added. Default values have been set.`);
   }
   if (eventInfo.sourceAttribute.includes('nwp_name')) {
@@ -4861,85 +4873,47 @@ on('sheet:opened', async (eventInfo) => {
   await setAttrsAsync(output, {silent: true});
 });
 
-// Reset Macros to default
-on(
-  'clicked:resetallmacros clicked:resetequipmentmacros clicked:resetweaponsmacros clicked:resetabilitiesmacros clicked:resetnwpsmacros clicked:resetspellsmacros',
-  async (eventInfo) => {
-    const eventTrigger = eventInfo.triggerName;
-    const match = eventTrigger.match(/clicked:(\w+)/);
-    // Check if there is a match and extract the captured word
-    const clickedWord = match ? match[1] : null;
-    // clog(`Δ detected: ${JSON.stringify(eventInfo)}`);
-    // clog(`reset macros detected: ${clickedWord}`);
-    const output = {};
-    if (clickedWord === 'resetallmacros') {
-      output.surprise_macro_text = '';
-      output.surprise_others_macro_text = '';
-      output.init_macro_text = '';
-      const idArrayEquipment = await getSectionIDsAsync('equipment');
-      _.each(idArrayEquipment, (id) => {
-        output[`repeating_equipment_${id}_equipment_macro_text`] = '';
-        // clog(`macro reset completed on: ${id} Equipment`);
-      });
-      const idArrayWeapons = await getSectionIDsAsync('weapon');
-      _.each(idArrayWeapons, (id) => {
-        output[`repeating_weapon_${id}_weapon_macro_text`] = '';
-        // clog(`macro reset completed on: ${id} Weapon`);
-      });
-      const idArrayAbilities = await getSectionIDsAsync('ability');
-      _.each(idArrayAbilities, (id) => {
-        output[`repeating_ability_${id}_ability_macro_text`] = '';
-        // clog(`macro reset completed on: ${id} Ability`);
-      });
-      const idArrayNWPs = await getSectionIDsAsync('nonweaponproficiencies');
-      _.each(idArrayNWPs, (id) => {
-        output[`repeating_nonweaponproficiencies_${id}_nwp_macro_text`] = '';
-        // clog(`macro reset completed on: ${id} NWP`);
-      });
-      const idArraySpells = await getSectionIDsAsync('spells');
-      _.each(idArraySpells, (id) => {
-        output[`repeating_spells_${id}_spell_macro_text`] = '';
-        // clog(`macro reset completed on: ${id} Spells`);
-      });
-    }
-    if (clickedWord === 'resetequipmentmacros') {
-      const idArrayEquipment = await getSectionIDsAsync('equipment');
-      _.each(idArrayEquipment, (id) => {
-        output[`repeating_equipment_${id}_equipment_macro_text`] = '';
-        // clog(`macro reset completed on: ${id} Equipment`);
-      });
-    }
-    if (clickedWord === 'resetweaponsmacros') {
-      const idArrayWeapons = await getSectionIDsAsync('weapon');
-      _.each(idArrayWeapons, (id) => {
-        output[`repeating_weapon_${id}_weapon_macro_text`] = '';
-        // clog(`macro reset completed on: ${id} Weapon`);
-      });
-    }
-    if (clickedWord === 'resetabilitiesmacros') {
-      const idArrayAbilities = await getSectionIDsAsync('ability');
-      _.each(idArrayAbilities, (id) => {
-        output[`repeating_ability_${id}_ability_macro_text`] = '';
-        // clog(`macro reset completed on: ${id} Ability`);
-      });
-    }
-    if (clickedWord === 'resetnwpsmacros') {
-      const idArrayNWPs = await getSectionIDsAsync('nonweaponproficiencies');
-      _.each(idArrayNWPs, (id) => {
-        output[`repeating_nonweaponproficiencies_${id}_nwp_macro_text`] = '';
-        // clog(`macro reset completed on: ${id} NWP`);
-      });
-    }
-    if (clickedWord === 'resetspellsmacros') {
-      const idArraySpells = await getSectionIDsAsync('spells');
-      _.each(idArraySpells, (id) => {
-        output[`repeating_spells_${id}_spell_macro_text`] = '';
-        // clog(`macro reset completed on: ${id} Spells`);
-      });
-    }
-    setAttrsAsync(output, {silent: true});
-  },
-);
+on('change:default_attack_macro', async (eventInfo) => {
+  // clog(`Δ detected: ${eventInfo.sourceAttribute}`);
+  const v = await getAttrsAsync(['default_attack_macro']);
+  const currentMacroText = v.default_attack_macro;
+  if (currentMacroText !== '') return;
+
+  // macro has been reset. set default
+  const output = {};
+  output.default_attack_macro = attackMacroDefault;
+  // clog(`Macro has been Reset`);
+  await setAttrsAsync(output, {silent: true});
+});
+
+on('change:repeating_weapon:weapon_macro_text', async (eventInfo) => {
+  // clog(`Δ detected: ${eventInfo.sourceAttribute}`);
+  const id = eventInfo.sourceAttribute.split('_')[2];
+  const v = await getAttrsAsync([`repeating_weapon_${id}_weapon_macro_text`, 'default_attack_macro']);
+  const currentMacroText = v[`repeating_weapon_${id}_weapon_macro_text`];
+  if (currentMacroText !== '') return;
+
+  // macro has been reset. set default
+  const output = {};
+  const defaultAttackMacro = v.default_attack_macro || attackMacroDefault;
+  output[`repeating_weapon_${id}_weapon_macro_text`] = defaultAttackMacro;
+  // clog(`Macro has been Reset`);
+  await setAttrsAsync(output, {silent: true});
+});
+
+// Update Attack Macros
+on('clicked:updateweaponsmacros', async (eventInfo) => {
+  // clog(`Δ detected: ${eventInfo.sourceAttribute}`);
+  const output = {};
+  const v = await getAttrsAsync(['default_attack_macro']);
+  const defaultAttackMacro = v.default_attack_macro || attackMacroDefault;
+  const idArrayWeapons = await getSectionIDsAsync('weapon');
+  _.each(idArrayWeapons, (id) => {
+    output[`repeating_weapon_${id}_weapon_macro_text`] = defaultAttackMacro;
+    // clog(`macro update completed on: ${id}`);
+  });
+  await setAttrsAsync(output, {silent: true});
+});
 
 // Thief Calcs
 const pickpocketsCalc = async (migrate) => {
