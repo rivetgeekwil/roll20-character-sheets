@@ -2333,37 +2333,20 @@ const updateCriticalDamageMacro = async (current_version, final_version) => {
   return await versionator(current_version, final_version);
 };
 
-// Check and set Ability defaults to 8 on new sheets
 const newSheet = async () => {
-  const v = await getAttrsAsync(['hitdice', 'armorclass', 'strength', 'intelligence', 'wisdom', 'dexterity', 'constitution', 'charisma', 'old_character']);
-  const output = {};
-  const testOldChar = +v.old_character || 0;
-  if (testOldChar === 1) return;
-  const testHitdice = +v.hitdice || 0;
-  const testAC = +v.armorclass || 0;
-  const testStr = +v.strength || 0;
-  const testInt = +v.intelligence || 0;
-  const testWis = +v.wisdom || 0;
-  const testDex = +v.dexterity || 0;
-  const testCon = +v.constitution || 0;
-  const testCha = +v.charisma || 0;
-  // new sheets will have all abilities '10' by default
-  // defaults will then be set to '8' default
-  const testAbility = testStr + testInt + testWis + testDex + testCon + testCha;
-  // clog(`~~~~~~ Average Ability detected: ${testAbility}, Hit Dice: ${testHitdice}, AC: ${testAC}`);
-  if (testHitdice === 0 && testAC === 10 && testAbility === 60) {
-    // clog(`~~~~~~ NEW SHEET DETECTED old_character:${testOldChar}, Ability Defaults set to "8".`);
-    output.strength = testStr === 10 ? 8 : testStr;
-    output.intelligence = testInt === 10 ? 8 : testInt;
-    output.wisdom = testWis === 10 ? 8 : testWis;
-    output.dexterity = testDex === 10 ? 8 : testDex;
-    output.constitution = testCon === 10 ? 8 : testCon;
-    output.charisma = testCha === 10 ? 8 : testCha;
-    output.old_character = 1;
-    await stat_functions();
-  } else {
-    // clog(`~~~~~~ OLD SHEET DETECTED old_character:${testOldChar}`);
-    output.old_character = 1;
+  const v = await getAttrsAsync(['hitdice', 'armorclass', 'strength', 'intelligence', 'wisdom', 'dexterity', 'constitution', 'charisma']);
+  const output = {old_character: 1}; // no longer a new sheet
+  const testAbility = (+v.strength || 0) + (+v.intelligence || 0) + (+v.wisdom || 0) + (+v.dexterity || 0) + (+v.constitution || 0) + (+v.charisma || 0);
+  if ((+v.hitdice || 0) === 0 && (+v.armorclass || 0) === 10 && testAbility === 60) {
+    output.strength = 8;
+    output.intelligence = 8;
+    output.wisdom = 8;
+    output.dexterity = 8;
+    output.constitution = 8;
+    output.charisma = 8;
+    clog('New Sheet: Ability defaults set to 8.');
+    // Ensure stat_functions is also async if you're awaiting it
+    if (typeof stat_functions === 'function') await stat_functions();
   }
   await setAttrsAsync(output, {silent: true});
 };
@@ -2579,34 +2562,37 @@ versionator = async (current_version, final_version) => {
     return await checkOpenDoors(1.693, final_version);
   }
   // All updates completed
-  const finalCheck = await getAttrsAsync(['sheet_version']);
+  const finalCheck = await getAttrsAsync(['sheet_version', 'old_character']);
   const actualAttrVersion = parseFloat(finalCheck.sheet_version) || 0;
+  const isNewSheet = (+finalCheck.old_character || 0) === 0;
+
   if (actualAttrVersion < final_version) {
-    const finalOutput = {sheet_version: final_version};
     clog(`VERSION UPDATE: Finalizing version attribute to ${final_version}`);
-    await setAttrsAsync(finalOutput, {silent: true});
-  } else {
-    clog(`Version already at ${final_version}. No further updates needed.`);
+    await setAttrsAsync({sheet_version: final_version}, {silent: true});
   }
-  if (actualAttrVersion === 0) {
+
+  // Trigger newSheet only if the flag hasn't been set to 1 yet
+  if (isNewSheet) {
     await newSheet();
   }
 };
 
-// Versioning
 on('sheet:opened', async () => {
   const final_version = 1.693;
   const v = await getAttrsAsync(['sheet_version', 'old_character']);
-  const output = {};
   let current_version = parseFloat(v.sheet_version) || 0;
-  // prevent new sheets from stepping through versionator
-  if ((+v.old_character || 0) === 0 && current_version === 0) {
-    clog(`New sheet detected.`);
+  // New Sheet?
+  const isNewSheet = (+v.old_character || 0) === 0 && current_version === 0;
+  if (isNewSheet) {
+    clog(`New sheet detected. Initializing...`);
+    await setAttrsAsync(
+      {
+        sheet_version: final_version,
+        old_character: 0, // set as 0 for newSheet()
+      },
+      {silent: true},
+    );
     current_version = final_version;
-    output.sheet_version = final_version;
-  }
-  if (Object.keys(output).length > 0) {
-    await setAttrsAsync(output, {silent: true});
   }
   clog(`Current sheet data version: ${current_version}, Sheet code version: ${final_version}`);
   return await versionator(current_version, final_version);
@@ -2910,13 +2896,13 @@ on('sheet:opened change:movement change:current_encumbrance change:current_encum
 });
 
 on('change:current_encumbrance', async (eventInfo) => {
-  clog(`Δ detected: ${eventInfo.sourceAttribute}`);
+  // clog(`Δ detected: ${eventInfo.sourceAttribute}`);
   if (eventInfo.sourceType === 'player') {
-    clog(`Encumbrance Set Manually: executing setCurrentEncumbranceFlag`);
+    // clog(`Encumbrance Set Manually: executing setCurrentEncumbranceFlag`);
     const override = 1;
     await setCurrentEncumbranceFlag(override);
   } else {
-    clog(`Encumbrance Set by sheetworker`);
+    // clog(`Encumbrance Set by sheetworker`);
   }
 });
 
