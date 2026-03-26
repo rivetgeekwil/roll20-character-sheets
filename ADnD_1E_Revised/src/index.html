@@ -65,12 +65,12 @@
             <span class="left">
               <span>v<span name="attr_sheet_version">
             </span>
-            <span class="right"> • 3/24/26'</span>
+            <span class="right"> • 3/25/26'</span>
           </h5>
           <ul>
             <h5>Latest</h5>
             <li>Updated the sheet's version/update function.</li>
-            <li>Fixed a bug the prevented the sheet's version check from setting the sheet_version to the latest final_version.</li>
+            <li>Fixed a bug the was introduced with the last update that prevented the sheet's version check from setting the sheet_version to the latest final_version.</li>
             <li>Added the sheet's default attack macro to the sheet settings page. This will allow you to edit the default attack macro if desired. Editing the macro will automatically be applied to any new attacks. I've also included an "Update Attacks" button that will update all existing attacks on the sheet. The default attack macro can also be edited outside the game from the game settings page. By doing so, all new PC's/NPC's will use the customized attack macro by default. In order to update existing attacks on existing PC/NPC's, you would need to use the "Update Attacks" button from the sheet settings on each PC/NPC. This is an advanced optional feature.</li>
 
             <h5>Recent/Previous</h5>
@@ -2800,8 +2800,8 @@
               </label>
               <label class="label-under-small">
                 <!-- IMPORTANT macro MUST include a hard return to force a new line -->
-                <textarea class="hidden" name="attr_weapon_whisper_to_hit">%NEWLINE%
-                  /w gm &{template:attacks-table} {{color=@{color_option}}} {{ToHitAC-10=[[ @{thac-10} ]]}} {{ToHitAC-9=[[ @{thac-9} ]]}} {{ToHitAC-8=[[ @{thac-8} ]]}} {{ToHitAC-7=[[ @{thac-7} ]]}} {{ToHitAC-6=[[ @{thac-6} ]]}} {{ToHitAC-5=[[ @{thac-5} ]]}} {{ToHitAC-4=[[ @{thac-4} ]]}} {{ToHitAC-3=[[ @{thac-3} ]]}} {{ToHitAC-2=[[ @{thac-2} ]]}} {{ToHitAC-1=[[ @{thac-1} ]]}} {{ToHitAC0=[[ @{thac0} ]]}} {{ToHitAC1=[[ @{thac1} ]]}} {{ToHitAC2=[[ @{thac2} ]]}} {{ToHitAC3=[[ @{thac3} ]]}} {{ToHitAC4=[[ @{thac4} ]]}} {{ToHitAC5=[[ @{thac5} ]]}} {{ToHitAC6=[[ @{thac6} ]]}} {{ToHitAC7=[[ @{thac7} ]]}} {{ToHitAC8=[[ @{thac8} ]]}} {{ToHitAC9=[[ @{thac9} ]]}} {{ToHitAC10=[[ @{thac10} ]] }}</textarea>
+                <textarea class="hidden" name="attr_weapon_whisper_to_hit">
+                  %NEWLINE%/w gm &{template:attacks-table} {{color=@{color_option}}} {{ToHitAC-10=[[ @{thac-10} ]]}} {{ToHitAC-9=[[ @{thac-9} ]]}} {{ToHitAC-8=[[ @{thac-8} ]]}} {{ToHitAC-7=[[ @{thac-7} ]]}} {{ToHitAC-6=[[ @{thac-6} ]]}} {{ToHitAC-5=[[ @{thac-5} ]]}} {{ToHitAC-4=[[ @{thac-4} ]]}} {{ToHitAC-3=[[ @{thac-3} ]]}} {{ToHitAC-2=[[ @{thac-2} ]]}} {{ToHitAC-1=[[ @{thac-1} ]]}} {{ToHitAC0=[[ @{thac0} ]]}} {{ToHitAC1=[[ @{thac1} ]]}} {{ToHitAC2=[[ @{thac2} ]]}} {{ToHitAC3=[[ @{thac3} ]]}} {{ToHitAC4=[[ @{thac4} ]]}} {{ToHitAC5=[[ @{thac5} ]]}} {{ToHitAC6=[[ @{thac6} ]]}} {{ToHitAC7=[[ @{thac7} ]]}} {{ToHitAC8=[[ @{thac8} ]]}} {{ToHitAC9=[[ @{thac9} ]]}} {{ToHitAC10=[[ @{thac10} ]] }}</textarea>
                 <select class="select-over-label" name="attr_weapon_whisper_to_hit_select" title="@{repeating_weapon_$X_weapon_whisper_to_hit_select}">
                   <option value="0" class="matrix-box" selected>Matrix</option>
                   <option value="1" class="thac0-box">THACO</option>
