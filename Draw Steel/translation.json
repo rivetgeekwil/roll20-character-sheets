@@ -569,5 +569,6 @@
 	"import-select-prompt": "Select One",
 	"player-options-title": "Player Options",
 	"growing-resource-custom": "Custom",
-	"options-show-director-screen": "Show Director Screen"
+	"options-show-director-screen": "Show Director Screen",
+	"options-sticky-characteristics": "Sticky Characteristics Panel"
 }

@@ -454,8 +454,12 @@ label[for*='minimize']::before {
 	grid-column-end: span 2;
 }
 
-.stats-panel {
+.sticky-characteristics[value="1"] + .stats-panel {
 	position: sticky;
+}
+
+.stats-panel {
+
 	top: 0;
 	z-index: 10;
 	display: grid;
