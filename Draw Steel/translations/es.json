@@ -236,7 +236,7 @@
 	"I": "I",
 	"P": "P",
 	"damage-autocalc": "Calculadora de Daño",
-	"options-calculate-damage": "Calcular daño automáticamente:",
+	"options-calculate-damage": "Automatically Calculate Damage",
 	"resource-amount": "Cantidad",
 	"standard-abilities": "Habilidades por defecto",
 	"standard-main-actions": "Acciones Principales por defecto",
@@ -566,5 +566,9 @@
 	"roll-surge-potency-desc": "Aumentos usados para aumentar la Potencia en 1",
 	"roll-resource-gain": "Gana",
 	"damage-calc-or": "o",
-	"import-select-prompt": "Elige uno"
+	"import-select-prompt": "Elige uno",
+	"player-options-title": "Player Options",
+	"growing-resource-custom": "Custom",
+	"options-show-director-screen": "Show Director Screen",
+	"options-sticky-characteristics": "Sticky Characteristics Panel"
 }
