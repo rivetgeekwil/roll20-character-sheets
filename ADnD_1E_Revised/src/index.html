@@ -2861,7 +2861,7 @@
               </span>
             </span>
             <textarea class="height-short" name="attr_weapon_notes" title="@{repeating_weapon_$X_weapon_notes}" placeholder="Description"></textarea>
-            <textarea class="height-short toggle-macros" name="attr_weapon_macro_text" title="@{repeating_weapon_$X_weapon_macro_text} | Caution: modifying the macro-text can break the roll.  Deleting this macro-text will safely reset the roll to the sheet's default macro."></textarea>
+            <textarea class="height-short toggle-macros" name="attr_weapon_macro_text" title="@{repeating_weapon_$X_weapon_macro_text} | Caution: modifying the macro-text can break the roll.  Deleting this macro-text will safely reset the roll to the sheet's default macro.">&{template:attacks} {{color=@{color_option}}} {{name=@{character_name}}} {{subtag=@{weapon_name}}} {{dual=@{weapon_dual}}} {{attack1=[[ 1d20 + ( @{weapon_backstab_bonus}[BACKSTAB] ) + ( @{weapon_tohitbonus}[HIT_BON] ) + ( @{weapon_prof_pen}[PROF_PEN] ) + ( @{weapon_dual_pen}[DUAL_PEN] ) + ( @{weapon_magicbonus}[MAG_BON] ) + ( ?{To Hit Modifier?|0}[MISC_MOD] ) ]]}} {{damagevsSMchatmenu=@{weapon_damagesmallmedium_chat_menu}}} {{damagevsLchatmenu=@{weapon_damagelarge_chat_menu}}} {{critdamagevsSMchatmenu=@{weapon_critdamagesmallmedium_chat_menu}}} {{critdamagevsLchatmenu=@{weapon_critdamagelarge_chat_menu}}} {{WeaponNotes=@{weapon_notes}}} {{backstab=[[ @{weapon_backstab_mult} ]]}} {{damagetype=@{weapon_attackdmgtype}}} {{rate=@{weapon_rateoffire}}} {{range=@{weapon_range}}} {{length=@{weapon_length}}} {{space=@{weapon_space}}} {{speed=@{weapon_speed}}} {{ammo=[[ @{weapon_ammo} ]]/[[ @{weapon_ammo|max} ]]}} {{crit=[[ @{toggle_critdamage} ]]}} @{weapon_tohitacadj}</textarea>
           </details>
         </fieldset>
       </div>
@@ -4500,7 +4500,7 @@
 
         <h3 class="width-fill center">Advanced Options</h3>
         <!-- Misc. -->
-        <span class="span-all inline-label wrap">
+        <span class="inline-label wrap">
           <label class="sync-lock" title="@{sync_hp_flag} | Let the sheet sync Total HP max from Class Details.">
             <span>Sync HP:</span>
             <input type="checkbox" name="attr_sync_hp_flag" value="1" checked />
@@ -4549,12 +4549,22 @@
           <strong>Caution:</strong>
           Edit the sheet's default macro used for Attack rolls. Does not effect existing attacks unless you use the "Update Attacks" button or reset an attack's macro locally. Modifying the macro-text can break the roll. Deleting this macro-text will safely reset the roll to the sheet's default macro.
         </span>
-        <span class="span-all inline-label">
+        <!-- Reset Macros -->
+        <span class="inline-label">
           <h4 class="stack-text">Default Attack Macro:</h4>
           <label>
             <textarea class="height-half" name="attr_default_attack_macro" title="@{default_attack_macro} | Caution: modifying the macro-text can break the roll.  Deleting this macro-text will safely reset the roll to the sheet's default macro.">&{template:attacks} {{color=@{color_option}}} {{name=@{character_name}}} {{subtag=@{weapon_name}}} {{dual=@{weapon_dual}}} {{attack1=[[ 1d20 + ( @{weapon_backstab_bonus}[BACKSTAB] ) + ( @{weapon_tohitbonus}[HIT_BON] ) + ( @{weapon_prof_pen}[PROF_PEN] ) + ( @{weapon_dual_pen}[DUAL_PEN] ) + ( @{weapon_magicbonus}[MAG_BON] ) + ( ?{To Hit Modifier?|0}[MISC_MOD] ) ]]}} {{damagevsSMchatmenu=@{weapon_damagesmallmedium_chat_menu}}} {{damagevsLchatmenu=@{weapon_damagelarge_chat_menu}}} {{critdamagevsSMchatmenu=@{weapon_critdamagesmallmedium_chat_menu}}} {{critdamagevsLchatmenu=@{weapon_critdamagelarge_chat_menu}}} {{WeaponNotes=@{weapon_notes}}} {{backstab=[[ @{weapon_backstab_mult} ]]}} {{damagetype=@{weapon_attackdmgtype}}} {{rate=@{weapon_rateoffire}}} {{range=@{weapon_range}}} {{length=@{weapon_length}}} {{space=@{weapon_space}}} {{speed=@{weapon_speed}}} {{ammo=[[ @{weapon_ammo} ]]/[[ @{weapon_ammo|max} ]]}} {{crit=[[ @{toggle_critdamage} ]]}} @{weapon_tohitacadj}</textarea>
           </label>
           <button type="action" name="act_updateweaponsmacros" class="reset-macros" title="WARNING: Override all attack macros. Any local customization/editing that has been done on existing macro-text fields will be lost!"><span>Update Attacks</span></button>
+        </span>
+        <span class="inline-label" title="WARNING: any customization/editing that has been done on existing macro-text fields will be lost! You will not break anything by resetting. Resetting a field simply erases the existing value and forces the sheet to re-populate the field with the latest default value.">
+          <h4 class="stack-text">Reset Macros to Default</h4>
+          <button type="action" name="act_resetallmacros" class="reset-macros"><span>Reset All</span></button>
+          <button type="action" name="act_resetweaponsmacros" class="reset-macros"><span>Reset Weapons</span></button>
+          <button type="action" name="act_resetspellsmacros" class="reset-macros"><span>Reset Spells</span></button>
+          <button type="action" name="act_resetabilitiesmacros" class="reset-macros"><span>Reset Abilities</span></button>
+          <button type="action" name="act_resetnwpsmacros" class="reset-macros"><span>Reset NWP</span></button>
+          <button type="action" name="act_resetequipmentmacros" class="reset-macros"><span>Reset Equip</span></button>
         </span>
       </div>
       <!-- Custom Attributes-->
