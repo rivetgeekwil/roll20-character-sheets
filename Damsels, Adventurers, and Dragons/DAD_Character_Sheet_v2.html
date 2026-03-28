@@ -598,6 +598,10 @@
 
 <script type="text/worker">
 
+// ─────────────────────────────────────────────
+// TAB CONTROLS
+// ─────────────────────────────────────────────
+
 on("clicked:core", function() {
   setAttrs({ sheetTab: "core" });
 });
@@ -610,19 +614,22 @@ on("clicked:proficiencies", function() {
   setAttrs({ sheetTab: "proficiencies" });
 });
 
-on("clicked:command", function() {
-  setAttrs({ sheetTab: "command" });
+on("clicked:spells", function() {
+  setAttrs({ sheetTab: "spells" });
 });
 
 on("clicked:notes", function() {
   setAttrs({ sheetTab: "notes" });
 });
 
+
 // ─────────────────────────────────────────────
-// Total Weight – Rounded to 2 decimal places
+// TOTAL WEIGHT (Rounded to 2 decimals)
 // ─────────────────────────────────────────────
+
 const updateTotalWeight = function() {
   getSectionIDs("repeating_equipment", function(ids) {
+
     const fields = ids.map(function(id) {
       return "repeating_equipment_" + id + "_item_weight";
     });
@@ -635,77 +642,61 @@ const updateTotalWeight = function() {
         total += weight;
       });
 
-      // Round to 2 decimal places (clean display)
-      const roundedTotal = total.toFixed(2);
-
       setAttrs({
-        total_weight: roundedTotal
+        total_weight: total.toFixed(2)
       });
     });
   });
 };
 
+
 // ─────────────────────────────────────────────
-// THAC0 Attack Table – Clamped for descending AC
+// THAC0 ATTACK TABLE (Descending AC)
 // ─────────────────────────────────────────────
+
 const updateAttackTable = function() {
   getAttrs(["attack_table_thaco"], function(values) {
+
     const thaco = parseInt(values.attack_table_thaco, 10);
     if (isNaN(thaco)) return;
 
     const updates = {};
 
-    // Calculate needed roll: thaco - targetAC (descending AC)
-    const needed = (ac) => thaco - ac;
+    const needed = function(ac) {
+      return thaco - ac;
+    };
 
-    // Display logic:
-    //   ≤ 0 → 1   (auto-hit except possible nat-1 fumble)
-    //   > 20 → 20 (nat 20 required)
-    //   1–20 → exact number
-    const display = (val) => {
+    const display = function(val) {
       if (val <= 0) return 1;
       if (val > 20) return 20;
       return val;
     };
 
-    // Positive AC rows (AC 1 to 10)
-    updates.to_hit_ac_1     = display(needed(1));
-    updates.to_hit_ac_2     = display(needed(2));
-    updates.to_hit_ac_3     = display(needed(3));
-    updates.to_hit_ac_4     = display(needed(4));
-    updates.to_hit_ac_5     = display(needed(5));
-    updates.to_hit_ac_6     = display(needed(6));
-    updates.to_hit_ac_7     = display(needed(7));
-    updates.to_hit_ac_8     = display(needed(8));
-    updates.to_hit_ac_9     = display(needed(9));
-    updates.to_hit_ac_10    = display(needed(10));
+    // AC 1 to 10
+    for (let i = 1; i <= 10; i++) {
+      updates["to_hit_ac_" + i] = display(needed(i));
+    }
 
-    // Negative AC rows (AC -1 to -10)
-    updates.to_hit_ac_neg1  = display(needed(-1));
-    updates.to_hit_ac_neg2  = display(needed(-2));
-    updates.to_hit_ac_neg3  = display(needed(-3));
-    updates.to_hit_ac_neg4  = display(needed(-4));
-    updates.to_hit_ac_neg5  = display(needed(-5));
-    updates.to_hit_ac_neg6  = display(needed(-6));
-    updates.to_hit_ac_neg7  = display(needed(-7));
-    updates.to_hit_ac_neg8  = display(needed(-8));
-    updates.to_hit_ac_neg9  = display(needed(-9));
-    updates.to_hit_ac_neg10 = display(needed(-10));
+    // AC -1 to -10
+    for (let i = 1; i <= 10; i++) {
+      updates["to_hit_ac_neg" + i] = display(needed(-i));
+    }
 
     setAttrs(updates);
   });
 };
 
+
 // ─────────────────────────────────────────────
-// Triggers
+// TRIGGERS
 // ─────────────────────────────────────────────
+
 on("sheet:opened", function() {
   updateTotalWeight();
   updateAttackTable();
 });
 
-on("remove:repeating_equipment", updateTotalWeight);
-on("change:repeating_equipment", updateTotalWeight);
+on("change:repeating_equipment remove:repeating_equipment", updateTotalWeight);
 on("change:attack_table_thaco", updateAttackTable);
 
 </script>
