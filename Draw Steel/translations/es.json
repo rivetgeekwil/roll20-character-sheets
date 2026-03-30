@@ -236,7 +236,7 @@
 	"I": "I",
 	"P": "P",
 	"damage-autocalc": "Calculadora de Daño",
-	"options-calculate-damage": "Automatically Calculate Damage",
+	"options-calculate-damage": "Calcular Daño Automáticamente",
 	"resource-amount": "Cantidad",
 	"standard-abilities": "Habilidades por defecto",
 	"standard-main-actions": "Acciones Principales por defecto",
@@ -567,8 +567,8 @@
 	"roll-resource-gain": "Gana",
 	"damage-calc-or": "o",
 	"import-select-prompt": "Elige uno",
-	"player-options-title": "Player Options",
-	"growing-resource-custom": "Custom",
-	"options-show-director-screen": "Show Director Screen",
+	"player-options-title": "Opciones de Jugador",
+	"growing-resource-custom": "Personalizado",
+	"options-show-director-screen": "Mostrar Pantalla de Dirección",
 	"options-sticky-characteristics": "Sticky Characteristics Panel"
 }
