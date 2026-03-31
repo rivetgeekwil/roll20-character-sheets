@@ -27,9 +27,34 @@
   line-height: 1.2;
 }
 
+/* CENTER EVERYTHING BY DEFAULT */
+
+.sheet-dad input[type="text"],
+.sheet-dad textarea {
+  text-align: center;
+}
+
+/* TEXTAREAS BASE */
+
 .sheet-dad textarea {
   resize: vertical;
   min-height: 60px;
+}
+
+/* 🔥 NOTES FIX (THIS IS THE IMPORTANT PART) */
+
+.sheet-dad textarea.sheet-notes-area {
+  min-height: 400px;
+  text-align: left;
+  padding: 6px;
+}
+
+/* OTHER DEFENSES ALSO LEFT (READABILITY) */
+
+.sheet-dad textarea[name="attr_other_defenses"] {
+  min-height: 100px;
+  max-height: 120px;
+  text-align: left;
 }
 
 /* LABELS */
@@ -157,7 +182,7 @@
   gap: 6px;
 }
 
-/* ABILITY SCORES (GRID REPLACEMENT FOR TABLE) */
+/* ABILITY SCORES */
 
 .sheet-ability-block {
   display: flex;
@@ -178,7 +203,13 @@
   padding-left: 4px;
 }
 
-/* CENTER ALIGN DATA INPUTS */
+.sheet-ability-header {
+  font-weight: bold;
+  text-align: center;
+  font-size: 10px;
+}
+
+/* CENTER GRID INPUTS */
 
 .sheet-grid input,
 .sheet-grid-weapons input,
@@ -229,20 +260,7 @@
   grid-column: 1 / -1;
 }
 
-/* NOTES */
-
-.sheet-notes-area {
-  min-height: 400px;
-}
-
-/* OTHER DEFENSES */
-
-.sheet-dad textarea[name="attr_other_defenses"] {
-  min-height: 100px;
-  max-height: 120px;
-}
-
-/* HIT POINTS (TIGHTENED) */
+/* HIT POINTS */
 
 .sheet-hp-box {
   border: 2px solid #444;
