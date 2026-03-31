@@ -300,7 +300,7 @@
 <!-- COMPANIONS SECTION -->
 <div class="companions-section">
   <h3>Companions</h3>
-  <fieldset class="repeating_weapons">
+  <fieldset class="repeating_companion">
   <div><div class="companion-row">
     <div class="companion-item">
       <label>Name:
@@ -399,7 +399,7 @@
     <div class="weapon companion-weapon">
       <div class="weapon-grid companion-weapon-grid">
         <div id="weapon-roll">
-                      <input type="hidden" name="attr_npc_weaponRoll3" value="0" />
+                      <input type="hidden" name="attr_companion_weaponRoll3" value="0" />
             <button type="roll" name="CompanionAttackRoll3" class="attack-roll companion-attack-roll"
               value="&{template:default} {{name=@{companion_name} attacks with @{companion_weaponName3}}} {{Damage=[[@{companion_weaponDamage3}]]}}"></button>
           </div>
@@ -429,7 +429,7 @@
 <div class="npc-sheet" style="display: none;">
   <div class="companions-section">
     <h3>NPCs</h3>
-    <fieldset class="repeating_weapons">
+    <fieldset class="repeating_npc">
     <div><div class="companion-row">
       <div class="companion-item">
         <label>Name:
@@ -620,6 +620,98 @@
     on('sheet:opened', calculateArmorTotal);
 
 
+
+    // Migrate companion/NPC data from old repeating_weapons to new repeating sections
+    on("sheet:opened", function() {
+      getAttrs(["companion_migration_done"], function(values) {
+        if (values["companion_migration_done"] === "1") return;
+
+        var companionFields = [
+          "companion_name", "companion_vigourCurrent", "companion_vigourMax",
+          "companion_clarityCurrent", "companion_clarityMax",
+          "companion_spiritCurrent", "companion_spiritMax",
+          "companion_ac", "companion_acMax", "companion_notes",
+          "companion_weaponRoll1", "companion_weaponName1", "companion_weaponType1", "companion_weaponDamage1",
+          "companion_weaponRoll2", "companion_weaponName2", "companion_weaponType2", "companion_weaponDamage2",
+          "companion_weaponRoll3", "companion_weaponName3", "companion_weaponType3", "companion_weaponDamage3"
+        ];
+        var npcFields = [
+          "npc_name", "npc_vigourCurrent", "npc_vigourMax",
+          "npc_clarityCurrent", "npc_clarityMax",
+          "npc_spiritCurrent", "npc_spiritMax",
+          "npc_ac", "npc_acMax", "npc_notes",
+          "npc_weaponRoll1", "npc_weaponName1", "npc_weaponType1", "npc_weaponDamage1",
+          "npc_weaponRoll2", "npc_weaponName2", "npc_weaponType2", "npc_weaponDamage2",
+          "npc_weaponRoll3", "npc_weaponName3", "npc_weaponType3", "npc_weaponDamage3"
+        ];
+
+        getSectionIDs("repeating_weapons", function(ids) {
+          if (ids.length === 0) {
+            setAttrs({"companion_migration_done": "1"});
+            return;
+          }
+
+          var attrsToGet = [];
+          ids.forEach(function(id) {
+            companionFields.forEach(function(field) {
+              attrsToGet.push("repeating_weapons_" + id + "_" + field);
+            });
+            npcFields.forEach(function(field) {
+              attrsToGet.push("repeating_weapons_" + id + "_" + field);
+            });
+          });
+
+          getAttrs(attrsToGet, function(oldValues) {
+            var newAttrs = {};
+            var idsToRemove = [];
+
+            ids.forEach(function(id) {
+              var isCompanion = false;
+              var isNpc = false;
+
+              // Check if this row has companion data
+              companionFields.forEach(function(field) {
+                var val = oldValues["repeating_weapons_" + id + "_" + field];
+                if (val && val !== "" && val !== "0" && val !== "1d6") isCompanion = true;
+              });
+
+              // Check if this row has NPC data
+              npcFields.forEach(function(field) {
+                var val = oldValues["repeating_weapons_" + id + "_" + field];
+                if (val && val !== "" && val !== "0" && val !== "1d6") isNpc = true;
+              });
+
+              if (isCompanion) {
+                var newId = generateRowID();
+                companionFields.forEach(function(field) {
+                  var val = oldValues["repeating_weapons_" + id + "_" + field];
+                  if (val && val !== "") {
+                    newAttrs["repeating_companion_" + newId + "_" + field] = val;
+                  }
+                });
+                idsToRemove.push(id);
+              } else if (isNpc) {
+                var newId = generateRowID();
+                npcFields.forEach(function(field) {
+                  var val = oldValues["repeating_weapons_" + id + "_" + field];
+                  if (val && val !== "") {
+                    newAttrs["repeating_npc_" + newId + "_" + field] = val;
+                  }
+                });
+                idsToRemove.push(id);
+              }
+            });
+
+            newAttrs["companion_migration_done"] = "1";
+            setAttrs(newAttrs, function() {
+              idsToRemove.forEach(function(id) {
+                removeRepeatingRow("repeating_weapons_" + id);
+              });
+            });
+          });
+        });
+      });
+    });
 
     on("sheet:opened change:glory", function() {
       getAttrs(["glory"], function(values) {
