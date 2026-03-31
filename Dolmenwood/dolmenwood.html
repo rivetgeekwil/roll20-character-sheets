@@ -1168,6 +1168,7 @@
           </div>
           <div class="h-line"></div>
         </fieldset>
+        <div class="divider"></div>
       </div>
 
       <div class="sheet-holy-spells-sub">
@@ -1446,6 +1447,7 @@
           </div>
           <div class="h-line"></div>
         </fieldset>
+        <div class="divider"></div>
       </div>
 
       <div class="sheet-cannot-cast-message">
@@ -2596,20 +2598,59 @@
       };
 
       getAttrs(
-        ["level", "class", "kindred", "wisMod", "monsterHitDice", "monsterSpecialAbilities", "Next", "hitdice", "bab", "saveD", "saveW", "saveP", "saveB", "saveS", "customGlamours", "customRunes", "customKnacks", "customArcaneSpells", "customHolySpells" ],
+        ["level", "class", "kindred", "wisMod", "monsterHitDice", "monsterSpecialAbilities", "Next", "hitdice", "bab", "saveD", "saveW", "saveP", "saveB", "saveS", "customGlamours", "customRunes", "customKnacks", "customArcaneSpells", "customHolySpells", "sheetTab" ],
         function (values) {
           const charClass = values.class.toLowerCase();
           const charKindred = values.kindred.toLowerCase();
-          const level = parseInt(values.level, 10);
-          const monsterHitDice = Math.ceil(values.monsterHitDice);
+          const level = values.sheetTab === "character" ? parseInt(values.level, 10) : Math.ceil(values.monsterHitDice);
 
           const kindredData = {
-            breggle: {},
-            elf: { glamours: true, magicResistBonus: 2 },
-            grimalkin: { glamours: true, magicResistBonus: 2 },
-            human: {},
-            mossling: { knacks: true, doomSaveBonus: 2, saveBonus: 2 },
-            woodgrue: {},
+            breggle: {
+              glamours: values.customGlamours != 0,
+              runes: values.customRunes != 0,
+              arcaneSpells: values.customArcaneSpells == 0 ? [] : [0,0,0,0,0,0],
+              holySpells: values.customHolySpells == 0 ? [] : [0,0,0,0,0],
+              knacks: values.customKnacks != 0,
+            },
+            elf: {
+              runes: values.customRunes != 0,
+              arcaneSpells: values.customArcaneSpells == 0 ? [] : [0,0,0,0,0,0],
+              holySpells: values.customHolySpells == 0 ? [] : [0,0,0,0,0],
+              knacks: values.customKnacks != 0,
+              glamours: true, 
+              magicResistBonus: 2 
+            },
+            grimalkin: {
+              runes: values.customRunes != 0,
+              arcaneSpells: values.customArcaneSpells == 0 ? [] : [0,0,0,0,0,0],
+              holySpells: values.customHolySpells == 0 ? [] : [0,0,0,0,0],
+              knacks: values.customKnacks != 0,
+              glamours: true, 
+              magicResistBonus: 2 
+            },
+            human: {
+              glamours: values.customGlamours != 0,
+              runes: values.customRunes != 0,
+              arcaneSpells: values.customArcaneSpells == 0 ? [] : [0,0,0,0,0,0],
+              holySpells: values.customHolySpells == 0 ? [] : [0,0,0,0,0],
+              knacks: values.customKnacks != 0,
+            },
+            mossling: {
+              glamours: values.customGlamours != 0,
+              runes: values.customRunes != 0,
+              arcaneSpells: values.customArcaneSpells == 0 ? [] : [0,0,0,0,0,0],
+              holySpells: values.customHolySpells == 0 ? [] : [0,0,0,0,0],
+              knacks: true,
+              doomSaveBonus: 2, 
+              saveBonus: 2 
+            },
+            woodgrue: {
+              glamours: values.customGlamours != 0,
+              runes: values.customRunes != 0,
+              arcaneSpells: values.customArcaneSpells == 0 ? [] : [0,0,0,0,0,0],
+              holySpells: values.customHolySpells == 0 ? [] : [0,0,0,0,0],
+              knacks: values.customKnacks != 0,
+            },
             custom: {
               glamours: values.customGlamours != 0,
               runes: values.customRunes != 0,
@@ -2631,7 +2672,7 @@
             magicResistance: values.wisMod
           }
 
-          if (charClass === "monster" && Number.isInteger(monsterHitDice)) {
+          if (charClass === "monster" && Number.isInteger(level)) {
             
             let monsterData = {
               xp: [0, 0],
@@ -2640,12 +2681,12 @@
               bab: -1,
             };
             
-            if (monsterHitDice < 22 ) {
-              monsterData = classData["monster"][monsterHitDice - 1];
+            if (level < 22 ) {
+              monsterData = classData["monster"][level - 1];
             } else {
               monsterData = {
-                xp: [classData["monster"][21].xp[0] * monsterHitDice, classData["monster"][21].xp[1] * monsterHitDice],
-                hd: `${monsterHitDice}d8`,
+                xp: [classData["monster"][21].xp[0] * level, classData["monster"][21].xp[1] * level],
+                hd: `${level}d8`,
                 saves: classData["monster"][21].saves,
                 bab: classData["monster"][21].bab,
               }
@@ -2670,7 +2711,7 @@
               rangeBonus: 0,
               magicResistance: values.wisMod,
               knacks: values.customKnacks != 0,
-              level: monsterHitDice,
+              level: level,
             };
           } else if (charClass === "everyday mortal") {
             const { hd, bab, saves } = classData["everyday mortal"][0];

@@ -109,13 +109,13 @@
 .charsheet input:hover[type=number],
 .charsheet input:hover::-webkit-outer-spin-button,
 .charsheet input:hover::-webkit-inner-spin-button {
-    -webkit-appearance: auto;
+  -webkit-appearance: auto;
 }
 
 .charsheet input::-webkit-outer-spin-button,
 .charsheet input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .charsheet input[disabled]:hover,
@@ -124,8 +124,8 @@
   -webkit-appearance: none;
 }
 
-.charsheet input[type=number]{
-    -moz-appearance: textfield;
+.charsheet input[type=number] {
+  -moz-appearance: textfield;
 }
 
 .charsheet .wrapper input,
@@ -191,8 +191,14 @@
 }
 
 .tab-content .charsheet {
+  accent-color: var(--link-hover);
   padding: 0;
 }
+
+.sheet-darkmode .tab-content .charsheet {
+  accent-color: var(--dark-accent);
+}
+
 /* enables linear gradient background */
 .charsheet .background .linear-background {
   background-image: none;
@@ -243,6 +249,7 @@
 }
 
 .sheet-darkmode .charsheet .toggle-row-shading:checked ~ .background {
+
   .repcontainer[data-groupname='repeating_weapon'] .repitem:nth-child(even),
   .repcontainer[data-groupname='repeating_equipment'] .repitem:has(.toggle-carry[value="1"] + .toggle-type[value="1"]):nth-child(odd of .repitem:has(.toggle-carry[value="1"] + .toggle-type[value="1"])),
   .repcontainer[data-groupname='repeating_spells'] .repitem:nth-child(odd of .repitem:has(.toggle-show[value='1']):has(.toggle-all:checked, .toggle-memorized:checked)),
@@ -1608,6 +1615,7 @@ section.npc-box.statblock3 .image-avatar {
 .charsheet .header-box:has(.toggle-avatar[value="1"] + .image-avatar img),
 .charsheet .header-box:has(.toggle-avatar[value="2"] + .image-avatar img) {
   grid-template-columns: 1fr 1.5fr auto;
+  overflow: hidden;
 }
 
 .charsheet .header-box:has(.image-avatar[style*='http']),
@@ -1737,7 +1745,7 @@ section.npc-box.statblock3 .image-avatar {
     min-width: auto;
   }
 
-    .charsheet input[value='1'].toggle-npc ~ .background .weapons-box label.repeating-name {
+  .charsheet input[value='1'].toggle-npc ~ .background .weapons-box label.repeating-name {
     min-width: 11em;
   }
 
@@ -1957,10 +1965,10 @@ section.npc-box.statblock3 .image-avatar {
 
 /* busy sorting */
 .charsheet input[value="1"].busy-indicator ~ label button {
-    pointer-events: none;
-    opacity: 0.35;
-    filter: grayscale(100%);
-    cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.35;
+  filter: grayscale(100%);
+  cursor: not-allowed;
 }
 
 .charsheet .class-columns {
@@ -2404,17 +2412,17 @@ section.npc-box.statblock3 .image-avatar {
 }
 
 .charsheet .saves-class {
-    display: grid;
-    grid-template-columns: .75fr 1fr 6em;
-    margin: -20px 0 5px auto;
-    position: relative;
-    width: 50%;
-    z-index: 1;
+  display: grid;
+  grid-template-columns: .75fr 1fr 6em;
+  margin: -20px 0 5px auto;
+  position: relative;
+  width: 50%;
+  z-index: 1;
 }
 
 .charsheet .npc-box .saves-class {
-    grid-template-columns: auto 1fr 7em;
-    width: 100%;
+  grid-template-columns: auto 1fr 7em;
+  width: 100%;
 }
 
 .charsheet .thief-class {
@@ -3032,7 +3040,7 @@ section.npc-box.statblock3 .image-avatar {
   width: -webkit-fill-available;
 }
 
-.charsheet .options-box .settings > span:nth-child(odd) {
+.charsheet .options-box .settings > span:nth-child(odd of :not(h3)) {
   background-color: var(--color-white2);
   width: 100%;
 }
@@ -3396,9 +3404,9 @@ section.npc-box.statblock3 .image-avatar {
 .charsheet .width-small,
 .charsheet input[type='number'].width-small,
 .charsheet input[type='text'].width-small {
-    padding-inline: 0;
-    text-align: center;
-    width: 3em;
+  padding-inline: 0;
+  text-align: center;
+  width: 3em;
 }
 
 .charsheet .width-small-plus,
@@ -4084,7 +4092,6 @@ section.npc-box.statblock3 .image-avatar {
   font-family: system-ui;
   font-size: var(--text-med);
   padding: inherit;
-  text-wrap-style: pretty;
 }
 
 .charsheet .wrapper textarea,
@@ -4119,6 +4126,7 @@ section.npc-box.statblock3 .image-avatar {
 }
 
 .ui-dialog .tab-content .charsheet .background .wrapper {
+
   input:focus,
   button:focus,
   select:focus,
@@ -4138,6 +4146,7 @@ section.npc-box.statblock3 .image-avatar {
 }
 
 .sheet-darkmode .ui-dialog .tab-content .charsheet .background .wrapper {
+
   input:focus,
   button:focus,
   select:focus,
@@ -4157,6 +4166,7 @@ section.npc-box.statblock3 .image-avatar {
 }
 
 .ui-dialog .tab-content .charsheet .background .wrapper {
+
   input:read-only:focus,
   input.readonly-span:focus,
   input:read-only:focus-within,
@@ -4169,6 +4179,7 @@ section.npc-box.statblock3 .image-avatar {
 }
 
 .sheet-darkmode .ui-dialog .tab-content .charsheet .background .wrapper {
+
   input:read-only:focus,
   input.readonly-span:focus,
   input:read-only:focus-within,
@@ -4612,6 +4623,7 @@ section.npc-box.statblock3 .image-avatar {
   color: var(--color-white3);
   font-weight: normal;
 }
+
 /* {{freetext}} background-color override */
 .sheet-rolltemplate-general .sheet-row:nth-child(odd):has(.sheet-free-text),
 .sheet-rolltemplate-general .sheet-row:nth-child(odd) .sheet-free-text,

@@ -191,8 +191,14 @@
 }
 
 .tab-content .charsheet {
+  accent-color: var(--link-hover);
   padding: 0;
 }
+
+.sheet-darkmode .tab-content .charsheet {
+  accent-color: var(--dark-accent);
+}
+
 /* enables linear gradient background */
 .charsheet .background .linear-background {
   background-image: none;
@@ -1608,6 +1614,7 @@ section.npc-box.statblock3 .image-avatar {
 .charsheet .header-box:has(.toggle-avatar[value="1"] + .image-avatar img),
 .charsheet .header-box:has(.toggle-avatar[value="2"] + .image-avatar img) {
   grid-template-columns: 1fr 1.5fr auto;
+  overflow: hidden;
 }
 
 .charsheet .header-box:has(.image-avatar[style*='http']),
@@ -3032,7 +3039,7 @@ section.npc-box.statblock3 .image-avatar {
   width: -webkit-fill-available;
 }
 
-.charsheet .options-box .settings > span:nth-child(odd) {
+.charsheet .options-box .settings > span:nth-child(odd of :not(h3)) {
   background-color: var(--color-white2);
   width: 100%;
 }
@@ -4084,7 +4091,6 @@ section.npc-box.statblock3 .image-avatar {
   font-family: system-ui;
   font-size: var(--text-med);
   padding: inherit;
-  text-wrap-style: pretty;
 }
 
 .charsheet .wrapper textarea,

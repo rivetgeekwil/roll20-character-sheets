@@ -48,7 +48,7 @@ input[name="attr_sheetTab"][value="notes"]~.sheet-button-select button[name="act
 /* OVERRIDE */
 .ui-dialog .charsheet {
   background-color: white;
-  background-image:url('https://i.imgur.com/8NZ1CFj.jpeg');
+  background-image:url('https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/Mythic-Bastionland/images/page bg.jpg');
   background-size:cover;
   background-repeat: no-repeat;
 }
