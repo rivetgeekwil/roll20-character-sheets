@@ -310,7 +310,7 @@
 	"stand-up-desc": "Te levantas si estás Derribade, terminando dicha condición. Alternativamente, puedes usar esta Maniobra para levantar a una criatura adyacente voluntaria que esté Derribada.",
 	"combat-glossary": "Glosario de Combate",
 	"critical-hit-director": "Crítico:",
-	"critical-hit-desc": "Cuando sacas un 19 o 20 natural en un Ataque o tirada de Habilidad como parte de tu acción principal, puedes hacer inmediatamente otra Acción Principal.",
+	"critical-hit-desc": "Cuando sacas un 19 o 20 natural en una tirada de una Habilidad que sea Acción Principal, puedes hacer inmediatamente otra Acción Principal.",
 	"concealment": "Ocultación:",
 	"concealment-desc": "Oscuridad, niebla, magia de invisibilidad, y cualquier otro efecto que opaque por completo una criatura u objeto pero no proteja su forma física le otorga ocultación. Incluso si tienes línea de efecto a ese objetivo, este tiene ocultación si no puedes verlo u observarlo por otro medio. Puedes seleccionar como objetivo a una criatura u objeto con ocultación con un ataque, siempre que no estén escondides. Sin embargo, los ataques contra tales objetivos tienen 1 Desventaja.",
 	"cover": "Cobertura:",
